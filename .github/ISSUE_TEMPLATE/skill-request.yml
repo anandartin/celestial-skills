@@ -1,0 +1,34 @@
+name: Skill request
+description: Ask for a design, experience or engineering skill the library doesn't have yet
+title: "Skill request: "
+labels: ["skill request"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of skill
+      options:
+        - Design skill (how a brand looks)
+        - Experience skill (how a journey works)
+        - Engineering skill — a stack (how one kind of product is built)
+        - Engineering skill — a practice (how to do the work in any stack)
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What should it cover?
+      description: Who it's for, the product or journey, the stack or practice. A concrete example helps most.
+      placeholder: "e.g. A checkout for repeat buyers on mobile, with saved cards and guest fallback"
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: What would it change for you?
+      description: What an agent gets wrong today without this skill.
+  - type: textarea
+    id: refs
+    attributes:
+      label: References (optional)
+      description: Official docs, standards or public guidelines the skill should follow.

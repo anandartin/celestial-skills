@@ -57,21 +57,66 @@ for (const g of groups) for (const s of g.items) {
 
 const row = (s, kind) => `| [${s.name}](skills/${s._slug}/) | ${String(s.tagline || '').replace(/\|/g, '/').replace(/\s+/g, ' ').trim()} |`;
 const total = groups.reduce((n, g) => n + g.items.filter((s) => s._slug).length, 0);
-await writeFile(join(out, 'README.md'), `# Celestial skills
+const n = (k) => (groups.find((g) => g.kind === k) || { items: [] }).items.filter((s) => s._slug).length;
+await writeFile(join(out, 'README.md'), `<p align="center"><img src=".github/assets/social-preview.png" alt="Celestial skills — ${total} open skills for AI agents" width="100%"></p>
 
-${total} open skills for AI agents from [Celestial](https://celestialskill.com) — design skills (how a brand looks), experience skills (how a journey works) and engineering skills (how it's built and shipped), all on one shared core.
+<p align="center">
+  <a href="LICENSE"><img alt="Licence: Apache-2.0" src="https://img.shields.io/badge/licence-Apache--2.0-blue"></a>
+  <img alt="${total} skills" src="https://img.shields.io/badge/skills-${total}-7c5cff">
+  <a href="https://celestialskill.com"><img alt="Browse on celestialskill.com" src="https://img.shields.io/badge/browse-celestialskill.com-111"></a>
+</p>
+
+# Celestial skills
+
+**${total} open skills that teach AI agents how your product should look, work and be built** — ${n('design')} design skills (how a brand looks), ${n('experience')} experience skills (how a journey works) and ${n('engineering')} engineering skills (how it's built and shipped), all written on one shared core so they work together.
 
 Each folder in [\`skills/\`](skills/) is one skill: a \`SKILL.md\` your agent reads, plus tokens, a logo, \`AGENTS.md\` or editor rules where the skill has them.
 
-## Use a skill
+## Quick start
 
-- **Claude Code** — copy a folder into \`~/.claude/skills/\` (every project) or \`.claude/skills/\` in a repository. Claude uses it whenever a request fits.
-- **Any agent that reads skills** — install with the open skills CLI: \`npx skills add anandartin/celestial-skills\`.
-- **Claude (claude.ai)** — zip a skill's folder and upload it under Settings → Capabilities → Skills.
-- **ChatGPT, Gemini and other assistants** — attach or paste the skill's \`SKILL.md\`, then ask, e.g. "Build the sign-up flow with this skill."
-- **Codex, Copilot, Cursor** — engineering skills include \`AGENTS.md\` and \`rules/<name>.mdc\`; each skill's README says where they go.
+**Claude Code — one skill** (the whole folder, into your personal skills):
 
-Browse, preview and remix every skill at [celestialskill.com](https://celestialskill.com).
+\`\`\`bash
+npx degit anandartin/celestial-skills/skills/sign-up-and-verify-experience ~/.claude/skills/sign-up-and-verify-experience
+\`\`\`
+
+Put it in \`.claude/skills/\` inside a repository instead to share it with your team. Claude picks a skill up whenever a request fits.
+
+**Any agent that reads skills** (Claude Code, Codex, Cursor, OpenCode and more) — pick from the library with the open [skills CLI](https://www.npmjs.com/package/skills):
+
+\`\`\`bash
+npx skills add anandartin/celestial-skills
+\`\`\`
+
+It asks which skills and agents to install; add \`--skill <name>\` for one skill, or \`-g\` to install for every project.
+
+**ChatGPT, Gemini, claude.ai and other assistants** — attach or paste a skill's \`SKILL.md\` into the chat (on claude.ai you can also zip a folder and upload it under Settings → Capabilities → Skills).
+
+**Codex, Copilot, Cursor** — engineering skills include \`AGENTS.md\` and \`rules/<name>.mdc\`; each skill's README says where they go.
+
+## See it work
+
+Skills are layers. Install one of each and ask for the work:
+
+\`\`\`bash
+npx degit anandartin/celestial-skills/skills/mercury-design ~/.claude/skills/mercury-design
+npx degit anandartin/celestial-skills/skills/sign-up-and-verify-experience ~/.claude/skills/sign-up-and-verify-experience
+npx degit anandartin/celestial-skills/skills/react-web-app-engineering ~/.claude/skills/react-web-app-engineering
+\`\`\`
+
+> **You:** Build our sign-up and email verification flow.
+
+The agent now has three things it didn't have before:
+
+| Layer | Skill | What the agent takes from it |
+|---|---|---|
+| How it looks | \`mercury-design\` | Colours, type, spacing, components and the brand's rules, as tokens it can apply |
+| How it works | \`sign-up-and-verify-experience\` | The persona, each step and screen, the copy, empty / loading / error states, accessibility rules and the measures of success |
+| How it's built | \`react-web-app-engineering\` | The stack, folder structure, conventions and the quality gates to pass before it's done |
+
+So the first draft follows your brand, covers the edge cases and passes your checks — instead of you correcting each one afterwards.
+
+Browse, preview and remix every skill — and see each one rendered in any design skill — at [celestialskill.com](https://celestialskill.com).
 
 ${groups.map((g) => `## ${g.title} (${g.items.filter((s) => s._slug).length})
 
@@ -83,7 +128,7 @@ ${g.items.filter((s) => s._slug).map((s) => row(s, g.kind)).join('\n')}
 `).join('\n')}
 ## Contributing
 
-The skills are written and reviewed on [celestialskill.com](https://celestialskill.com). This repository updates itself from there: a skill appears here within minutes of being published on the site, and the full set is re-checked every six hours. Please don't edit \`skills/\` by hand — changes are overwritten. To suggest a change, open an issue, or create or remix a skill on the site and request publishing.
+Requests, fixes and new skills are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). The skills are written and reviewed on [celestialskill.com](https://celestialskill.com) and this repository updates itself from there within minutes, so please don't edit \`skills/\` directly; changes there are overwritten.
 
 ## Licence
 
