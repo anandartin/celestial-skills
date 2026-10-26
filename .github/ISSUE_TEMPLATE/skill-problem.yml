@@ -1,0 +1,32 @@
+name: Problem in a skill
+description: A skill gives wrong, outdated or unclear instructions
+title: "Problem in "
+labels: ["skill fix"]
+body:
+  - type: input
+    id: skill
+    attributes:
+      label: Skill
+      description: The folder name under skills/, or a link to it.
+      placeholder: "skills/react-web-app-engineering"
+    validations:
+      required: true
+  - type: textarea
+    id: quote
+    attributes:
+      label: The part that's wrong
+      description: Quote the line or section.
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: What it should say
+      description: The correction, and a source if you have one (release notes, official docs, a standard).
+    validations:
+      required: true
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Where you saw it (optional)
+      options: [Claude Code, Claude (claude.ai), ChatGPT, Gemini, Codex, Copilot, Cursor, Other]
