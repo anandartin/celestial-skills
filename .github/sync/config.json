@@ -1,0 +1,4 @@
+{
+  "exclude": ["dclo7q70", "nova-design"],
+  "note": "Skill ids left out of the public repo: dclo7q70 is Carbon Design System, nova-design is Nova. Remove an id to publish that skill."
+}
