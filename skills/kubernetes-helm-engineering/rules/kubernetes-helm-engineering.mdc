@@ -1,0 +1,66 @@
+---
+description: Kubernetes with Helm — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** YAML + Go templates Kubernetes 1.30+ — Kubernetes manifests with templating for per-environment values.
+- **Framework:** Helm ^3.16 — Packages manifests as a versioned chart with install, upgrade and rollback.
+- **State:** Helm release history in the cluster + desired state in git — Git says what should run; release history allows instant rollback.
+- **Data:** values.schema.json for chart inputs JSON Schema draft-07 — Invalid values fail at install time, not at runtime.
+- **Build:** helm package + OCI registry push ^3.16 — Charts are immutable, versioned artifacts like container images.
+- **Hosting:** Managed Kubernetes cluster per environment 1.30+ — Staging and production are isolated; upgrades are tested in staging first.
+- **Package manager:** Helm dependencies with Chart.lock committed — Subchart versions are pinned.
+- **Testing:** helm lint + helm template ^3.16 — Charts render for every values file before anything reaches a cluster.
+- **Testing:** kubeconform ^0.6 — Rendered manifests are validated against the target Kubernetes API version.
+- **Testing:** helm-unittest ^0.6 — Asserts that templates produce the expected probes, limits and labels.
+
+## Commands
+- dev: `helm template charts/<service> -f environments/staging/<service>.yaml`
+- lint: `helm lint charts/<service> -f environments/prod/<service>.yaml && helm template charts/<service> | kubeconform -strict -summary`
+- test: `helm unittest charts/<service>`
+- build: `helm package charts/<service>`
+- deploy: `helm upgrade --install <service> charts/<service> -f environments/prod/<service>.yaml --atomic --wait --timeout 10m`
+- install: `helm dependency build charts/<service>`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- Reference images by immutable tag or digest; never deploy latest. _(A rollback must return to exactly the bytes that ran before.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Run database migrations as a separate pre-upgrade Job that is backward compatible with the running version. _(Old and new pods overlap during a rolling update.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Define readiness and liveness probes separately; liveness never checks downstream dependencies. _(A slow database should remove pods from traffic, not restart them in a loop.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Pods run as non-root with a read-only root filesystem, dropped capabilities and no privilege escalation. _(Limits what an attacker can do from a compromised container.)_
+- Secrets come from an external secret store via a controller; values files never contain secret values. _(Values files are committed and rendered into logs.)_
+
+### Performance
+- Every container sets CPU and memory requests, and a memory limit sized from observed usage. _(The scheduler places pods correctly and one service cannot starve its neighbours.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+
+## Do
+- Add a PodDisruptionBudget for any service with more than one replica
+- Handle SIGTERM and drain in-flight requests within terminationGracePeriodSeconds
+- Bump the chart version on every template change and appVersion on every image change
+
+## Don't
+- kubectl edit or patch resources that a chart manages
+- Put environment-specific logic in templates with if env == prod; use values
+- Grant a service account cluster-wide permissions
+
+## From design skills
+This stack has no UI; design skills do not apply.

@@ -1,0 +1,66 @@
+---
+description: Go HTTP service — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** Go 1.23+ — Simple language, fast compile, built-in race detector and profiler.
+- **Framework:** net/http + chi chi ^5 — Standard handlers and middleware; chi adds route groups without hiding net/http.
+- **State:** Stateless handlers; dependencies held on a server struct — No globals, so tests construct exactly what they need.
+- **Data:** PostgreSQL with pgx + sqlc pgx ^5 · sqlc ^1.27 — Write SQL, get type-safe Go functions generated from it.
+- **Build:** go build Go 1.23+ — One static binary; CGO off for distroless images.
+- **Hosting:** Container platform, distroless or scratch image — Small images, fast cold start, preview per pull request.
+- **Package manager:** Go modules go.mod / go.sum — Built in; checksums verified on download.
+- **Testing:** go test built in — Table-driven unit tests with -race.
+- **Testing:** net/http/httptest built in — Handler tests without a network.
+- **Testing:** Testcontainers for Go ^0.33 — Integration tests against real Postgres.
+
+## Commands
+- dev: `go run ./cmd/server`
+- lint: `go vet ./... && golangci-lint run`
+- test: `go test -race ./...`
+- build: `CGO_ENABLED=0 go build -o bin/server ./cmd/server`
+- deploy: `docker build -t service . && docker push service`
+- install: `go mod download`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- Pass dependencies explicitly through a server struct or constructor; no package-level mutable state and no init() side effects. _(Tests can build an isolated server per case.)_
+- Accept context.Context as the first argument of anything that does I/O and honour cancellation. _(Client disconnects and timeouts stop work instead of leaking goroutines.)_
+- Define interfaces where they are used, keep them small, and return concrete types. _(Easy fakes in tests without a mocking framework.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Wrap errors with fmt.Errorf("...: %w", err) and map them to HTTP status in one place using errors.Is and errors.As. _(Callers keep the cause; clients get a stable error body.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Decode JSON with DisallowUnknownFields and http.MaxBytesReader, then validate before use. _(Bounded, strict input closes a class of abuse.)_
+
+### Performance
+- Set ReadHeaderTimeout, ReadTimeout, WriteTimeout and IdleTimeout on http.Server; never use the zero-value server in production. _(Default servers have no timeouts and can be held open forever.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+
+## Do
+- Shut down with server.Shutdown(ctx) on SIGTERM
+- Log with log/slog in JSON and include a request id
+- Run go test -race in CI
+
+## Don't
+- Start goroutines without a way to stop them
+- Ignore returned errors, including from Close on writers
+- Use panic for expected failures
+
+## From design skills
+This stack has no UI; design skills do not apply.

@@ -1,0 +1,66 @@
+---
+description: Fastify REST API — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** TypeScript ^5.6 — Route handlers are typed from their schemas, so a renamed field fails the build.
+- **Framework:** Fastify ^5 — Schema-first routing with fast serialisation and an encapsulated plugin model.
+- **State:** Stateless requests; shared state in Postgres or Redis — Any instance can serve any request, so scaling is adding containers.
+- **Data:** PostgreSQL with Drizzle ORM Postgres 16+ · Drizzle ^0.36 — Typed SQL close to the database, with migrations checked into the repo.
+- **Build:** tsc + tsx TypeScript ^5.6 · tsx ^4 — tsc emits the production build; tsx runs and watches TypeScript in development.
+- **Hosting:** Container platform with preview environments Node.js 22 LTS+ — One image per commit; each pull request gets its own environment.
+- **Package manager:** pnpm ^9 — Fast, strict installs with a committed lockfile.
+- **Testing:** Vitest ^3 — Fast unit tests that share the TypeScript config.
+- **Testing:** fastify.inject built in — Exercises routes, hooks and schemas in-process without opening a port.
+- **Testing:** Testcontainers ^10 — Integration tests against a real, throwaway Postgres.
+
+## Commands
+- dev: `pnpm tsx watch src/server.ts`
+- lint: `pnpm eslint . && pnpm tsc --noEmit`
+- test: `pnpm vitest run`
+- build: `pnpm tsc -p tsconfig.build.json`
+- deploy: `docker build -t api . && docker push`
+- install: `pnpm install --frozen-lockfile`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- Keep handlers thin: parse, call a service function, return. Business logic lives in service.ts and takes plain arguments. _(Services can be unit-tested without a request object.)_
+- Register cross-cutting concerns as plugins with fastify-plugin only when they must be visible to sibling scopes. _(Encapsulation keeps one resource’s hooks from silently applying to another.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Every route declares JSON schemas for params, querystring, body and each response status, using TypeBox or Zod type providers. _(Fastify validates input and strips unknown output fields from the same schema, so nothing undeclared leaks.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Throw typed HTTP errors and let one setErrorHandler map them to a problem+json body; never send stack traces outside development. _(Clients get a stable error shape and attackers get nothing useful.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Authenticate in an onRequest hook and authorise inside the service using the caller’s id, never an id taken from the body. _(Ownership checks that rely on client input are the most common API flaw.)_
+
+### Performance
+- Set bodyLimit, connection and request timeouts, and a pool size per instance; use the logger at info level with redaction of auth headers. _(Bounded resources keep one slow client from starving the process.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+
+## Do
+- Export buildApp() and test through app.inject
+- Generate the OpenAPI document from route schemas and commit a snapshot
+- Handle SIGTERM by closing the server, then the database pool
+
+## Don't
+- Use await inside a forEach or leave a promise unhandled
+- Read process.env outside config.ts
+- Return database rows directly without a response schema
+
+## From design skills
+This stack has no UI; design skills do not apply.

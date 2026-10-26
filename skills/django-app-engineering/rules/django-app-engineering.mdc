@@ -1,0 +1,65 @@
+---
+description: Django web app — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** Python 3.12+ — Type hints checked in CI; modern syntax and speed improvements.
+- **Framework:** Django 6.x (or 5.2 LTS) — ORM, migrations, forms, auth and admin in one well-documented package.
+- **Styling:** CSS variables from the design skill + plain CSS per component — Templates read tokens; light and dark switch with one attribute.
+- **State:** Server-side sessions + htmx for partial updates htmx ^2 — Interactivity without a client-side app or a second codebase.
+- **Data:** PostgreSQL via the Django ORM Postgres 16+ — Migrations, constraints and transactions with no extra layer.
+- **Build:** Django management commands + uv uv ^0.5 — collectstatic and check --deploy produce a deployable image.
+- **Hosting:** Container platform with Gunicorn or Uvicorn workers — Preview environment per pull request with a seeded database.
+- **Package manager:** uv ^0.5 — Fast resolver with a committed lockfile.
+- **Testing:** pytest + pytest-django pytest ^8 · pytest-django ^4.9 — Fixtures and plain asserts; database rolled back per test.
+- **Testing:** factory_boy ^3.3 — Readable test data without fixtures that drift.
+- **Testing:** Playwright for Python ^1.48 — Journey tests in real browsers with an axe audit.
+
+## Commands
+- dev: `uv run python manage.py runserver`
+- e2e: `uv run pytest tests/e2e`
+- lint: `uv run ruff check . && uv run ruff format --check . && uv run mypy .`
+- test: `uv run pytest`
+- build: `uv run python manage.py collectstatic --noinput && uv run python manage.py check --deploy`
+- install: `uv sync`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+- Render form fields through templates/components/field.html so label, hint and error are always linked. _(Every form gets accessible error messages without extra work.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Put business logic in services.py functions; views and admin actions call them. _(One code path for the customer site, the admin and management commands.)_
+- Every list view uses select_related or prefetch_related, and tests assert the query count with django_assert_num_queries. _(N+1 queries are the most common Django slowdown.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Keep CSRF, SecurityMiddleware, secure cookies and HSTS on; run manage.py check --deploy in CI. _(Django ships these protections; turning one off should be loud.)_
+- Authorise in the view with the request user and object-level checks; never trust a hidden form field for ownership. _(Form fields are client input.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+- After an htmx swap, move focus to the updated region or announce it with an aria-live region. _(Screen-reader users otherwise miss partial updates.)_
+
+## Do
+- Use Django forms or ModelForms for every POST, even with htmx
+- Register every model in the admin with list_display, search and filters staff actually need
+- Write data migrations as separate, reversible migrations
+
+## Don't
+- Call the ORM from templates or template tags
+- Use raw SQL with string formatting
+- Edit a migration that has already been applied in production
+
+## From design skills
+When a Celestial design skill is in use, write its tokens as CSS custom properties in `static/css/tokens.css`, and build its components in `templates/components` with the same names and variants. Components read tokens only — no raw colours, sizes or font names.

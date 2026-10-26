@@ -1,0 +1,41 @@
+---
+description: Spec-driven development — engineering practice
+globs:
+alwaysApply: false
+---
+
+## How to do it
+1. **Create the spec file** — Add specs/<feature>.md with a status, an owner, a short purpose and a numbered list of requirements. One file per feature or capability, not per ticket.
+2. **Give every requirement a stable ID** — Prefix each requirement with an ID such as CHK-001. Never reuse or renumber an ID; a removed requirement is marked retired, not deleted, so history and links stay valid.
+3. **Write requirements as checkable behaviour** — Each requirement states one observable outcome with its trigger and result, including the error and limit cases. If a test cannot fail against it, rewrite it.
+4. **Review spec changes like code** — Change the spec in its own commit or pull request and get it approved by the feature owner before the behaviour changes. The code change then references the approved spec revision.
+5. **Trace IDs into tasks and pull requests** — Every task and pull request lists the requirement IDs it implements or changes. An agent given a task receives the spec file path and the IDs, not a paraphrase.
+6. **Name tests by requirement ID** — Put the ID in the test name or a tag, for example "CHK-004 rejects an expired card". One requirement can have several tests; every live requirement has at least one.
+7. **Check for drift in CI** — Run a script that collects live IDs from specs/ and IDs from test names, and fails when a live ID has no test or a test cites a retired or unknown ID.
+8. **Retire specs with features** — When a feature is removed, set the spec status to retired, mark its IDs retired and delete the tests in the same pull request. Keep the file for history or move it to specs/retired/.
+
+## Checklist
+- [ ] The feature has a spec file under specs/ with status, owner and numbered requirements
+- [ ] Every requirement has a unique, stable ID and describes observable behaviour
+- [ ] The spec change was approved before or alongside the code that implements it
+- [ ] The pull request lists the requirement IDs it implements or changes
+- [ ] Every live requirement ID has at least one test that names it
+- [ ] The drift check passes: no untested live IDs and no tests citing unknown or retired IDs
+- [ ] Retired requirements are marked retired, not deleted or renumbered
+
+## Rules
+- When code and spec disagree, treat the spec as correct until an approved spec change says otherwise. _(A single source of truth only works if it wins arguments.)_
+- Keep one requirement per ID; split compound requirements into separate IDs. _(A requirement that bundles two outcomes cannot be traced to a passing or failing test.)_
+- Specify data shapes, limits and retention in the spec, and link to the schema file rather than copying it. _(Copied schemas go stale; links stay accurate.)_
+- Write permission and validation rules as their own requirements with IDs. _(Access rules that live only in code are skipped when the feature is rebuilt.)_
+- Give every failure mode a requirement: what the user sees and how they recover. _(Untraced error paths are the first to break after a refactor.)_
+
+## Do
+- Point coding agents at the spec file and the IDs in scope, and ask them to cite IDs in commits
+- Mark assumptions and open questions inside the spec so reviewers can see them
+- Keep specs short enough to read in five minutes; split by capability when they grow
+
+## Don't
+- Do not change behaviour in a pull request that does not update or cite the spec
+- Do not renumber or reuse requirement IDs, even after deleting one
+- Do not keep the spec in a wiki or ticket where it is not versioned with the code

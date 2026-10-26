@@ -1,0 +1,67 @@
+---
+description: Tauri desktop app — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** Rust (core) + TypeScript (UI) Rust 1.85+ (2024 edition) · TypeScript ^5.6 — Memory-safe native code for system work; typed UI code for screens.
+- **Framework:** Tauri with a React UI Tauri ^2 · React ^19 — Native shell, permissions model and updater with a small installer; React maps onto design-skill components.
+- **Styling:** Plain CSS modules reading CSS variables — Tokens as variables; follows the OS light or dark setting at runtime.
+- **State:** TanStack Query over Tauri commands + local component state ^5 — Commands are treated like an API: cached, retried and invalidated on events.
+- **Data:** SQLite in the Rust core (rusqlite) behind typed commands rusqlite 0.3x — The UI never touches the database or file system directly.
+- **Build:** Vite (UI) + Tauri CLI (bundles and installers) Vite ^7 · @tauri-apps/cli ^2 — One command builds the UI, compiles Rust and produces platform installers.
+- **Hosting:** Signed installers per platform + Tauri updater with a signed update manifest — Users get verified updates; unsigned builds trigger OS warnings.
+- **Package manager:** pnpm + cargo pnpm ^10 — One lockfile per language, both committed.
+- **Testing:** cargo test Rust 1.85+ — Unit and integration tests for commands and data code.
+- **Testing:** Vitest + Testing Library ^3 · ^16 — UI tests with Tauri's invoke mocked.
+- **Testing:** WebdriverIO with tauri-driver ^9 — Journey tests against the real built app on Windows and Linux runners.
+
+## Commands
+- dev: `pnpm tauri dev`
+- e2e: `pnpm test:e2e`
+- lint: `pnpm lint && pnpm typecheck && cargo fmt --manifest-path src-tauri/Cargo.toml --check && cargo clippy --manifest-path src-tauri/Cargo.toml -- -D warnings`
+- test: `cargo test --manifest-path src-tauri/Cargo.toml && pnpm test`
+- build: `pnpm tauri build`
+- install: `pnpm install`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- The UI calls Rust only through src/lib/commands.ts with shared types generated from the Rust structs. _(One typed boundary; a renamed field breaks the build, not a user's session.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Commands return Result<T, AppError> where AppError serialises to a code and a user-safe message; never panic in a command. _(The UI can show the right error state, and a panic does not take down the app.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Grant each window only the permissions it uses, scoped to paths or commands; no wildcard file-system scopes and no shell execution permission. _(If the webview is ever compromised, capabilities decide what it can reach.)_
+- Every Rust command validates its arguments (paths canonicalised and checked against an allowed root) before acting. _(The UI is untrusted input to the core, the same as a network client.)_
+- Set a strict CSP in tauri.conf.json; load no remote scripts and no remote URLs in app windows. _(Remote content inside a privileged window is the main attack path for desktop web shells.)_
+
+### Performance
+- Long-running work runs in async commands or spawned tasks and reports progress through events; the UI never blocks on it. _(Keeps windows responsive during file scans and sync.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+
+## Do
+- Test installers on all three platforms before each release
+- Follow the OS appearance, keyboard shortcuts and window conventions per platform
+- Store user data in the platform app-data directory resolved by Tauri
+
+## Don't
+- Enable a plugin's default permission set without reading what it grants
+- Bundle secrets in the binary; desktop binaries are easy to inspect
+- Ship an update without a signature check enabled in the updater
+
+## From design skills
+When a Celestial design skill is in use, write its tokens as CSS custom properties in `src/styles/tokens.css`, and build its components in `src/components` with the same names and variants. Components read tokens only — no raw colours, sizes or font names.

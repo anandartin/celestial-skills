@@ -1,0 +1,67 @@
+---
+description: Flutter app — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** Dart ^3.9 — Sound null safety, records and pattern matching keep state handling explicit.
+- **Framework:** Flutter 3.35+ — One rendering engine and widget set for both platforms.
+- **Styling:** ThemeData + a generated ThemeExtension for design tokens — Widgets read Theme.of(context); light and dark come from one token source.
+- **State:** Riverpod with code generation ^3 — Testable providers, AsyncValue for loading and error, and no BuildContext needed for logic.
+- **Data:** Dio client + freezed / json_serializable models; flutter_secure_storage for credentials Dio ^5 — Immutable typed models and a single place for interceptors and retries.
+- **Build:** flutter build (appbundle and ipa) in CI 3.35+ — Signed release artefacts from the same pinned Flutter version every time.
+- **Hosting:** App Store and Google Play, uploaded from CI to test tracks first — Testers get each build before a staged store rollout.
+- **Package manager:** pub (with a version manager pinning Flutter per project) — Every machine and CI job builds with the same SDK.
+- **Testing:** flutter_test (unit, widget and golden tests) bundled with Flutter — Fast widget tests and pixel comparisons for each component state.
+- **Testing:** integration_test bundled with Flutter — Journey tests on real simulators and emulators.
+- **Testing:** mocktail ^1 — Mocks without code generation for repositories and clients.
+
+## Commands
+- dev: `flutter run`
+- e2e: `flutter test integration_test`
+- lint: `dart format --output=none --set-exit-if-changed . && flutter analyze`
+- test: `flutter test`
+- build: `flutter build appbundle --release && flutter build ipa --release`
+- install: `flutter pub get`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- No business logic or HTTP calls in build methods; screens watch providers, providers call repositories. _(Logic becomes testable without pumping widgets.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+- Widgets in lib/ui are stateless, take data and callbacks only, and read colours, spacing and type from the theme extension. _(Components stay reusable and restyle from one token change.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Every async screen renders AsyncValue with when(data:, loading:, error:), and the error branch offers a retry. _(The compiler forces each state to be handled.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Credentials go in flutter_secure_storage; --dart-define carries only non-secret config such as the API base URL. _(Values compiled into the app can be extracted from the binary.)_
+
+### Performance
+- Use const constructors wherever possible and ListView.builder for long lists; profile in profile mode, never debug. _(Avoids needless rebuilds and keeps 60fps scroll on mid-range phones.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+- Icon-only buttons have a tooltip or Semantics label; text scales with the system setting without clipping up to 200%. _(Flutter draws its own UI, so semantics must be given explicitly.)_
+
+## Do
+- Write a golden test for every component state in light and dark
+- Keep DTOs in data/ and map them to domain models before they reach the UI
+- Run the analyzer with a strict lint set and treat infos as errors in CI
+
+## Don't
+- Hard-code Colors or EdgeInsets values inside lib/ui
+- Use setState for data shared between screens
+- Leave Platform checks scattered through screens; wrap them in one adaptive widget
+
+## From design skills
+When a Celestial design skill is in use, write its tokens as Flutter ThemeData in `lib/theme/tokens.dart`, and build its components in `lib/ui` with the same names and variants. Components read tokens only — no raw colours, sizes or font names.

@@ -1,0 +1,64 @@
+---
+description: Terraform infrastructure — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** HCL Terraform 1.9+ — Declarative, diffable and readable in review.
+- **Framework:** Terraform (or the compatible OpenTofu CLI) 1.9+ — Plan-then-apply makes every change visible before it happens.
+- **State:** Remote state backend with locking, one state per environment and component — Small states plan fast and limit the blast radius of a mistake.
+- **Data:** Pinned cloud providers provider major pinned with ~> — Provider upgrades become deliberate pull requests.
+- **Build:** terraform plan saved to a file 1.9+ — The applied plan is exactly the one that was reviewed.
+- **Hosting:** CI runner with short-lived cloud credentials via OIDC — No long-lived keys stored anywhere.
+- **Package manager:** Terraform registry + .terraform.lock.hcl committed — Provider checksums are pinned per platform.
+- **Testing:** terraform test 1.9+ — Native tests run plans against modules with mocked or real providers.
+- **Testing:** TFLint ^0.53 — Catches invalid instance types, unused variables and provider-specific mistakes.
+- **Testing:** Checkov or Trivy config scan — Flags public buckets, open security groups and unencrypted storage.
+
+## Commands
+- dev: `terraform plan -out=tfplan`
+- lint: `terraform fmt -check -recursive && terraform validate && tflint --recursive`
+- test: `terraform test`
+- build: `terraform plan -out=tfplan -input=false`
+- deploy: `terraform apply -input=false tfplan`
+- install: `terraform init`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- Use moved and import blocks for refactors instead of manual state commands. _(State changes go through review like any other change.)_
+- Modules take explicit variables with types, descriptions and validation; no hard-coded account IDs or regions. _(The same module works in every environment.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Set prevent_destroy on databases, buckets with data and DNS zones. _(A rename or bad refactor cannot silently delete stateful resources.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Any plan that destroys or replaces a resource needs an explicit note in the pull request and a second reviewer. _(Replacements are where outages and data loss start.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Never put secrets in .tf or .tfvars files; reference a secret manager and mark outputs sensitive. _(State and plan files are readable by anyone with access to them.)_
+- Grant least privilege: CI's plan role is read-only; only the apply role on main can write. _(A malicious pull request cannot change infrastructure during plan.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+
+## Do
+- Post the plan output as a pull-request comment
+- Tag every resource with owner, environment and cost centre through provider default tags
+- Run a scheduled drift check and treat drift as a bug
+
+## Don't
+- Run apply from a laptop against shared environments
+- Use count for sets of named things; use for_each with stable keys
+- Edit resources in the cloud console that Terraform manages
+
+## From design skills
+This stack has no UI; design skills do not apply.

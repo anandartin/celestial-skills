@@ -1,0 +1,65 @@
+---
+description: Server-rendered marketing site — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** TypeScript ^5.6 — Typed content collections and components.
+- **Framework:** Astro ^5 — HTML-first rendering with opt-in interactive islands.
+- **Styling:** CSS with custom properties — Tokens map directly; nothing to compile.
+- **State:** None by default — Content pages rarely need client state.
+- **Data:** Markdown/MDX content collections — Writers edit content without touching components.
+- **Build:** Astro build — Static output with optional server routes.
+- **Hosting:** Edge static hosting with preview deploys — Fast first byte worldwide.
+- **Package manager:** pnpm ^9 — Fast, strict installs.
+- **Testing:** Vitest ^3 — Component and content-schema tests.
+- **Testing:** Playwright ^1.48 — Smoke tests for every template plus the accessibility audit.
+- **Testing:** Lighthouse CI ^0.14 — Performance and SEO budgets on every pull request.
+
+## Commands
+- dev: `pnpm dev`
+- e2e: `pnpm test:e2e`
+- lint: `pnpm lint && pnpm check`
+- test: `pnpm test`
+- build: `pnpm build`
+- install: `pnpm install`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Every page sets a unique title, description and canonical URL from frontmatter. _(Search and sharing previews stay correct.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+
+### Performance
+- Ship zero JavaScript by default; every island needs a reason in the pull request. _(Content pages are judged on first load.)_
+- Self-host fonts with font-display: swap and preload the one used above the fold. _(Avoids invisible text and layout shift.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+- One h1 per page; headings never skip a level. _(Screen-reader users navigate by headings.)_
+
+## Do
+- Use responsive images with explicit width and height
+- Keep copy in content files, not components
+- Test every template at 390px and 1280px
+
+## Don't
+- Add a client-side framework for a single carousel
+- Load analytics before the page is interactive
+- Hard-code colours outside tokens.css
+
+## From design skills
+When a Celestial design skill is in use, write its tokens as CSS custom properties in `src/styles/tokens.css`, and build its components in `src/components` with the same names and variants. Components read tokens only — no raw colours, sizes or font names.

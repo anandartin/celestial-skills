@@ -1,0 +1,67 @@
+---
+description: GraphQL API server — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** TypeScript on Node.js TypeScript ^5.6 · Node 22 LTS+ — Schema, resolvers and database types share one type system.
+- **Framework:** GraphQL Yoga + Pothos (code-first schema builder) Yoga ^6 · Pothos ^4 · graphql ^17 — Spec-compliant server with plugins for limits and masking; the schema is typed code, not a separate SDL file to keep in sync.
+- **State:** Per-request context (user, loaders, request id) — Nothing user-specific outlives the request.
+- **Data:** PostgreSQL via Drizzle ORM, batched with DataLoader PostgreSQL 16+ · DataLoader ^2 — Typed queries, and one query per relation per request instead of one per row.
+- **Build:** TypeScript compiler (tsc) into a container image ^5.6 — Plain JavaScript output, small image, no bundler surprises on the server.
+- **Hosting:** Container on a managed runtime, with a staging environment per pull request — Horizontal scaling and a working endpoint for each change.
+- **Package manager:** pnpm ^10 — Fast, strict installs and reproducible images.
+- **Testing:** Vitest ^3 — Resolver and service tests, plus operation tests executed against the schema.
+- **Testing:** Testcontainers ^11 — Operation tests run against a real PostgreSQL, not mocks.
+- **Testing:** GraphQL Inspector ^5 — Detects breaking schema changes against main.
+
+## Commands
+- dev: `pnpm dev`
+- lint: `pnpm lint && pnpm typecheck && pnpm schema:check`
+- test: `pnpm test`
+- build: `pnpm build`
+- deploy: `docker build -t graphql-api . && pnpm deploy:staging`
+- install: `pnpm install --frozen-lockfile`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- Resolvers only map arguments, call a service and return; business rules live in src/services. _(Logic is testable without GraphQL and reusable from jobs and webhooks.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Schema changes are additive; mark fields @deprecated with a reason and remove them only when usage metrics show zero for 30 days. _(Mobile clients stay installed for months and cannot all upgrade at once.)_
+- Lists use cursor-based connections with a default and maximum first argument. _(Stable pagination and a hard cap on rows per request.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Expected failures are typed results in the payload (union of success and error types); unexpected errors are masked to a generic message with a request id. _(Clients can handle business errors, and stack traces never leak.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Authorise in the schema at field level (auth scopes on types and fields), not only at the top-level query. _(Nested fields can reach data through paths the top-level check never saw.)_
+- Enforce max depth, max cost per operation and max page size; first-party clients use persisted operations in production. _(One crafted query must not exhaust the database.)_
+
+### Performance
+- Every field that loads a related record or list goes through a per-request DataLoader; resolvers never query inside a loop. _(Prevents N+1 queries that turn one request into hundreds.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+
+## Do
+- Trace each operation by name with OpenTelemetry and record resolver timings
+- Design mutations around user intent (approveInvoice), not table updates (updateInvoiceStatus)
+- Review the printed schema diff before the code diff
+
+## Don't
+- Expose database columns one-to-one as the schema
+- Return null for authorisation failures without a typed error the client can act on
+- Share DataLoader instances across requests
+
+## From design skills
+This stack has no UI; design skills do not apply.

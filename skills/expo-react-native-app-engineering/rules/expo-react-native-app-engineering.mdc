@@ -1,0 +1,68 @@
+---
+description: Expo React Native app — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** TypeScript ^5.6 — Typed props, routes and API responses across both platforms.
+- **Framework:** React Native with Expo and Expo Router Expo SDK 58+ · React Native 0.88+ — Native modules, file-based navigation and the build pipeline without maintaining native projects by hand.
+- **Styling:** StyleSheet reading a typed token theme — No runtime styling engine; light and dark themes come from the same token file.
+- **State:** TanStack Query + local component state ^5 — Server state cached with retry and offline awareness; no global store until two features share state.
+- **Data:** Typed fetch client; expo-secure-store for credentials; SQLite for offline data when needed — Tokens sit in the device keychain or keystore, not in plain storage.
+- **Build:** EAS Build eas-cli ^16 — Reproducible signed iOS and Android builds in CI, with credentials managed outside the repo.
+- **Hosting:** App Store and Google Play via EAS Submit; EAS Update channels for JavaScript fixes — Store releases for native changes, update channels for safe JavaScript-only patches.
+- **Package manager:** pnpm (node-linker=hoisted) ^10 — Fast installs; hoisted layout keeps native module resolution predictable.
+- **Testing:** Jest with jest-expo ^29 — Unit and component tests with Expo module mocks.
+- **Testing:** React Native Testing Library ^13 — Queries by role and accessibility label, like screen readers do.
+- **Testing:** Maestro ^1.40 — Journey flows on real simulators and emulators, written as readable YAML.
+
+## Commands
+- dev: `pnpm expo start`
+- e2e: `maestro test .maestro/`
+- lint: `pnpm expo lint && pnpm typecheck`
+- test: `pnpm test`
+- build: `eas build --profile production --platform all`
+- deploy: `eas submit --profile production --platform all`
+- install: `pnpm install`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- Add native packages with npx expo install, and bump runtimeVersion whenever native code or config changes. _(Mismatched versions crash at launch; an update must never reach a binary it is not built for.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+- Platform differences live inside components (Platform.select or .ios.tsx/.android.tsx), not in screens. _(Screens stay readable and both platforms get the same behaviour by default.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Each screen handles offline as its own state, with cached data shown and a retry; the root layout has an error boundary. _(Phones lose signal mid-journey; a blank screen loses the user.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Store tokens and personal data with expo-secure-store; never in AsyncStorage, logs or EXPO_PUBLIC_ variables. _(Anything in the bundle or plain storage can be read from a device or the app binary.)_
+
+### Performance
+- Render lists of unknown length with FlatList or FlashList and stable keys; never map an array inside a ScrollView. _(Virtualised lists hold the 60fps scroll target on low-end Android phones.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+- Every Pressable sets accessibilityRole and an accessibilityLabel when it has no visible text; touch targets are at least 44×44 points (use hitSlop when the visual is smaller). _(VoiceOver and TalkBack read roles and labels; small targets fail on both platforms.)_
+
+## Do
+- Test on one small Android device and one current iPhone before each release
+- Honour the system font size and reduce-motion settings
+- Ship JavaScript-only fixes to a staged update channel before production
+
+## Don't
+- Eject to bare native projects to fix something a config plugin can do
+- Use inline style objects for shared components; read the theme
+- Push an over-the-air update that changes behaviour store reviewers approved
+
+## From design skills
+When a Celestial design skill is in use, write its tokens as Style Dictionary tokens in `src/theme/tokens.ts`, and build its components in `src/components` with the same names and variants. Components read tokens only — no raw colours, sizes or font names.

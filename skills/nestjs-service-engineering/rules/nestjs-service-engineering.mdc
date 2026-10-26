@@ -1,0 +1,66 @@
+---
+description: NestJS service — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** TypeScript ^5.6 — Decorators and DTO classes keep request shapes explicit.
+- **Framework:** NestJS ^12 — Modules, dependency injection, guards and pipes give each concern one obvious home.
+- **State:** Stateless requests; queues for background work BullMQ ^5 — Request handlers stay fast; slow work moves to workers that can retry.
+- **Data:** PostgreSQL with Prisma Postgres 16+ · Prisma ^6 — Schema file, typed client and migrations in one tool.
+- **Build:** Nest CLI (tsc or SWC) ^12 — Consistent builds and generators for modules, controllers and providers.
+- **Hosting:** Container platform with preview environments Node.js 22 LTS+ — Same image runs API and worker processes with different entry commands.
+- **Package manager:** npm ^10 — Default for the Nest CLI; lockfile committed.
+- **Testing:** Jest ^29 — Default Nest test runner, with the testing module for overriding providers.
+- **Testing:** Supertest ^7 — End-to-end HTTP tests against the full Nest application.
+- **Testing:** Testcontainers ^10 — Real Postgres and Redis in integration tests.
+
+## Commands
+- dev: `npm run start:dev`
+- e2e: `npm run test:e2e`
+- lint: `npm run lint && npx tsc --noEmit`
+- test: `npm test`
+- build: `npm run build`
+- install: `npm ci`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- A module exports only the providers other modules need; cross-module calls go through those exported services, never through another module’s repository. _(Keeps domain boundaries real so a module can be extracted later.)_
+- Controllers translate HTTP to service calls and nothing more; no Prisma calls in controllers. _(Business rules stay testable without HTTP.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Enable a global ValidationPipe with whitelist, forbidNonWhitelisted and transform; every body and query is a DTO class. _(Unknown fields are rejected before they reach a service.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Map domain errors to HTTP in one exception filter; services throw domain errors, not HttpException. _(Services stay transport-agnostic and errors stay consistent.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Protect routes with guards that are on by default (global auth guard) and opt out explicitly with a @Public() decorator. _(Forgetting a decorator fails closed instead of open.)_
+
+### Performance
+- Move anything slower than 200ms or dependent on a third party into a queue job with retries and idempotency keys. _(Keeps request latency predictable when dependencies misbehave.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+
+## Do
+- Generate the OpenAPI document with the Swagger module and diff it in CI
+- Override providers in tests with Test.createTestingModule rather than mocking imports
+- Call app.enableShutdownHooks() so connections close on deploy
+
+## Don't
+- Create circular module imports and patch them with forwardRef
+- Put request-scoped providers on hot paths without measuring
+- Return Prisma models straight from controllers
+
+## From design skills
+This stack has no UI; design skills do not apply.

@@ -1,0 +1,41 @@
+---
+description: Database schema and safe migrations — engineering practice
+globs:
+alwaysApply: false
+---
+
+## How to do it
+1. **Design the target schema** — Write the end state: tables, columns with types and nullability, primary and foreign keys, unique constraints and the indexes each query needs. Check every new query plan against realistic data volume.
+2. **Split into expand and contract** — Plan the change as phases that each deploy separately. Expand: add new tables, nullable columns or new indexes without removing anything. Migrate: backfill data and switch code to read and write the new shape. Contract: remove the old column, table or code path only once nothing uses it.
+3. **Make each migration compatible with the running code** — Before merging, confirm the currently deployed application version works against the post-migration schema, and the new application version works against the pre-migration schema. If either fails, split the change further.
+4. **Avoid locking operations** — Create indexes concurrently or online where the database supports it, add constraints as not-valid then validate separately, add columns without volatile defaults, and set a lock timeout on every migration so it fails fast instead of queueing traffic.
+5. **Backfill in batches** — Move data with an idempotent job that processes bounded batches by primary key, sleeps between batches, records progress and can resume. Never backfill a large table in one transaction inside the migration.
+6. **Rehearse on production-sized data** — Run the migration against a recent anonymised copy or staging database of similar size. Record duration and lock waits; anything over a few seconds of exclusive lock needs redesign.
+7. **Ship with a rollback path** — Each expand step has a down migration or is harmless to leave in place. Contract steps that drop data run only after a backup is confirmed and after the release using the new shape has been stable for an agreed period.
+8. **Verify after deploy** — Check error rates, slow-query logs and row counts between old and new columns. Close the contract phase with a ticket so old columns do not linger forever.
+
+## Checklist
+- [ ] Change is split into expand, migrate and contract phases, each deployable alone
+- [ ] Old and new application versions both run against the migrated schema
+- [ ] No migration takes a long exclusive lock; lock timeout is set
+- [ ] Indexes are created concurrently or online
+- [ ] Backfills run in resumable batches outside the migration transaction
+- [ ] Migration was rehearsed on production-sized data with timing recorded
+- [ ] Destructive steps wait for a confirmed backup and a stable release
+
+## Rules
+- Never rename or drop a column in the same deploy as the code that stops using it. _(The old code is still running during the rollout and will fail.)_
+- Migrations are forward-only files in version control, applied by the deploy pipeline, never edited after merge. _(Editing an applied migration makes environments disagree about the schema.)_
+- Enforce integrity in the database with constraints and foreign keys, not only in application code. _(Every client and script that touches the data gets the same guarantees.)_
+- Every foreign key and every column in a frequent WHERE or ORDER BY has a supporting index checked with the query plan. _(Missing indexes are invisible on small data and fatal at scale.)_
+- Set a lock timeout and statement timeout on migration sessions. _(A migration that waits for a lock blocks every query queued behind it.)_
+
+## Do
+- Keep schema migrations and data backfills in separate steps
+- Use feature flags to switch reads and writes between old and new shapes
+- Write the contract-phase ticket when you merge the expand phase
+
+## Don't
+- Do not add a NOT NULL column without a default to a large live table in one step
+- Do not run long data updates inside a schema migration transaction
+- Do not drop data without a verified, restorable backup

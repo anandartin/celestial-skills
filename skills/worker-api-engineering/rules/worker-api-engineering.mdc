@@ -1,0 +1,64 @@
+---
+description: Edge Worker API — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** JavaScript (ES modules) or TypeScript — Runs natively in the Workers runtime.
+- **Framework:** Cloudflare Workers compatibility date pinned — Global edge runtime with static assets and rate limiting built in.
+- **State:** Stateless requests — Any instance can serve any request.
+- **Data:** Supabase Postgres via PostgREST — SQL with row-level security; the Worker holds the service key.
+- **Build:** Wrangler ^4 — Bundles, runs locally and deploys.
+- **Hosting:** Cloudflare — Deploys in seconds, with preview versions.
+- **Package manager:** npm — Default with Wrangler.
+- **Testing:** Vitest with the Workers pool ^3 — Tests run in the real runtime.
+- **Testing:** Live checks script — Headers, auth and access rules verified against the deployed site.
+
+## Commands
+- dev: `npx wrangler dev`
+- lint: `npx eslint .`
+- test: `npx vitest run && node scripts/security-check.mjs`
+- build: `npx wrangler deploy --dry-run`
+- deploy: `npx wrangler deploy`
+- install: `npm install`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Return JSON errors with a human message and the right status; never leak stack traces. _(Clients can show the message as-is.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Every route decides who is asking (session token or admin key) before touching data; compare secrets in constant time. _(The Worker is the only gate in front of the database.)_
+- Direct database access with the public key is blocked by row-level security with no policies. _(Defence in depth if a key leaks.)_
+- Rate-limit paid and write endpoints per user, falling back to IP. _(Protects cost and data.)_
+
+### Performance
+- Bound every request body and outbound fetch (size and timeout). _(The edge runtime has tight limits.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+
+## Do
+- Keep secrets in Worker secrets; vars only for non-secret config
+- Run the security check after every deploy
+- Return cache-control: no-store on authenticated responses
+
+## Don't
+- Trust a field the client sends for ownership or visibility
+- Call the database from the browser with a privileged key
+- Log tokens or request bodies
+
+## From design skills
+This stack has no UI; design skills do not apply.

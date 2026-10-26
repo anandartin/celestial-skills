@@ -1,0 +1,67 @@
+---
+description: Browser extension (Manifest V3) — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** TypeScript ^5.6 — Typed messages between the service worker, content scripts and UI pages.
+- **Framework:** WebExtension APIs on Manifest V3, with Preact for popup and options UI MV3 · Preact ^10 — MV3 is required by the stores; Preact keeps UI bundles small.
+- **Styling:** CSS variables; content-script UI inside a shadow root — Host-page styles cannot leak in, and extension styles cannot break the page.
+- **State:** chrome.storage (local, sync, session) as the source of truth + typed message passing — The service worker can stop at any time; in-memory state does not survive.
+- **Data:** Typed fetch from the service worker to the product API — Network calls and credentials stay out of content scripts.
+- **Build:** Vite with one entry per extension context ^7 — Separate bundles for worker, content scripts and pages; no runtime code loading.
+- **Hosting:** Browser extension stores; zipped build uploaded from CI — Store review requires a versioned package built from tagged source.
+- **Package manager:** pnpm ^10 — Fast, strict installs.
+- **Testing:** Vitest ^3 — Unit tests for message handlers and storage logic with the chrome API mocked.
+- **Testing:** Testing Library (Preact) ^3 — Popup and options tests by role and label.
+- **Testing:** Playwright ^1.50 — Loads the unpacked build in Chromium and runs journeys on real test pages.
+
+## Commands
+- dev: `pnpm dev`
+- e2e: `pnpm build && pnpm test:e2e`
+- lint: `pnpm lint && pnpm typecheck`
+- test: `pnpm test`
+- build: `pnpm build && pnpm zip`
+- install: `pnpm install`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- Register every service-worker listener synchronously at the top level; keep no state in module variables; use chrome.alarms instead of timers. _(The worker is stopped when idle and restarted on the next event.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Request activeTab and optional_permissions first; add a host permission only when a feature cannot work without it, and justify it in the pull request. _(Broad permissions slow store review and scare users at install.)_
+- Ship all code in the package: no remote scripts, no eval, no new Function. Check sender.id and message shape on every onMessage handler. _(MV3 forbids remote code, and pages or other extensions can send messages too.)_
+- Content scripts never write page data with innerHTML and never hold API tokens; they ask the service worker to make requests. _(Content scripts share the page's DOM, so anything they hold is exposed to it.)_
+
+### Performance
+- Content scripts load only on the hosts they need, at document_idle, and do no work over 50ms on the main thread. _(An extension that slows every page gets uninstalled.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+- Popup and injected UI are fully keyboard operable, trap focus only in modal panels, and return focus to the page on close. _(Injected UI must not strand keyboard and screen-reader users inside someone else's page.)_
+
+## Do
+- Keep a privacy note listing every piece of data the extension reads and where it goes
+- Use chrome.storage.session for short-lived secrets that must not persist
+- Test against fixture pages with hostile CSS and strict CSP
+
+## Don't
+- Request <all_urls> because it is convenient during development
+- Rely on the popup staying open; it closes on any outside click
+- Inject UI without a shadow root
+
+## From design skills
+When a Celestial design skill is in use, write its tokens as CSS custom properties in `src/styles/tokens.css`, and build its components in `src/components` with the same names and variants. Components read tokens only — no raw colours, sizes or font names.

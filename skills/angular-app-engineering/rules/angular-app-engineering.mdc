@@ -1,0 +1,68 @@
+---
+description: Angular enterprise app — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** TypeScript (strict, strictTemplates) ^5.8 — Templates are type-checked like code, which matters at enterprise size.
+- **Framework:** Angular (standalone components, signals, zoneless) ^22 — Opinionated structure, dependency injection and long support windows suit many teams.
+- **Styling:** SCSS reading CSS variables — Component-encapsulated styles; tokens as variables so themes switch at runtime.
+- **State:** Signals in components and services; NgRx SignalStore for shared feature state NgRx ^22 — Fine-grained updates without zone change detection; a store only where state is shared.
+- **Data:** HttpClient behind typed feature services, read through resource()/httpResource — One service per API area; loading and error states come for free as signals.
+- **Build:** Angular CLI (esbuild application builder) ^22 — Fast builds, per-route lazy chunks and bundle budgets in angular.json.
+- **Hosting:** Static hosting with preview deploys; @angular/ssr only for public pages — Most enterprise screens sit behind sign-in and gain nothing from server rendering.
+- **Package manager:** pnpm ^10 — Fast, strict installs; works with the CLI and workspace setups.
+- **Testing:** Vitest (Angular CLI unit-test builder) ^3 — Fast unit and component tests with the CLI's build config.
+- **Testing:** Angular Testing Library ^18 — Component tests by role and label instead of component internals.
+- **Testing:** Playwright ^1.50 — Journey tests in real browsers, with the accessibility audit.
+
+## Commands
+- dev: `pnpm ng serve`
+- e2e: `pnpm test:e2e`
+- lint: `pnpm ng lint`
+- test: `pnpm ng test`
+- build: `pnpm ng build`
+- install: `pnpm install --frozen-lockfile`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+- Standalone components only, ChangeDetectionStrategy.OnPush, input()/output()/model() signals, and inject() instead of constructor parameters. _(One component style across teams; works with zoneless change detection.)_
+- Templates use built-in control flow (@if, @for with track, @switch) and @defer for heavy below-the-fold blocks. _(Faster rendering and smaller initial bundles than structural directives.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Components never call HttpClient; they read signals from a feature service or store. Any manual subscribe uses takeUntilDestroyed. _(One place per API area to cache, retry and test; no leaked subscriptions.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- A global ErrorHandler reports to telemetry; each resource-driven view renders its loading, empty and error state from the resource status. _(Failures are visible to users and to the team, not swallowed in a subscribe.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Never call bypassSecurityTrust* on data that came from a user or an API; auth tokens are attached by an interceptor, never by components. _(Angular sanitises bindings by default; bypassing it reopens XSS.)_
+
+### Performance
+- Every feature is a lazy route; ui/ components import nothing from features/. _(Keeps the initial bundle inside budget as the app grows.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+- Use CDK a11y for focus trapping and LiveAnnouncer for async results; set a page title on every route. _(Dialogs and background updates are the usual gaps in enterprise screens.)_
+
+## Do
+- Enforce feature boundaries with lint rules so one team cannot import another team's internals
+- Use typed reactive forms; move validation messages into the ui form-field component
+- Upgrade one Angular major at a time with ng update, in its own pull request
+
+## Don't
+- Add NgModules for new code
+- Put business logic in templates or in ui/ components
+- Keep Zone.js-only patterns such as relying on setTimeout to trigger change detection
+
+## From design skills
+When a Celestial design skill is in use, write its tokens as CSS custom properties in `src/styles/tokens.css`, and build its components in `src/app/ui` with the same names and variants. Components read tokens only — no raw colours, sizes or font names.

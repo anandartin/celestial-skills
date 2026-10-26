@@ -1,0 +1,66 @@
+---
+description: Rust Axum service — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** Rust 1.80+ (2021 or 2024 edition) — Ownership rules catch data races and use-after-free at compile time.
+- **Framework:** Axum on Tokio axum ^0.8 · tokio ^1 — Handlers are plain async functions; middleware comes from the Tower ecosystem.
+- **State:** Shared AppState via Arc and the State extractor — Pools and clients are created once and cloned cheaply into handlers.
+- **Data:** PostgreSQL with SQLx sqlx ^0.8 — Async queries checked against the schema at compile time.
+- **Build:** Cargo 1.80+ — Builds, tests and lints; release profile with LTO for production.
+- **Hosting:** Container platform with a distroless image — Small image, fast start, preview per pull request.
+- **Package manager:** Cargo Cargo.lock committed — Reproducible builds for a binary crate.
+- **Testing:** cargo test + tokio::test built in — Unit and async tests in the same crate.
+- **Testing:** tower::ServiceExt::oneshot tower ^0.5 — Calls the router in-process without binding a port.
+- **Testing:** sqlx::test sqlx ^0.8 — Each test gets a fresh migrated database.
+
+## Commands
+- dev: `cargo watch -x run`
+- lint: `cargo fmt --check && cargo clippy --all-targets -- -D warnings`
+- test: `cargo test`
+- build: `cargo build --release`
+- deploy: `docker build -t service . && docker push service`
+- install: `cargo fetch`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- No unwrap() or expect() outside startup and tests; use ? with context from anyhow or thiserror. _(A panic in a handler drops the request and hides the cause.)_
+- Keep handlers small: extract, call a domain function, map to a response type. _(Domain logic stays testable without HTTP.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Use sqlx::query! or query_as! macros and commit the offline query data (.sqlx/) so CI builds without a database. _(Schema drift becomes a compile error.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Handlers return Result<T, AppError>; AppError implements IntoResponse and is the only place status codes for failures are chosen. _(Consistent error bodies and no unwrap() on request paths.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Add tower-http layers for request body limit, timeout, CORS allow-list and tracing; deserialise with deny_unknown_fields. _(Bounded, strict input at the edge of the service.)_
+
+### Performance
+- Never block the async runtime: move CPU-heavy or blocking work into tokio::task::spawn_blocking. _(One blocking call stalls every task on that worker thread.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+
+## Do
+- Use with_graceful_shutdown tied to SIGTERM
+- Instrument with tracing and export spans through OpenTelemetry
+- Run cargo audit or cargo deny in CI
+
+## Don't
+- Hold a std::sync::Mutex guard across an .await
+- Clone large data into every handler instead of sharing through Arc
+- Add unsafe code without a comment justifying it and a reviewer who knows why
+
+## From design skills
+This stack has no UI; design skills do not apply.
