@@ -1,0 +1,67 @@
+---
+description: Spring Boot service — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** Java 21+ (LTS) — Records, sealed types, pattern matching and virtual threads.
+- **Framework:** Spring Boot 3.4+ — Auto-configuration, Spring MVC, Spring Security and Actuator.
+- **State:** Stateless requests; JWT or opaque tokens validated per request — Horizontal scaling without sticky sessions.
+- **Data:** PostgreSQL with Spring Data JPA + Flyway Postgres 16+ · Flyway ^10 — Repositories for common queries; SQL migrations versioned in the repo.
+- **Build:** Gradle (Kotlin DSL) ^8.10 — Incremental builds, version catalogue and bootJar packaging.
+- **Hosting:** Container orchestrator with health probes — Liveness and readiness come from Actuator; rolling updates by default.
+- **Package manager:** Gradle version catalogue gradle/libs.versions.toml — Every dependency version in one file.
+- **Testing:** JUnit 5 + AssertJ JUnit ^5.11 — Standard test runner with fluent assertions.
+- **Testing:** Spring Boot Test + MockMvc with Boot — Slice tests for web and data layers.
+- **Testing:** Testcontainers ^1.20 — Integration tests against real Postgres and brokers.
+
+## Commands
+- dev: `./gradlew bootRun --args=--spring.profiles.active=local`
+- e2e: `./gradlew integrationTest`
+- lint: `./gradlew spotlessCheck checkstyleMain`
+- test: `./gradlew test`
+- build: `./gradlew bootJar`
+- deploy: `./gradlew bootBuildImage`
+- install: `./gradlew dependencies`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- Organise by feature package, not by layer; classes are package-private unless another feature needs them. _(Boundaries are enforced by the compiler.)_
+- Use constructor injection only; no field injection with @Autowired. _(Dependencies are explicit and classes are testable without Spring.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Controllers accept and return DTO records annotated with Bean Validation and @Valid; JPA entities never cross the controller boundary. _(Prevents over-posting and lazy-loading surprises during serialisation.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Return RFC 9457 problem details from one @RestControllerAdvice; log the exception once with a correlation id. _(Consistent errors for clients and traceable logs for operators.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Configure a SecurityFilterChain that denies by default and expose only /actuator/health publicly. _(New endpoints are protected until someone opens them on purpose.)_
+
+### Performance
+- Set open-in-view to false, define fetch plans per query, and keep @Transactional on service methods only. _(Avoids hidden queries and long-held connections.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+
+## Do
+- Write Flyway migrations that the previous release can run against
+- Expose metrics through Micrometer and trace with OpenTelemetry
+- Use @WebMvcTest and @DataJpaTest slices for fast feedback
+
+## Don't
+- Use ddl-auto=update outside local development
+- Catch Exception and swallow it
+- Store secrets in application.yml
+
+## From design skills
+This stack has no UI; design skills do not apply.

@@ -1,0 +1,68 @@
+---
+description: Rails app with Hotwire — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** Ruby 3.3+ — YJIT on by default; fast enough for most web workloads.
+- **Framework:** Ruby on Rails ^8.0 — Conventions for routing, models, mailers, jobs and caching in one framework.
+- **Styling:** CSS variables from the design skill + Propshaft Propshaft ^1 — Plain CSS files that read tokens; no CSS build step.
+- **State:** Turbo Drive, Frames and Streams + Stimulus turbo-rails ^2 · stimulus-rails ^1.3 — Partial page updates rendered on the server; small controllers for client behaviour.
+- **Data:** PostgreSQL via Active Record; Solid Queue and Solid Cache Postgres 16+ — Jobs and cache in the same database until scale demands otherwise.
+- **Build:** Importmap + Propshaft importmap-rails ^2 — JavaScript modules served directly; nothing to bundle.
+- **Hosting:** Container image deployed with Kamal Kamal ^2 — Zero-downtime deploys to any servers, with a proxy in front.
+- **Package manager:** Bundler ^2.5 — Gemfile.lock committed; no Node.js required.
+- **Testing:** Minitest built in — Rails default for models, controllers and integration tests.
+- **Testing:** Capybara system tests ^3.40 — Journey tests in a headless browser.
+- **Testing:** axe-core-capybara ^4 — Accessibility audit inside system tests.
+
+## Commands
+- dev: `bin/dev`
+- e2e: `bin/rails test:system`
+- lint: `bin/rubocop && bin/brakeman --no-pager`
+- test: `bin/rails test`
+- build: `bin/rails assets:precompile`
+- deploy: `bin/kamal deploy`
+- install: `bundle install && bin/rails db:prepare`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- Stick to the seven RESTful actions; add a new resource controller instead of custom actions. _(Routes stay predictable and controllers stay small.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Use strict loading or includes on every collection rendered in a view, and add database constraints for every validation that matters. _(Prevents N+1 queries and data that bypasses model validations.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Permit parameters explicitly and scope finds through the current user, e.g. Current.user.projects.find(params[:id]). _(Blocks mass assignment and access to other users’ records.)_
+- Keep credentials in encrypted credentials or environment variables, and run Brakeman on every pull request. _(Static checks catch injection and unsafe redirects early.)_
+
+### Performance
+- Fragment-cache expensive partials with cache keys from the record, and move work over 100ms into Active Job. _(Keeps responses fast without hand-rolled invalidation.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+- When a Turbo Stream replaces content, announce it in an aria-live region or move focus to the new heading. _(Partial updates are silent to screen readers by default.)_
+
+## Do
+- Render forms through the shared field partial so labels and errors are linked
+- Return 422 on failed form submissions so Turbo re-renders the form
+- Write a system test from the experience skill before the feature
+
+## Don't
+- Put business logic in controllers or helpers
+- Add a JavaScript bundler before importmaps fall short
+- Use update_column or skip validations outside migrations
+
+## From design skills
+When a Celestial design skill is in use, write its tokens as CSS custom properties in `app/assets/stylesheets/tokens.css`, and build its components in `app/views/components` with the same names and variants. Components read tokens only — no raw colours, sizes or font names.

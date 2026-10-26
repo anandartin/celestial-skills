@@ -1,0 +1,66 @@
+---
+description: Nuxt web app — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** TypeScript ^5.6 — Auto-generated types cover pages, server routes and runtime config.
+- **Framework:** Nuxt on Vue 3 ^4 · Vue ^3.5 — File-based routing, server rendering and a server layer (Nitro) in one project.
+- **Styling:** Tailwind CSS ^4 — Theme generated from design tokens; no hand-written colours in single-file components.
+- **State:** Pinia for shared client state; useState for SSR-safe small values Pinia ^3 — Stores serialise from server to client without leaking between requests.
+- **Data:** useFetch / useAsyncData calling typed Nitro server routes — Data is fetched during server render and reused on hydration instead of refetched.
+- **Build:** Vite (via Nuxt) + Nitro bundled with Nuxt — Fast dev server; Nitro builds the server output for the chosen deploy preset.
+- **Hosting:** Node server or serverless preset with preview deploys Node 22 LTS+ — Same code, different preset; every pull request gets a link.
+- **Package manager:** pnpm ^10 — Fast, strict installs.
+- **Testing:** Vitest + @nuxt/test-utils ^3 — Unit and component tests with the Nuxt runtime and auto-imports available.
+- **Testing:** Vue Test Utils ^2 — Mounts single-file components with props, slots and events.
+- **Testing:** Playwright ^1.50 — Journey tests against the built server, with the accessibility audit.
+
+## Commands
+- dev: `pnpm dev`
+- e2e: `pnpm build && pnpm test:e2e`
+- lint: `pnpm lint && pnpm nuxi typecheck`
+- test: `pnpm test`
+- build: `pnpm build`
+- install: `pnpm install`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+- Use script setup with type-based defineProps and defineEmits; never bind v-html to user content. _(Typed component contracts, and no stored XSS through rich text.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Fetch page data with useFetch or useAsyncData using a stable key; call $fetch directly only inside event handlers. _(Plain $fetch in setup runs on the server and again in the browser.)_
+- No module-level mutable state in server code or composables; use useState, Pinia or event context. _(Module state is shared across every request on the server.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Throw createError with a status in server routes and pages; app/error.vue renders the branded error state. _(Status codes stay correct for crawlers and users get a recoverable screen.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Server routes parse bodies and queries with readValidatedBody / getValidatedQuery and a shared schema, then check the session. _(Server routes are public endpoints; the schema in shared/ keeps client and server in agreement.)_
+- Secrets live in runtimeConfig (server-only keys); only values under runtimeConfig.public reach the browser. _(Anything public is serialised into every page.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+- Every page sets a unique title with useHead or useSeoMeta, and the layout includes the route announcer. _(Client-side navigation is announced like a full page load.)_
+
+## Do
+- Use lazy fetching and the pending/error refs for below-the-fold data
+- Keep server-only helpers in server/utils so they are never bundled for the browser
+- Generate the journey spec from the experience skill before building the screen
+
+## Don't
+- Read window or document during setup without a client-only guard
+- Create a Pinia store for data that only one page uses
+- Disable SSR for a page to hide a hydration mismatch instead of fixing it
+
+## From design skills
+When a Celestial design skill is in use, write its tokens as Tailwind theme in `app/assets/css/tokens.css`, and build its components in `app/components` with the same names and variants. Components read tokens only — no raw colours, sizes or font names.

@@ -1,0 +1,39 @@
+---
+description: Spec before code — engineering practice
+globs:
+alwaysApply: false
+---
+
+## How to do it
+1. **State the problem** — Write two or three sentences on who has the problem, what they cannot do today and why it matters now. Leave solutions out of this part.
+2. **Define acceptance criteria** — List the observable outcomes that mean done, each written so a test or a reviewer can check it. Include error and empty cases.
+3. **Mark scope and non-goals** — List what is in scope and, just as explicitly, what is out. Name any constraints: performance targets, compatibility, deadlines.
+4. **Sketch the approach** — Describe the design in a few paragraphs: modules touched, data changes, interfaces, and alternatives you rejected with one line each on why.
+5. **Resolve open questions** — List unknowns and get answers from the requester or owner before coding. Unanswered questions become explicit assumptions in the spec.
+6. **Break it into steps** — Split the work into ordered tasks that each end in a green build and a reviewable commit. Note which acceptance criterion each step satisfies.
+7. **Build against the plan** — Implement step by step, ticking tasks off. When reality differs from the plan, update the spec first, then the code.
+8. **Verify against the spec** — Before opening the pull request, walk every acceptance criterion and show evidence (test name, screenshot, preview link). Link the spec in the pull request.
+
+## Checklist
+- [ ] The spec has a problem statement, acceptance criteria, non-goals and an approach
+- [ ] Every acceptance criterion is testable and has evidence attached
+- [ ] Open questions are answered or recorded as assumptions
+- [ ] The plan's steps are all complete or explicitly deferred
+- [ ] The spec was updated where the build departed from it
+- [ ] The pull request links the spec
+
+## Rules
+- Keep the spec to about one page; split the feature if it needs more. _(Long specs go unread and hide the decisions that matter.)_
+- Write acceptance criteria as observable behaviour, never as implementation steps. _(Criteria tied to implementation cannot catch a wrong design.)_
+- Call out every schema, API contract or data migration in the approach section. _(These are the hardest changes to undo after release.)_
+- Note who is allowed to do each new action and how that is enforced. _(Authorisation decided during coding is often forgotten.)_
+
+## Do
+- Get the requester to confirm the acceptance criteria before you start
+- Keep the spec next to the code or linked from the issue so it is easy to find
+- Give a coding agent the spec and plan as its task, not a one-line request
+
+## Don't
+- Do not start coding while a question that changes the design is still open
+- Do not let the spec silently drift from what was built
+- Do not pad the spec with background nobody needs to make a decision

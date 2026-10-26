@@ -1,0 +1,67 @@
+---
+description: Rust CLI tool — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** Rust 1.82+ (edition 2021) — Memory safety without a runtime, so the binary starts fast and has no install dependencies.
+- **Framework:** clap (derive API) ^4 — Arguments, subcommands and help text come from one typed struct.
+- **State:** Config struct loaded once from flags, env and an optional config file — One resolved value is passed down; nothing reads globals.
+- **Data:** serde + serde_json / toml ^1 — Typed parsing of config files and machine-readable --json output.
+- **Build:** Cargo built in — Builds, tests, lints and packages with one tool.
+- **Hosting:** Release assets per target triple — Users download one file for their platform; no toolchain needed.
+- **Package manager:** Cargo + Cargo.lock committed built in — Reproducible builds for a binary crate.
+- **Testing:** cargo test built in — Unit tests beside the code and integration tests in tests/.
+- **Testing:** assert_cmd + predicates ^2 — Runs the compiled binary and checks stdout, stderr and exit code.
+- **Testing:** insta ^1 — Snapshot tests for help text and formatted output, reviewed as diffs.
+
+## Commands
+- dev: `cargo run -- --help`
+- lint: `cargo fmt --check && cargo clippy --all-targets --all-features -- -D warnings`
+- test: `cargo test --all-features`
+- build: `cargo build --release`
+- deploy: `git tag vX.Y.Z && git push --tags`
+- install: `cargo fetch`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- Data goes to stdout, diagnostics and progress go to stderr. _(Piping the output into another tool must not capture log lines.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Every command that prints results supports --json with a stable, versioned shape. _(Other programs can consume the tool without parsing prose.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- No unwrap() or expect() outside tests; return Result and add context at each layer. _(A panic prints a stack trace instead of a message the user can act on.)_
+- Exit 0 on success, 1 on runtime failure, 2 on bad usage; document any other codes. _(Scripts and CI branch on exit codes, not on text.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Never pass user input through a shell; build std::process::Command with explicit args. _(Prevents command injection from file names and arguments.)_
+
+### Performance
+- Stream large inputs with buffered readers instead of reading whole files into memory. _(The tool keeps working on files larger than RAM.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+- Disable colour and spinners when NO_COLOR is set or stdout is not a terminal. _(Logs, screen readers and CI output stay readable.)_
+
+## Do
+- Offer --dry-run on every command that writes, moves or deletes files
+- Snapshot-test --help so flag changes show up in review
+- Keep logic in lib.rs and treat main.rs as a thin adapter
+
+## Don't
+- Change the --json output shape without a major version bump
+- Add a dependency for something the standard library already does
+- Prompt for input when stdin is not a terminal
+
+## From design skills
+This stack has no UI; design skills do not apply.

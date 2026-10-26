@@ -1,0 +1,66 @@
+---
+description: dbt analytics project — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** SQL + Jinja warehouse dialect — Analysts already read SQL; Jinja removes repetition without hiding the query.
+- **Framework:** dbt Core 1.12+ — Dependency graph, tests, docs and incremental builds over plain SELECT statements.
+- **State:** Manifest from the last production run — Enables state:modified selection so CI builds only what changed.
+- **Data:** Cloud data warehouse via the matching dbt adapter adapter matching dbt 1.12+ — Transformations run where the data already lives.
+- **Build:** dbt build 1.12+ — Runs models, tests, seeds and snapshots in dependency order.
+- **Hosting:** Scheduled job in CI or an orchestrator — Production runs are repeatable and logged.
+- **Package manager:** pip / uv for dbt, dbt deps for packages — Python pins the dbt version; packages.yml pins dbt packages.
+- **Testing:** dbt data tests 1.12+ — unique, not_null, relationships and accepted_values on every key column.
+- **Testing:** dbt unit tests 1.12+ — Fixed input rows check tricky model logic without touching production data.
+- **Testing:** SQLFluff ^3 — Consistent SQL style enforced in CI with the dbt templater.
+
+## Commands
+- dev: `dbt build --select state:modified+ --defer --state prod-manifest/`
+- lint: `sqlfluff lint models/ && dbt parse`
+- test: `dbt test`
+- build: `dbt build --target prod`
+- deploy: `dbt docs generate`
+- install: `uv pip install -r requirements.txt && dbt deps`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- Staging models are the only place that renames and casts source columns. _(Downstream models see one clean vocabulary.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Reference other models only with ref() and raw tables only with source(); never hard-code schema names. _(Keeps the dependency graph correct and lets the same code run in dev, CI and prod.)_
+- Every model has a primary key with unique and not_null tests. _(Silent duplicates are the most common cause of inflated numbers.)_
+- Mart models declare an enforced contract with column names and types. _(A breaking change fails the build instead of a dashboard.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Warehouse credentials come from environment variables in profiles.yml; personal data columns are tagged and masked in marts. _(Keeps secrets out of git and limits who sees sensitive fields.)_
+
+### Performance
+- Make a model incremental only after it is slow or costly as a table, and give it a unique_key and a lookback window. _(Incremental logic adds risk; spend it where it saves time or money.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+
+## Do
+- Write column descriptions as you add columns, not in a docs sprint later
+- Add source freshness checks to every source that feeds a daily dashboard
+- Use CTEs named for what they hold, with a final select at the bottom
+
+## Don't
+- Let a BI tool query staging or intermediate models
+- Use SELECT * in marts
+- Fix bad data with a filter in a mart when it should be fixed in staging
+
+## From design skills
+This stack has no UI; design skills do not apply.

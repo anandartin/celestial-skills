@@ -1,0 +1,66 @@
+---
+description: FastAPI service — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** Python 3.12+ — Type hints drive validation and are checked in CI.
+- **Framework:** FastAPI ^0.160 — Dependency injection, async handlers and generated OpenAPI from type hints.
+- **State:** Stateless requests; background work in a task queue — Workers retry slow jobs without holding a request open.
+- **Data:** PostgreSQL with SQLAlchemy 2 (async) + Alembic SQLAlchemy ^2.0 · Alembic ^1.13 — Typed ORM with explicit sessions and versioned migrations.
+- **Build:** Docker multi-stage build with uv uv ^0.5 — Small runtime image with locked dependencies.
+- **Hosting:** Container platform with Uvicorn workers Uvicorn ^0.32 — One image per commit; preview environment per pull request.
+- **Package manager:** uv ^0.5 — Fast resolver with a committed lockfile.
+- **Testing:** pytest + pytest-asyncio pytest ^8 — Async tests with fixtures for database and client.
+- **Testing:** HTTPX AsyncClient ^0.27 — Calls the app in-process through its ASGI interface.
+- **Testing:** Schemathesis ^3 — Property-based tests generated from the OpenAPI document.
+
+## Commands
+- dev: `uv run fastapi dev app/main.py`
+- lint: `uv run ruff check . && uv run ruff format --check . && uv run mypy app`
+- test: `uv run pytest`
+- build: `docker build -t service .`
+- deploy: `uv run alembic upgrade head && docker push service`
+- install: `uv sync`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- Inject the database session, settings and current user with Depends; never import a global session. _(Tests swap dependencies with app.dependency_overrides.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Separate input and output models (OrderCreate, OrderRead) and always set response_model on routes. _(Output models stop internal fields such as password hashes from leaking.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Raise HTTPException only in the API layer; services raise domain exceptions mapped by exception handlers to problem+json. _(Services stay reusable from workers and scripts.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Resolve the current user in a dependency and scope every query by it; reject requests whose path id the user does not own. _(Object-level authorisation is the top API risk.)_
+
+### Performance
+- Never call blocking libraries inside async def handlers; use def handlers or run_in_threadpool for sync code. _(One blocking call stalls every request on that worker.)_
+- Open the engine and HTTP clients once in the lifespan handler and set pool size and timeouts explicitly. _(Per-request connections exhaust the database under load.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+
+## Do
+- Validate settings at startup with pydantic-settings
+- Snapshot openapi.json in the repo and diff it in CI
+- Use Annotated types for reusable dependencies and constraints
+
+## Don't
+- Return ORM objects without a response_model
+- Use requests or time.sleep inside async code
+- Mutate shared module-level state from handlers
+
+## From design skills
+This stack has no UI; design skills do not apply.

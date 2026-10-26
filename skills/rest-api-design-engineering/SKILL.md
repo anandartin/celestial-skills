@@ -1,0 +1,88 @@
+---
+name: rest-api-design-engineering
+description: "Engineering practice: REST API design — Design resources, status codes, errors and pagination deliberately and write them down first, so clients can integrate once and keep working as the API evolves. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
+type: engineering
+stack: practice
+core: "1.0"
+checked: 2026-10-26
+---
+
+# REST API design
+
+Design resources, status codes, errors and pagination deliberately and write them down first, so clients can integrate once and keep working as the API evolves.
+
+Use this when adding or changing HTTP endpoints that other teams, apps or customers consume. A contract-first design with consistent conventions prevents breaking changes, ambiguous errors, duplicate writes on retry and unbounded list responses.
+
+## How to do it
+1. **Model the resources** — Name the nouns the client works with (orders, line-items, refunds) as plural collection paths with stable ids: /orders, /orders/{orderId}. Nest only for true ownership and no deeper than one level. Express actions that do not fit CRUD as sub-resources (POST /orders/{id}/cancellation).
+2. **Write the contract first** — Describe the endpoints in an OpenAPI document before implementing: methods, request and response schemas, required fields, examples, error responses and auth. Review the contract with a consumer before writing handlers.
+3. **Use methods and status codes precisely** — GET reads and is safe; PUT replaces and is idempotent; PATCH partially updates; DELETE removes and is idempotent; POST creates or triggers. Return 200 with a body, 201 with a Location header on create, 204 with no body, 400 for malformed input, 401 unauthenticated, 403 forbidden, 404 not found, 409 conflict, 422 validation failure, 429 rate limited.
+4. **Return one error shape everywhere** — Use a single machine-readable error format, such as application/problem+json with type, title, status, detail and a field-level errors array. Include a stable error code clients can branch on and a request id for support.
+5. **Paginate every list** — Never return an unbounded collection. Use cursor pagination for large or changing data (limit plus an opaque next cursor), set a default and maximum page size, and document the sort order.
+6. **Make writes safe to retry** — Accept an Idempotency-Key header on POST endpoints that create or charge. Store the key with the response for a fixed window and replay the original response on repeat; return 409 if the same key arrives with a different body. Use ETags with If-Match for optimistic concurrency on updates.
+7. **Plan for change without breaking clients** — Adding optional fields and new endpoints is non-breaking. Removing or renaming fields, tightening validation or changing meaning is breaking: ship it under a new major version (path /v2 or a version header), run both, announce a deprecation date with Deprecation and Sunset headers, and remove only after usage drops.
+8. **Test the contract** — Validate real responses against the OpenAPI schema in CI and run a breaking-change diff between the main branch contract and the pull request.
+
+## Checklist
+- [ ] An OpenAPI document describes every changed endpoint with examples
+- [ ] Paths are plural nouns with stable ids and at most one level of nesting
+- [ ] Each endpoint returns the documented status codes and one error shape
+- [ ] Every list endpoint is paginated with a maximum page size
+- [ ] Create and charge endpoints accept an idempotency key
+- [ ] The breaking-change check passes or a new major version is introduced
+- [ ] Responses are validated against the schema in tests
+
+## Rules
+- Use one naming convention for fields across the API (for example camelCase) and ISO 8601 UTC timestamps. _(Mixed conventions force every client to special-case fields.)_
+- Never return 200 with an error in the body; the status code must reflect the outcome. _(Clients, proxies and monitoring all rely on status codes.)_
+- Authorise every request against the resource being accessed and return 404 rather than 403 when revealing existence would leak data. _(Sequential or guessable ids invite enumeration.)_
+- Cap page sizes and support conditional GET with ETags. _(Unbounded lists and repeated full downloads overload both server and client.)_
+- Never remove or change the meaning of a field within a major version. _(Clients you cannot see will break silently.)_
+
+## Do
+- Return the created or updated resource in the response body so clients do not need a second request
+- Include a request id header on every response
+- Publish rate limits and return Retry-After with 429
+
+## Don't
+- Do not put verbs in paths like /getOrders or /createUser
+- Do not expose database ids or internal column names that you may need to change
+- Do not use offset pagination for large, frequently changing tables
+
+## Quality gates
+| Gate | Tool | Threshold | When |
+|---|---|---|---|
+| Contract check | OpenAPI linter + breaking-change diff | 0 lint errors; no breaking changes against main without a new major version | Every pull request that changes the API |
+
+## Workflow
+**Review**
+- Contract reviewed by at least one consumer before implementation
+- Reviewer checks status codes and error shape against the convention
+
+**Definition of done**
+- Contract, implementation and tests agree
+- Changelog entry for any new field, endpoint or deprecation
+
+## Examples
+### Problem response for validation failure (`docs/examples/422.json`)
+
+```json
+{
+  "type": "https://api.example.com/problems/validation",
+  "title": "Request body failed validation",
+  "status": 422,
+  "code": "validation_failed",
+  "requestId": "req_01HZX4",
+  "errors": [
+    { "field": "items[0].quantity", "code": "min", "detail": "Must be at least 1" }
+  ]
+}
+```
+
+## Further reading
+- [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) — The format for writing the contract first.
+- [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) — REST security guidance on authorisation, input validation and rate limiting.
+- [Semantic Versioning](https://semver.org/) — A shared vocabulary for what counts as a breaking change.
+- [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) — Engineering skills for coding agents that include API design.
+
+_Written for Celestial; the sources above inspired it._

@@ -1,0 +1,65 @@
+---
+description: SvelteKit web app — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** TypeScript ^5.6 — Generated types for load data, form actions and route params.
+- **Framework:** SvelteKit on Svelte 5 (runes) ^3 · Svelte ^5 — Compiled components, server load functions and progressive form actions.
+- **Styling:** Component-scoped CSS reading CSS variables — Svelte scopes styles per component; tokens arrive as variables, so themes switch at runtime.
+- **State:** Runes ($state, $derived) in components and .svelte.ts modules; page data from load — Reactivity without a store library; server data stays the source of truth.
+- **Data:** Server load functions and form actions calling a typed database layer — Queries and secrets never leave the server.
+- **Build:** Vite ^7 — SvelteKit is a Vite plugin; one config for dev, build and tests.
+- **Hosting:** Adapter-based deploy (Node or serverless) with preview deploys Node 22 LTS+ — Switch target by changing the adapter; every pull request gets a link.
+- **Package manager:** pnpm ^10 — Fast, strict installs.
+- **Testing:** Vitest ^3 — Unit tests for load functions, actions and .svelte.ts logic.
+- **Testing:** Testing Library (Svelte) ^5 — Component tests by role and label.
+- **Testing:** Playwright ^1.50 — Journey tests, run once with JavaScript enabled and once with it disabled for forms.
+
+## Commands
+- dev: `pnpm dev`
+- e2e: `pnpm test:e2e`
+- lint: `pnpm lint && pnpm check`
+- test: `pnpm test`
+- build: `pnpm build`
+- install: `pnpm install`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+- Mutations are form actions with a real <form method="POST"> and use:enhance; no fetch-based submit handlers for standard forms. _(Forms keep working before JavaScript loads or if it fails.)_
+- Declare props with $props() and a typed interface; derive values with $derived, not $effect. _(Effects that set state cause extra renders and ordering bugs.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Never hold per-user data in module-level variables on the server; pass it through locals, load data or context. _(Module state is shared by every request and leaks between users.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Actions return fail(status, { errors, values }) for invalid input; unexpected problems throw error() and render +error.svelte. _(Users keep what they typed and see field-level messages.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Read secrets only from $env/static/private or $env/dynamic/private, and only inside src/lib/server or *.server.ts files. _(SvelteKit fails the build if private env or server modules reach the client.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+- Treat Svelte compiler accessibility warnings as errors; every page sets <title> in <svelte:head>. _(The compiler catches missing labels and alt text before review.)_
+
+## Do
+- Return only the fields a page needs from load; never return whole database rows
+- Use streamed promises in load for slow, non-critical data
+- Set security headers once in hooks.server.ts
+
+## Don't
+- Fetch your own +server.ts endpoints from load when you can call the function directly
+- Use $effect to sync one piece of state into another
+- Turn off server rendering for a route to dodge a window reference
+
+## From design skills
+When a Celestial design skill is in use, write its tokens as CSS custom properties in `src/styles/tokens.css`, and build its components in `src/lib/components` with the same names and variants. Components read tokens only — no raw colours, sizes or font names.

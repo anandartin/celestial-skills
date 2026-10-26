@@ -1,0 +1,66 @@
+---
+description: Python ML service — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** Python 3.12+ — The ecosystem for training, evaluation and serving lives here.
+- **Framework:** PyTorch + FastAPI PyTorch 2.x · FastAPI ^0.115 — PyTorch for training and inference; FastAPI for a typed, documented HTTP layer.
+- **State:** Model loaded once at startup, held in app state — Requests never pay the load cost; the service is otherwise stateless.
+- **Data:** Pydantic schemas + versioned datasets and artifacts in object storage Pydantic ^2 — Request shapes are validated; every model traces back to its exact data and code.
+- **Build:** Docker multi-stage image — Same runtime in CI, staging and production; CPU and GPU images from one Dockerfile.
+- **Hosting:** Container platform with autoscaling, training on scheduled GPU jobs — Serving and training scale independently.
+- **Package manager:** uv with a lock file ^0.5 — Fast, reproducible installs; the lock pins every transitive version.
+- **Testing:** pytest ^8 — Unit tests for features and transforms, API tests with the test client.
+- **Testing:** Hypothesis ^6 — Property tests catch preprocessing edge cases: empty strings, NaN, huge inputs.
+- **Testing:** Evaluation suite on a frozen holdout set — A model ships only if it beats the current one on agreed metrics.
+
+## Commands
+- dev: `uv run fastapi dev src/pkg/serve/app.py`
+- lint: `uv run ruff check . && uv run ruff format --check . && uv run mypy src`
+- test: `uv run pytest`
+- build: `docker build -t ml-service .`
+- deploy: `uv run python -m pkg.train --config configs/current.yaml && uv run python eval/run.py`
+- install: `uv sync`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- Training and serving import the same preprocessing functions; never reimplement them in the API. _(Train/serve skew is the quietest way a model degrades.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Every artifact records the git SHA, config, dataset version, random seed and evaluation scores. _(Any prediction can be traced and any model rebuilt.)_
+- The holdout set is frozen and never used for training, tuning or early stopping. _(A leaked holdout makes every evaluation look better than reality.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Validate input size and type at the API boundary; return 422 with a field-level message and never pass unchecked tensors to the model. _(Bad input should fail fast and clearly, not crash a worker.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Load weights with torch.load(weights_only=True) or safetensors, and only from your own artifact store. _(Pickled files can execute arbitrary code when loaded.)_
+
+### Performance
+- Run inference under torch.inference_mode() and batch requests when the model benefits; measure p95 latency per batch size. _(Cuts memory and latency without changing outputs.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+
+## Do
+- Pin seeds and log them so a training run can be repeated
+- Expose /healthz for liveness and /readyz that returns 200 only after the model is loaded
+- Log model version with every prediction so incidents can be traced to an artifact
+
+## Don't
+- Commit model weights or datasets to git
+- Train in a notebook and ship the notebook state
+- Swap the served model without running the evaluation gate
+
+## From design skills
+This stack has no UI; design skills do not apply.

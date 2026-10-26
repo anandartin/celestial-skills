@@ -1,0 +1,65 @@
+---
+description: Laravel app — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** PHP 8.3+ — Typed properties, enums and readonly classes keep domain code explicit.
+- **Framework:** Laravel ^13 — Routing, Eloquent, queues, mail and auth scaffolding in one framework.
+- **Styling:** CSS variables from the design skill + Tailwind CSS Tailwind ^4 — Tailwind theme reads tokens; Blade components never hold raw colours.
+- **State:** Server-rendered Blade + Alpine.js for small behaviour Alpine ^3 — Most state lives on the server; Alpine handles toggles and menus.
+- **Data:** PostgreSQL or MySQL via Eloquent; Redis for cache and queues Postgres 16+ / MySQL 8+ — Migrations and factories built in.
+- **Build:** Vite ^6 — Builds CSS and the small amount of JavaScript.
+- **Hosting:** Container with PHP-FPM or Octane, plus a queue worker — Web and worker processes from one image; preview per pull request.
+- **Package manager:** Composer + npm Composer ^2.7 — PHP and front-end dependencies, both lockfiles committed.
+- **Testing:** Pest ^3 — Readable feature and unit tests on top of PHPUnit.
+- **Testing:** Playwright ^1.48 — Journey tests in real browsers with an axe audit.
+- **Testing:** Larastan ^3 — Static analysis that understands Eloquent and the container.
+
+## Commands
+- dev: `composer run dev`
+- e2e: `npx playwright test`
+- lint: `vendor/bin/pint --test && vendor/bin/phpstan analyse`
+- test: `php artisan test`
+- build: `npm run build && php artisan optimize`
+- install: `composer install && npm ci`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+- Blade components take variants as typed props and merge extra classes with $attributes->merge(). _(Matches design-skill variants and keeps markup composable.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Validate and authorise every write in a Form Request; controllers receive only $request->validated(). _(Validation and permission rules live in one testable class.)_
+- Eager-load relationships with with() and enable Model::preventLazyLoading() outside production. _(Lazy loading in loops becomes a test failure instead of a slow page.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Queue anything that calls a third party; jobs are idempotent and set tries, backoff and a failed() handler. _(Retries must not double-charge or double-send.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Set $fillable on every model (never $guarded = []) and authorise with policies tied to the signed-in user. _(Stops mass assignment and cross-account access.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+- Error messages from @error render inside the field component, linked with aria-describedby. _(Assistive tech reads the error with the field.)_
+
+## Do
+- Use route model binding with scoped bindings for nested resources
+- Write a feature test for each route: success, validation error, forbidden
+- Keep config in config/*.php reading env(); call config() elsewhere
+
+## Don't
+- Call env() outside config files
+- Use DB::raw with interpolated user input
+- Put queries inside Blade templates
+
+## From design skills
+When a Celestial design skill is in use, write its tokens as CSS custom properties in `resources/css/tokens.css`, and build its components in `resources/views/components` with the same names and variants. Components read tokens only — no raw colours, sizes or font names.

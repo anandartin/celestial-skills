@@ -1,0 +1,64 @@
+---
+description: TypeScript npm library — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** TypeScript (strict, isolatedDeclarations) ^7 (or ^5.9 where tooling has not moved yet) — Explicit return types on exports make declarations fast to emit and the API easy to review.
+- **Framework:** None — plain TypeScript, ESM-first — No framework dependency means no version conflicts in consumers' apps.
+- **Build:** tsup ^8 — Bundles ESM (and CJS when required) with declaration files from one config.
+- **Hosting:** npm registry, published from CI with provenance — Consumers can verify which commit and workflow built the package.
+- **Package manager:** pnpm ^10 — Strict installs catch undeclared dependencies that would break consumers.
+- **Testing:** Vitest (including type tests with expectTypeOf) ^3 — Runtime and type-level behaviour tested in one runner.
+- **Testing:** publint ^0.3 — Catches broken exports, missing files and wrong module formats before publishing.
+- **Testing:** Are the Types Wrong (@arethetypeswrong/cli) ^0.18 — Verifies types resolve for each module-resolution mode consumers use.
+
+## Commands
+- dev: `pnpm dev`
+- lint: `pnpm lint && pnpm typecheck && pnpm publint && pnpm attw --pack .`
+- test: `pnpm test`
+- build: `pnpm build`
+- deploy: `pnpm changeset publish`
+- install: `pnpm install --frozen-lockfile`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+- Expose the API only through the exports map; every exported function has explicit parameter and return types and a doc comment with an example. _(Consumers cannot depend on internals, and the API report stays readable.)_
+- Any removal, rename, narrowed input or widened output in the API report is a major version; additions are minor; fixes are patch. _(Consumers rely on semver ranges to upgrade without reading every release.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Accept I/O dependencies (fetch, timers, storage) as options with sensible defaults instead of reaching for globals. _(Works across runtimes and is easy to test.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Throw subclasses of Error with a stable code property and the original error as cause; never throw strings. _(Callers can branch on codes that survive message rewording.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Publish only from CI with provenance and a granular, automation-only token; the files allow-list excludes tests, fixtures and source maps of private code. _(A hijacked laptop or a stray .env must not end up in a published tarball.)_
+
+### Performance
+- Keep sideEffects:false and no top-level work; prefer zero runtime dependencies, and frameworks only as peerDependencies. _(Bundlers can tree-shake unused exports and consumers avoid duplicate copies.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+
+## Do
+- Run the examples/ consumers against the packed tarball in CI
+- Deprecate with a JSDoc @deprecated tag and a runtime warning one major before removal
+- Write the changeset in the consumer's words: what changed and what to do
+
+## Don't
+- Export TypeScript enums or namespaces from the public API
+- Add a runtime dependency for something under 30 lines
+- Publish from a local machine
+
+## From design skills
+This stack has no UI; design skills do not apply.

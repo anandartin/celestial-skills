@@ -1,0 +1,66 @@
+---
+description: React web app — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** TypeScript ^5.6 — Types at every module boundary catch mistakes before review.
+- **Framework:** React ^19 — Component model that maps one-to-one onto design-skill components.
+- **Styling:** Tailwind CSS ^4 — Theme generated from design tokens; no hand-written colours in components.
+- **State:** TanStack Query + local component state ^5 — Server state is cached and refetched; no global store until one is needed.
+- **Data:** Typed fetch client generated from the API schema — Requests and responses stay in sync with the backend.
+- **Build:** Vite ^6 — Instant dev server and small production bundles.
+- **Hosting:** Static hosting with preview deploys — Every pull request gets a link.
+- **Package manager:** pnpm ^9 — Fast, strict installs.
+- **Testing:** Vitest ^3 — Fast unit and component tests that share the build config.
+- **Testing:** Testing Library ^16 — Tests query by role and label, like users and assistive tech do.
+- **Testing:** Playwright ^1.48 — Journey tests in real browsers, with the accessibility audit built in.
+
+## Commands
+- dev: `pnpm dev`
+- e2e: `pnpm test:e2e`
+- lint: `pnpm lint && pnpm typecheck`
+- test: `pnpm test`
+- build: `pnpm build`
+- install: `pnpm install`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+- Every component accepts className last and forwards refs. _(Composable without wrapper divs.)_
+- Variants come from a typed variant map, never boolean prop soup. _(Matches the design skill’s variants and keeps props readable.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Server state only through query hooks in src/features/*/api.ts. _(One place to cache, retry and invalidate.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+
+### Performance
+- Lazy-load each route; keep third-party scripts out of the first load. _(Holds the 170KB per-route budget.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+- Focus moves to the page heading on route change. _(Screen-reader users hear where they are.)_
+
+## Do
+- Read colours, radii and spacing from Tailwind theme keys generated from tokens
+- Co-locate a component’s test and story with it
+- Write the journey spec before the feature, from the experience skill’s steps
+
+## Don't
+- Add a global state library before two features need the same client state
+- Use arbitrary Tailwind values like [#3b3be0] or [13px]
+- Disable a lint rule without a comment explaining why
+
+## From design skills
+When a Celestial design skill is in use, write its tokens as Tailwind theme in `src/styles/tokens.css`, and build its components in `src/components` with the same names and variants. Components read tokens only — no raw colours, sizes or font names.

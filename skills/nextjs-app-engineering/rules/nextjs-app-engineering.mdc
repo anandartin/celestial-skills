@@ -1,0 +1,68 @@
+---
+description: Next.js full-stack app — stack conventions and quality gates
+globs:
+alwaysApply: true
+---
+
+- **Language:** TypeScript ^5.6 — One type system across server components, server actions and client components.
+- **Framework:** Next.js (App Router) on React ^16 · React ^19 — Server rendering, streaming, routing and server actions in one framework.
+- **Styling:** Tailwind CSS ^4 — Theme generated from design tokens; works in server and client components alike.
+- **State:** Server components + URL search params; client state local to leaf components — Most state lives on the server or in the URL, so it survives refresh and sharing.
+- **Data:** Typed data layer (Drizzle ORM on PostgreSQL) called only from server code Drizzle 0.x · PostgreSQL 16+ — Queries stay on the server; the schema doubles as the type source.
+- **Build:** Next.js compiler (Turbopack) bundled with Next.js — Fast dev rebuilds and per-route production bundles with no extra config.
+- **Hosting:** Node or edge runtime host with preview deploys Node 22 LTS+ — Server actions and streaming need a server; every pull request gets a link.
+- **Package manager:** pnpm ^10 — Fast, strict installs with a lockfile CI can trust.
+- **Testing:** Vitest ^3 — Fast unit tests for data functions, validators and client components.
+- **Testing:** Testing Library ^16 — Component tests query by role and label.
+- **Testing:** Playwright ^1.50 — Journey tests against a production build, including server actions and streaming.
+
+## Commands
+- dev: `pnpm dev`
+- e2e: `pnpm build && pnpm test:e2e`
+- lint: `pnpm lint && pnpm typecheck`
+- test: `pnpm test`
+- build: `pnpm build`
+- install: `pnpm install`
+
+## Conventions
+### Code
+- Prefer small, pure functions and explicit types at module boundaries. _(Easier to test, review and change.)_
+
+### Components
+- Components read design tokens; no raw hex values, pixel sizes or font names in component code. _(One token change restyles the product.)_
+- Components are server components unless they need state, effects or browser APIs; put 'use client' on the smallest leaf that does. _(Every client boundary pulls its imports into the browser bundle.)_
+
+### Data
+- Analytics events are object_action in snake_case and come from the experience skill’s measures. _(Names stay consistent across teams and tools.)_
+- Read data in server components through src/features/*/queries.ts; after a mutation, revalidate the exact path or tag it changed. _(One place to see what is cached and why a screen is stale.)_
+
+### Errors
+- Every async action has loading, empty, error and success states, matching the experience skill. _(Unhandled states are where users get stuck.)_
+- Every route segment that fetches has loading.tsx and error.tsx; missing records call notFound(). _(Streaming shows progress, and failures stay inside the segment instead of blanking the page.)_
+
+### Security
+- Secrets never live in the repository; read them from the environment or a secret store. _(A leaked key outlives the commit that removed it.)_
+- Validate every input on the server, even when the client already did. _(Clients can be bypassed.)_
+- Web pages ship a Content-Security-Policy, HSTS, X-Frame-Options and nosniff. _(Cheap protection against the most common attacks.)_
+- Every server action parses its input with a schema and checks the session before touching data. _(Server actions are public HTTP endpoints, whatever the UI shows.)_
+- Modules under src/server/ import 'server-only'; only NEXT_PUBLIC_ variables may be read in client code, and none of them hold secrets. _(The build fails instead of leaking a database client or key to the browser.)_
+
+### Performance
+- Images go through next/image with explicit sizes; fonts through next/font; third-party scripts load after interaction. _(Protects LCP and CLS without hand-tuning each page.)_
+
+### Accessibility
+- Use native elements first; add ARIA only when no native element fits. _(Native controls bring keyboard and screen-reader support for free.)_
+- Each page exports metadata with a unique title, and every page has exactly one h1. _(The route announcer reads the title, so screen-reader users hear where they landed.)_
+
+## Do
+- Pass server data to client components as plain serialisable props
+- Keep filters, sort order and pagination in search params so views can be shared
+- Use useActionState or form status for pending and error states on forms
+
+## Don't
+- Fetch your own route handlers from server components; call the query function directly
+- Mark a layout or page 'use client' to fix one interactive widget
+- Rely on default caching behaviour without stating the cache or revalidate choice in code
+
+## From design skills
+When a Celestial design skill is in use, write its tokens as Tailwind theme in `src/styles/tokens.css`, and build its components in `src/components` with the same names and variants. Components read tokens only — no raw colours, sizes or font names.

@@ -1,0 +1,38 @@
+# AGENTS.md — LLM features and evals
+
+Build features on large language models with versioned prompts, an evaluation set that gates every change, guardrails and cost and latency budgets, so quality is measured instead of hoped for.
+
+## How to do it
+1. **Define the task and success** — Write what the feature must produce, for which inputs, and how a good answer differs from a bad one. Turn that into measurable criteria: exact match, schema validity, rubric score or human rating.
+2. **Build an evaluation set first** — Collect 30 to 100 realistic inputs, including edge cases, adversarial inputs and known past failures, each with an expected output or grading rubric. Store it in the repository.
+3. **Keep prompts as versioned code** — Store prompts in files next to the code with variables for inputs, review them in pull requests, and log the prompt version with every request.
+4. **Constrain the output** — Ask for structured output against a schema, validate it in code, and handle invalid responses with one retry and then a defined fallback.
+5. **Add guardrails** — Treat model output as untrusted input: validate, escape and authorise before acting on it. Separate system instructions from user content, limit which tools the model may call, and filter for unsafe content where the domain requires.
+6. **Set cost and latency budgets** — Set a maximum tokens per request, cost per request and p95 latency. Choose the smallest model that passes the evals, cache repeated context, and stream responses where users wait.
+7. **Gate changes on evals** — Run the evaluation set in CI on every prompt, model or parameter change and compare against the last accepted baseline. Block merges that drop the score beyond the agreed tolerance.
+8. **Monitor in production** — Log inputs, outputs, prompt version, tokens, cost and latency with personal data removed. Sample outputs for review and add real failures to the evaluation set.
+
+## Checklist (before a pull request)
+- [ ] An evaluation set with edge and adversarial cases lives in the repository
+- [ ] The eval score meets the baseline for the current prompt and model
+- [ ] Prompts are versioned files and the version is logged per request
+- [ ] Model output is schema-validated and never executed or rendered unescaped
+- [ ] Cost per request and p95 latency are within the stated budgets
+- [ ] A fallback exists for model errors, timeouts and invalid output
+- [ ] API keys come from environment variables or a secret store
+
+## Rules
+- Treat everything the model returns, and everything it reads from users or documents, as untrusted. _(Prompt injection turns any text the model sees into a possible instruction.)_
+- Give model-driven tools the narrowest permissions and require confirmation for irreversible actions. _(A misled model can only do damage its tools allow.)_
+- Remove or mask personal data before logging prompts and outputs. _(Logs are retained and widely accessible.)_
+- Enforce a timeout and maximum output tokens on every model call. _(Unbounded calls create unbounded cost and hung requests.)_
+- Show a clear, honest state when the model fails or is unsure, and let the user retry or continue without it. _(Users need a way forward when generation fails.)_
+- Never change a prompt, model or temperature without re-running the evaluation set. _(Small wording changes can shift behaviour across many inputs.)_
+
+## Checks
+| Gate | Tool | Threshold | When |
+|---|---|---|---|
+| Eval regression | Evaluation harness in CI | Score at or above baseline minus 2 points; 0 schema failures; 0 safety failures | Every pull request changing a prompt, model or parameter |
+| Cost and latency budget | Eval run metrics | Mean cost and p95 latency per request within the feature's stated budget | Every pull request changing a prompt, model or parameter |
+
+_Generated from the Celestial engineering practice “LLM features and evals”._
