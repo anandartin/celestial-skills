@@ -1,0 +1,49 @@
+name: Sync skills from celestialskill.com
+
+# Runs when the site publishes, changes, unpublishes or deletes a public skill (repository_dispatch from the Worker),
+# every six hours as a backstop, and on demand from the Actions tab.
+on:
+  repository_dispatch:
+    types: [skills-changed]
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# several publishes in a row collapse into one run
+concurrency:
+  group: sync-skills
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install the exporter
+        working-directory: .github/sync
+        run: npm install --no-audit --no-fund
+
+      - name: Export the public library
+        run: node .github/sync/export.mjs .
+
+      - name: Commit changes
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Already up to date."
+            exit 0
+          fi
+          git config user.name "celestial-sync[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          changed="$(git diff --cached --name-only -- skills | cut -d/ -f2 | sort -u | head -20 | paste -sd ',' - | sed 's/,/, /g')"
+          git commit -m "Sync skills from celestialskill.com" -m "Changed: ${changed:-catalogue only}" -m "Triggered by: ${{ github.event_name }}"
+          git push

@@ -157,7 +157,7 @@ How it is built and shipped.
 
 ## Contributing
 
-The skills are written and reviewed on [celestialskill.com](https://celestialskill.com), and this repository is regenerated from there. To suggest a change, open an issue, or create or remix a skill on the site and request publishing.
+The skills are written and reviewed on [celestialskill.com](https://celestialskill.com). This repository updates itself from there: a skill appears here within minutes of being published on the site, and the full set is re-checked every six hours. Please don't edit `skills/` by hand — changes are overwritten. To suggest a change, open an issue, or create or remix a skill on the site and request publishing.
 
 ## Licence
 
