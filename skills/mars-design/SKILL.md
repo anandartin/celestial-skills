@@ -76,7 +76,7 @@ Tone of voice: plain, declarative, first-person plural ("Mars reads the whole th
   --mars-error:        #c41c1c;
   --mars-positive:     #407f41;
   --mars-warning:      #7e6c2f;
-  --mars-negative:     #b34b4b;
+  --mars-negative:     #c41c1c;
 }
 ```
 
@@ -288,7 +288,7 @@ Mars applies to every output. When asked for a deck, a document, a report, an em
 | Line | `#838280` | Rules, borders, chart gridlines |
 | Accent | `#ff5600` | One highlight per slide or page (stat numbers) |
 | On accent | `#111111` | Text on the accent |
-| Success / warning / error | `#1f8a4c / #b86e00 / #c62f2f` | Status only, never decoration |
+| Success / warning / error | `#407f41 / #7e6c2f / #c41c1c` | Status only, never decoration |
 
 ### Type
 - Headlines: **IBM Plex Serif**, weight 300, tracking -.01em.
@@ -418,16 +418,14 @@ Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obso
 | focus ring | `#000ce1` on `#faf9f6` | 9.32:1 | 3:1 | Pass |
 | focus ring | `#000ce1` on `#f1eee9` | 8.48:1 | 3:1 | Pass |
 | input border · field border | `#838280` on `#faf9f6` | 3.65:1 | 3:1 | Pass |
-| SKILL.md: secondary text | `#313130` on `#faf9f6` | 12.37:1 | 4.5:1 | Pass |
-| SKILL.md: secondary text | `#313130` on `#f1eee9` | 11.25:1 | 4.5:1 | Pass |
-| SKILL.md: error · as an icon | `#c41c1c` on `#faf9f6` | 5.65:1 | 3:1 | Pass |
-| SKILL.md: error · as text | `#c41c1c` on `#faf9f6` | 5.65:1 | 4.5:1 | Pass |
-| SKILL.md: positive · as an icon | `#407f41` on `#faf9f6` | 4.61:1 | 3:1 | Pass |
-| SKILL.md: positive · as text | `#407f41` on `#faf9f6` | 4.61:1 | 4.5:1 | Pass |
-| SKILL.md: warning · as an icon | `#7e6c2f` on `#faf9f6` | 4.90:1 | 3:1 | Pass |
-| SKILL.md: warning · as text | `#7e6c2f` on `#faf9f6` | 4.90:1 | 4.5:1 | Pass |
-| SKILL.md: negative · as an icon | `#b34b4b` on `#faf9f6` | 4.96:1 | 3:1 | Pass |
-| SKILL.md: negative · as text | `#b34b4b` on `#faf9f6` | 4.96:1 | 4.5:1 | Pass |
+| body text | `#313130` on `#faf9f6` | 12.37:1 | 4.5:1 | Pass |
+| body text | `#313130` on `#f1eee9` | 11.25:1 | 4.5:1 | Pass |
+| error · as an icon | `#c41c1c` on `#faf9f6` | 5.65:1 | 3:1 | Pass |
+| error · as text | `#c41c1c` on `#faf9f6` | 5.65:1 | 4.5:1 | Pass |
+| warning · as an icon | `#7e6c2f` on `#faf9f6` | 4.90:1 | 3:1 | Pass |
+| warning · as text | `#7e6c2f` on `#faf9f6` | 4.90:1 | 4.5:1 | Pass |
+| success · as an icon | `#407f41` on `#faf9f6` | 4.61:1 | 3:1 | Pass |
+| success · as text | `#407f41` on `#faf9f6` | 4.61:1 | 4.5:1 | Pass |
 | Primary button label | `#ffffff` on `#d14700` | 4.55:1 | 4.5:1 | Pass |
 | Primary button label · hover | `#ffffff` on `#b03c00` | 6.01:1 | 4.5:1 | Pass |
 | Focus ring | `#000ce1` on `#faf9f6` | 9.32:1 | 3:1 | Pass |
@@ -593,15 +591,15 @@ A value outside its class is an override: allowed only with a written reason in 
   "status": {
     "success": {
       "$type": "color",
-      "$value": "#1f8a4c"
+      "$value": "#407f41"
     },
     "warning": {
       "$type": "color",
-      "$value": "#b86e00"
+      "$value": "#7e6c2f"
     },
     "error": {
       "$type": "color",
-      "$value": "#c62f2f"
+      "$value": "#c41c1c"
     }
   },
   "font": {
