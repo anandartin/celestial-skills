@@ -285,7 +285,7 @@ Mars applies to every output. When asked for a deck, a document, a report, an em
 | Ink | `#000000` | Headlines and body text |
 | Ink 2 | `#464645` | Secondary text |
 | Muted | `#646462` | Captions, footers, axis labels |
-| Line | `#dad9d6` | Rules, borders, chart gridlines |
+| Line | `#838280` | Rules, borders, chart gridlines |
 | Accent | `#ff5600` | One highlight per slide or page (stat numbers) |
 | On accent | `#111111` | Text on the accent |
 | Success / warning / error | `#1f8a4c / #b86e00 / #c62f2f` | Status only, never decoration |
@@ -313,21 +313,21 @@ Every Mars output carries the logo — never just the name typed out. Use the SV
 - **Title slide**: background `#faf9f6`; headline in IBM Plex Serif 54–64 pt, ink; one-line subtitle in Inter 20 pt, muted; the logo at the top left with clear space equal to its own height.
 - **Section divider**: full-bleed `#f1eee9` (or `#000000` with `#ffffff` text); section number in Geist Mono.
 - **Content slide**: title in IBM Plex Serif 32–40 pt; body Inter 18–24 pt, max six bullets; one accent highlight at most.
-- **Shapes and cards**: fill `#f1eee9`, 1 pt `#dad9d6` border, corner radius 12px (about 0.13 in).
-- **Charts**: series in the accent order above; gridlines `#dad9d6`; labels `#646462`; no 3-D, no gradients.
+- **Shapes and cards**: fill `#f1eee9`, 1 pt `#838280` border, corner radius 12px (about 0.13 in).
+- **Charts**: series in the accent order above; gridlines `#838280`; labels `#646462`; no 3-D, no gradients.
 - **Footer**: Geist Mono 10 pt in `#646462`: Mars · title · page number.
 - When generating .pptx with code (e.g. python-pptx), write these colours and fonts into the theme and master first, then add slides from the master.
 
 ### Documents and PDF reports (Word, Google Docs, PDF)
 - Page `#faf9f6`, text `#000000`. H1 IBM Plex Serif 28 pt, H2 20 pt, H3 15 pt; body Inter 11 pt, line spacing 1.5.
-- Table header row `#f1eee9`, 1 pt `#dad9d6` rules, numbers right-aligned in Geist Mono.
+- Table header row `#f1eee9`, 1 pt `#838280` rules, numbers right-aligned in Geist Mono.
 - Callouts: `#f1eee9` box with a 3 pt left rule in `#ff5600`.
 - Cover page: logo, title in IBM Plex Serif, date and owner in Geist Mono.
 
 ### Email, social and diagrams
 - Email: 600 px column on `#faf9f6`; one primary button in `#d14700` with `#ffffff` text, 4px corners.
 - Social: square 1080 × 1080 or 1200 × 628; headline in IBM Plex Serif; accent used once; logo bottom-left.
-- Diagrams: nodes `#f1eee9` with `#dad9d6` borders and 12px corners; connectors `#646462`; the one emphasised node in `#ff5600`.
+- Diagrams: nodes `#f1eee9` with `#838280` borders and 12px corners; connectors `#646462`; the one emphasised node in `#ff5600`.
 
 
 ## Brand assets
@@ -470,7 +470,7 @@ A value outside its class is an override: allowed only with a written reason in 
   "line": {
     "default": {
       "$type": "color",
-      "$value": "#dad9d6"
+      "$value": "#838280"
     },
     "width": {
       "$type": "dimension",
