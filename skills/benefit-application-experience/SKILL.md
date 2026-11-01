@@ -81,18 +81,36 @@ Inputs: Touch, Camera for document photos, Screen reader, Keyboard
 
 - Max 6 questions, no account needed
 - Result says “you may be able to get” never “you will get”
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the page heading; Tab goes through the start button, then each eligibility question in order, and every choice works with arrow keys.
+  - Announced (A11Y-S1): Title reads “Check if you can apply”; each question is a labelled group, and the result is announced politely, saying “you may be able to get” the benefit.
+  - Errors (A11Y-E1): If an answer is missing, the error is written beside the question, linked to it, and earlier answers are kept; no account is needed.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Keep sentences short, say about 30 minutes in full, and say “may be able to get”, never “will get”.
 
 ### 2. Sign in
 
 - Offer email or phone code; no complex password rules
 - Explain the save period before starting
 - **error:** That code has expired. We've sent a new one
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the sign-in heading; the email or phone field comes first, then Send code. Pasting the code, password managers and autofill (one-time-code) work, and there is no puzzle or memory test.
+  - Announced (A11Y-S1): Title reads “Sign in to save your application”; “We've sent a code” is announced politely and the 28-day save period is read before the field.
+  - Errors (A11Y-E1): An expired or wrong code is explained in text beside the field, a new one is sent, and the email or phone number typed is kept.
+  - Time limits (A11Y-W1): Codes expire; the person is told the expiry time in the text and can request a new code at any time, with no countdown that blocks them.
+  - Language (A11Y-L1): Explain that the application is kept for 28 days and avoid terms like “authenticate”; say “code” and “email address”.
 
 ### 3. Your answers
 
 - One question per page for money and household questions
 - Help text explains terms in place: what counts as household
 - **error:** Enter an amount in pounds, for example 120.50
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the question heading, with one question per page; Tab goes to the choices, then Continue and Back, and Back keeps the answer.
+  - Announced (A11Y-S1): Each page has its own title and the question is an h1 or legend; saved answers are announced politely as “Saved”.
+  - Errors (A11Y-E1): An amount error such as “Enter an amount in pounds, for example 120.50” sits beside the field, is linked to it, listed in a summary, and the typed value is kept.
+  - Time limits (A11Y-W1): Session warning appears at 25 minutes idle, at least 20 seconds before it ends, and one key press extends it; answers are autosaved.
+  - Language (A11Y-L1): Explain terms such as “household” in place with help text, keep sentences short, and write amounts with the pound sign in full.
 
 ### 4. Evidence
 
@@ -100,16 +118,34 @@ Inputs: Touch, Camera for document photos, Screen reader, Keyboard
 - Show a preview and let the applicant replace a blurry photo
 - **error:** This photo is hard to read. Try again in good light
 - **loading:** Uploading 1 of 3…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Evidence heading; Tab goes to a native Choose file button for each document, then Replace and Remove, and drag and drop is never required.
+  - Announced (A11Y-S1): Upload progress such as “Uploading 1 of 3” is announced politely; a failed upload is announced assertively, and the preview has a text alternative naming the file.
+  - Errors (A11Y-E1): A hard-to-read photo is flagged in text beside that file, linked from the summary, with a Replace button; the other uploaded files stay.
+  - Time limits (A11Y-W1): Session warning at 25 minutes idle, at least 20 seconds before it ends, with an Extend button; uploads continue and work is never lost.
+  - Language (A11Y-L1): List the exact documents that fit, such as “a payslip from the last 2 months”, and avoid terms like “proof of income” without explaining them.
 
 ### 5. Check answers
 
 - Every answer has a Change link back to its question
 - Declaration in plain words, with consequences stated
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Check your answers heading; Tab goes through each answer's Change link, then the declaration checkbox and the Submit button, in reading order.
+  - Announced (A11Y-S1): Each Change link has a hidden name such as “Change answer: who lives with you”; the declaration is read in full before Submit.
+  - Errors (A11Y-E1): If the declaration box is unticked, the error is written beside it and linked from a summary; nothing is lost, and every answer can be corrected through its Change link before submitting.
+  - Time limits (A11Y-W1): Session warning at 25 minutes idle, at least 20 seconds before it ends, with an Extend button; no answer is lost.
+  - Language (A11Y-L1): State the consequences of a false declaration in plain words and avoid legal phrasing.
 
 ### 6. Submitted
 
 - Reference number, decision timescale and what may happen next
 - How to report a change of circumstances
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the “Application sent” heading; Tab reaches the print or save link, then how to report a change, in that order.
+  - Announced (A11Y-S1): The confirmation is announced politely with the reference number, which is also in text that can be copied, and the decision time of 4 weeks.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the reference number and “within 4 weeks” in full, and say what may happen next in short sentences.
 
 ---
 
@@ -133,7 +169,9 @@ Inputs: Touch, Camera for document photos, Screen reader, Keyboard
 - Use “fraud” language in neutral help text
 - End the session without warning and a way to extend
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-W1: A session warning appears at 25 minutes idle, at least 20 seconds before it ends, with an Extend control, and no work is lost.
 - A11Y-E1: An error summary at the top receives focus on submit and links to each field; each field also shows its error in text beside it, and answers are kept.
@@ -142,6 +180,8 @@ Inputs: Touch, Camera for document photos, Screen reader, Keyboard
 - A11Y-L1: Questions use short sentences and plain terms, with help text in place and no walls of text, for readers with dyslexia.
 - A11Y-E3: The Check answers step lets the applicant change any answer through its own Change link before the declaration is submitted.
 - A11Y-H1: Help and contact details appear in the same place on every step, with save-and-return shown at each one.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

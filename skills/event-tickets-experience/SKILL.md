@@ -82,12 +82,24 @@ Inputs: Touch, Keyboard, Screen reader
 - Safe to close the tab: place held for 10 minutes
 - **error:** Connection lost. Your place is held until 20:14. Reopen this page to continue.
 - **loading:** Reconnecting — your place is saved
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the queue heading; a Leave and return later button and the position text are the only controls, and no keys are needed to stay in the queue.
+  - Announced (A11Y-S1): Position and estimate are announced politely at most once a minute, such as "Number 4,120, about 12 minutes"; a lost connection is announced assertively.
+  - Errors (A11Y-E1): The connection-lost message is text with the held-until time and a reopen button; the place is saved so nothing is lost.
+  - Time limits (A11Y-W1): The place is held for 10 minutes after closing; a warning appears at least 20 seconds before it ends, with a button to keep the place.
+  - Language (A11Y-L1): State the held-until time in full, such as "until 8:14 pm", and explain the queue in one short sentence.
 
 ### 2. Ticket needs
 
 - Access options on the same screen as ticket count
 - Companion seat shown with its price
 - **empty:** No wheelchair spaces left at this price. 2 available in Section C at £58.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the ticket count; counts are native steppers with plus and minus buttons, access options are checkboxes on the same screen, and the companion seat price is next to its option.
+  - Announced (A11Y-S1): Title "Ticket needs" is read; each change announces "1 wheelchair space, 1 companion seat" and the new total politely.
+  - Errors (A11Y-E1): When no wheelchair spaces remain, the message is text beside the options, with the alternative section and price; choices are kept.
+  - Time limits (A11Y-W1): No time limit on this step; the hold timer starts only when seats are chosen.
+  - Language (A11Y-L1): Say "wheelchair space" and "companion seat" plainly, and give each price in pounds in full.
 
 ### 3. Choose seats
 
@@ -95,17 +107,35 @@ Inputs: Touch, Keyboard, Screen reader
 - Step-free route and view notes per section
 - **error:** These seats were just taken. Here are the 3 closest pairs.
 - **loading:** Loading seats — list view available now
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the view toggle; the list view is the default for keyboard users, sortable by price and section, and every seat is a native button reachable in order. The map has arrow-key movement and the same list as a full alternative.
+  - Announced (A11Y-S1): Each seat reads "Section C, row 4, seats 11 to 12, 58 pounds each including fees, step-free route"; loading is announced politely, and taken seats are announced assertively.
+  - Errors (A11Y-E1): If seats are taken, the message in text names the seats and lists the closest three pairs; the person's filters and view are kept.
+  - Time limits (A11Y-W1): No hold yet. The seat hold timer begins at the next step, and the screen states its length first.
+  - Language (A11Y-L1): Include fees in every price, and describe step-free routes in short plain sentences rather than symbols alone.
 
 ### 4. Pay
 
 - Timer visible with one extension of at least 2 minutes
 - Total identical to the seat price shown earlier
 - **error:** Payment declined. Your seats are held for 3 more minutes.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the total and timer, then the payment fields; pasting and autofill work in card fields, and the Pay button follows a review of seats and total.
+  - Announced (A11Y-S1): The total is read first; the timer is announced politely at 2 minutes and 30 seconds, and a declined payment is announced assertively with focus on the message.
+  - Errors (A11Y-E1): A decline is stated in text beside the card fields with the remaining hold time, card details are kept, and a review of seats and total comes before Pay.
+  - Time limits (A11Y-W1): The hold is 8 minutes; a warning appears at least 20 seconds before the end, with an Extend button giving at least 2 more minutes, used once.
+  - Language (A11Y-L1): Show the timer as minutes and seconds in words, and the total in pounds in full, identical to the seat price.
 
 ### 5. Tickets
 
 - Tickets in account and wallet, with offline access
 - Accessible entrance, parking and contact details included
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the "You're going" heading; links to tickets, wallet and access information follow in that order.
+  - Announced (A11Y-S1): "You're going" is read as the heading, then the number of tickets, entry time and gate; "Tickets added" is announced politely.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the entry time and gate in full, such as "6:30 pm at Gate B, step-free", and explain any wallet term.
 
 ---
 
@@ -129,7 +159,9 @@ Inputs: Touch, Keyboard, Screen reader
 - Restart someone’s queue place because they refreshed
 - Require phone calls to book accessible seating
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-W1: The seat hold timer warns at least 20 seconds before expiry and can be extended at least once by a simple action
 - A11Y-K1: The seat map has a list alternative, sortable by price and section, and every seat can be chosen by keyboard without dragging
@@ -138,6 +170,8 @@ Inputs: Touch, Keyboard, Screen reader
 - A11Y-E3: Pay shows seats and an all-in total identical to the earlier price before payment, and a decline keeps the seats and shows time left
 - A11Y-E1: Taken seats and declined payments are named in text beside the control, with choices kept
 - A11Y-H1: Access information and help stay in the same place on every step
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

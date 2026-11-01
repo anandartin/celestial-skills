@@ -80,27 +80,57 @@ Inputs: Touch, Voice dictation, Screen reader
 - Plain-language categories, not clinical codes
 - Urgent-symptoms link on every screen
 - **empty:** No times this week — offer the earliest date and a call-back
+- **Accessibility:**
+  - Keyboard (A11Y-K1): On native mobile, VoiceOver or TalkBack focus starts at the screen title, then categories in visual order; the urgent-symptoms link is last and reachable by switch access.
+  - Announced (A11Y-S1): Title "Find an appointment" is read first; each category reads its plain name and a politely announced count follows when filters change.
+  - Errors (A11Y-E1): A filter that returns nothing is explained in text beside it, with the earliest date and a call-back offered; chosen filters are kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Use everyday words such as "a check-up" instead of clinical codes, and keep the urgent-symptoms wording the same on every screen.
 
 ### 2. Choose a time
 
 - Times grouped by morning / afternoon
 - Location and travel shown with each slot
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first slot heading; slots are grouped under morning and afternoon headings, and each slot is one large target reachable in order by switch access.
+  - Announced (A11Y-S1): Each slot reads as a full date, such as "Tuesday 14 October, 10:40 am, Riverside Clinic, 12 minutes by bus", and the selected slot is announced politely.
+  - Errors (A11Y-E1): If a slot is taken, the message names it beside the list and offers the nearest times; the person's filters are kept.
+  - Time limits (A11Y-W1): No time limit. The slot is not held until confirmed, and the screen says so.
+  - Language (A11Y-L1): Write dates in full with the weekday, use 12-hour times with am or pm, and describe travel in minutes.
 
 ### 3. Your details
 
 - “Booking for someone else?” as a clear choice
 - Pre-fill from the account; ask only what is missing
 - **error:** Explain the fix in plain words; never clear fields
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first unanswered field; fields follow reading order, "Booking for someone else?" is a clear radio choice, and fields can be filled by dictation.
+  - Announced (A11Y-S1): Title "Your details" is read; each field reads its visible label and required state, and an error summary is announced assertively.
+  - Errors (A11Y-E1): Each error is written in plain words beside the field and linked to it, listed in a summary at the top, and nothing typed is ever cleared.
+  - Time limits (A11Y-W1): No time limit; progress is kept if the app is closed.
+  - Language (A11Y-L1): Ask for things in plain words, say why each detail is needed, and avoid terms such as "registrant".
 
 ### 4. Confirm
 
 - Date, time, place and clinician in large text
 - Add to calendar and change / cancel in one tap
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the "You're booked" heading; Add to calendar, Change and Cancel are separate large buttons in that order, each reachable by switch access.
+  - Announced (A11Y-S1): "You're booked" is read as the heading, followed by the full date, time, place and clinician; saved to calendar is announced politely.
+  - Errors (A11Y-E1): Cancel opens a confirm step that restates the appointment and offers undo; Change keeps the existing booking until a new one is confirmed.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Keep the date, time, place and clinician as short labelled lines in full words, not abbreviations.
 
 ### 5. Reminder
 
 - Reminder has Confirm, Change and Cancel actions
 - Directions and what to bring
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Opening the reminder places focus on the heading; Confirm, Change and Cancel are large separate buttons, and directions open as text first.
+  - Announced (A11Y-S1): The reminder is read as "Tomorrow, Tuesday 14 October, 10:40 am" with the three actions named; the chosen action is confirmed politely.
+  - Errors (A11Y-E1): Cancel asks for a confirm step first, and if the change fails the original appointment is kept and the reason given beside the action.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say "what to bring" as a plain list, and give directions as short steps rather than a map alone.
 
 ---
 
@@ -124,7 +154,9 @@ Inputs: Touch, Voice dictation, Screen reader
 - Hide the cancel option
 - Ask for symptoms in free text without triage guidance
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-C1: Text meets 7:1 contrast against its background and every non-text control meets 3:1, including in high contrast settings
 - A11Y-T1: Every control is at least 48px high and wide on mobile, with space between so a mild tremor does not cause a mis-tap
@@ -133,6 +165,8 @@ Inputs: Touch, Voice dictation, Screen reader
 - A11Y-C2: Slot availability is shown with text labels, never colour alone
 - A11Y-H1: The urgent-symptoms link sits in the same place on every screen
 - A11Y-E3: Cancel and change show a confirm step and can be undone from the confirmation
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

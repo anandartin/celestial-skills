@@ -79,6 +79,12 @@ Inputs: Touch, Keyboard, SMS reply
 
 - Lead with the day, not the carrier status
 - Link to tracking with no sign-in
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; the tracking link is the first link and works without sign-in, with the arrival day in the first line of the email or text.
+  - Announced (A11Y-S1): "Your order is on its way, arriving Wednesday 29 October" is the title or subject, read in full, and an SMS reads the same in plain text.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Lead with the day and write it in full, such as "Wednesday 29 October", without carrier terms.
 
 ### 2. Track
 
@@ -86,23 +92,47 @@ Inputs: Touch, Keyboard, SMS reply
 - Window narrows as the day goes on, with the time it was updated
 - **error:** We can’t reach the courier right now. Last update 09:12: Out for delivery.
 - **loading:** Show the last known stage with its time while refreshing
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the stage heading; the four stages are an ordered list with the current one marked in text, and Refresh is a normal button.
+  - Announced (A11Y-S1): "Stage 3 of 4, out for delivery, between 1 and 3 pm" is read, and changes are announced politely without moving focus.
+  - Errors (A11Y-E1): If the courier cannot be reached, the message says "Last update 9:12 am, out for delivery" in text, and the last known stage is kept visible.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the delivery window as full times, such as "between 1 and 3 pm", and name stages the same way each time.
 
 ### 3. Instructions
 
 - Options listed with what each means for liability
 - Changes allowed until the parcel is out for delivery
 - **error:** It’s too late to change this delivery. You can still pick it up from the depot.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first option; options are native radio buttons with the meaning for liability written under each, and Save follows a review of the choice.
+  - Announced (A11Y-S1): Title "Where to leave it" is read; each option reads its liability text, and the saved choice is announced politely.
+  - Errors (A11Y-E1): A too-late change is explained in text beside the options with a link to pick up from the depot; the chosen option is kept and the change can be undone until dispatch.
+  - Time limits (A11Y-W1): Changes are allowed until the parcel is out for delivery; the cut-off time is stated in full, with a warning at least 20 seconds before it.
+  - Language (A11Y-L1): Explain liability in a plain sentence and name each safe place in the same words as the confirmation.
 
 ### 4. Delay
 
 - Say why in plain words, the new date and the options
 - Offer cancel and refund if the promised date is missed
 - **empty:** No new date yet — we’ll text you by 6pm tomorrow
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the delay heading; the new date, reason and options follow in order, with Cancel and refund as a normal button after a confirm step.
+  - Announced (A11Y-S1): "Your parcel is delayed, new date Friday 31 October" is read as the heading, and a new date is announced politely.
+  - Errors (A11Y-E1): If no new date is known, the text says "we'll text you by 6 pm tomorrow" beside the status; a refund choice shows a confirm step first.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Give the reason in plain words and the new date in full, and avoid carrier terms.
 
 ### 5. Delivered
 
 - Show where it was left and the photo if taken
 - “I haven’t received it” route on the same screen
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the "Delivered" heading; the photo has alt text, and "I haven't received it" is a button on the same screen.
+  - Announced (A11Y-S1): "Delivered 2:22 pm, left with neighbour at number 12" is read as the heading, and the photo's alt text says where it was left.
+  - Errors (A11Y-E1): A report problem is named in text beside the field and linked to it; what was typed is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Give the time in full, such as "2:22 pm", and describe the place the parcel was left in plain words.
 
 ---
 
@@ -126,7 +156,9 @@ Inputs: Touch, Keyboard, SMS reply
 - Mark as delivered without saying where
 - Hide the cancel or refund option when a promise is missed
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-C2: Progress stages are an ordered list with the current stage marked in text, not colour only
 - A11Y-S1: Status changes on the page are announced in a polite live region without moving focus
@@ -135,6 +167,8 @@ Inputs: Touch, Keyboard, SMS reply
 - A11Y-R1: At 150% and 200% text the stage list and notices reflow without horizontal scrolling
 - A11Y-E1: Late changes and unreachable courier states are explained in text next to the control, keeping the choice made
 - A11Y-H1: The "I haven't received it" route sits in the same place on every step
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

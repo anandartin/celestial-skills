@@ -81,28 +81,58 @@ Inputs: Camera, Touch, Keyboard, Email forwarding of receipts
 - Read amount, date, merchant and tax; claimant confirms each
 - Low-confidence fields marked for checking
 - **error:** We couldn't read this receipt. Enter the details or retake the photo.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the camera button; Tab reaches the upload and manual-entry options, and each is one-handed reachable.
+  - Announced (A11Y-S1): Announces the step title, then the read amount and date as '£42.80 on 14 October' with a Yes or Edit choice; the read failure is assertive.
+  - Errors (A11Y-E1): If the receipt cannot be read, the message sits next to the form and offers manual entry or retake; any typed details stay.
+  - Time limits (A11Y-W1): No time limit; capture works offline and syncs later.
+  - Language (A11Y-L1): Write amounts and dates in full, such as £42.80 on 14 October, and say 'read' not 'scanned by AI'.
 
 ### 2. Submit
 
 - Policy limits shown before submission, not after
 - Required fields marked in text
 - **error:** Add a business purpose
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first field; the reason field is labelled and the Submit button is last, reachable by switch access.
+  - Announced (A11Y-S1): Announces the heading, the meal limit note as help text, and politely 'Claim submitted'.
+  - Errors (A11Y-E1): Errors such as 'Add a business purpose' sit next to the field with a link in a summary; the typed values stay.
+  - Time limits (A11Y-W1): No time limit; the draft is kept.
+  - Language (A11Y-L1): Say 'meal limit of £30' in full and explain why a reason is needed.
 
 ### 3. Approve
 
 - Receipt image, policy checks and history on one screen
 - Reject needs a reason; send back is separate from reject
 - **empty:** No claims waiting for you
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first claim; the Approve and Reject buttons are separate, with a gap, and the item opens by Enter.
+  - Announced (A11Y-S1): Announces 'Approve £42.80 for Keisha Brown?' with the buttons; the outcome is announced politely.
+  - Errors (A11Y-E1): Approving moves money, so a short confirm step or undo follows each decision, and a rejection asks for a reason that is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Name the claimant and write the amount in full; say 'Reject' rather than 'Decline with prejudice'.
 
 ### 4. Pay
 
 - Batch view with totals by currency and cost centre
 - Flags duplicates and policy exceptions
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the totals heading; the table has captions and header cells, and the flagged rows can be reached by Tab.
+  - Announced (A11Y-S1): Announces '18 claims, £2,140.55, 2 flagged' politely; flags are read as text.
+  - Errors (A11Y-E1): Flagged claims are marked with an icon and the word 'Flagged'; scheduling payment needs a review step before it is confirmed.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the total in pounds and pence and say 'flagged for review' in plain words.
 
 ### 5. Track
 
 - Stages: submitted, approved, scheduled, paid
 - Expected payment date shown once scheduled
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the status heading; steps in the tracker are a list with text status for each.
+  - Announced (A11Y-S1): Announces 'Approved by Omar, paid on Friday 24 October' politely when status changes.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the payment date in full with the weekday.
 
 ---
 
@@ -126,7 +156,9 @@ Inputs: Camera, Touch, Keyboard, Email forwarding of receipts
 - Reject without a reason
 - Show full bank details on screen
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-C2: Status uses text and icon, never colour alone (WCAG 1.4.1).
 - A11Y-K1: Camera capture has a manual-entry alternative and an upload option.
@@ -135,6 +167,8 @@ Inputs: Camera, Touch, Keyboard, Email forwarding of receipts
 - A11Y-E3: Approving and scheduling payment each have a confirm step or undo before money moves.
 - A11Y-E1: Errors are named in text next to the field and typed values are kept.
 - A11Y-T1: Primary actions are reachable one-handed in the lower half of the screen.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

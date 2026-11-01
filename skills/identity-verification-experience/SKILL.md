@@ -80,6 +80,12 @@ Inputs: Rear and front camera, Touch, File upload as fallback
 
 - Purpose, data kept, who checks it and for how long, in five lines
 - Explicit consent checkbox for biometric processing, with an alternative
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; the five lines are a list, consent is a native checkbox that is unticked, and a non-camera route is a link before Continue. Switch access reaches every control.
+  - Announced (A11Y-S1): Title "Why we check your identity" is read; the checkbox reads its full purpose and the alternative route is announced in order.
+  - Errors (A11Y-E1): If consent is missing, the message is text beside the checkbox and linked to it; nothing else is lost.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say "biometric" once with its meaning, and state the 30-day deletion in full words.
 
 ### 2. Document
 
@@ -87,24 +93,48 @@ Inputs: Rear and front camera, Touch, File upload as fallback
 - Show a preview and let them retake
 - **error:** Too much glare on the photo. Tilt the passport slightly and try again.
 - **loading:** Checking the photo is clear…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the instruction text; auto-capture runs, but a manual shutter button is always reachable in tab order and by switch access, with a preview and Retake after.
+  - Announced (A11Y-S1): Guidance is read from a polite live region, such as "Move the passport up", and the result is read; failures are announced assertively with no sound-only cues.
+  - Errors (A11Y-E1): A failed photo is explained in text beside the preview, such as glare, and Retake keeps the same document type chosen.
+  - Time limits (A11Y-W1): No time limit to start; if auto-capture waits, it tells the person and the shutter button stays available.
+  - Language (A11Y-L1): Name the document and the photo page in plain words and avoid terms such as "MRZ".
 
 ### 3. Selfie
 
 - Instructions as on-screen text and icons, with vibration as a cue
 - Tips for light and glasses; no time limit to start
 - **error:** We couldn't see your face clearly. Move closer to a light and try again.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the instruction text; a Start button is the first control, a manual alternative to head-turn prompts is offered, and a vibration with on-screen text marks each cue.
+  - Announced (A11Y-S1): Instructions are read from a polite live region and every cue is also text and an arrow icon with a label; errors are assertive.
+  - Errors (A11Y-E1): A failed selfie is explained in text with a suggested fix and Try again; nothing already captured is lost.
+  - Time limits (A11Y-W1): No time limit to start; once started, a pause option and a restart are offered.
+  - Language (A11Y-L1): Describe turning the head in short sentences with a picture alternative, and avoid the word "liveness".
 
 ### 4. Checking
 
 - Say how long it usually takes
 - Allow leaving the app; notify when done
 - **loading:** Checking your details…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading and stays; Leave and notify me is a native button, and the page needs no input.
+  - Announced (A11Y-S1): "Checking your details" is announced politely once, then the result is announced politely; a delay is stated in text.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): The check usually takes under 2 minutes; the person can leave and is notified, so nothing times out.
+  - Language (A11Y-L1): Say "usually under 2 minutes" in words, and say how they will be notified.
 
 ### 5. Outcome
 
 - Verified: go straight to the account
 - Not verified: plain reason category, retry and a human review option by chat or email
 - **error:** We couldn't verify your document automatically. A specialist will review it within 1 working day.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the outcome heading; the next action is a single button, and a human review by chat or email is a link in tab order.
+  - Announced (A11Y-S1): "You're verified" or "We couldn't verify your document" is read as the heading, with the reason and review time announced politely.
+  - Errors (A11Y-E1): A failed check gives a plain reason category in text, with Retry and Review by chat or email; the earlier uploads are kept.
+  - Time limits (A11Y-W1): The specialist review takes up to 1 working day; the person is told and notified, with no action needed.
+  - Language (A11Y-L1): Give the reason in a plain category and say "1 working day" in full.
 
 ---
 
@@ -128,7 +158,9 @@ Inputs: Rear and front camera, Touch, File upload as fallback
 - Show a raw rejection code or blame the person
 - Make the camera the only way to proceed
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-S1: Camera guidance is shown as text and announced through a polite live region for screen reader users
 - A11Y-C2: No information is given by sound alone; haptic and visual cues accompany every capture prompt
@@ -137,6 +169,8 @@ Inputs: Rear and front camera, Touch, File upload as fallback
 - A11Y-E1: Failed captures are explained in text with a fix, and earlier uploads are kept
 - A11Y-H1: Help by chat, email or text relay sits in the same place on every step
 - A11Y-L1: Consent text names each use of biometric data in plain sentences with an alternative
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

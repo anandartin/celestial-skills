@@ -104,6 +104,8 @@ When a Celestial experience skill is in use, give each journey one end-to-end te
 | Preview deploy | Hosting preview environment | A working preview link on the pull request | Every pull request |
 | Model evaluation | eval/run.py against the frozen holdout | Primary metric ≥ current production model; no slice drops more than 2 points | Before any artifact is promoted |
 
+The Accessibility gate checks Celestial accessibility core v1.0 (WCAG 2.2 AA); it can change tool but is never skipped. Automated: A11Y-C1, A11Y-F1, A11Y-N1, A11Y-S1, A11Y-P1 (partly). Manual pass before release: A11Y-K1, A11Y-R1, A11Y-M1, A11Y-E1, A11Y-L1 — keyboard-only run, screen reader on each journey step, 200% zoom and 320px width, reduced motion. Requirement IDs come from the design and experience skills this code builds.
+
 ## Workflow
 - Branching: Trunk-based for code; experiments on exp/ branches that merge only when a model ships.
 

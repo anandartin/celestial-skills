@@ -82,12 +82,24 @@ Inputs: Keyboard, Mouse, Screen magnifier, Screen reader
 - “Create report from this view” keeps current filters
 - Templates for common reports
 - **empty:** No reports yet. Start from a dashboard or a template
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; Create a report and the template options are native buttons reachable in order, no hover-only controls.
+  - Announced (A11Y-S1): Announces the page title and heading, then the options; the empty state is plain text.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'report' and 'template' in plain words.
 
 ### 2. Filters
 
 - Active filters shown as removable chips with text
 - Relative dates available: last full month
 - **empty:** No data for these filters. Try a wider date range
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first filter; date and depot controls are labelled, and the depot list is a checkbox group.
+  - Announced (A11Y-S1): Announces the current filter summary, 'Last full month, depots North, East', and politely the result count.
+  - Errors (A11Y-E1): An empty result is explained in text beside the filters, with a suggestion to widen the date range; chosen filters stay.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write date ranges in words, such as 1 to 30 September.
 
 ### 3. Build
 
@@ -95,23 +107,47 @@ Inputs: Keyboard, Mouse, Screen magnifier, Screen reader
 - Totals match the dashboard with the same filters
 - **error:** This query took too long. Try fewer depots or a shorter range
 - **loading:** Running query…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; the table has headers and a caption, and chart elements are reachable with a text table alternative.
+  - Announced (A11Y-S1): Announces 'Total cost £1,284,300, 4 depots' politely; 'Running query' is polite; timeouts are assertive.
+  - Errors (A11Y-E1): A timeout is explained next to the query with a fewer-depots suggestion; choices stay.
+  - Time limits (A11Y-W1): Queries stop after 60 seconds; the person is told in text at 40 seconds that it is taking long and can cancel or narrow it.
+  - Language (A11Y-L1): Write the total in pounds in full and explain chart terms in text.
 
 ### 4. Summary
 
 - AI draft labelled and editable; user approves before it's saved
 - Every figure in the summary links to its source table
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the draft summary; Edit and Accept are buttons in order, and the draft is a text area.
+  - Announced (A11Y-S1): Announces the heading, then the draft text, and 'Summary accepted' politely.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Keep summaries short, state 'costs rose 4 percent' and say it was drafted by a tool.
 
 ### 5. Share
 
 - Show what each recipient will see given their access
 - Warn before sharing outside the organisation
 - **error:** This email isn't in an approved domain
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the email field; added people are a list with Remove buttons.
+  - Announced (A11Y-S1): Announces the label, then each person's access in words, such as 'Kofi sees North depot only'; errors are assertive.
+  - Errors (A11Y-E1): The domain error sits beside the email field, linked to it, and the address stays; access is shown for review before sharing.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say what each person will see in plain words.
 
 ### 6. Schedule
 
 - Pick format, day, time and time zone
 - Show next send date and a run history
 - **error:** Last run failed: data source unavailable. We'll retry at 09:00
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; day, time and time zone are labelled controls, and Run now is separate.
+  - Announced (A11Y-S1): Announces the next export 'Monday 3 November, 08:00 GMT' politely; the failed run is assertive.
+  - Errors (A11Y-E1): The failed-run message is in text with the retry time, 09:00; schedule settings stay.
+  - Time limits (A11Y-W1): The retry time is stated in text, and a failed run can be retried or the schedule turned off.
+  - Language (A11Y-L1): Write times with the zone, such as 08:00 GMT, and the date in full.
 
 ---
 
@@ -135,7 +171,9 @@ Inputs: Keyboard, Mouse, Screen magnifier, Screen reader
 - Let sharing override data permissions
 - Hide controls behind hover
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-R1: The layout reflows at 400% and 320px width without horizontal scrolling for non-table content (WCAG 1.4.10).
 - A11Y-N1: Charts have text alternatives and a data table (WCAG 1.1.1).
@@ -144,6 +182,8 @@ Inputs: Keyboard, Mouse, Screen magnifier, Screen reader
 - A11Y-W1: Queries over 60 seconds show a warning and can be cancelled or narrowed.
 - A11Y-E3: Sharing and scheduling show what will happen for review before being saved, and can be turned off.
 - A11Y-E1: Share and filter errors are named in text beside the control and entries are kept.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

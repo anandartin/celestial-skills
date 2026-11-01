@@ -82,17 +82,35 @@ Inputs: Touch, Keyboard, Screen reader
 - Filter by hours per week, level and price
 - Each card shows total hours and total price
 - **empty:** No courses match all filters. Try removing “Under £100”
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus starts on the page heading; filter controls are native checkboxes and selects, results follow in a list, and Tab reaches each course card as one link.
+  - Announced (A11Y-S1): Title "Browse courses" is read; the result count, such as "12 courses match", is announced politely after each filter change.
+  - Errors (A11Y-E1): If no course matches, the text names the filter causing it and offers a button to remove it; selected filters are kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Show hours, weeks and total price in full, such as "4 hours a week for 6 weeks, 180 pounds", and explain level names.
 
 ### 2. Course
 
 - Syllabus, weekly workload and outcomes in plain words
 - Sample lesson playable before paying
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the course heading; the sample lesson player is a native video with keyboard controls, captions and a transcript link before the Enrol button.
+  - Announced (A11Y-S1): Title is the course name; the sample lesson's play, pause and caption state are announced, and the transcript is real text.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Describe the syllabus and weekly workload in plain words, and avoid course jargon in the outcomes.
 
 ### 3. Account
 
 - Email code or passkey; no forced social sign-in
 - Keep the chosen course visible
 - **error:** We couldn't send a code to that email. Check it and try again
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the email field with the chosen course shown above it; pasting, password managers and autofill work, the code field uses autocomplete="one-time-code", and a passkey or emailed code is offered with no puzzle or memory test.
+  - Announced (A11Y-S1): Title "Continue to enrol" is read; "Code sent" is announced politely and a failure to send is announced assertively.
+  - Errors (A11Y-E1): The send error is written in text beside the email field and linked to it, with the email address kept so only a fix is needed.
+  - Time limits (A11Y-W1): The emailed code stays valid for the time stated; a warning appears at least 20 seconds before it expires, with a button to send a new one.
+  - Language (A11Y-L1): Say "one-time code" once with its meaning, and tell the person what to do if the email does not arrive.
 
 ### 4. Pay
 
@@ -100,17 +118,35 @@ Inputs: Touch, Keyboard, Screen reader
 - Separate agreement if starting immediately ends the cooling-off period
 - **error:** Your bank declined the payment. No money was taken
 - **loading:** Confirming with your bank…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the total and refund terms before the card form; the hosted card fields are labelled and can be autofilled, and Pay sits after a separate agreement checkbox when needed.
+  - Announced (A11Y-S1): The total and refund terms are read before Pay; "Confirming with your bank" is announced politely, and a declined payment is announced assertively with focus moved to the message.
+  - Errors (A11Y-E1): A decline is explained in text next to the card fields with "No money was taken", fields are kept, and a review of the total comes before Pay.
+  - Time limits (A11Y-W1): The bank confirmation may take time; the person is told and can wait or cancel, with no hidden timer.
+  - Language (A11Y-L1): State "Pay 180 pounds" in full, explain the cooling-off period in a short sentence, and avoid the term "tokenised".
 
 ### 5. Enrolled
 
 - Receipt and refund terms emailed
 - One clear action: start lesson 1
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the "You're enrolled" heading; one primary Start lesson 1 button follows, then links to the receipt and refund terms.
+  - Announced (A11Y-S1): "You're enrolled" is read as a heading, followed by "Start lesson 1, it takes 12 minutes"; the emailed receipt is stated politely.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Keep one clear action and say the lesson length in minutes in full words.
 
 ### 6. First lesson
 
 - Captions and transcript available from the first second
 - Progress saved automatically, resume where left off
 - **loading:** Loading lesson…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the lesson heading, then the player; Space plays or pauses, captions toggle with a button, and a transcript is reachable in tab order; downloads for offline are a normal button.
+  - Announced (A11Y-S1): "Lesson 1 of 24" is read; "Loading lesson" and "Lesson complete" are announced politely, and saved progress is announced without moving focus.
+  - Errors (A11Y-E1): If the lesson fails to load, a text message with a retry button appears beside the player and progress already saved is kept.
+  - Time limits (A11Y-W1): No time limit; progress saves automatically and resumes where the person left off.
+  - Language (A11Y-L1): Keep progress wording simple, such as "Lesson 1 of 24 complete", and write the transcript in plain sentences.
 
 ---
 
@@ -134,7 +170,9 @@ Inputs: Touch, Keyboard, Screen reader
 - Pre-tick marketing consent at sign-up
 - Autoplay video with sound
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-K1: The video player controls are keyboard operable with visible focus, and captions can be toggled by keyboard
 - A11Y-N1: Captions and a transcript are available for all video from the first second, and the sample lesson has both
@@ -143,6 +181,8 @@ Inputs: Touch, Keyboard, Screen reader
 - A11Y-A1: Sign-in supports pasting, password managers and autofill, offers a passkey or emailed code, and has no puzzle or memory test
 - A11Y-T1: Touch targets are at least 44 by 44px on tablet
 - A11Y-S1: Lesson loading and progress saving are announced politely without moving focus
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

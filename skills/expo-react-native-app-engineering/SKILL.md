@@ -104,6 +104,8 @@ When a Celestial experience skill is in use, give each journey one end-to-end te
 | Performance budget | Lab measurement in CI | Web: LCP ≤ 2.5s · INP ≤ 200ms · CLS ≤ 0.1 · ≤ 170KB JS per route. Mobile: cold start ≤ 2s · 60fps scroll | Every pull request |
 | Dependency and secret scan | Dependency audit + secret scanner | No high or critical findings; no secrets | Every pull request and nightly |
 
+The Accessibility gate checks Celestial accessibility core v1.0 (WCAG 2.2 AA); it can change tool but is never skipped. Automated: A11Y-C1, A11Y-F1, A11Y-N1, A11Y-S1, A11Y-P1 (partly). Manual pass before release: A11Y-K1, A11Y-R1, A11Y-M1, A11Y-E1, A11Y-L1 — keyboard-only run, screen reader on each journey step, 200% zoom and 320px width, reduced motion. Requirement IDs come from the design and experience skills this code builds.
+
 ## Workflow
 - Branching: Trunk-based: short-lived branches off main, squash-merged within two days.
 

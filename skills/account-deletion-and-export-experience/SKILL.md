@@ -80,6 +80,12 @@ Inputs: Mouse and keyboard, Touch, Email link
 
 - Reachable from Settings in two taps
 - Explain both options side by side
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the page heading; the two options are separate links or buttons in reading order, each reachable in a single Tab.
+  - Announced (A11Y-S1): Announces the page title and heading, then the two options as a short list with their names and descriptions.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Describe each option in one short sentence and say 'close your account' rather than 'deactivate' or 'terminate'.
 
 ### 2. Export
 
@@ -87,23 +93,47 @@ Inputs: Mouse and keyboard, Touch, Email link
 - Formats named in plain words (photos as JPG, messages as HTML and JSON)
 - **error:** Something went wrong preparing part 2. We're retrying and will email you.
 - **loading:** Preparing your archive…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first category checkbox; Tab and Space toggle each category, and the request button comes last in order.
+  - Announced (A11Y-S1): Announces the step heading, each category as checked or not checked, and politely 'Preparing your archive' when requested; the part 2 failure is announced assertively.
+  - Errors (A11Y-E1): If part 2 fails, the message sits beside the archive status in text, and the ticked categories and formats stay as chosen; no data is lost.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Name formats in plain words, such as photos as JPG, and say 'a few hours' alongside the email promise.
 
 ### 3. Download
 
 - List parts with sizes and expiry
 - Require a fresh sign-in before download
 - **empty:** Your archive has expired. Request a new one.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; the table of parts is read by row with size and expiry, and each download button is a real link in order.
+  - Announced (A11Y-S1): Announces the heading, then '3 files ready, 4.2 gigabytes total, available until 2 November' as text; the status is polite, not colour only.
+  - Errors (A11Y-E1): If the archive has expired, the message and the request-a-new-one button sit together; a fresh sign-in prompt keeps the person's place and allows paste and password managers.
+  - Time limits (A11Y-W1): Download links expire after 7 days; the expiry date is written in full on the page and in the email, and a new archive can be requested at any time.
+  - Language (A11Y-L1): Write sizes as '4.2 gigabytes' and dates in full, such as 2 November, never only 'in 3 days'.
 
 ### 4. Close account
 
 - List what is deleted, what is kept and why, and the grace period
 - One confirmation, with password re-entry; no guilt copy
 - **error:** You have an active subscription. We'll cancel it and refund £3.20 for unused days.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; the consequences list is read first, then the confirm checkbox and the Close account button, with Cancel before it. Signing in to cancel works with paste, password managers and passkeys; there is no puzzle or memory test.
+  - Announced (A11Y-S1): Announces the heading, then the consequences as a list, then the confirm control; the subscription message is announced politely, not as an alert.
+  - Errors (A11Y-E1): The subscription notice is text above the button, naming the £3.20 refund; closing needs a separate confirm control and can be cancelled by signing in until 8 November.
+  - Time limits (A11Y-W1): The 8 November closing date is written in full on the page and in the email; the grace period can be used to cancel at any time.
+  - Language (A11Y-L1): Say plainly what is deleted and what is kept, and write '£3.20 refund for unused days' in full.
 
 ### 5. Closed
 
 - Confirmation email with reference and dates
 - Final notice sent when deletion completes
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the confirmation heading; the reference and a Cancel closure link follow in order.
+  - Announced (A11Y-S1): Announces 'Request received' as the heading, then the reference DL-48213 as plain text that can be copied.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): The grace period ends on 8 November; the date is written in full and repeated in the confirmation email.
+  - Language (A11Y-L1): Spell out the reference in groups and say how to cancel in one short sentence.
 
 ---
 
@@ -127,7 +157,9 @@ Inputs: Mouse and keyboard, Touch, Email link
 - Require a phone call to close an account
 - Release an export without re-confirming identity
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-P1: The close-account control is a native button reachable by keyboard and meets WCAG 2.2 AA.
 - A11Y-K1: The consequence list is a semantic list that is read before the confirm button in focus order.
@@ -136,6 +168,8 @@ Inputs: Mouse and keyboard, Touch, Email link
 - A11Y-E3: Closing the account needs an explicit confirm control and can be cancelled by signing in until the stated date.
 - A11Y-W1: Download and closing dates are stated in text and email; no step expires without a written date.
 - A11Y-R1: At 200% zoom and 320px width the hub, table and form reflow without horizontal scrolling.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

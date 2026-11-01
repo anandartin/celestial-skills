@@ -81,6 +81,12 @@ Inputs: Touch, Push notifications and SMS, Screen reader
 - Message states the cancelled service and the best option in one line
 - Link opens the options screen directly
 - **error:** If the link fails, the SMS includes a phone number and the ticket reference
+- **Accessibility:**
+  - Keyboard (A11Y-K1): On native mobile, VoiceOver or TalkBack reads the notification text first, then the Rebook link; the link opens the options screen directly, and switch access reaches it.
+  - Announced (A11Y-S1): The notice reads "Your 8:12 to Westbridge is cancelled, the 8:46 arrives 34 minutes later"; the SMS keeps key information in its first line.
+  - Errors (A11Y-E1): If the link fails, the SMS gives a phone number and ticket reference in plain text.
+  - Time limits (A11Y-W1): Seat availability changes quickly; the notice says how long seats are likely to last, and the person is warned at least 20 seconds before any hold ends.
+  - Language (A11Y-L1): Use short sentences, and write times in full, such as "8:46 am"; offer the notice in the chosen language where available.
 
 ### 2. Your options
 
@@ -88,17 +94,35 @@ Inputs: Touch, Push notifications and SMS, Screen reader
 - Refund option always visible
 - **empty:** No seats today — show tomorrow's first service, refund and care entitlements
 - **loading:** Checking seats on the next services
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading, then the first option; options are one large target each in arrival order, with Refund always visible and a text-only mode.
+  - Announced (A11Y-S1): Each option reads departure, arrival and connection status, and loading seats is announced politely.
+  - Errors (A11Y-E1): If no seats remain, the empty text shows tomorrow's first service, refund and care entitlements; the options viewed are kept.
+  - Time limits (A11Y-W1): Seat availability refreshes live; a held seat has a stated time and a warning at least 20 seconds before it ends, with an Extend button.
+  - Language (A11Y-L1): Show departures and arrivals with am or pm, keep the refund option in plain wording, and give each choice a short sentence.
 
 ### 3. Rebook
 
 - New ticket issued immediately; old one cancelled
 - Assisted travel carried over and reconfirmed
 - **error:** Seat just taken — offer the next option without returning to the list
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the confirmation heading; ticket, coach, seat and assisted travel follow, with a Done button after.
+  - Announced (A11Y-S1): "You're on the 8:46, coach 3, seat 22, no extra charge" is read as the heading, and the new ticket is announced politely.
+  - Errors (A11Y-E1): If the seat was just taken, the message in text offers the next option on the same screen; the earlier choice is kept, and the old ticket stays until the new one is issued.
+  - Time limits (A11Y-W1): The seat is held for a stated time while confirming, with a warning at least 20 seconds before it ends.
+  - Language (A11Y-L1): Say "no extra charge" in full and keep seat details as short labelled lines.
 
 ### 4. What you're owed
 
 - Entitlement stated with the threshold: 'Delays over 60 minutes: 50% of your fare'
 - Claim deadline shown as a date
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the entitlement heading; the threshold rule and deadline follow as a list, with Claim as the last button.
+  - Announced (A11Y-S1): The entitlement is read in full, such as "25 percent of your fare, 11.60 pounds, until Tuesday 25 November".
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the threshold and the claim deadline in full, and explain "compensation" and "care" in a plain sentence.
 
 ### 5. Claim
 
@@ -106,6 +130,12 @@ Inputs: Touch, Push notifications and SMS, Screen reader
 - Ask only for payment destination and extra costs with receipts
 - **error:** Receipt upload failed — the claim is saved; add receipts later
 - **loading:** Sending your claim
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first prefilled field; prefilled values are editable, receipts upload through a native button, and Send comes after a review of the claim.
+  - Announced (A11Y-S1): Title "Your claim" is read; "Sending your claim" is announced politely, and an upload failure is announced assertively.
+  - Errors (A11Y-E1): A receipt failure is written in text beside the upload and linked to it, with "your claim is saved"; typed details are kept, and Send shows a review before submitting.
+  - Time limits (A11Y-W1): No time limit; the claim is saved so receipts can be added later, up to the stated deadline.
+  - Language (A11Y-L1): Say what is already filled in, ask only for the missing items, and keep amounts in pounds in full.
 
 ---
 
@@ -129,7 +159,9 @@ Inputs: Touch, Push notifications and SMS, Screen reader
 - Hide refund behind rebooking
 - Use 'may be eligible' without stating the rule
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-S1: The options list announces departure, arrival and connection status for each option
 - A11Y-R1: Notifications stay readable at 200% text, with key information in the first line
@@ -138,6 +170,8 @@ Inputs: Touch, Push notifications and SMS, Screen reader
 - A11Y-L1: Notices use short sentences in the chosen language where available, with times and dates in full
 - A11Y-E3: Rebooking and the claim show a review before submit, and a failed upload keeps the claim saved
 - A11Y-H1: The phone number and ticket reference help route is in the same place on every step
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

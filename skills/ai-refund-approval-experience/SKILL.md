@@ -78,28 +78,58 @@ Inputs: Keyboard shortcuts, Mouse, Natural-language instructions
 - Sort by risk, not arrival
 - Badge items that need a human
 - **empty:** Nothing to approve — show what the agent handled today
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the inbox heading, then the list; arrow keys move between items, Enter opens one, and the sort order is a real button.
+  - Announced (A11Y-S1): Title "Inbox" is a heading; "3 need approval" is read in the list summary, and each item reads its risk level and badge as text.
+  - Errors (A11Y-E1): Filter or sort problems are named in text beside the control; chosen sort and filters are kept. The empty state explains what the agent handled today.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write risk levels as words such as high, medium and low, and explain "needs a human" in plain terms.
 
 ### 2. Triage
 
 - Agent suggests labels; human confirms
 - Suggestions marked as suggestions
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the first suggestion; chips are buttons toggled with Space, and each suggestion has a keyboard accept and a keyboard edit action.
+  - Announced (A11Y-S1): Heading "Triage" is read; each chip reads as "Suggested: Billing, not yet confirmed", then "Confirmed" politely once the person accepts.
+  - Errors (A11Y-E1): A missing label or priority is named in text beside the field and linked to it; suggestions and edits are kept if the form is re-shown.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Mark suggestions as suggestions in words, and spell out labels such as Billing rather than using codes.
 
 ### 3. Approve
 
 - Show what will happen, to whom and how much
 - Approve, edit or skip — one decision per item
 - **error:** If the agent is unsure, say so and ask a question instead of guessing
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the approval heading; Tab goes to reasons, Approve, Edit and Skip, with listed shortcuts that can be remapped or turned off. Approve opens a review step first.
+  - Announced (A11Y-S1): The card is an article with a heading; amount, person and reasoning are real text, and an unsure agent's question is announced assertively as an error.
+  - Errors (A11Y-E1): If the agent is unsure it says so in text and asks a question; edits are kept, and Approve shows a review of amount and recipient before money can move.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): State the amount in full, such as 54 pounds, say who receives it, and explain agent reasoning in short plain sentences.
 
 ### 4. Run
 
 - Steps listed with live status
 - Cancel available until money moves
 - **loading:** Live status per step; announce completion
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the progress heading; the Cancel button is the first control in tab order and stays reachable until money moves.
+  - Announced (A11Y-S1): Each step's status is announced politely, such as "Step 2 of 3, running", completion is announced politely, and any failure is announced assertively.
+  - Errors (A11Y-E1): If a step fails, the message names which step and why beside the status list; Cancel before payment returns to the approval with decisions kept.
+  - Time limits (A11Y-W1): Live progress has no time limit; if it runs long the person is told and can cancel or leave and be notified.
+  - Language (A11Y-L1): Say what each step does in plain words and say clearly when cancelling is no longer possible.
 
 ### 5. Report
 
 - Plain-language trace per action
 - One-click export for finance
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the report heading; the table has headers and row navigation, and Export CSV is a normal button after the table.
+  - Announced (A11Y-S1): Title "Report" is read; the table has a caption and column headers, and "Export ready" is announced politely with the file name.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write each trace line as a plain sentence with full dates and amounts, and expand any abbreviation such as CSV once.
 
 ---
 
@@ -123,7 +153,9 @@ Inputs: Keyboard shortcuts, Mouse, Natural-language instructions
 - Hide failures inside a success summary
 - Let the agent take irreversible actions above threshold
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-K1: Approval cards are articles with headings; every approve, edit and skip action works by keyboard, and shortcuts are listed, remappable and can be turned off
 - A11Y-S1: Live progress uses a polite live region and errors an assertive one; each step status and completion is announced without moving focus
@@ -131,6 +163,8 @@ Inputs: Keyboard shortcuts, Mouse, Natural-language instructions
 - A11Y-E3: Approve shows a review of amount, recipient and effect before money moves, and Cancel stays available until it does
 - A11Y-E1: Agent uncertainty is shown as text with a question, and edits made by the person are kept
 - A11Y-C2: Risk and status are shown with words as well as colour or badges
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

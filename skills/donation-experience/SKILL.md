@@ -82,16 +82,34 @@ Inputs: Voice control, Keyboard, Touch, Screen reader
 - Suggested amounts with what each funds, plus a custom amount
 - Once and monthly as equal choices; neither pre-selected
 - **error:** Enter an amount of £2 or more
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Amount heading; the amount chips are radio buttons in a labelled group, arrow keys move between them, and Tab reaches the custom amount and Continue.
+  - Announced (A11Y-S1): Title reads “Give to the charity”; each chip reads its amount and what it funds, and once or monthly are equal choices with neither pre-selected.
+  - Errors (A11Y-E1): The amount error “Enter an amount of £2 or more” appears beside the field, linked to it and listed in a summary; the amount typed is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write amounts with the pound sign in full, for example “£10 a month”, and keep the impact line as one short sentence.
 
 ### 2. Your details
 
 - Ask address only if a declaration is made or post is chosen
 - Visible labels on every field
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Your details heading; Tab goes name, email, then address if needed, and autofill with correct autocomplete tokens works.
+  - Announced (A11Y-S1): Every field has a visible label that matches its accessible name for voice control; the address lookup results are announced politely.
+  - Errors (A11Y-E1): Errors appear in text beside each field, linked to it and listed in a summary; everything already typed is kept, and nothing from step 1 is asked again.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Explain why the address is needed in one sentence, and avoid abbreviations such as “addr.” in labels.
 
 ### 3. Declaration
 
 - Full declaration text shown, not behind a link
 - Eligibility explained in one sentence
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Declaration heading; the declaration checkbox is a native control with the full declaration text next to it, and Tab goes on to Continue.
+  - Announced (A11Y-S1): The full declaration is read as text, not behind a link; checking the box is announced as checked.
+  - Errors (A11Y-E1): If eligibility is unclear, the error is written beside the checkbox and linked to it; the box can be unticked to correct it, and the choice is shown again at the review before payment.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say in one plain sentence who is eligible, and write “tax” terms in full rather than with initials.
 
 ### 4. Payment
 
@@ -99,17 +117,35 @@ Inputs: Voice control, Keyboard, Touch, Screen reader
 - Explain when the first and next payments happen
 - **error:** Payment didn't go through. No money was taken
 - **loading:** Processing your gift…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Payment heading; Tab goes to the hosted payment fields (the frame has a title) and then the pay button, which names the amount and frequency. Paste and autofill work.
+  - Announced (A11Y-S1): Title reads “Pay”; “Processing your gift” is announced politely and a decline is announced assertively, with “No money was taken”.
+  - Errors (A11Y-E1): The failure message is in text beside the payment fields, and the amount, frequency and details are kept; the pay button restates the amount so the gift is checked before it is confirmed.
+  - Time limits (A11Y-W1): No time limit; the page is not timed out while the person completes payment.
+  - Language (A11Y-L1): State the amount, the frequency and the date of the first and next payments in full, such as “£10 on 1 December”.
 
 ### 5. Thank you
 
 - Thank in specifics, not superlatives
 - Receipt sent; link to manage the gift
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the Thank you heading; Tab reaches the receipt link and then Manage your gift.
+  - Announced (A11Y-S1): The thank you is announced politely with the amount received and that a receipt was sent to the email address.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Thank in specifics, with the amount in full, and avoid superlatives and exclamation marks.
 
 ### 6. Manage
 
 - Change amount, date or cancel in two steps
 - Cancellation effective date stated clearly
 - **empty:** You have no regular gifts
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Manage heading; Tab reaches Change amount, Change date, then Cancel monthly gift, which opens a confirm step.
+  - Announced (A11Y-S1): Cancel opens a dialog that is announced with its title; the cancellation date is read before the confirm button.
+  - Errors (A11Y-E1): Cancelling needs an explicit confirm step that restates “no more payments after today”; changes can be reversed by setting up the gift again, and field errors sit beside the field with values kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the cancellation date in full and say what stops, using the words “no more payments”.
 
 ---
 
@@ -133,7 +169,9 @@ Inputs: Voice control, Keyboard, Touch, Screen reader
 - Hide cancellation behind a phone line
 - Use guilt-based copy
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-N1: Every control has a visible label that matches its accessible name, so voice control commands work.
 - A11Y-K1: Amount chips are radio buttons in a labelled group and the whole journey works by keyboard with no drag.
@@ -142,6 +180,8 @@ Inputs: Voice control, Keyboard, Touch, Screen reader
 - A11Y-E3: Payment shows the amount and frequency beside the pay button, and cancelling a monthly gift needs a confirm step.
 - A11Y-E1: Errors are in text next to the field, linked to it, and the typed amount and details are kept.
 - A11Y-L1: Amounts and dates are written in full, and the declaration text is plain language shown in the page.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

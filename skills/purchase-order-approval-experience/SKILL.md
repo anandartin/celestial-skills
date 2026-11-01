@@ -81,28 +81,58 @@ Inputs: Keyboard, Pointer, File upload, Touch
 - Start from a previous request or catalogue item
 - Autosave every change
 - **error:** Add at least two quotes for purchases over £10,000
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first field; Tab follows the form, with 'start from a previous request' as the first action, and quote upload is a native file input.
+  - Announced (A11Y-S1): Page title is Request; autosave is announced politely as 'Saved', and each field has a visible label.
+  - Errors (A11Y-E1): The quote error is named beside the quote upload, listed in a summary at the top with links, and every entry stays.
+  - Time limits (A11Y-W1): The session warns at least 2 minutes before it ends and can be extended; progress is autosaved.
+  - Language (A11Y-L1): Use 'quote' with a one-line explanation and write amounts such as £10,000 in full.
 
 ### 2. Check budget
 
 - Show available, reserved and this request
 - Warn early if over budget, with options
 - **error:** Budget figures unavailable — you can submit; the budget holder will check
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the budget heading; the available, reserved and this-request figures are read as a labelled list.
+  - Announced (A11Y-S1): '£8,400 of £12,000 available after this request' is read in full; an over-budget warning is announced politely with options.
+  - Errors (A11Y-E1): Missing budget figures are named in text, with a note that submitting is allowed; the request stays as entered.
+  - Time limits (A11Y-W1): The session warns at least 2 minutes before it ends and can be extended.
+  - Language (A11Y-L1): Write each figure with its label, and explain 'reserved' as 'already set aside'.
 
 ### 3. See chain
 
 - List approvers in order with expected time
 - Explain why each approver is needed
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the chain heading; approvers are an ordered list, and the current step is marked in text.
+  - Announced (A11Y-S1): The list is read in order, 'Approvals: Grace, budget holder, then Yusuf, procurement', with expected times.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Give each approver's role and why they are needed in one sentence.
 
 ### 4. Approve
 
 - Request, quotes, budget and prior decisions on one screen
 - Approve, reject with reason, or ask a question
 - **empty:** Nothing waiting for your approval
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the request summary; Tab reaches quotes, budget and prior decisions, then Approve, Reject and Ask a question as separate buttons.
+  - Announced (A11Y-S1): 'Approve £3,600 for centrifuge rotor?' is read in full; the decision is announced politely and the empty state is read as text.
+  - Errors (A11Y-E1): Approval commits money, so the full request is shown first and Reject asks for a reason, kept if the person goes back; a decision can be changed before the order is issued.
+  - Time limits (A11Y-W1): The session warns at least 2 minutes before it ends and can be extended.
+  - Language (A11Y-L1): Say 'approve' and 'reject' plainly and keep amounts in full.
 
 ### 5. Issue PO
 
 - PO number, supplier and delivery shown
 - Requester notified with tracking
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the confirmation heading; Tab reaches the PO number, supplier and tracking link in order.
+  - Announced (A11Y-S1): 'Purchase order PO-20481 sent to Eastgate Scientific' is announced politely, and the number is read character by character.
+  - Errors (A11Y-E1): Issuing the order is a commitment, so a review of supplier, amount and delivery comes first, and it can be cancelled until the supplier accepts.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Explain 'PO' as 'purchase order' at first use, and write the delivery date in full.
 
 ---
 
@@ -126,7 +156,9 @@ Inputs: Keyboard, Pointer, File upload, Touch
 - Hide the approval chain until after submission
 - Lose a draft when the session ends
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-P1: Progress steps are an ordered list with the current step indicated by text.
 - A11Y-E1: An error summary at the top of the form links to each field, and entries are kept.
@@ -136,6 +168,8 @@ Inputs: Keyboard, Pointer, File upload, Touch
 - A11Y-E2: Details from a previous request or catalogue item are reused and never asked for twice.
 - A11Y-L1: Amounts are written in full with currency, and 'PO' is expanded as 'purchase order'.
 - A11Y-H1: Help and the finance contact appear in the same place on every step.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

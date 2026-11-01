@@ -80,33 +80,69 @@ Inputs: Touch, Camera for document photos, Keyboard
 
 - All criteria and fees on one screen
 - Alternatives stated: guarantor, larger deposit where lawful
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; criteria and fees are one list in reading order, with alternatives as a separate headed list, and Apply is the last control.
+  - Announced (A11Y-S1): Title is the home name; "income about 2.5 times the rent, 3,000 pounds a month" is read in full, and fees are listed as text.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the rule in plain words, such as "3,000 pounds a month", and explain "guarantor" in one sentence.
 
 ### 2. Your details
 
 - Ask only what the criteria use
 - Accept an offer letter or contract as income evidence
 - **error:** Enter a date after today
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the move-in date; the date field has a typed alternative to the picker, and the income evidence uploader is a native button.
+  - Announced (A11Y-S1): Title "Your details" is read; each field reads its visible label, and a date error is announced assertively via the summary.
+  - Errors (A11Y-E1): "Enter a date after today" is written in text beside the date field and linked to it, listed in a summary at the top; what was typed is kept.
+  - Time limits (A11Y-W1): No time limit; progress is saved between visits.
+  - Language (A11Y-L1): Ask for the date in a clear format, such as "day, month, year", and explain accepted income evidence in plain words.
 
 ### 3. References
 
 - Offer reference types: previous landlord, employer, character
 - Show each reference's status as it changes
 - **empty:** No previous landlord? Add an employer or a guarantor instead
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first reference type; types are chips as buttons, each reference shows a status as text, and Add person opens a labelled form.
+  - Announced (A11Y-S1): Each reference reads its name, type and status in words, such as "waiting for reply", and status changes are announced politely.
+  - Errors (A11Y-E1): A missing email is written in text beside the field and linked to it; typed details are kept. The empty state suggests an employer or guarantor.
+  - Time limits (A11Y-W1): Reference links are single-use and expire; the date is stated and the person is told at least 20 seconds, or a day, before, with a resend button.
+  - Language (A11Y-L1): Say "reference" with an example, and describe each status in plain words alongside its icon.
 
 ### 4. Checks consent
 
 - Each check named with provider and what it shows
 - Consent is a separate, unticked choice
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first check; each check is named with its provider and what it shows, and consent is a separate unticked checkbox for each.
+  - Announced (A11Y-S1): Title "Checks consent" is read; each checkbox reads its full text, and the unticked state is announced.
+  - Errors (A11Y-E1): Missing consent is named in text beside the checkbox and linked to it; other answers are kept, and consent can be withdrawn later.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say what each check shows in plain words, and avoid the term "soft search" without explanation.
 
 ### 5. Submit
 
 - Restate fee paid, references pending and decision date
 - Explain how to withdraw
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the "Application sent" heading; fee paid, references pending and the decision date follow, then Withdraw as a normal button.
+  - Announced (A11Y-S1): "Application sent, decision by Wednesday 29 October" is read as the heading, and the fee is read in pounds in full.
+  - Errors (A11Y-E1): Submit shows a review of details, fee and consent first; Withdraw shows a confirm step and says what is deleted.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): State the decision date and fee in full, and explain how to withdraw in a short sentence.
 
 ### 6. Decision
 
 - Declines state the criterion not met and how to dispute
 - Approvals give next steps and deadlines
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the decision heading; the reason, how to dispute and next steps follow in reading order.
+  - Announced (A11Y-S1): The decision is read as the heading with the criterion not met; a dispute form's confirmation is announced politely.
+  - Errors (A11Y-E1): A dispute form shows its errors in text beside the field, linked and summarised, keeping what was typed.
+  - Time limits (A11Y-W1): Approval deadlines are stated as full dates, with a reminder sent well before.
+  - Language (A11Y-L1): Name the criterion not met in plain words, and avoid legal or credit terms without a short explanation.
 
 ---
 
@@ -130,7 +166,9 @@ Inputs: Touch, Camera for document photos, Keyboard
 - Charge a fee before showing criteria
 - Decline without a reason
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-C2: Reference status is shown with text labels and icons, not colour alone
 - A11Y-N1: Consent checkboxes are separate, labelled with visible text, and unticked by default
@@ -139,6 +177,8 @@ Inputs: Touch, Camera for document photos, Keyboard
 - A11Y-E3: Submit shows a review of details, fee and consent first, and withdrawal is available with a confirm step
 - A11Y-L1: Criteria, fees and decisions are written in plain words with amounts and dates in full
 - A11Y-H1: Help and contact details sit in the same place on every step
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

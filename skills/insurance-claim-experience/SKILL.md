@@ -81,12 +81,24 @@ Inputs: Touch, Camera and photo library, Voice control
 - Incident chips: water, fire, theft, accidental damage, storm
 - Show the policy cover and excess for the type picked
 - **empty:** If no policy is found, ask for the policy number or postcode
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first question; the incident type chips are a radio group, and the date can be typed or picked.
+  - Announced (A11Y-S1): Announces the step title, the question, each chip as selected or not, and the missing-policy message politely.
+  - Errors (A11Y-E1): If no policy is found, the message sits by the policy field and asks for the number or postcode; answers stay.
+  - Time limits (A11Y-W1): No time limit; the draft is saved for 30 days.
+  - Language (A11Y-L1): Use everyday incident names and write the date in full, such as 14 October.
 
 ### 2. Tell us more
 
 - Short questions, one per screen on mobile
 - Item list with estimated value and age
 - **error:** Explain missing fields; never clear the description
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the description field; labels are visible and voice control can say them, such as 'Items damaged'.
+  - Announced (A11Y-S1): Announces the heading and each label; field errors are read with the field.
+  - Errors (A11Y-E1): Errors say which field is missing and why, with a link in a summary; the description is never cleared.
+  - Time limits (A11Y-W1): No time limit; the draft is saved for 30 days.
+  - Language (A11Y-L1): Ask 'Which items were damaged?' in plain words and avoid 'loss adjuster' or 'peril'.
 
 ### 3. Add photos
 
@@ -94,11 +106,23 @@ Inputs: Touch, Camera and photo library, Voice control
 - Show which items still have no photo
 - **error:** Upload paused — we'll keep trying when you're back online
 - **loading:** Uploading photos
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the add-photos button; each photo is a list item with a Remove button, and carrying on is possible while uploads finish.
+  - Announced (A11Y-S1): Announces progress politely at intervals, such as '3 of 5 photos uploaded'; the pause message is polite, not assertive.
+  - Errors (A11Y-E1): A paused upload is stated in text beside the list and resumes on its own; photos already added stay.
+  - Time limits (A11Y-W1): No time limit; uploads resume after connection loss.
+  - Language (A11Y-L1): Say '3 of 5 photos' in full and give the size limit in megabytes.
 
 ### 4. Check and send
 
 - Summary with claim reference and handler name
 - Say exactly what happens next and by when
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the confirmation heading; the claim reference and summary follow, with a copy button.
+  - Announced (A11Y-S1): Announces 'Claim CL-48213 sent' politely, then the contact name and day.
+  - Errors (A11Y-E1): Sending a claim is checked in a review step first, and the person can correct details afterwards by contacting the team.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the contact date in full, Tuesday 28 October, and spell out the claim reference.
 
 ### 5. Claim status
 
@@ -106,6 +130,12 @@ Inputs: Touch, Camera and photo library, Voice control
 - Requests for information shown as tasks with due dates
 - **empty:** No updates yet — 'We'll message you as soon as anything changes'
 - **error:** If the claim is declined, give reasons and the complaints route
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the status heading; each stage is a list item with text status, and the request can be answered with a button.
+  - Announced (A11Y-S1): Announces stage names with 'done', 'current' or 'to come'; new requests are announced politely.
+  - Errors (A11Y-E1): The declined message gives reasons in text with the complaints route; uploads for the extra item keep their files.
+  - Time limits (A11Y-W1): No time limit to respond; the request shows the date it was sent.
+  - Language (A11Y-L1): Explain claim terms in plain words and give the complaints route as plain steps.
 
 ---
 
@@ -129,7 +159,9 @@ Inputs: Touch, Camera and photo library, Voice control
 - Decline without giving reasons
 - Book assessor visits without the customer's choice of time
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-N1: Every action has a visible label matching its accessible name so voice control works (WCAG 2.5.3).
 - A11Y-C2: The stage tracker has a text status for each stage, not just filled circles.
@@ -138,6 +170,8 @@ Inputs: Touch, Camera and photo library, Voice control
 - A11Y-E3: The claim has a review step before sending and details can be corrected afterwards.
 - A11Y-E1: Missing fields are named in text and the description is never cleared.
 - A11Y-H1: Help and how to contact the team appear in the same place on every step.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

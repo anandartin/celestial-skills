@@ -79,17 +79,35 @@ Inputs: Touch, Autofill, Wallet pay (Apple Pay / Google Pay)
 - Filters as removable chips
 - Sticky “filter” button at the bottom for thumbs
 - **empty:** No matches — remove the last filter in one tap
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the results heading; Tab goes to the filter button, then the removable filter chips, then each product, in order.
+  - Announced (A11Y-S1): The title names the category; “Show 24 results” and updated counts are announced politely, and each chip reads its name and Remove.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Keep filter names plain and the count in full; “No matches” explains what to remove in one tap.
 
 ### 2. Product
 
 - Delivery estimate above the fold
 - Add to bag stays in thumb reach
 - **error:** Out of stock in a size — offer notify me
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the product heading; Tab goes to size choices, then Add to bag, which stays in thumb reach, then delivery information.
+  - Announced (A11Y-S1): The delivery date “Arrives Tuesday” is read with the price; adding to the bag is announced politely.
+  - Errors (A11Y-E1): The out-of-stock message is text beside the size choice, linked to it, with a Notify me option; the size choice is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the delivery day and price in full, such as “$222 including delivery”, and say Add to bag, not “Add”.
 
 ### 3. Bag
 
 - Total includes delivery and tax up front
 - Edit quantity in place
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Bag heading; Tab goes through each item's quantity control, then Remove, then Checkout.
+  - Announced (A11Y-S1): The table has header cells; quantity changes and the new total are announced politely, and the total includes delivery and tax.
+  - Errors (A11Y-E1): A quantity error is text beside the control and kept at the last valid number; items can be removed and added back, so the person can check the bag before paying.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the total with delivery and tax in full, and avoid abbreviations like “qty”.
 
 ### 4. Checkout
 
@@ -97,11 +115,23 @@ Inputs: Touch, Autofill, Wallet pay (Apple Pay / Google Pay)
 - Autofill-friendly fields with correct input types
 - **error:** Keep every field; explain the fix beside the field
 - **loading:** Disable the button, keep its label, show progress
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Checkout heading; Tab goes to the wallet button, then card fields with numeric keyboards and autofill, then the pay button naming the amount.
+  - Announced (A11Y-S1): “Processing” is announced politely, the button keeps its label while loading, and failures are announced assertively.
+  - Errors (A11Y-E1): Errors appear in text beside each field with the fix, linked by aria-describedby and listed in a summary, and every field keeps what was typed; the pay button states the amount so it is checked before confirming.
+  - Time limits (A11Y-W1): No time limit; state is kept locally, so a slow connection does not lose entries.
+  - Language (A11Y-L1): Label each field in plain words, and write the amount on the button, such as “Pay $222”.
 
 ### 5. Confirmed
 
 - Order number, delivery date and how to track
 - Offer account creation after, never before
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the Order confirmed heading; Tab reaches the tracking link, then an optional Create account option.
+  - Announced (A11Y-S1): “Order SO-657 confirmed” is announced politely with the delivery date and how to track.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Give the order number, delivery date and tracking steps in short sentences, and offer an account only after the order.
 
 ---
 
@@ -125,7 +155,9 @@ Inputs: Touch, Autofill, Wallet pay (Apple Pay / Google Pay)
 - Hide delivery cost until the last step
 - Use carousels for key product information
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-N1: Every field has a visible label and the correct autocomplete token, with numeric keyboards for numbers.
 - A11Y-E1: Errors are linked with aria-describedby, appear beside the field, are summarised at the top, and the entered values are kept.
@@ -134,6 +166,8 @@ Inputs: Touch, Autofill, Wallet pay (Apple Pay / Google Pay)
 - A11Y-T1: Touch targets, including chips, quantity controls and the pay button, are at least 44px.
 - A11Y-E3: The bag shows the full total including delivery and tax, and the pay button names the amount before anything is charged.
 - A11Y-K1: The filter sheet and chips work with VoiceOver and a keyboard, and focus returns to the filter button when the sheet closes.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -82,34 +82,70 @@ Inputs: File upload and drag-and-drop, Keyboard, Mouse, Screen reader
 - Drop zone plus a standard file button
 - Template download with required columns
 - **error:** This file is over 50 MB. Split it into smaller files
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading then the file button; the drop zone is a real button and the template link is next in Tab order.
+  - Announced (A11Y-S1): Announces the step title, then the file name and size when chosen; an oversize error is announced assertively.
+  - Errors (A11Y-E1): The 50 MB message sits next to the file control in text, naming the limit and a fix; the chosen file stays listed.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'CSV or Excel file' and give the limit as '50 megabytes or 100,000 rows'.
 
 ### 2. Map columns
 
 - Auto-match by header name, shown for review
 - Sample values beside each mapping; date format chosen explicitly
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first column row; each mapping is a labelled select, and Tab moves row by row.
+  - Announced (A11Y-S1): Announces '9 of 11 columns matched' politely and each unmatched row as 'needs a field' in text.
+  - Errors (A11Y-E1): Unmatched columns are marked with an icon and the words 'Not matched', listed in a summary, and chosen mappings stay.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Call them 'spreadsheet columns' and 'fields', and keep the names the same as in the template.
 
 ### 3. Review
 
 - Totals: ready, errors, duplicates
 - Filter to error rows with the reason in each row
 - **loading:** Checking 5,000 rows…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the totals heading; the table has header cells, and arrow keys or Tab move between rows and filters.
+  - Announced (A11Y-S1): Announces '4,812 ready, 143 with errors, 45 possible duplicates' politely once checking finishes; progress is not read per row.
+  - Errors (A11Y-E1): Errors and duplicates are labelled in text and icon, never colour alone, and each links to its rows.
+  - Time limits (A11Y-W1): The checking job runs in the background with no time limit; the person can leave and return.
+  - Language (A11Y-L1): Write counts in full with commas and say 'possible duplicates' rather than 'collisions'.
 
 ### 4. Fix errors
 
 - Edit cells inline with immediate re-validation
 - Export error rows with reasons to fix offline
 - **empty:** No errors left. You're ready to import
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first error cell; Tab and arrow keys move through cells, and Enter edits in place.
+  - Announced (A11Y-S1): Announces the row and column with each cell, such as 'Row 218, date'; saved fixes are polite, and the empty state is announced.
+  - Errors (A11Y-E1): Each error is text beside the cell, such as 'isn't a real date', linked to it; the original value stays until corrected, and errors can be downloaded.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Explain the date problem in words and show the expected format, such as day, month, year.
 
 ### 5. Import
 
 - Progress by rows with time estimate
 - Can leave the page; notified on finish
 - **loading:** 1,200 of 4,955
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the progress heading; a Leave page link and a status region are reachable by Tab.
+  - Announced (A11Y-S1): Announces progress politely at 25% steps, such as '1,200 of 4,955', not every record.
+  - Errors (A11Y-E1): Failed rows are listed afterwards in text; the import starts only after the person selects Import on a reviewed total.
+  - Time limits (A11Y-W1): No time limit; the import continues if the person leaves and a message is sent on completion.
+  - Language (A11Y-L1): Say 'records' consistently and give totals in full.
 
 ### 6. Done
 
 - Counts for created, updated, skipped with a downloadable report
 - Undo available for 24 hours
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the done heading; the Undo button and the report link follow in order.
+  - Announced (A11Y-S1): Announces '4,955 records imported, 45 skipped' and the undo deadline politely.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): Undo is available until 10:30 tomorrow; the deadline is written in full and the person is told before it ends.
+  - Language (A11Y-L1): Write the deadline with the date and time in full, not only 'tomorrow'.
 
 ---
 
@@ -133,7 +169,9 @@ Inputs: File upload and drag-and-drop, Keyboard, Mouse, Screen reader
 - Store columns that weren't mapped
 - Use colour alone to mark errors
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-K1: Drag and drop has a file-button alternative that works by keyboard (WCAG 2.5.7).
 - A11Y-C2: Error cells carry an icon and text, not only red (WCAG 1.4.1).
@@ -142,6 +180,8 @@ Inputs: File upload and drag-and-drop, Keyboard, Mouse, Screen reader
 - A11Y-E3: Import starts only after reviewing totals and can be undone until the stated time.
 - A11Y-E1: Each error names the row, column and fix next to the cell and keeps the typed value.
 - A11Y-W1: Background jobs have no time limit and the person can leave and return.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

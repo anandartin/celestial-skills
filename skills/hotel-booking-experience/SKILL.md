@@ -81,6 +81,12 @@ Inputs: Keyboard, Touch, Screen reader
 - Dates typeable as well as pickable
 - Guests and rooms in one control with clear labels
 - **error:** Check-out must be after check-in — set the dates again
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Where field; Tab moves through dates, guests and Search, dates can be typed as well as picked, and the guest control is a native group.
+  - Announced (A11Y-S1): Page title is Search; suggestions are announced politely with their count, and the guests and rooms control is read with its label and values.
+  - Errors (A11Y-E1): The date error is named beside the check-out field and linked to it; the place, dates and guests stay as entered.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write dates in full, such as 12 November, and label guests and rooms in words.
 
 ### 2. Results
 
@@ -88,12 +94,24 @@ Inputs: Keyboard, Touch, Screen reader
 - Filters include accessibility features and free cancellation
 - **empty:** No stays match — suggest removing a filter, named
 - **loading:** Finding stays
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the results heading; each stay has its own heading, and Tab reaches filters before the list, with a text list in place of the map.
+  - Announced (A11Y-S1): Result count changes are announced politely in a live region; each price is read in full, '£486 total for 3 nights, taxes and fees included'.
+  - Errors (A11Y-E1): An empty result names the filter that can be removed and offers it as a button; the search and filters stay.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Show the total price first and write 'taxes and fees included' in full; avoid abbreviations such as 'pn'.
 
 ### 3. Stay details
 
 - Accessibility section with specific facts and a contact route
 - Cancellation deadline as a date and time
 - **error:** Room no longer available — show similar rooms at this hotel
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the stay heading; the accessibility section has its own heading, and Tab reaches the contact link and Book button without being hidden by sticky bars.
+  - Announced (A11Y-S1): Cancellation is read as a date and time, 'Free cancellation until 18:00 on Thursday 13 November'; the accessibility facts are read as a list.
+  - Errors (A11Y-E1): An unavailable room is named in text with similar rooms offered; the dates and guests stay unchanged.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): State access facts specifically, such as 'step-free shower', and give the deadline with day, date and time.
 
 ### 4. Guest and pay
 
@@ -101,11 +119,23 @@ Inputs: Keyboard, Touch, Screen reader
 - Access requests sent to the hotel as a note
 - **error:** Card declined — keep details, suggest another card
 - **loading:** Confirming with the hotel
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first guest field; Tab follows the form, the price breakdown is a table beside it, and the note to the hotel is a text area.
+  - Announced (A11Y-S1): Page title is Guest and pay; each field has a visible label, and 'Confirming with the hotel' is a polite status.
+  - Errors (A11Y-E1): A declined card is named beside the card field with another card suggested; guest details and notes stay, and a review of the total comes before paying.
+  - Time limits (A11Y-W1): No time limit on the form; if the price is held, a warning appears at least 20 seconds before it expires with a button to extend.
+  - Language (A11Y-L1): Say 'Pay £486.00 now' with the amount in full and explain any hold in one plain sentence.
 
 ### 5. Booked
 
 - Confirmation number, address, check-in time and cancellation deadline
 - Add to calendar and share options
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the confirmation heading; Tab reaches the confirmation number, address, Add to calendar and Share in order.
+  - Announced (A11Y-S1): 'You're booked at Harbourview House, 12 to 15 November' is announced politely, and the confirmation number is read out character by character.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Give dates as 12 to 15 November, spell out the confirmation number, and write the check-in time and cancellation deadline in full.
 
 ---
 
@@ -129,7 +159,9 @@ Inputs: Keyboard, Touch, Screen reader
 - Add fees on the payment step
 - Rely on hover to show price breakdowns
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-P1: Meets WCAG 2.2 AA; results are a list with a heading per stay and prices read in full.
 - A11Y-S1: Filter changes announce the new result count in a live region.
@@ -139,6 +171,8 @@ Inputs: Keyboard, Touch, Screen reader
 - A11Y-E3: Payment shows a price breakdown and total before confirming, and the cancellation deadline is shown as a date and time.
 - A11Y-N1: The search dates are typeable and every field has a visible label.
 - A11Y-W1: Any price hold is warned at least 20 seconds before it ends and can be extended.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

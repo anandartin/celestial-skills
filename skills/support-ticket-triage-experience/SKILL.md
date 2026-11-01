@@ -81,27 +81,57 @@ Inputs: Keyboard, Screen reader, Pointer
 - Suggested category and priority shown with confidence
 - Urgent signals such as outage or safety words raise priority
 - **empty:** Queue clear — nothing waiting
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus stays on the current ticket; the queue is a list with row headers, and new tickets are added without moving focus.
+  - Announced (A11Y-S1): Announces the new ticket count politely, such as '3 new tickets', not one by one; the empty state is plain text.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the suggestion in words, such as 'Billing, high priority, 82 percent'.
 
 ### 2. Review
 
 - Accept, change or reject in one keystroke
 - Show the words that drove the suggestion
 - **error:** Suggestions unavailable — triage manually; tickets are still in order of arrival
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Confirm button; C confirms and E edits with shortcuts that can be remapped.
+  - Announced (A11Y-S1): Announces 'Confirm Billing, High?' with the confidence in text; the suggestion outage is assertive.
+  - Errors (A11Y-E1): If suggestions fail, text says to triage manually and tickets stay in arrival order; the agent's choices are kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Show confidence as '82 percent' in text and say 'suggested' not 'predicted'.
 
 ### 3. Route
 
 - Team chips with current queue length
 - Routing reason recorded
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the team select; the chips are a radio group and the queue count is read with it.
+  - Announced (A11Y-S1): Announces 'Route to Payments team, 12 in queue' politely after choosing.
+  - Errors (A11Y-E1): Routing is reversible from the ticket's history; the chosen team stays if routing fails.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Use plain team names and write queue counts in words.
 
 ### 4. Respond
 
 - Draft links to knowledge base sources
 - Agent edits and sends; nothing auto-sends
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the reply text area; the draft is editable and Send is last, after a visible review note.
+  - Announced (A11Y-S1): Announces the draft source, 'based on Refund timing article', then the text; 'Sent' is announced politely.
+  - Errors (A11Y-E1): The draft must be checked before sending; text next to the field notes this, and edits are kept if sending fails.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Keep reply drafts in plain language and check refund timings are stated in full.
 
 ### 5. Monitor
 
 - Service levels by priority and team
 - Suggestion accuracy and override rate
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; the table has headers and an export button.
+  - Announced (A11Y-S1): Announces the heading, then 'Urgent within 15 minutes: 96 percent, AI overrides 14 percent' as text.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'overrides' as 'changed by an agent' on first use.
 
 ---
 
@@ -125,7 +155,9 @@ Inputs: Keyboard, Screen reader, Pointer
 - Hide low-confidence suggestions' confidence
 - Route security reports to general queues
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-P1: The queue is a table or list with row headers; new tickets are announced by count, not one by one.
 - A11Y-K1: All triage actions have keyboard shortcuts that can be remapped (WCAG 2.1.4).
@@ -134,6 +166,8 @@ Inputs: Keyboard, Screen reader, Pointer
 - A11Y-E3: Replies are checked before sending and routing can be changed afterwards.
 - A11Y-S1: Suggestion outages are announced assertively and triage continues manually.
 - A11Y-H1: Help and the shortcut list are in the same place on every step.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

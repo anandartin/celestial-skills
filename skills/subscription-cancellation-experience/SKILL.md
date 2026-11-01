@@ -79,23 +79,47 @@ Inputs: Touch, Keyboard, Screen reader
 
 - Labelled “Cancel subscription” in settings, not “Manage”
 - Searchable in help and settings
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Cancel subscription link; it is reachable in few Tab presses, is not hover-only, and is also found in help search.
+  - Announced (A11Y-S1): Page title is Cancel subscription; the link text is exactly that, not 'Manage'.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Use the words 'Cancel subscription' and avoid softer terms such as 'manage' or 'pause'.
 
 ### 2. What happens
 
 - End date, refund and data all on one screen
 - One optional offer, declinable in one tap
 - **loading:** Show the end date first; refund detail after
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the heading; Tab reaches the offer, with Decline as an equal button, then Continue.
+  - Announced (A11Y-S1): 'You'll keep access until 14 November, you won't be charged again' is read in full; refund detail is announced politely when it loads.
+  - Errors (A11Y-E1): No input beyond choosing to decline or accept the offer; the choice is kept if the person goes back.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the end date in full, such as 14 November, and say plainly what happens to data.
 
 ### 3. Confirm
 
 - Reason is optional and below the button
 - Button says exactly what it does
 - **error:** We couldn’t cancel just now. Nothing will be charged while we fix this — try again or we’ll email you.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Cancel my subscription button; the optional reason sits below it, and the button is at least 48px high.
+  - Announced (A11Y-S1): The button text is read as 'Cancel my subscription'; the result is announced politely, and a failure is assertive.
+  - Errors (A11Y-E1): This step ends a service, so the details are on the previous screen and the person can restart afterwards; a failure says nothing will be charged, and the reason typed stays.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Keep the button text identical to the action, and say whether any payment will be taken.
 
 ### 4. Done
 
 - Reference number and end date on screen and by email
 - Restart option shown, without pressure
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the confirmation heading; Tab reaches the reference and a Restart link that carries no pressure.
+  - Announced (A11Y-S1): 'Cancelled' is announced politely, then the email address and reference CX-30917 are read character by character.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Spell out the reference and the end date in full, and keep the restart wording neutral.
 
 ---
 
@@ -119,7 +143,9 @@ Inputs: Touch, Keyboard, Screen reader
 - Use confirmshaming such as “No, I don’t want to save money”
 - Show multiple retention screens in a row
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-K1: The cancel path works fully by keyboard and screen reader, with no hover-only links.
 - A11Y-T1: Buttons are at least 48 px high with clear text labels.
@@ -129,6 +155,8 @@ Inputs: Touch, Keyboard, Screen reader
 - A11Y-E1: A failed cancellation is named in text, says nothing will be charged, and keeps what the person entered.
 - A11Y-R1: The path stays usable at 200% zoom and 320px width without loss of function.
 - A11Y-H1: A help link appears in the same place on every step.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

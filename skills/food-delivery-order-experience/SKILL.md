@@ -81,6 +81,12 @@ Inputs: Touch, Voice assistant, Screen reader
 
 - Needs saved to the profile and applied everywhere
 - Explain that unlisted dishes are hidden, not assumed safe
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first allergen chip; chips are toggle buttons with Space, and voice control can select them by their visible names.
+  - Announced (A11Y-S1): Title "Your dietary needs" is read; each chip reads its name and "selected", and saved needs are announced politely.
+  - Errors (A11Y-E1): If saving fails, the message in text beside the chips says what to try, and the chosen needs are kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Explain that unlisted dishes are hidden, not safe, in one plain sentence, and name each allergen in full.
 
 ### 2. Browse
 
@@ -88,29 +94,59 @@ Inputs: Touch, Voice assistant, Screen reader
 - Count of hidden dishes visible with a reason
 - **empty:** No dishes here meet your needs. Try another restaurant.
 - **loading:** Menu loading — filters apply before dishes appear
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the active filters at the top, then the dish list; filters are buttons, and each dish is one link that can be opened by voice.
+  - Announced (A11Y-S1): Title is the restaurant name; "38 dishes without peanuts or tree nuts" and the hidden count are announced politely when filters apply.
+  - Errors (A11Y-E1): An empty list is explained in text with a link to try another restaurant; the person's needs and filters are kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say "dishes without peanuts" in plain words and give the reason each dish is hidden.
 
 ### 3. Dish detail
 
 - Contains and may contain listed separately
 - Allergen info shows the date it was last updated
 - **error:** Allergen information isn’t available for this dish. Contact the restaurant before ordering.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the dish heading; allergen lists are text with Contains and May contain as separate headings, and extras are native checkboxes before Add.
+  - Announced (A11Y-S1): The dish name, then "Contains: milk, gluten" and "May contain: sesame" are read with the last-updated date; added to basket is announced politely.
+  - Errors (A11Y-E1): If allergen data is missing, a text message beside the list says to contact the restaurant, and Add is explained, not hidden; selected extras are kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Keep Contains and May contain separate, and show the last-updated date in full words.
 
 ### 4. Checkout
 
 - Allergy note field pre-filled from saved needs and editable
 - All fees itemised before payment
 - **error:** One dish changed since you added it. Check the new allergen info.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the basket heading, then items, the allergy note and fees; the note is a labelled text field pre-filled and editable, and Pay follows a review of the total.
+  - Announced (A11Y-S1): The total and each fee are read in order; a changed dish is announced assertively, and the new allergen information is linked from the message.
+  - Errors (A11Y-E1): A changed dish is named in text beside the item, linked to its new allergen information, and the basket and allergy note are kept; payment needs a review of items and total.
+  - Time limits (A11Y-W1): The basket is kept for 24 hours; a warning appears at least 20 seconds before any payment session ends, with a button to continue.
+  - Language (A11Y-L1): Itemise every fee in pounds, such as "2.99 pounds delivery", and say what the allergy note is for.
 
 ### 5. Track
 
 - Stages: Accepted, Preparing, On the way, Delivered
 - Delays shown with a new window and an option to cancel
 - **loading:** Waiting for the restaurant to accept — usually under 3 minutes
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the status heading; the four stages are an ordered list with the current one marked in text, and Cancel is a normal button when offered.
+  - Announced (A11Y-S1): Status changes, such as "Being prepared, arriving 7:10 to 7:25 pm", are announced politely; the window update and a delay are read in full, without moving focus.
+  - Errors (A11Y-E1): If the restaurant has not accepted, the text says so and the usual wait; cancelling asks for a confirm step and shows what happens to payment.
+  - Time limits (A11Y-W1): No time limit. The wait for acceptance is stated, and the person can leave and return.
+  - Language (A11Y-L1): Write the arrival window as full times, and name the four stages in the same words each time.
 
 ### 6. Delivered
 
 - Report missing items or allergy concerns quickly
 - Allergy incidents go to a priority route, not a rating
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; Report is one clear button, then a short list of problems with allergy concerns first.
+  - Announced (A11Y-S1): "Enjoy your meal" is read as the heading; a submitted report is announced politely with its reference.
+  - Errors (A11Y-E1): Report errors are written in text beside the field and linked to it; what was typed is kept, and allergy issues are marked as priority in words.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Use "allergy concern" and "missing item" as plain labels, and say what happens after a report.
 
 ---
 
@@ -134,7 +170,9 @@ Inputs: Touch, Voice assistant, Screen reader
 - Hide service fees until the last screen
 - Treat an allergy incident as a normal star rating
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-N1: Allergen lists are text, with icons also labelled for screen readers, and Contains and May contain are separate headed lists
 - A11Y-T1: Filter chips are at least 44 by 44px and selected state is shown in text and shape
@@ -143,6 +181,8 @@ Inputs: Touch, Voice assistant, Screen reader
 - A11Y-E3: Checkout shows itemised fees, the allergy note and a review of the basket before payment, and cancelling shows the effect on payment
 - A11Y-E1: Changed dishes and missing allergen data are named in text beside the item, with the basket kept
 - A11Y-W1: The 24-hour basket is kept, and any payment session timeout is warned at least 20 seconds before
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

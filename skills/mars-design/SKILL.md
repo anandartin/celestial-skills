@@ -344,6 +344,40 @@ Use this mark as-is: don't redraw, recolour (except to one solid colour on dark 
 - Geist Mono
 
 
+## Accessibility (core v1.0, WCAG 2.2 AA)
+Every Mars screen, document and graphic meets Celestial's accessibility core. Automated result for this palette: **Passes automated checks for WCAG 2.2 AA**. Automated checks cover only part of WCAG 2.2 AA; keyboard, screen-reader and 200% zoom checks still need a person.
+
+### Rules this design layer owns
+- **A11Y-C1** Text contrast at least 4.5:1; large text, icons and field borders at least 3:1 (WCAG 1.4.3, 1.4.11)
+- **A11Y-C2** Meaning is never carried by colour alone — pair it with text, an icon or a shape (WCAG 1.4.1)
+- **A11Y-F1** A visible focus indicator on every interactive element, never hidden behind sticky bars (WCAG 2.4.7, 2.4.11)
+- **A11Y-T1** Targets at least 24×24px; 44×44px on touch screens (WCAG 2.5.8)
+- **A11Y-R1** Text works at 200% zoom and at 320px width without loss (WCAG 1.4.4, 1.4.10)
+- **A11Y-M1** Motion respects the reduced-motion setting (WCAG 2.3.3)
+
+### How to use Mars's colours accessibly
+- Body and small text: only colours marked Pass at 4.5:1 below. A colour that passes only at 3:1 is for large text (24px, or 18.7px bold), icons and graphics.
+- Field borders and focus rings need 3:1 against the page; hairline dividers are decorative and exempt.
+- Status colours always come with a word or an icon, never colour alone (A11Y-C2).
+- Disabled controls are exempt from contrast but must still say they are unavailable (`aria-disabled`).
+
+### Checks
+| Check | Colours | Ratio | Needs | Result |
+|---|---|---|---|---|
+| ink / headings / primary button | `#000000` on `#faf9f6` | 19.95:1 | 4.5:1 | Pass |
+| ink / headings / primary button | `#000000` on `#f1eee9` | 18.15:1 | 4.5:1 | Pass |
+| tertiary text | `#626260` on `#faf9f6` | 5.81:1 | 4.5:1 | Pass |
+| tertiary text | `#626260` on `#f1eee9` | 5.28:1 | 4.5:1 | Pass |
+| focus ring | `#000ce1` on `#faf9f6` | 9.32:1 | 3:1 | Pass |
+| focus ring | `#000ce1` on `#f1eee9` | 8.48:1 | 3:1 | Pass |
+| input border · field border | `#838280` on `#faf9f6` | 3.65:1 | 3:1 | Pass |
+| Primary button label | `#ffffff` on `#d14700` | 4.55:1 | 4.5:1 | Pass |
+| Primary button label · hover | `#ffffff` on `#b03c00` | 6.01:1 | 4.5:1 | Pass |
+| Focus ring | `#000ce1` on `#faf9f6` | 9.32:1 | 3:1 | Pass |
+| Muted text | `#646462` on `#faf9f6` | 5.63:1 | 4.5:1 | Pass |
+| Control height | 40px | — | ≥ 24px; 44px on touch (core) | Pass |
+
+
 ## Celestial core foundations (included)
 This brand sits on Celestial core v1.0. The shared rules are included here so this file works on its own.
 

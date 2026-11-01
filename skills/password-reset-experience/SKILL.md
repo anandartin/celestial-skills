@@ -81,12 +81,24 @@ Inputs: Touch keyboard, Password manager, Email on the same phone
 - Pre-fill the email from the sign-in screen
 - One field, one button
 - **error:** Explain the format issue next to the field
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the email field; paste and autofill work, and Enter submits; there is no puzzle or memory test.
+  - Announced (A11Y-S1): Announces the page title and heading, then the label 'Email'; errors are assertive.
+  - Errors (A11Y-E1): The email format message sits beside the field, linked to it; the typed address stays and nothing must be remembered.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'reset link' and keep the sentence short.
 
 ### 2. Check email
 
 - Same message for every email entered
 - Show sender name, expiry and a resend after 60 seconds
 - **loading:** Sending…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the heading; the Resend link and Open email app link follow.
+  - Announced (A11Y-S1): Announces politely 'Sending…' then the message that a link is on its way and works for 30 minutes.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): The link works for 30 minutes; the expiry is written on the page and a new one can be requested in one tap.
+  - Language (A11Y-L1): Say 'if there's an account' plainly and write '30 minutes' in full.
 
 ### 3. New password
 
@@ -94,16 +106,34 @@ Inputs: Touch keyboard, Password manager, Email on the same phone
 - Paste, show-password and manager suggestions allowed
 - **empty:** Link expired — offer to send a new one in one tap
 - **error:** This password has appeared in a data breach. Please choose another.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading then the password field; paste, autofill and password managers work, and a passkey is offered; no memory or puzzle test.
+  - Announced (A11Y-S1): Announces the requirements list, each met state politely, and the show-password toggle state.
+  - Errors (A11Y-E1): The breach message is text beside the field linked by aria-describedby; the typed password stays and a one-tap new link is offered if expired.
+  - Time limits (A11Y-W1): The link has expired after 30 minutes; the person is told the time in text and gets a new link in one tap.
+  - Language (A11Y-L1): Say 'appeared in a data breach' plainly and explain the 12-character minimum.
 
 ### 4. Signed in
 
 - Sign them in directly; no second sign-in
 - Say that other devices were signed out
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the confirmation heading; the Continue button is next.
+  - Announced (A11Y-S1): Announces 'Password changed' politely, then that other devices are signed out.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'signed out of other devices' in plain words.
 
 ### 5. Notice
 
 - Notice lists time, device and approximate location
 - One clear action if it wasn't them
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; the Secure your account button is first.
+  - Announced (A11Y-S1): Announces the heading and 'Wasn't you?' as text, then the button.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the time as '12:41 today' and avoid 'unauthorised access'.
 
 ---
 
@@ -127,7 +157,9 @@ Inputs: Touch keyboard, Password manager, Email on the same phone
 - Email the new password or show it in the notice
 - Say “No account found for this email”
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-A1: Paste, autofill and password managers work, with no memory or puzzle test (WCAG 3.3.8).
 - A11Y-P1: Password requirements are a list linked by aria-describedby, with met state announced.
@@ -136,6 +168,8 @@ Inputs: Touch keyboard, Password manager, Email on the same phone
 - A11Y-W1: The 30-minute link expiry is stated in text and a new link is one tap away.
 - A11Y-E1: Errors sit next to the field in text and the typed address is kept.
 - A11Y-L1: Messages avoid jargon and keep sentences short for readers with dyslexia.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

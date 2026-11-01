@@ -80,6 +80,12 @@ Inputs: Mouse and keyboard, Touch, Screen reader
 - Price, key facts and rating above the fold
 - Photos show scale and each colour
 - **loading:** Reserve image and price space so the page does not jump
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the product heading; the gallery has Previous and Next buttons with alt text, and the layout reserves space so nothing jumps.
+  - Announced (A11Y-S1): Announces the product name, then '£89 including VAT'; image alt text names the colour.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'including VAT' in plain words and name colours in text.
 
 ### 2. Choose options
 
@@ -87,17 +93,35 @@ Inputs: Mouse and keyboard, Touch, Screen reader
 - Unavailable sizes shown and labelled, not hidden
 - **empty:** Choose a size to see delivery dates
 - **error:** UK 9 in Moss green is out of stock. UK 9 is available in Charcoal.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the colour group; options are radio buttons, arrow keys move within a group, and each shows its stock in text.
+  - Announced (A11Y-S1): Announces the group label, the chosen colour and size, and 'out of stock' as text; stock is a polite status.
+  - Errors (A11Y-E1): The out-of-stock message names the alternative, Charcoal, in text beside the group; selections stay.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Name the colour as text, such as Moss green, never just by swatch.
 
 ### 3. Check fit
 
 - Size guide in the shopper’s units with a measure-your-foot tip
 - Fit summary from reviews shows the number of reviews it is based on
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the size guide heading; the table has header cells, and fit notes are read as text.
+  - Announced (A11Y-S1): Announces the table caption and each cell, then 'most buyers say it fits true to size'.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Give sizes in UK numbers and explain 'true to size'.
 
 ### 4. Delivery
 
 - Delivery cost and date shown before Add to basket
 - Postcode remembered for the session
 - **error:** We can’t find that postcode. Check it, or see standard delivery times.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the postcode field; Enter checks it, and the stored-in-session note is visible text.
+  - Announced (A11Y-S1): Announces the label, then politely 'Free delivery, arrives Thursday 30 October'.
+  - Errors (A11Y-E1): The postcode message sits next to the field with a link to delivery times; the typed postcode is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the arrival date in full with the weekday and the cost.
 
 ### 5. Add to basket
 
@@ -105,6 +129,12 @@ Inputs: Mouse and keyboard, Touch, Screen reader
 - Offer “Go to basket” and “Keep shopping” equally
 - **error:** Couldn’t add to basket. Your choices are saved — try again.
 - **loading:** Button shows “Adding…” and blocks double taps
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus stays on the Add to basket button; the button reads 'Adding…' and blocks double taps.
+  - Announced (A11Y-S1): Announces politely 'Added: Moss green, UK 9, basket total £89'; failure is announced assertively.
+  - Errors (A11Y-E1): A failure is stated near the button with a Try again button; the chosen colour and size stay and the basket can be reviewed before paying.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Repeat the colour, size and total in text.
 
 ---
 
@@ -128,7 +158,9 @@ Inputs: Mouse and keyboard, Touch, Screen reader
 - Pre-select add-ons such as insurance or gift wrap
 - Reveal delivery fees for the first time at payment
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-P1: Option groups use radio semantics with a visible group label; arrow keys move between options (WCAG 1.3.1).
 - A11Y-C2: Selected and unavailable states use text and shape, not colour alone (WCAG 1.4.1).
@@ -137,6 +169,8 @@ Inputs: Mouse and keyboard, Touch, Screen reader
 - A11Y-E1: Out-of-stock and postcode errors are text beside the field and selections are kept.
 - A11Y-E2: The postcode and choices are not asked for again later in the basket.
 - A11Y-L1: Colours are named in text and prices include VAT in plain words.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

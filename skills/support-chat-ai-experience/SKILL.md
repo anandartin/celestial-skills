@@ -81,34 +81,70 @@ Inputs: Keyboard, Touch, Screen reader, Voice dictation
 
 - AI disclosure in the first message and the header
 - “Talk to a person” always visible
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the message input; the "Talk to a person" button stays in the same place and is second in tab order, and Enter sends a message.
+  - Announced (A11Y-S1): The AI disclosure is read as the first message with sender and time; new messages are announced politely without moving focus.
+  - Errors (A11Y-E1): If a message fails to send, the text beside the input says so and the typed message is kept.
+  - Time limits (A11Y-W1): The chat stays for 24 hours; there is no timeout, and any inactivity warning comes at least 20 seconds before with a Continue button.
+  - Language (A11Y-L1): Say "AI assistant" at the start in plain words, and use short literal sentences with no jokes or idioms.
 
 ### 2. Verify
 
 - Use a one-time code to the registered contact
 - Explain what will be accessed and why
 - **error:** That code didn't match. You have 2 more tries
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the code field; pasting, password managers and autofill work, the field uses autocomplete="one-time-code", and a magic link is offered, with no puzzle or memory test.
+  - Announced (A11Y-S1): "I'll send a code to the phone ending 42" is read; "Code sent" is announced politely and a wrong code is announced assertively.
+  - Errors (A11Y-E1): A wrong code is written in text beside the field and linked to it, with "2 more tries"; the typed digits are kept, and a resend button is next to it.
+  - Time limits (A11Y-W1): The code lasts for the time stated; a warning appears at least 20 seconds before it expires, with a Send a new code button.
+  - Language (A11Y-L1): Say what will be accessed and why in one plain sentence, and write "one-time code" with its meaning.
 
 ### 3. Answer
 
 - Answer with the specific facts from the account
 - Say what the assistant doesn't know rather than guess
 - **loading:** Checking your bill…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus stays in the input; the answer is a message in the chat log, with facts in a short list, and links are in tab order.
+  - Announced (A11Y-S1): The answer is read with sender and time; "Checking your bill" is announced politely, then the result.
+  - Errors (A11Y-E1): If the assistant does not know, it says so in text and offers Talk to a person; nothing typed is lost.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Give amounts and dates in full, such as "34 pounds twice on 3 October", and say plainly what the assistant does not know.
 
 ### 4. Confirm action
 
 - Show the action, amount and timing; customer taps Confirm
 - Over-threshold or disputed actions go to a person
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Confirm button after the action text; Confirm and Cancel are separate buttons, and Enter does nothing until Confirm is chosen.
+  - Announced (A11Y-S1): "Refund 34 pounds to your card ending 8810, 3 to 5 working days" is read as the heading, and the result is announced politely.
+  - Errors (A11Y-E1): The action, amount and timing are shown for review before Confirm, and Cancel leaves everything unchanged; over-threshold actions explain they go to a person.
+  - Time limits (A11Y-W1): No time limit. Confirm waits until the person chooses.
+  - Language (A11Y-L1): State the amount, the card ending and the timing in full words, and say plainly who acts next.
 
 ### 5. Handoff
 
 - Agent receives transcript and summary; customer is told this
 - Show queue position and expected wait
 - **loading:** Finding someone to help…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus stays in the chat; Cancel handoff is a normal button, and the queue position is text.
+  - Announced (A11Y-S1): "Connecting you to a person, about 4 minutes" is announced politely, and position changes at most once a minute.
+  - Errors (A11Y-E1): If handoff fails, a text message says so beside the status with a retry button; the conversation is kept and passed on.
+  - Time limits (A11Y-W1): The wait is stated as an estimate; the person is told if it changes, and can leave and be notified.
+  - Language (A11Y-L1): Say the person will see the conversation, and give the wait in minutes.
 
 ### 6. Resolved
 
 - Case reference and actions taken in writing
 - Offer the transcript by email
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the "Done" heading; the reference, actions taken and Email me the transcript are in order.
+  - Announced (A11Y-S1): "Done, 34 pounds refund requested, reference CS-20931" is read as the heading; the sent transcript is announced politely.
+  - Errors (A11Y-E1): A failed transcript email is explained in text beside the button with a retry; the email address is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Spell out the reference and say what was done in a short sentence.
 
 ---
 
@@ -132,7 +168,9 @@ Inputs: Keyboard, Touch, Screen reader, Voice dictation
 - Loop customers who ask for a person
 - Make refunds or changes from inferred intent
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-S1: New messages are announced in a polite live region without stealing focus
 - A11Y-N1: The chat log is a labelled list with each message's sender and time
@@ -141,6 +179,8 @@ Inputs: Keyboard, Touch, Screen reader, Voice dictation
 - A11Y-A1: Verification supports pasting, autofill and one-time-code autocomplete, with no puzzle or memory test
 - A11Y-E3: Actions show the exact amount and timing, require Confirm, and can be cancelled before they happen
 - A11Y-L1: Messages use short, literal sentences, with no idioms and a predictable layout
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

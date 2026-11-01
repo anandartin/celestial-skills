@@ -80,11 +80,23 @@ Inputs: Touch, Mouse and keyboard, Browser translation
 - Usage against limits shown in numbers
 - “Change plan” button next to the limit reached
 - **loading:** Show plan name and renewal date first; usage fills in after
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the plan heading; Change plan is a large button next to the limit, reachable in one Tab from the usage numbers.
+  - Announced (A11Y-S1): The plan name and renewal date are read first; usage is announced politely when it loads, such as '2 of 2 staff seats used'.
+  - Errors (A11Y-E1): No input on this step; a failed usage load is named in text with Try again.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write 'staff seats' and 'renews on 1 November' in short sentences, and spell out the currency.
 
 ### 2. Compare
 
 - Highlight the differences, not every feature
 - Mark the current plan clearly
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the comparison table heading; the table has row and column headers, and each Choose plan button is named with its plan.
+  - Announced (A11Y-S1): The table is read by plan and feature, with the current plan marked 'Your plan' in text; selection is announced politely.
+  - Errors (A11Y-E1): No input beyond choosing; if no plan is chosen, a message beside the button says so, and nothing changes.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Show only the differences, and write prices as '£29 a month' in full.
 
 ### 3. Preview cost
 
@@ -92,18 +104,36 @@ Inputs: Touch, Mouse and keyboard, Browser translation
 - Explain proration in one sentence
 - **error:** We couldn’t calculate the price. Nothing has changed. Try again.
 - **loading:** Calculating your price…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the cost heading; the table of charges is read in order with headers, and Continue follows the totals.
+  - Announced (A11Y-S1): 'Pay today £11.40, from 1 November £29 a month' is read in full; calculation is a polite status and the failure is assertive.
+  - Errors (A11Y-E1): A failed price calculation says nothing has changed and offers Try again; the plan choice is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Explain the credit for unused days in one sentence, and write amounts and dates in full.
 
 ### 4. Downgrade check
 
 - Name what is affected and when
 - Data is kept and returns on upgrade
 - **error:** Choose 3 staff before continuing
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the seat list; each staff member is a checkbox, and the count chosen is read as '2 of 3 chosen'.
+  - Announced (A11Y-S1): The step heading and 'On Starter you'll have 2 seats' are read first; the selected count is announced politely.
+  - Errors (A11Y-E1): 'Choose 3 staff before continuing' is named beside the list, linked from a summary, and the choices made stay.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say who loses access and on what date, and write that data is kept and returns on upgrade.
 
 ### 5. Confirm
 
 - Confirmation repeats amount, card and next bill
 - Undo available for 24 hours with full credit
 - **error:** Your card was declined. You’re still on Starter. Update your card to try again.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the confirmation heading; Tab reaches the receipt link and an Undo button, with large targets for tablet use.
+  - Announced (A11Y-S1): 'You're on Team, charged £11.40 to card ending 2280' is announced politely; a declined card is announced assertively.
+  - Errors (A11Y-E1): A review of amount, card and next bill comes before paying; a declined card message keeps the old plan, and undo is available for 24 hours with full credit.
+  - Time limits (A11Y-W1): No time limit; the undo window of 24 hours is stated in text on the page.
+  - Language (A11Y-L1): Write the amount, card ending and next bill date in full, and say 'undo for 24 hours' plainly.
 
 ---
 
@@ -127,7 +157,9 @@ Inputs: Touch, Mouse and keyboard, Browser translation
 - Remove features immediately on downgrade without saying so
 - Make downgrading harder to find than upgrading
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-P1: The price preview is a table with headers and totals read in order by screen readers.
 - A11Y-L1: Amounts and dates use the person's locale format, and currency is written as well as symbolised.
@@ -137,6 +169,8 @@ Inputs: Touch, Mouse and keyboard, Browser translation
 - A11Y-E1: Downgrade and card errors are named beside the field, and the choices made are kept.
 - A11Y-R1: The comparison table reflows at 200% zoom and 320px without losing a column's meaning.
 - A11Y-H1: A help link appears in the same place on every step.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

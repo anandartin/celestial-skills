@@ -81,12 +81,24 @@ Inputs: Device unlock (fingerprint, face, PIN), Email link, Keyboard and screen 
 - Field supports passkey autofill (conditional UI)
 - Same screen for known and unknown emails
 - **error:** Explain the format issue without clearing the field
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the email field, which supports passkey autofill; Tab then reaches Continue. Pasting, password managers and autofill work, and there is no puzzle or memory test.
+  - Announced (A11Y-S1): Title reads “Sign in”; the label “Enter your email to sign in” is read with the field, and a passkey suggestion is announced politely.
+  - Errors (A11Y-E1): The format error is in text beside the field, linked to it, and the email typed is never cleared.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say “passkey” with a short explanation such as “sign in with your fingerprint, face or PIN”, and avoid “credential”.
 
 ### 2. Choose method
 
 - Recommend a passkey when the device supports one
 - Always show “Email me a link instead”
 - **empty:** No passkey on this device — offer the email link first
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Choose a method legend; the methods are radio buttons in a fieldset and arrow keys move between them, with Email me a link instead always shown.
+  - Announced (A11Y-S1): The legend is read with each option; the recommended method is named in text, not only by position or colour.
+  - Errors (A11Y-E1): If no passkey is found, the message is text beside the options, with the email link offered first; the email is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Explain each method in one short phrase and keep the email link visible beside the passkey option.
 
 ### 3. Confirm
 
@@ -94,17 +106,35 @@ Inputs: Device unlock (fingerprint, face, PIN), Email link, Keyboard and screen 
 - Keep the waiting screen open with a resend option
 - **error:** That didn't work. Try again or use an email link.
 - **loading:** Waiting for your device…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the waiting heading; Tab reaches Resend and Use an email link. Pasting a code or opening the link works, and there is no puzzle, code to retype by memory or other cognitive test.
+  - Announced (A11Y-S1): “Waiting for your device” is announced politely, and a visual message confirms status for people with hearing loss; failures are announced assertively.
+  - Errors (A11Y-E1): “That didn't work” is text beside the Try again button, and the email is kept; the person can switch method without starting again.
+  - Time limits (A11Y-W1): The email link expires; the expiry time is stated in text, and a new link can be sent at any time, with no countdown needed.
+  - Language (A11Y-L1): Explain the device prompt before it appears, using “fingerprint, face or PIN”, and avoid “authenticator” and “biometric”.
 
 ### 4. Signed in
 
 - Return to the deep link they started from
 - On a shared computer, offer “Don't stay signed in”
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the You're signed in heading; Tab reaches Continue, then the Don't stay signed in option on shared computers.
+  - Announced (A11Y-S1): “You're signed in” is announced politely, with a visible message as well as any sound, for people with hearing loss.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say where the person is going next in one sentence and explain “Don't stay signed in” as for shared computers.
 
 ### 5. Add passkey
 
 - Offer once after a link sign-in, never block
 - Explain where the passkey is stored
 - **error:** We couldn't save the passkey. You can try again from Settings.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Add a passkey heading; Tab reaches Add passkey, then Not now, and the offer never blocks.
+  - Announced (A11Y-S1): The offer is read with where the passkey is stored; the result is announced politely.
+  - Errors (A11Y-E1): The save failure is text beside the button, with a note that it can be retried from Settings; nothing the person did is lost.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say where the passkey is stored in plain words and that it is optional.
 
 ---
 
@@ -128,7 +158,9 @@ Inputs: Device unlock (fingerprint, face, PIN), Email link, Keyboard and screen 
 - Auto-save a passkey on a device the person said is shared
 - Expire a link silently — always say what to do next
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-A1: No step requires a memory or transcription test; pasting, password managers and autofill work, and a passkey or email link is always offered.
 - A11Y-S1: Status changes such as “Waiting for your device” are announced through a polite live region, and failures assertively.
@@ -137,6 +169,8 @@ Inputs: Device unlock (fingerprint, face, PIN), Email link, Keyboard and screen 
 - A11Y-C2: Waiting, success and failure are shown by text and an icon, not colour or sound alone, for people with hearing loss.
 - A11Y-E1: Errors are named in text beside the field and the email typed is never cleared.
 - A11Y-W1: Link and code expiry are stated in text, and a new link or code can be requested at any time.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

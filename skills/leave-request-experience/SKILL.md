@@ -81,28 +81,58 @@ Inputs: Touch, Keyboard, Screen reader
 - Balance in days or hours as per contract
 - Explain carry-over and expiry in plain words
 - **empty:** No leave booked yet this year
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the balance heading; the balance is read first and carry-over and expiry details are a short list after it, with a button to see leave by hours.
+  - Announced (A11Y-S1): Title "Your leave" is read; "14 days left, 3 expire on 31 March" is read as full text, and the shared kiosk reads the same.
+  - Errors (A11Y-E1): When no leave is booked, the empty state is a text message with a Book leave button.
+  - Time limits (A11Y-W1): On a shared kiosk, a warning appears at least 20 seconds before the 2-minute idle end, with a Continue button.
+  - Language (A11Y-L1): Say days or hours as the contract states, give dates in full, and explain "carry-over" in a plain sentence.
 
 ### 2. Pick dates
 
 - Calendar shows shifts and public holidays
 - Team cover shown as counts, not names or reasons
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the date field; a calendar picker has a typed date alternative, and arrow keys move across days with the selected range announced.
+  - Announced (A11Y-S1): The selected range is announced as "Monday 10 to Friday 14 November, 5 days", and the cover count is read, such as "2 of 8 are off".
+  - Errors (A11Y-E1): A date error is written in text beside the field, such as "End date is before start date", and linked to it; typed dates are kept.
+  - Time limits (A11Y-W1): On a shared kiosk, a warning appears at least 20 seconds before the idle end, with a Continue button.
+  - Language (A11Y-L1): Write dates in full with the weekday, and show cover as a count, such as "2 of 8", not initials.
 
 ### 3. Request
 
 - Leave type, dates, half days; reason optional
 - Show days used before submitting
 - **error:** You have 4 days left. Shorten the dates or choose unpaid leave.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the leave type; fields follow reading order, half days are a clear choice, and Send follows a review of days used and balance.
+  - Announced (A11Y-S1): Title "Request leave" is read; "This uses 5 days, 9 left after" is read politely before Send, and an error summary is announced assertively.
+  - Errors (A11Y-E1): The balance error, such as "You have 4 days left", is named in text beside the dates and linked to them; entered dates are kept, and Send shows a review step first.
+  - Time limits (A11Y-W1): On a shared kiosk, a warning appears at least 20 seconds before the idle end, with a Continue button; entries are kept after continuing.
+  - Language (A11Y-L1): Use plain words for leave types, spell out days used and days left, and avoid shift-code abbreviations.
 
 ### 4. Decide
 
 - Request with balance, cover and rota impact on one screen
 - Decline needs a reason and a suggested alternative
 - **empty:** No requests waiting
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the request heading; request, balance, cover and rota impact follow in reading order, then Approve and Decline, with a reason field after Decline.
+  - Announced (A11Y-S1): "Approve 5 days for Hamid, 10 to 14 November" is read as the heading, and the decision made is announced politely.
+  - Errors (A11Y-E1): A missing decline reason is named in text beside the field and linked to it; the reason typed is kept, and each decision shows a confirm step with undo.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): State the dates in full and explain rota impact in a short sentence.
 
 ### 5. Confirmed
 
 - Decision, dates and new balance in large text
 - Add to calendar; cancel or change link
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the "Approved" heading; Add to calendar and Change or cancel are separate buttons.
+  - Announced (A11Y-S1): "Approved, Monday 10 to Friday 14 November, 9 days left" is read as the heading, and added to calendar is announced politely.
+  - Errors (A11Y-E1): Cancel shows a confirm step and can be undone; a failed calendar add is named in text with a retry, and the leave is kept.
+  - Time limits (A11Y-W1): On a shared kiosk, a warning appears at least 20 seconds before the idle end; no personal data remains afterwards.
+  - Language (A11Y-L1): Show the decision, full dates and new balance in large text, and use the page language that matches the translation.
 
 ---
 
@@ -126,7 +156,9 @@ Inputs: Touch, Keyboard, Screen reader
 - Use “accrual” without explaining it
 - Leave requests pending without reminders
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-K1: The date picker has a typed alternative and announces the selected range, and works by keyboard
 - A11Y-R1: Text scales to 200% on mobile without loss of content or horizontal scrolling
@@ -134,6 +166,8 @@ Inputs: Touch, Keyboard, Screen reader
 - A11Y-L1: The page language is set correctly when translated, and plain words are used for leave terms
 - A11Y-E3: Submitting shows days used and days left before Send, and cancel or change is available after approval with a confirm step
 - A11Y-E1: Balance and date errors are named in text beside the field, linked, and the dates kept
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

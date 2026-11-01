@@ -81,28 +81,58 @@ Inputs: Keyboard and screen reader, Authenticator app, Hardware security key, Te
 - Explain each method in one line
 - Recommend app or key; text message labelled as fallback
 - **error:** Please sign in again to change security settings
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; the method options are a radio group and Continue follows; a fresh sign-in allows paste and password managers, with a passkey offered, and no memory or puzzle test.
+  - Announced (A11Y-S1): Announces the page title and heading, then each method; the sign-in-again message is announced assertively.
+  - Errors (A11Y-E1): The sign-in message sits beside the heading with a Sign in link; the chosen method is kept and returns after sign-in.
+  - Time limits (A11Y-W1): No time limit; the setup stays open until finished.
+  - Language (A11Y-L1): Say 'second step' and 'security key' in plain words and avoid 'TOTP'.
 
 ### 2. Connect
 
 - Setup key shown as text with a copy button
 - No countdown on this screen
 - **loading:** Waiting for your security key…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the setup key; the key has a Copy button and is read in groups of four, with a QR code alternative.
+  - Announced (A11Y-S1): Announces the QR alt text pointing to the setup key, the key in groups, and politely 'Waiting for your security key'.
+  - Errors (A11Y-E1): Setup problems are stated in text beside the key; the key stays visible and copyable.
+  - Time limits (A11Y-W1): No time limit while waiting for the key.
+  - Language (A11Y-L1): Explain 'setup key' in one sentence and spell out groups of four characters.
 
 ### 3. Test
 
 - Accept the current and previous code
 - Do not enable until this succeeds
 - **error:** That code didn't match. Check your app's clock and try the newest code.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the code field; paste and autofill with autocomplete='one-time-code' work, and Enter submits; no puzzle or memory test.
+  - Announced (A11Y-S1): Announces the label 'Code from your app'; the mismatch error is assertive and read with the field.
+  - Errors (A11Y-E1): The mismatch message sits beside the field, linked to it, suggests checking the clock, and keeps what was typed.
+  - Time limits (A11Y-W1): No time limit; codes accept one step of clock drift, and the newest one can be entered at any time.
+  - Language (A11Y-L1): Say '6-digit code' and keep instructions to one short sentence.
 
 ### 4. Save codes
 
 - Codes as selectable text, grouped for reading
 - Copy, download and print options
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; recovery codes are a list with one code per item and Copy and Download buttons.
+  - Announced (A11Y-S1): Announces the heading, each code as a list item, and 'Copied' politely.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'recovery codes' and 'each works once' and read codes in groups.
 
 ### 5. Done
 
 - Summarise methods and how to change them
 - Say a notice email was sent
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the confirmation heading; the Done button is next.
+  - Announced (A11Y-S1): Announces 'Two-step verification is on' politely, then what happens next.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'what happens next' in short steps.
 
 ---
 
@@ -126,7 +156,9 @@ Inputs: Keyboard and screen reader, Authenticator app, Hardware security key, Te
 - Force text message as the only option
 - Enable the factor before it has been tested
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-A1: Sign-in and code fields allow paste, password managers and autofill, with no memory test (WCAG 3.3.8).
 - A11Y-W1: There are no fixed time limits during setup (WCAG 2.2.1).
@@ -135,6 +167,8 @@ Inputs: Keyboard and screen reader, Authenticator app, Hardware security key, Te
 - A11Y-K1: Focus order is method, instructions, setup key, code field, continue.
 - A11Y-E1: A wrong code is explained in text next to the field and the typed code is kept.
 - A11Y-E3: Setup can be reviewed and two-step verification can be turned off in settings.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

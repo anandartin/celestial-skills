@@ -82,6 +82,12 @@ Inputs: Camera and microphone, Touch and keyboard, Text chat during the call, Sc
 - Ask only what the clinician will use, max 6 questions
 - Urgent-symptom answers show emergency guidance immediately
 - **error:** Keep all answers; say which question needs attention and why
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first question; Tab follows the questions in order, up to 6, and answers are native radios or text fields.
+  - Announced (A11Y-S1): Page title is Pre-visit check; emergency guidance is announced assertively as soon as an urgent answer is chosen, and progress is polite.
+  - Errors (A11Y-E1): The question needing attention is named in text beside it with why, linked from a summary; all answers are kept.
+  - Time limits (A11Y-W1): No time limit; answers are saved so the form can be finished later.
+  - Language (A11Y-L1): Ask in plain words, such as 'Is anything worse?', and explain why each question is asked.
 
 ### 2. Device test
 
@@ -89,24 +95,48 @@ Inputs: Camera and microphone, Touch and keyboard, Text chat during the call, Sc
 - Offer audio-only and phone fallback if a check fails
 - **error:** Your microphone is blocked. Here's how to allow it in your browser
 - **loading:** Checking your connection…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the permission explanation; Allow camera and microphone is a button after the reason, and the audio-only option is the next stop.
+  - Announced (A11Y-S1): 'Checking your connection' is a polite status; each check passes or fails in text, and a blocked microphone is announced assertively.
+  - Errors (A11Y-E1): The blocked microphone is named in text with steps for the browser; audio-only and phone fallback are offered and settings are kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Give the reason for each permission in one sentence and avoid terms such as 'bandwidth'.
 
 ### 3. Waiting room
 
 - Show position or expected wait, updated at least every minute
 - Text the patient if the clinician is running more than 10 minutes late
 - **loading:** Connecting you to the waiting room…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the waiting heading; Leave the queue and Text me are buttons, and nothing grabs focus when the wait updates.
+  - Announced (A11Y-S1): Wait updates are polite and at most once a minute, such as 'about 8 minutes late'; the heading is read first.
+  - Errors (A11Y-E1): No input beyond choosing to stay or be texted; the choice is kept and can be changed.
+  - Time limits (A11Y-W1): The wait time updates every minute; a message warns before the room closes, at least 20 seconds ahead, and the person can stay or be texted.
+  - Language (A11Y-L1): Say 'about 8 minutes late' and write times in full; explain the text option in one line.
 
 ### 4. Visit
 
 - Captions toggle and chat visible without opening a menu
 - Identity and location confirmed in the first minute
 - **error:** Connection lost. Rejoining… If this fails, Dr Okafor will call 07700 900123
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the captions button; the call controls follow in order: mute, camera, captions, chat, leave, and the clinician's video stays on.
+  - Announced (A11Y-S1): Captions are on by default if the profile asks, and 'Captions on' is a polite status; connection loss is assertive.
+  - Errors (A11Y-E1): Leave asks for confirmation so it cannot be pressed by accident; a lost connection says Dr Okafor will call and the chat stays.
+  - Time limits (A11Y-W1): No time limit for the visit; a warning appears at least 20 seconds before any session limit with a button to extend.
+  - Language (A11Y-L1): Use 'captions' and 'chat' with the phone number written in full as 07700 900123.
 
 ### 5. Follow-up
 
 - Summary written in plain language within one hour
 - Prescription and referral status shown with what happens next
 - **empty:** Summary not ready yet — we'll notify you when Dr Okafor signs it off
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the summary heading; Tab reaches the plan, prescriptions and the next appointment in order.
+  - Announced (A11Y-S1): 'Your visit summary is ready' is announced politely; prescription and referral statuses are read in text.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the plan in plain language, explain medicine names, and give dates in full.
 
 ---
 
@@ -130,7 +160,9 @@ Inputs: Camera and microphone, Touch and keyboard, Text chat during the call, Sc
 - Record the visit without separate explicit consent
 - Require an account password to join a single visit
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-P1: Meets WCAG 2.2 AA; captions are on by default when the patient's profile requests them.
 - A11Y-K1: Call controls are at least 48×48px and reachable by keyboard in a logical order: mute, camera, captions, chat, leave.
@@ -140,6 +172,8 @@ Inputs: Camera and microphone, Touch and keyboard, Text chat during the call, Sc
 - A11Y-C2: Urgent guidance and connection states use text and icons, never colour alone, and do not rely on audio.
 - A11Y-W1: Any waiting-room or session time limit is warned at least 20 seconds before and can be extended.
 - A11Y-H1: A help link and a phone fallback appear in the same place on every step.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -95,10 +95,13 @@ When a Celestial experience skill is in use, give each journey one end-to-end te
 |---|---|---|---|
 | Lint and types | The stack’s linter and type checker | 0 errors | Every pull request |
 | Unit and component tests | The stack’s test runner | All pass; every design-skill component state covered | Every pull request |
+| Accessibility | Automated audit (axe on web, platform audit on mobile) | WCAG 2.2 AA · no new violations | Every pull request |
 | Dependency and secret scan | Dependency audit + secret scanner | No high or critical findings; no secrets | Every pull request and nightly |
 | Package correctness | publint + @arethetypeswrong/cli on the packed tarball | 0 errors; types resolve for node16, bundler and ESM consumers | Every pull request |
 | API report | API Extractor | Report committed and up to date; any change has a matching changeset with the right semver bump | Every pull request |
 | Size budget | size-limit | Main entry ≤ 10KB minified and gzipped; no growth over 5% without approval | Every pull request |
+
+The Accessibility gate checks Celestial accessibility core v1.0 (WCAG 2.2 AA); it can change tool but is never skipped. Automated: A11Y-C1, A11Y-F1, A11Y-N1, A11Y-S1, A11Y-P1 (partly). Manual pass before release: A11Y-K1, A11Y-R1, A11Y-M1, A11Y-E1, A11Y-L1 — keyboard-only run, screen reader on each journey step, 200% zoom and 320px width, reduced motion. Requirement IDs come from the design and experience skills this code builds.
 
 ## Workflow
 - Branching: Trunk-based: short-lived branches off main; maintenance branches only for supported previous majors.

@@ -81,34 +81,70 @@ Inputs: Touch, Keyboard, Document upload, E-signature
 
 - Timeline of tasks before and on day one
 - Named contacts with photos and roles
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the welcome heading; Tab reaches the timeline tasks in date order and each named contact, with phone and email as real links.
+  - Announced (A11Y-S1): Page title is Welcome; the timeline is read as an ordered list with dates, and each contact is read with name and role.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write dates in full, such as Monday 3 November, and describe each task in a short sentence.
 
 ### 2. Paperwork
 
 - Ask once; pre-fill from the offer
 - Optional sections clearly marked optional
 - **error:** This document has expired. Upload a current one.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first form field; Tab follows the visual order, optional sections are labelled 'optional', and e-signature works with keyboard and screen reader.
+  - Announced (A11Y-S1): Page title is Paperwork; progress is announced politely as sections are saved, and the optional adjustments note says who will see it.
+  - Errors (A11Y-E1): The expired document message is next to the upload, linked from a summary, with a phone-photo option; everything entered is kept, nothing is asked twice, and a review step comes before signing.
+  - Time limits (A11Y-W1): No time limit; progress is saved between visits.
+  - Language (A11Y-L1): Explain 'adjustments' with examples such as a height-adjustable desk, and say plainly who can see the answer.
 
 ### 3. Equipment
 
 - Tasks filtered by due date and status
 - Account creation tied to start date
 - **empty:** No equipment tasks this week
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the filter group; Tab reaches each task row, and due date and status are read as text in every row.
+  - Announced (A11Y-S1): 'Laptop for Mei Tan, due Thursday 30 October' is read in full; changing a filter announces the new task count politely.
+  - Errors (A11Y-E1): No input on this step beyond filters; a filter that returns nothing shows the empty message in text.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Spell out 'IT' as 'IT team' once and write due dates in full.
 
 ### 4. Manager prep
 
 - Template plan with buddy, meetings and first tasks
 - Adjustments visible only as needed actions
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the buddy field; the buddy is chosen from a searchable list, and chips are toggled with Space.
+  - Announced (A11Y-S1): The step title is read first; adding a buddy is announced politely as 'Buddy added for Mei's first week'.
+  - Errors (A11Y-E1): A missing buddy or meeting is named beside the field; choices made stay, and a buddy can be changed afterwards.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Call the helper a 'buddy' with one line explaining it, and avoid internal HR terms.
 
 ### 5. Readiness
 
 - Overdue tasks flagged to owners and HR
 - Readiness shown per starter
 - **empty:** No new starters in the next 30 days
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the dashboard heading; each starter row is a link, and the at-risk items are reached directly through a list of tasks.
+  - Announced (A11Y-S1): 'Mei Tan, 9 of 11 tasks done, Laptop at risk' is read in full; 'at risk' is a text label, not just colour.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write counts as '9 of 11 tasks' and name each at-risk task, avoiding the word 'RAG'.
 
 ### 6. Day one
 
 - Day-one card with time, place, step-free route and first contact
 - Login help that works without a company account
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the day-one card heading; the route link and contact number are real links reachable by keyboard, and help works without a company account.
+  - Announced (A11Y-S1): The card is read as time, place, step-free route and first contact, 'Monday 9:30, meet Ade at the step-free entrance on Mill Street'.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Keep time and place in written form, such as 9:30 on Monday 3 November, and give directions as short steps.
 
 ---
 
@@ -132,7 +168,9 @@ Inputs: Touch, Keyboard, Document upload, E-signature
 - Create accounts weeks before the start date
 - Make diversity questions mandatory
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-A1: The starter portal signs in without a memory or puzzle test; pasting, password managers and a magic link work.
 - A11Y-K1: The e-signature can be completed with a keyboard and a screen reader, without drawing.
@@ -141,6 +179,8 @@ Inputs: Touch, Keyboard, Document upload, E-signature
 - A11Y-C2: Dashboard status uses text labels and patterns as well as colour.
 - A11Y-H1: A named contact and help link appear in the same place on every step, and work before a company account exists.
 - A11Y-L1: Instructions are written in short plain sentences, with dates and times in full.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -81,6 +81,12 @@ Inputs: Keyboard, Screen reader, File upload, Touch
 
 - Salary range, location and stages listed up front
 - Requirements split into essential and nice to have
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the role heading; headings split essential and nice-to-have requirements, and the Apply button is the first action after the summary.
+  - Announced (A11Y-S1): The page title is the role; '4 stages, about 3 weeks, £28,000 to £32,000' is read as a list with the pay range in full.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the pay as £28,000 to £32,000 a year and explain each stage in a short sentence.
 
 ### 2. Your CV
 
@@ -88,27 +94,57 @@ Inputs: Keyboard, Screen reader, File upload, Touch
 - Parsed fields shown for review; nothing submitted unseen
 - **error:** We couldn't read this file. Try a PDF or Word document
 - **loading:** Reading your CV…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the upload control, a native labelled file input; Tab then reaches each parsed field for review, and Enter on the button opens the file picker.
+  - Announced (A11Y-S1): 'Reading your CV' is a polite status, then 'Work history filled in, please check it'; the failure message is assertive.
+  - Errors (A11Y-E1): The unreadable file is named beside the upload with allowed types; nothing is submitted unseen, and fields already corrected stay.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'CV' with 'work history' in full and name accepted formats as PDF or Word document.
 
 ### 3. Questions
 
 - Each question says which requirement it checks
 - Free-text answers show a word guide, not a hard cut-off
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first question; each question names the requirement it checks, and chips toggle with Space.
+  - Announced (A11Y-S1): Each question has a visible label; the word guide is read as 'about 150 words suggested', not as a limit.
+  - Errors (A11Y-E1): A missing required answer is named beside the question and listed in a summary with links; typed answers are kept and never cut off.
+  - Time limits (A11Y-W1): No time limit; any timed assessment can be extended.
+  - Language (A11Y-L1): Ask one clear question at a time and avoid jargon such as 'competency' without an example.
 
 ### 4. Adjustments
 
 - Optional and framed as normal
 - Examples given: extra time, captioned video, written questions in advance
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the adjustments field; examples are a checkbox list with extra time, captioned video and written questions, and the section is labelled optional.
+  - Announced (A11Y-S1): The heading is read first and the section is marked optional; saving is announced politely.
+  - Errors (A11Y-E1): No error is possible for skipped input; entered requests are kept and can be edited before submitting.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Frame adjustments as normal, give examples in everyday words, and say who will read the answer.
 
 ### 5. Submit
 
 - Summary with edit links before sending
 - Confirms what happens next and by when
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the summary heading; Tab reaches each Edit link before the Send button, and Edit returns to the exact answer.
+  - Announced (A11Y-S1): 'Application sent, we'll update you by Friday 7 November' is announced politely; focus moves to that heading.
+  - Errors (A11Y-E1): The summary is shown for checking before sending, with Edit links; a failed send names the problem and keeps every answer.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the update date in full, such as Friday 7 November, and say what happens next in one sentence.
 
 ### 6. Status
 
 - Every stage change sent as a message with a date
 - Rejections are clear and kind, with feedback where possible
 - **empty:** No updates yet. We expect to review applications by 7 November
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the latest message; messages are a list in date order, and each opens by Enter, with email copies as plain text.
+  - Announced (A11Y-S1): The count of new messages is announced politely, and 'Your application has moved to interview' is read with its date.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write each stage change in plain words with a date, and keep rejections clear and kind.
 
 ---
 
@@ -132,7 +168,9 @@ Inputs: Keyboard, Screen reader, File upload, Touch
 - Make candidates re-type what the CV already says
 - Leave applications in an unexplained “in review” state
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-P1: Meets WCAG 2.2 AA; the CV upload is a native, labelled file input operable by keyboard.
 - A11Y-E1: Errors are announced and linked from a summary that receives focus; typed answers are kept.
@@ -142,6 +180,8 @@ Inputs: Keyboard, Screen reader, File upload, Touch
 - A11Y-E3: The submit step shows a summary with edit links before sending, and the parsed CV data is reviewed before use.
 - A11Y-E2: Details read from the CV are never asked for again on later steps.
 - A11Y-H1: Help and an adjustments contact appear in the same place on every step.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -80,34 +80,70 @@ Inputs: Keyboard, Pointer, Screen magnifier, Touch
 
 - Comment on a selection, element or region
 - Keyboard command to comment on the focused item
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus stays on the item; a keyboard command comments on the focused element, and Tab then moves to the comment box. Selecting by mouse is never the only way.
+  - Announced (A11Y-S1): The page title names the file; “Add a comment” is announced as a button, and the comment box is announced with its anchor, for example “Comment on Checkout label”.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Use “Add a comment” consistently and avoid jargon such as “anchor”; say what will be commented on.
 
 ### 2. Write
 
 - @ opens a people list filtered by access
 - Draft is kept if the user navigates away
 - **error:** Leon can't see this file. Share it with him first?
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands in the comment box; typing @ opens a people list reachable with arrow keys, Enter selects, Escape closes, and Tab reaches Post and Cancel.
+  - Announced (A11Y-S1): The people list is a listbox announced politely with its result count; the mentioned name is read as a link; posting is announced as “Comment posted”.
+  - Errors (A11Y-E1): The access error is written next to the box, linked to it, and offers Share first or Remove mention; the comment text typed is always kept as a draft.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write error text in plain words, such as “Leon can't see this file”, and avoid permission jargon.
 
 ### 3. Notify
 
 - Notification shows the comment text and a link to its place
 - Grouped by item, newest first
 - **empty:** You're all caught up
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the inbox heading; Tab or arrow keys move through notifications, which are grouped by item, and Enter opens the linked thread.
+  - Announced (A11Y-S1): Each notification reads who mentioned you, the comment text and the item; new notifications are announced politely and do not move focus.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Show the comment text itself, not “You have a notification”, and write dates in full, for example “1 November”.
 
 ### 4. Discuss
 
 - Replies stay in the thread under the anchor
 - Show when the anchored content changed since the comment
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves into the thread when it opens; shortcut keys move to the next and previous comment, Tab reaches Reply, and Escape returns to the item.
+  - Announced (A11Y-S1): New replies are announced politely without moving focus; the “Content changed since this comment” note is text, and each pin has a name such as “Comment 3 by Oluwaseun, open”.
+  - Errors (A11Y-E1): A reply error is shown in text beside the reply box and linked to it; the draft reply is kept if the person leaves the thread.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Explain “content changed” in one plain sentence, naming what changed and when.
 
 ### 5. Resolve
 
 - Resolve is one action with undo
 - Resolved threads collapse but stay searchable
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus stays on the Resolve button, then moves to the Undo button in the confirmation, which stays long enough to reach by keyboard.
+  - Announced (A11Y-S1): “Thread resolved” is announced politely, with Undo as a button that reverses it.
+  - Errors (A11Y-E1): No input on this step; Resolve is one action that is undone with the Undo button, and resolved threads stay searchable.
+  - Time limits (A11Y-W1): The Undo option stays available for at least 20 seconds, and a Resolved filter in the list restores a thread later; it is not a timed message that disappears.
+  - Language (A11Y-L1): Use “Resolve” and “Undo” consistently, and say that the thread stays searchable.
 
 ### 6. Review open
 
 - Filter by open, mine, mentioned me
 - Count of open threads on the item header
 - **empty:** No open threads — ready for sign-off
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the list heading; Tab goes to the filters (Open, Mine, Mentioned me) as toggle buttons, then the thread list in order.
+  - Announced (A11Y-S1): The count “4 open threads, 2 waiting on you” is a polite live region that updates when a filter changes; the page title names the item.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Spell out the counts and the filter names in full; avoid abbreviations such as “thr.” or “cmts”.
 
 ---
 
@@ -131,7 +167,9 @@ Inputs: Keyboard, Pointer, Screen magnifier, Touch
 - Notify on every reaction
 - Let comment pins cover the content with no way to hide them
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-K1: Shortcuts move to the next and previous comment, and focus moves into the thread when it opens.
 - A11Y-R1: The comment panel reflows at 400% zoom and 320px width with no horizontal scrolling.
@@ -140,6 +178,8 @@ Inputs: Keyboard, Pointer, Screen magnifier, Touch
 - A11Y-E3: Resolving a thread is one action with an Undo that stays available and is reachable by keyboard.
 - A11Y-E1: The cannot-see-this-file error appears in text next to the comment box and the typed draft is kept.
 - A11Y-C2: Open and resolved states are shown by text or an icon with a label, never by colour alone.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

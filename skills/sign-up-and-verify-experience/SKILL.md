@@ -81,17 +81,35 @@ Inputs: Touch keyboard, Password manager autofill, One-time code autofill from e
 - Show the benefit in one line above the form
 - Email first; no name or phone at this point
 - **error:** Explain the email format issue next to the field without clearing it
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Create your account heading; Tab goes to the email field, with autocomplete email, then Continue. Autofill and paste work.
+  - Announced (A11Y-S1): Title reads “Create your account”; the one-line benefit is read first, and the field label is read with it.
+  - Errors (A11Y-E1): The email format error is text beside the field, linked to it, and the email is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say the benefit in one short sentence and ask for email only, with no jargon.
 
 ### 2. Password
 
 - Show the rules before typing and tick them as they are met
 - Allow paste and a show-password toggle
 - **error:** Name the one rule that is not yet met
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the password field; Tab reaches the show-password toggle, then Continue. Paste, password managers and autofill (new-password) work, and there is no puzzle or memory test.
+  - Announced (A11Y-S1): The rules are linked with aria-describedby and read before typing; each rule met is announced politely.
+  - Errors (A11Y-E1): The unmet rule is named in text beside the field and linked to it, and the password typed is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write rules as short sentences with numbers in full, for example “at least 12 characters”.
 
 ### 3. Consent
 
 - Marketing opt-in unticked by default
 - Terms and privacy notice open in a panel, not a new site
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Consent heading; Tab goes to the unticked marketing checkbox, the terms and privacy links that open a panel, then Continue.
+  - Announced (A11Y-S1): Each checkbox has a visible label read with its state; the panel is announced with its title and Escape returns focus to the link.
+  - Errors (A11Y-E1): If a required agreement is missing, the error is beside it, linked, and choices are kept; the marketing choice is separate from the terms.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Explain what each choice means in one sentence, and say marketing can be stopped at any time.
 
 ### 4. Verify
 
@@ -99,11 +117,23 @@ Inputs: Touch keyboard, Password manager autofill, One-time code autofill from e
 - Resend unlocks after 30 seconds with a visible timer
 - **error:** That code has expired. We've sent a new one.
 - **loading:** Checking the code…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the code field, one field with autocomplete one-time-code; Tab reaches Resend, then Change email. Pasting the code and autofill work, and there is no puzzle or memory test.
+  - Announced (A11Y-S1): “We sent a 6-digit code to leila@example.com” is read, “Checking the code” is announced politely, and failure is announced assertively.
+  - Errors (A11Y-E1): The expired or wrong code message is text beside the field, linked to it, and a new code is sent; the code typed is kept for correction.
+  - Time limits (A11Y-W1): The code expires; its time is stated in text, and Resend unlocks after 30 seconds with a visible timer read politely at the end, not every second.
+  - Language (A11Y-L1): Say “6-digit code” and show the full email address; avoid “OTP” and “verification token”.
 
 ### 5. Welcome
 
 - Return to the page and item they started from
 - Offer one next step, not a tour
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the Welcome heading; Tab reaches Continue, which returns to the saved page and item.
+  - Announced (A11Y-S1): “You're in” is announced politely with where the person will be taken.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say where the person is going next in one short sentence and offer one next step only.
 
 ---
 
@@ -127,7 +157,9 @@ Inputs: Touch keyboard, Password manager autofill, One-time code autofill from e
 - Force a password confirmation field when a show toggle exists
 - Pre-tick marketing consent or bundle it with the terms
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-A1: Paste and autofill are allowed on every field, no cognitive test is required, and the code is one field with autocomplete one-time-code.
 - A11Y-E1: Focus moves to the first error on submit, and each error is text beside the field and linked to it, with typed values kept.
@@ -136,6 +168,8 @@ Inputs: Touch keyboard, Password manager autofill, One-time code autofill from e
 - A11Y-W1: The resend timer and code expiry are stated in text, and a new code can always be requested.
 - A11Y-P1: The code input is a single native field with inputmode numeric, not six separate boxes.
 - A11Y-L1: Short lines and plain words are used throughout for a reader with dyslexia.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

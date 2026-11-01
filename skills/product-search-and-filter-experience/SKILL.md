@@ -81,6 +81,12 @@ Inputs: Touch, Keyboard, Voice dictation, Screen reader
 - Suggestions show categories as well as products
 - **error:** Search is slow right now — show popular categories instead
 - **loading:** Keep the typed text; show suggestions as they arrive without moving focus
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus stays in the search field; arrow keys move through suggestions, Enter selects one, Escape closes the list, and Tab reaches the search button.
+  - Announced (A11Y-S1): The field is a combobox with a visible label; the suggestion count is announced politely and focus does not move as suggestions arrive.
+  - Errors (A11Y-E1): The slow-search message is text under the field with popular categories, linked to it; the typed text is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Accept rough spelling and say what is shown, for example “Showing popular categories”; avoid search jargon.
 
 ### 2. Results
 
@@ -88,23 +94,47 @@ Inputs: Touch, Keyboard, Voice dictation, Screen reader
 - Sponsored items carry a visible “Sponsored” label
 - **empty:** No exact matches for “ketle”. Showing results for “kettle”.
 - **loading:** Skeleton cards at the final size so nothing jumps
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the results heading; Tab goes to the sort control, then filters, then each product, with one hand reachable controls near the bottom.
+  - Announced (A11Y-S1): The title and heading read “248 results for kettle”, and the sort is read as “Sorted by relevance”; changes are announced politely.
+  - Errors (A11Y-E1): The typo-correction message is text above the list, linked to the search field, and the original query is kept so it can be restored.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say “Showing results for kettle” in plain words and label sponsored items with the visible word Sponsored.
 
 ### 3. Filter
 
 - Each filter option shows how many results it leaves
 - Applied filters appear as removable chips with “Clear all”
 - **empty:** No kettles match all 4 filters. Remove “Under £25” to see 12.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus stays on the filter that changed, then moves to the results heading after Apply; each checkbox, chip and Clear all button is operable by keyboard.
+  - Announced (A11Y-S1): Each option reads its label and count; the new result count is announced politely, and removing a chip is announced.
+  - Errors (A11Y-E1): The no-match message is text above the list, names which filter to remove, and the chosen filters are kept so they can be undone one by one.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Show counts in full, such as “31 results”, and name each filter in plain words.
 
 ### 4. Compare
 
 - Same attributes in the same rows for every product
 - Differences highlighted with text, not colour alone
 - **error:** One product went out of stock — keep it in the table, marked “Out of stock”
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Compare heading; Tab moves across the shortlist, and each product has a Remove from compare button.
+  - Announced (A11Y-S1): The table has row and column headers so each attribute is read with its product; differences are written as text.
+  - Errors (A11Y-E1): The out-of-stock message is text in the column, linked to that product, which stays in the table; the shortlist is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Use the same attribute names in the same rows, and mark differences with words, not colour alone.
 
 ### 5. Open product
 
 - Back restores scroll position, filters and sort
 - Product page repeats the attributes that matched the filters
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the product heading; the Back to 31 results link is first in order and restores the list, scroll position, filters and sort.
+  - Announced (A11Y-S1): The title is the product name; the matched attributes are read as text, and the back link names the result count.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Repeat the attributes that matched the filters in the same words used on the filter.
 
 ---
 
@@ -128,7 +158,9 @@ Inputs: Touch, Keyboard, Voice dictation, Screen reader
 - Reset filters when someone returns from a product
 - Disguise sponsored results as organic ones
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-P1: Search suggestions use the combobox pattern; arrow keys move, Enter selects and Escape closes.
 - A11Y-S1: Result counts and filter changes are announced in a polite live region, without moving focus.
@@ -137,6 +169,8 @@ Inputs: Touch, Keyboard, Voice dictation, Screen reader
 - A11Y-C2: Sponsored labels, out-of-stock marks and compare differences are text, never colour alone.
 - A11Y-E1: Typed search text is never cleared by an error or correction, and the no-match message names the filter to remove.
 - A11Y-L1: Suggestions and corrections use plain language and accept rough spelling for people with dyslexia.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

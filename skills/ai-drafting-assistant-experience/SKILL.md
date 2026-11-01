@@ -81,6 +81,12 @@ Inputs: Keyboard, Pointer, Voice dictation
 - Chips for type, length and tone
 - Shows which sources the assistant may use
 - **empty:** Try: “Summarise this account for my manager”
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands in the prompt box; Tab moves through the type, length and tone chips, then Generate, and the chips toggle with Space.
+  - Announced (A11Y-S1): Page title is Ask; the chip groups have labels, and the source list is read as a list of what the assistant may use.
+  - Errors (A11Y-E1): Missing prompt text is named beside the box and linked to it; whatever was typed stays in place.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'sources' and 'tone' in plain terms and keep the example prompt short and free of jargon.
 
 ### 2. Generate
 
@@ -88,21 +94,45 @@ Inputs: Keyboard, Pointer, Voice dictation
 - Do not move focus while text streams
 - **error:** The draft couldn't be finished. Your prompt is saved — try again.
 - **loading:** Streaming text with a status line
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus stays on the Stop button and never moves while text streams; Stop works with Enter or Space and is first in tab order.
+  - Announced (A11Y-S1): Streaming text is not read word by word; a polite status says 'Writing draft', then 'Draft ready, 112 words'; the failure is announced assertively.
+  - Errors (A11Y-E1): The failure message sits next to the draft area, says the prompt is saved, and offers Try again with the prompt kept.
+  - Time limits (A11Y-W1): No time limit; generation can be stopped at any time.
+  - Language (A11Y-L1): Write status as 'Writing draft' and 'Draft ready', not 'inference' or 'tokens'.
 
 ### 3. Review
 
 - Figures and names link to the source record
 - Unsupported claims highlighted for checking
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the review heading; Tab goes through each linked figure and flagged claim in reading order, with Enter opening the source record.
+  - Announced (A11Y-S1): The heading reads '2 figures from the account record, 1 statement without a source'; each flag has a text label 'No source' as well as an underline.
+  - Errors (A11Y-E1): Nothing is entered here; a flagged claim is explained in text beside it, and the person can dismiss or edit it without losing the draft.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'no source' rather than 'unsupported' or 'hallucination', and show figures in full with units.
 
 ### 4. Edit
 
 - Edit in place; show changes from the original draft
 - Regenerate a section without losing edits elsewhere
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus goes to the paragraph being edited; Tab reaches Rewrite, Regenerate section and Show changes, with a keyboard shortcut for undo.
+  - Announced (A11Y-S1): Changes are announced politely as 'Section regenerated, other edits kept'; tracked changes use text labels 'inserted' and 'removed'.
+  - Errors (A11Y-E1): A failed rewrite is named beside that paragraph, the person's edits are kept, and undo restores the previous wording.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Name the buttons by their action, such as 'Rewrite this paragraph', and avoid terms like 'regenerate' without a short explanation.
 
 ### 5. Send
 
 - Send button belongs to the user's normal editor, not the assistant
 - Final preview shows recipients and attachments
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the preview heading; Tab reaches recipients, attachments, then Send in the editor's own toolbar, with Back before it.
+  - Announced (A11Y-S1): The preview heading is announced first; after sending, 'Sent to 2 recipients' is a polite status and focus goes to that heading.
+  - Errors (A11Y-E1): Send needs an explicit press after a final preview of recipients and attachments; a failed send is named in text and the draft is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): List recipients by name and address in full, and keep 'Sent items' as the link wording.
 
 ---
 
@@ -126,7 +156,9 @@ Inputs: Keyboard, Pointer, Voice dictation
 - Present invented figures as facts
 - Hide that text was AI-generated from the author
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-S1: Streaming text sits in a region that is announced only when complete (“Draft ready, 112 words”); an automated screen reader test hears no per-word output.
 - A11Y-K1: Stop, Regenerate and Accept are native buttons reachable by keyboard in a logical order, and focus does not move while text streams.
@@ -135,6 +167,8 @@ Inputs: Keyboard, Pointer, Voice dictation
 - A11Y-E1: A failed draft shows a text message beside the draft area, and the typed prompt is still present after retry.
 - A11Y-E3: Sending requires an explicit action after a final preview of recipients and attachments, and the admin switch-off state is stated in text.
 - A11Y-W1: No step in the journey has a time limit, and generation can be stopped at any point.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

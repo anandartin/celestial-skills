@@ -83,33 +83,69 @@ Inputs: Drag and drop, File picker, Touch, Keyboard
 - Resume after a dropped connection
 - **error:** Upload paused — connection lost. We'll retry when you're back online.
 - **loading:** Progress bar with percentage text
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the upload area heading; a native Upload button is the keyboard alternative to drag and drop, and Tab then reaches Pause or Cancel.
+  - Announced (A11Y-S1): Progress is a progressbar with text such as “4.2 of 12 MB”; completion is announced politely and a paused upload is announced assertively.
+  - Errors (A11Y-E1): The paused-upload message is text beside the file name with a Retry button; the file is not lost and the upload resumes automatically.
+  - Time limits (A11Y-W1): No time limit; uploads resume after a lost connection and are not timed out.
+  - Language (A11Y-L1): Write sizes with units in full, such as “4.2 of 12 MB”, and say “paused” rather than “stalled”.
 
 ### 2. Choose people
 
 - Type names or emails; each becomes a chip
 - External emails are marked “Outside your organisation”
 - **error:** “sam@” isn't a full email address
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands in the Add people field; typing a name or email turns it into a chip, arrow keys choose from suggestions, and each chip has a Remove button reachable by keyboard.
+  - Announced (A11Y-S1): The field is labelled “Add people or groups”; each added chip is announced politely, and external chips read as “Outside your organisation”.
+  - Errors (A11Y-E1): The error “sam@ isn't a full email address” is in text beside the field, linked to it, and the typed text is kept for correction.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Use “Outside your organisation” as text with an icon, and avoid terms such as “external principal”.
 
 ### 3. Set access
 
 - Access level next to each person, defaulting to view
 - Plain description of each level
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first person's access list; each select has a visible label, arrow keys change the level, and Tab goes person to person.
+  - Announced (A11Y-S1): Each select is read with the person's name and level, for example “Jordan, Can view”, and the plain description is linked to it.
+  - Errors (A11Y-E1): A level that is not allowed is explained in text beside the select, and the previous choice is kept; changes are checked at the Review step before anything is shared.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Describe each level in one short phrase, such as “They can open and download, not change”, and avoid labels like “viewer role”.
 
 ### 4. Review
 
 - Summary lists every person, group and link setting
 - Warning shown for external or public access
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Review heading; Tab goes through the list of people and link settings, then Back to change anything, then Share.
+  - Announced (A11Y-S1): The summary is read as a list, including “3 people, 1 outside your organisation”, and the warning is text with an icon.
+  - Errors (A11Y-E1): The review lets the person go back to change access before sharing, and a blocked external share is explained in text, with the choices kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Spell out the counts and say plainly who can do what; avoid words like “propagate” and “inherit”.
 
 ### 5. Share
 
 - Optional message to recipients
 - Copy link reflects the actual access setting
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the confirmation heading; Tab reaches the optional message box, then Copy link and Done.
+  - Announced (A11Y-S1): “Shared with 3 people” and “Link copied” are announced politely, with the link's actual access setting read out.
+  - Errors (A11Y-E1): The optional message box has its own error text beside it if it fails to send, and the message typed is kept; sharing can be undone from Manage.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say who now has access and what the link allows in one sentence, with no jargon.
 
 ### 6. Manage
 
 - Filter by external, editors, link access
 - Remove access with one action and undo
 - **empty:** Only you have access to this file
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Manage heading; Tab goes to the filters, then each person with a Remove access button; removal asks “Remove Jordan's access?” and offers Undo.
+  - Announced (A11Y-S1): The filtered count is announced politely; removal is announced as “Access removed” with an Undo button.
+  - Errors (A11Y-E1): Removing access needs a confirm step naming the person, then an Undo that restores it; errors sit beside the row and the list is kept.
+  - Time limits (A11Y-W1): Undo stays available for at least 20 seconds, and access can always be re-added from the list.
+  - Language (A11Y-L1): Name the person and the file in the question, and use “remove access” consistently.
 
 ---
 
@@ -133,7 +169,9 @@ Inputs: Drag and drop, File picker, Touch, Keyboard
 - Hide the access summary behind a menu
 - Use icons alone to show access level
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-K1: Drag and drop has a keyboard alternative, a native Upload button, and every step is operable by keyboard.
 - A11Y-S1: Upload progress is a progressbar with a text value, and completion is announced politely.
@@ -142,6 +180,8 @@ Inputs: Drag and drop, File picker, Touch, Keyboard
 - A11Y-E3: Sharing shows a Review step before it takes effect, and removing access asks for confirmation and offers Undo.
 - A11Y-T1: Selects, chips and remove buttons are at least 24×24px, and 44px on touch.
 - A11Y-R1: Text spacing overrides and 200% zoom do not clip labels or hide controls.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

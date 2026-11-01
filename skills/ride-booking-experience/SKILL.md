@@ -81,6 +81,12 @@ Inputs: Touch, Location services, In-app messaging
 - Pickup shown as a named spot, not just a pin
 - Saved places and recent trips first
 - **error:** We can't pick up here — choose the nearest marked spot
+- **Accessibility:**
+  - Keyboard (A11Y-K1): VoiceOver or TalkBack focus starts at the screen title, then pickup and destination fields; saved places follow in order, and a typed address works with location off, with switch access reaching each.
+  - Announced (A11Y-S1): Title "Where are you going?" is read; each field reads its label and value, and suggested places are announced politely as they appear.
+  - Errors (A11Y-E1): A pickup that is not allowed is named in text beside the field and linked to it, with the nearest marked spot suggested; typed addresses are kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Name pickup spots plainly, such as "outside the main door", and keep written English short for second-language readers.
 
 ### 2. Choose ride
 
@@ -88,24 +94,48 @@ Inputs: Touch, Location services, In-app messaging
 - Accessible vehicle option shown as standard
 - **empty:** No cars nearby — 'Try again in a few minutes or book for later'
 - **loading:** Finding drivers
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first ride option; options are in a list, each one a single large target, and accessible vehicles appear as standard rather than as an extra.
+  - Announced (A11Y-S1): Each option reads "Standard, 9 to 11 pounds, 4 minutes away"; a refreshed list is announced politely, and no cars nearby is read in text.
+  - Errors (A11Y-E1): The empty state is text with a Book for later button; selected pickup and destination are kept.
+  - Time limits (A11Y-W1): Prices refresh over time; the person is told at least 20 seconds before a fare range changes, with a button to keep it.
+  - Language (A11Y-L1): Give the fare range in full, such as "9 to 11 pounds", and arrival in minutes.
 
 ### 3. Driver on way
 
 - Plate in large text first, then colour and model
 - Message driver with preset texts; 'I'm deaf, please text' option
 - **error:** Driver cancelled — we're finding you another car
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the plate in large text, then colour, model and driver name; Message driver and preset texts are buttons, and the "I'm deaf, please text" option is one tap.
+  - Announced (A11Y-S1): The plate is read letter by letter first, such as "K D 7 1 X R T", then the car and driver; arrival changes are announced politely.
+  - Errors (A11Y-E1): A cancelled driver is announced assertively and explained in text, and the booking is kept while another car is found.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Spell the plate with clear letters and numbers, and keep driver messages as short, plain preset texts.
 
 ### 4. On trip
 
 - Share trip and safety buttons pinned on screen
 - Live route with arrival time
 - **error:** Route change detected — 'Is everything OK?' check-in
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Share trip button, then Safety; both stay pinned in the same place, and the route is also available as text steps for switch access.
+  - Announced (A11Y-S1): "Share your trip" is read; arrival time is announced politely, and a route change check-in is announced assertively with a text and haptic alert.
+  - Errors (A11Y-E1): A route change shows "Is everything OK?" in text with two clear buttons, and a share failure is explained beside the button.
+  - Time limits (A11Y-W1): The trip share link expires at drop-off; this is stated before sharing, with no hidden timer.
+  - Language (A11Y-L1): Label the safety button "Safety" in plain words and say what happens when it is pressed.
 
 ### 5. Arrived
 
 - Final fare with breakdown
 - Rating optional; report link always visible
 - **error:** Fare higher than quoted — show why and a dispute option
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the "You've arrived" heading; the fare breakdown, then rating and Report problem, which is always visible.
+  - Announced (A11Y-S1): "You've arrived, 10.40 pounds charged to your card" is read as the heading; the breakdown is a list in text.
+  - Errors (A11Y-E1): A higher-than-quoted fare is explained in text with the reason and a Dispute button; a review of the fare and card comes before any charge, and the rating is optional.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Give the fare in full pounds and pence, explain each charge line, and keep reports in plain text.
 
 ---
 
@@ -129,7 +159,9 @@ Inputs: Touch, Location services, In-app messaging
 - Hide surge pricing until the receipt
 - Keep sharing location after the trip
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-C2: All alerts are visual and haptic, never sound only
 - A11Y-S1: Plate and driver information is read by screen readers in a logical order, with the plate first
@@ -138,6 +170,8 @@ Inputs: Touch, Location services, In-app messaging
 - A11Y-L1: Written English is short and plain for second-language readers, and key actions have visual icons with text
 - A11Y-E3: The final fare shows a breakdown and a dispute option, and any charge is shown before it is taken
 - A11Y-K1: Every control works with switch access and screen reader focus order matches the visual order
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

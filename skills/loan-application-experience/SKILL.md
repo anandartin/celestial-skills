@@ -81,30 +81,60 @@ Inputs: Keyboard, Touch, File upload (bank statements)
 - Monthly payment and total repayable update together
 - Representative APR next to the figures it applies to
 - **error:** Amount out of range — show the minimum and maximum
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the amount field; the sliders have number inputs beside them, and arrow keys move each by one step.
+  - Announced (A11Y-S1): Announces the amount and term in words, such as 'six thousand pounds over four years', then monthly and total cost politely.
+  - Errors (A11Y-E1): An out-of-range amount shows the minimum and maximum in text beside the field and keeps the entry.
+  - Time limits (A11Y-W1): No time limit; the quote is held for 30 days.
+  - Language (A11Y-L1): Write amounts in full as 'six thousand pounds' and explain 'total amount payable' in plain words.
 
 ### 2. Check eligibility
 
 - State 'This won't affect your credit score' above the button
 - Income field allows 'varies' with an average
 - **loading:** Checking your eligibility
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first field; labels are visible and the soft check statement is read before the button.
+  - Announced (A11Y-S1): Announces the heading and the credit-score reassurance; 'Checking your eligibility' is polite.
+  - Errors (A11Y-E1): Errors are text beside each field and in a summary with links; focus moves to the summary and answers stay.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'a soft check, which does not affect your credit score' in plain words.
 
 ### 3. Your result
 
 - Show personal APR and likelihood band in words
 - If unlikely, give reasons and alternatives, not just 'declined'
 - **empty:** Not eligible: explain the main reason and free debt-advice routes
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the result heading; the likelihood is text, then the rate, then Continue.
+  - Announced (A11Y-S1): Announces 'You're likely to be accepted at 9.4% APR' politely; the bands use text labels.
+  - Errors (A11Y-E1): If not eligible, the reason sits in text with free debt-advice routes.
+  - Time limits (A11Y-W1): The quote is held for 30 days; the date is written in full.
+  - Language (A11Y-L1): Spell out 'annual percentage rate' on first use and avoid colour-only likely or unlikely.
 
 ### 4. Full application
 
 - Choose open banking or upload statements
 - Separate, unticked consent for the hard search
 - **error:** Upload failed — say file type and size limits and keep other answers
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first field; the consent checkbox is labelled and the upload control has a file button.
+  - Announced (A11Y-S1): Announces the heading and consent text in full; upload progress is polite.
+  - Errors (A11Y-E1): An upload failure says the file type and size limits next to the control, linked to it, and other answers stay; consent is not pre-ticked.
+  - Time limits (A11Y-W1): No time limit; answers are saved.
+  - Language (A11Y-L1): Say what 'a full credit search' means and that it shows on the credit file.
 
 ### 5. Agree and sign
 
 - Total repayable, fees and 14-day withdrawal right on one screen
 - Download the agreement before and after signing
 - **loading:** Preparing your agreement
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the key-terms heading; the agreement is read in order, then the sign button and a download copy link.
+  - Announced (A11Y-S1): Announces 'Preparing your agreement' politely, then the heading and key terms as a list.
+  - Errors (A11Y-E1): Signing is a distinct action after reviewing the terms; a downloadable copy is given and withdrawal is possible until Saturday 8 November.
+  - Time limits (A11Y-W1): Withdrawal is possible until Saturday 8 November, stated in full on the page and in the email.
+  - Language (A11Y-L1): Give the amount and dates in full: £6,000 by Wednesday 29 October.
 
 ---
 
@@ -128,7 +158,9 @@ Inputs: Keyboard, Touch, File upload (bank statements)
 - Use countdowns or 'offer ends today'
 - Show only the monthly payment
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-C2: Likelihood bands use text labels, not red or green alone (WCAG 1.4.1).
 - A11Y-K1: Calculator sliders have number inputs as an alternative (WCAG 2.5.7).
@@ -137,6 +169,8 @@ Inputs: Keyboard, Touch, File upload (bank statements)
 - A11Y-E3: The agreement is reviewed before signing, a copy can be downloaded, and withdrawal is possible until 8 November.
 - A11Y-W1: The 30-day quote hold and the 8 November withdrawal date are written in full.
 - A11Y-R1: At 200% zoom and 320px width the calculator and forms reflow without horizontal scrolling.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

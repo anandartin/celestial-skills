@@ -81,28 +81,58 @@ Inputs: Mouse and keyboard, Touch, Notification actions
 - Price after trial and end date in the same sentence
 - Consent to recurring charge is its own checkbox
 - **error:** Your bank needs to confirm this card. You won’t be charged today.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; the terms line, consent checkbox and Start trial button follow in order, one decision per screen.
+  - Announced (A11Y-S1): Announces the heading and terms as text: '14 days free, then £12 a month'; the card message is announced assertively.
+  - Errors (A11Y-E1): If the bank needs to confirm the card, the message sits next to the card field in text and says no charge today; the card details stay.
+  - Time limits (A11Y-W1): No time limit on this step; the cancel-by date, 8 November, is written in full.
+  - Language (A11Y-L1): State the price and the cancel date in full, and avoid 'auto-renews' in favour of 'then we charge £12 a month'.
 
 ### 2. Trial status
 
 - Days left visible on every page in a small banner
 - Link to manage trial in one click
 - **empty:** You haven’t tried exporting yet — here’s how in 2 steps
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the banner heading; the days-left text and the first-charge line are in reading order.
+  - Announced (A11Y-S1): Announces '9 days left in your trial, first charge £12 on 8 November' as text, not an icon-only countdown.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): The trial end is a date, not a live countdown; the date is written in full and reminders are sent before it.
+  - Language (A11Y-L1): Give days left and the charge date in full; the empty state gives two plain steps.
 
 ### 3. Reminder
 
 - Reminder has “Keep my plan”, “Change plan” and “Cancel trial” actions
 - Sent by email and in-app, not marketing channels
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the reminder heading; Cancel trial and Keep my trial buttons are plain and equal in prominence.
+  - Announced (A11Y-S1): Announces the reminder as polite text: 'Your trial ends in 3 days. We'll charge £12 on 8 November unless you cancel.'
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): The reminder arrives at least 3 days before the charge; a calendar file is offered, and the person can change reminder timing.
+  - Language (A11Y-L1): Say 'we'll charge £12 on 8 November' in full, never 'ends soon'.
 
 ### 4. Choose plan
 
 - Show the total charged, not only the per-month figure
 - Current trial features mapped to each plan
 - **error:** Payment failed. Your trial continues until 8 November — update your card any time.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading then the plan table; row and column headers are read, and the Choose buttons are labelled per plan.
+  - Announced (A11Y-S1): Announces the table caption, each plan's full price, and politely 'Plan selected'; a payment failure is assertive.
+  - Errors (A11Y-E1): Payment failure is text above the form, says the trial continues until 8 November, and keeps the plan and card details; a review step shows the price before paying.
+  - Time limits (A11Y-W1): No time limit to choose; the trial runs to 8 November.
+  - Language (A11Y-L1): Show 'Yearly £120, which is £10 a month billed once' in full and avoid 'save 17%' alone.
 
 ### 5. Paid
 
 - Receipt sent with cancel link
 - No change to work, files or settings on conversion
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the confirmation heading; the Manage or cancel link is next.
+  - Announced (A11Y-S1): Announces 'You're on Monthly, next charge £12 on 8 December' politely.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the next charge date in full and say where to cancel.
 
 ---
 
@@ -126,7 +156,9 @@ Inputs: Mouse and keyboard, Touch, Notification actions
 - Bundle recurring-charge consent into the terms checkbox
 - Delete trial work on the day the trial ends
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-N1: The trial banner is a landmark with text, not an icon-only countdown (WCAG 1.1.1).
 - A11Y-P1: Plan comparison is a real table with row and column headers (WCAG 1.3.1).
@@ -135,6 +167,8 @@ Inputs: Mouse and keyboard, Touch, Notification actions
 - A11Y-E3: The price and charge date are shown for review before payment, with cancel available in Settings.
 - A11Y-E1: A payment failure is explained in text beside the field and card details are kept.
 - A11Y-L1: Dates and prices are written in full, one decision per screen.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

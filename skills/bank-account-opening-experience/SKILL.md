@@ -81,12 +81,24 @@ Inputs: Touch, Camera (document and face capture), Screen reader
 - List documents accepted, including alternatives to utility bills
 - State time needed: about 10 minutes
 - **empty:** If they have no photo ID, show the branch and post route straight away
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; the list of accepted documents is a real list, and the branch and post route link is reachable before the start button.
+  - Announced (A11Y-S1): Announces the step title and heading, then the document list; the no-photo-ID route is announced as normal content, not an error.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Use short sentences and say 'photo ID' with examples; give the time needed as 'about 10 minutes'.
 
 ### 2. Your details
 
 - Address lookup with manual entry always available
 - Explain why three years of address history is needed
 - **error:** Name the field and the fix; keep everything already typed
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first field; fields follow the visual order, and each address row can be added or removed with the keyboard or switch access.
+  - Announced (A11Y-S1): Announces the step heading and each visible label; the 3-year address reason is read as help text linked to the address group.
+  - Errors (A11Y-E1): Errors name the field and the fix in text beside it, are listed in a summary at the top with links, and everything typed is kept.
+  - Time limits (A11Y-W1): Application is saved for 30 days and there is no time limit on typing.
+  - Language (A11Y-L1): Explain 'address history' in plain words and write dates in full, not as numbers alone.
 
 ### 3. Prove it's you
 
@@ -94,12 +106,24 @@ Inputs: Touch, Camera (document and face capture), Screen reader
 - Allow upload from files as an alternative to live capture
 - **error:** If capture fails three times, offer upload or an assisted video check
 - **loading:** Checking your ID — this usually takes under a minute
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the capture instruction text; the capture button and the upload alternative are both reachable by Tab or switch access in that order.
+  - Announced (A11Y-S1): Instructions such as 'Move the card a little closer' are read politely in a live region; progress is announced politely; the failure message is assertive.
+  - Errors (A11Y-E1): After three failed captures the upload and assisted video check are offered beside the message; earlier details stay saved and are never asked for again.
+  - Time limits (A11Y-W1): No time limit on capture; the check usually takes under a minute, with a text status and the option to leave and return.
+  - Language (A11Y-L1): Keep camera instructions to one short sentence each and avoid terms like 'liveness'; say 'a quick face check'.
 
 ### 4. Check and agree
 
 - Key terms summary above the full document
 - Overdraft is off by default and offered separately
 - **error:** If the terms fail to load, block acceptance and offer a retry
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; the one-page terms are a headed list, read in order, with the agree checkbox and Accept button last.
+  - Announced (A11Y-S1): Announces the heading, each section heading, and politely 'Terms loaded'; a failed load is announced assertively and acceptance stays disabled.
+  - Errors (A11Y-E1): If the terms fail to load, a retry button sits beside the message and the accept control stays off; a review of details precedes agreeing and everything entered is kept.
+  - Time limits (A11Y-W1): No time limit while reviewing; the application stays saved for 30 days.
+  - Language (A11Y-L1): Summarise each term in plain language first; keep text-to-speech friendly by expanding abbreviations such as 'APR'.
 
 ### 5. Decision
 
@@ -107,6 +131,12 @@ Inputs: Touch, Camera (document and face capture), Screen reader
 - If referred, say what is being checked and by when
 - **error:** Referred: 'We need to check one more thing. We'll reply by Monday 27 October.'
 - **loading:** Running final checks — you can close this and we'll message you
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the outcome heading; the next-step link follows, and the referred message is read as normal text.
+  - Announced (A11Y-S1): Announces the heading and outcome politely; 'Running final checks' is a polite status and the referral message is plain text, not an alert.
+  - Errors (A11Y-E1): A referred outcome explains what is needed in text, with a reply date; nothing needs to be re-entered.
+  - Time limits (A11Y-W1): Final checks need no waiting on the page; the person can close it and will be messaged.
+  - Language (A11Y-L1): Write the card date in full, such as Thursday 30 October, and the reply date, Monday 27 October.
 
 ---
 
@@ -130,7 +160,9 @@ Inputs: Touch, Camera (document and face capture), Screen reader
 - Run a credit search without saying which kind
 - End a referral with no date or contact route
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-S1: Camera screens give text instructions that are announced politely through a live region.
 - A11Y-T1: The capture button and the alternative upload link are each at least 48px.
@@ -139,6 +171,8 @@ Inputs: Touch, Camera (document and face capture), Screen reader
 - A11Y-K1: Every capture step has a non-camera route (upload or assisted video check) reachable by keyboard and switch access.
 - A11Y-L1: Headings and sentences are short and plain; terms are summarised before the full text.
 - A11Y-E3: The terms step allows review and is separate from the final accept action.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

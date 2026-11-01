@@ -81,23 +81,47 @@ Inputs: Touch, Keyboard, Switch access, Camera for photos of faults
 - Non-returnable items explained, not hidden
 - **empty:** We can’t find an order with that number. Check your confirmation email.
 - **error:** This item’s return window ended on 12 October. If it’s faulty, you can still report it.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first item checkbox; Tab moves through items in order, and each shows its deadline in text and works with switch access.
+  - Announced (A11Y-S1): Page title is Find order; each item is read with its return deadline, and the empty message is read as text.
+  - Errors (A11Y-E1): An order not found, or an item past its window, is named beside the field with what can still be done; the order number stays.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write return deadlines in full, such as 12 October, and explain 'non-returnable' with the reason.
 
 ### 2. Reason
 
 - Reason is optional for change-of-mind returns
 - Exchange shows live stock for the new size
 - **error:** Size 14 is out of stock. Choose a refund or get an alert when it’s back.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the refund or exchange choice, a labelled radio group; reasons are optional, and the size choice is a native select.
+  - Announced (A11Y-S1): The choice is read as 'Refund or swap for another size'; stock status is announced politely when the size changes.
+  - Errors (A11Y-E1): Out of stock is named beside the size with a refund or alert offered; reasons and choices stay.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'refund' and 'swap' plainly and write the size as 'size 14'.
 
 ### 3. Send back
 
 - Filter by step-free access and opening hours
 - Home collection offered with any cost shown
 - **empty:** No step-free drop-off within 2 miles. Book a free collection instead.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the filter group; step-free access is a labelled checkbox, and each location is a list item with access details in text.
+  - Announced (A11Y-S1): The location count is announced politely after filtering; each location is read with its access details and opening hours.
+  - Errors (A11Y-E1): The empty result names the filter and offers free collection; nothing entered is lost.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Describe access in words, such as 'no steps at the entrance', and give distance in miles.
 
 ### 4. Label
 
 - QR code also sent by email
 - State the deadline to send it back
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the label heading; the code and its number in text are first, followed by Email me the code, all reachable by keyboard.
+  - Announced (A11Y-S1): 'Show this code at the counter' is read, along with the code number and the send-back deadline in full.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit; the send-back deadline is shown as a full date.
+  - Language (A11Y-L1): Write the code number in text for manual entry and state the deadline as a full date.
 
 ### 5. Refund
 
@@ -105,6 +129,12 @@ Inputs: Touch, Keyboard, Switch access, Camera for photos of faults
 - Amount, method and timing in one line
 - **error:** Part of your return didn’t pass checks — here’s why and how to appeal
 - **loading:** We’ve received your return. Checking it usually takes 2 days.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the status heading; stages are an ordered list, and the appeal link is a real link.
+  - Announced (A11Y-S1): Each stage change is announced politely, such as 'Received', and 'Refund of £65 issued to card ending 4471' is read in full.
+  - Errors (A11Y-E1): A failed check explains why in text, and the appeal can be started with the details kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write 'allow 3 to 5 working days' and give the amount and card ending together.
 
 ---
 
@@ -128,7 +158,9 @@ Inputs: Touch, Keyboard, Switch access, Camera for photos of faults
 - Require a reason for change-of-mind returns within the cooling-off period
 - Hide the faulty-item route behind the returns window
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-P1: The drop-off list has a step-free filter, and each location states its access details in text.
 - A11Y-C1: The QR code screen supports a brightness boost and shows the code number in text for manual entry.
@@ -138,6 +170,8 @@ Inputs: Touch, Keyboard, Switch access, Camera for photos of faults
 - A11Y-E3: The return shows items, method and refund amount for checking before it is confirmed, and can be changed before collection.
 - A11Y-W1: Return deadlines are shown as full dates and a reminder is sent before they end.
 - A11Y-H1: A help link appears in the same place on every step.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

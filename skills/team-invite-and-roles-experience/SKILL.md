@@ -80,28 +80,58 @@ Inputs: Keyboard and mouse, Paste from spreadsheet, CSV upload
 - Filter by role and status (active, pending, expired)
 - Seat count visible at the top
 - **empty:** Just you here. Invite your team to start working together.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Members heading; Tab goes to the filters, then the Invite button, then the members table, which has header cells and sortable columns.
+  - Announced (A11Y-S1): The seat count “38 of 40 seats used” is read first; sorting announces the column and direction politely.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write seat counts and statuses in full and say what “pending” and “expired” mean.
 
 ### 2. Invite
 
 - Paste a list; each email becomes a chip with validation
 - Role picker shows what each role can and can't do
 - **error:** 2 emails look wrong — fix or remove them to continue
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the email field; pasting a list turns each email into a chip, each chip has a labelled Remove button, and the role picker is a radio group.
+  - Announced (A11Y-S1): The count of added emails is announced politely; each role description is linked to its option.
+  - Errors (A11Y-E1): The error “2 emails look wrong” is listed above the field, linked to each invalid chip, and the pasted text and valid chips are kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Describe each role by what it can and cannot do, in short sentences, with no jargon.
 
 ### 3. Review
 
 - Group invitees by role
 - Show added cost and billing date
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Review heading; Tab goes through the grouped table, then Back to change anything, then Send invites.
+  - Announced (A11Y-S1): The table is read by role group with the added cost; the total “adds £64 to your next bill” is read in full.
+  - Errors (A11Y-E1): Nothing is sent until the person confirms; Back returns with every email and role kept, so the invites can be corrected before sending.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the cost and billing date in full and say how many people are in each role.
 
 ### 4. Sent
 
 - Say when invites expire
 - Offer a copyable join link for the team chat
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the “10 invites sent” heading; Tab reaches Copy join link, then Done.
+  - Announced (A11Y-S1): The confirmation is announced politely, including the expiry date of 8 November.
+  - Errors (A11Y-E1): No input on this step; invites can be revoked from Manage.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the expiry date in full and say what the person invited will see next.
 
 ### 5. Manage
 
 - Role changes take effect immediately and are logged
 - Warn before removing the last admin
 - **error:** You can't remove the last admin. Make someone else an admin first.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Manage heading; Tab goes to each member's Resend, Revoke and role controls, and a role change opens a confirm step.
+  - Announced (A11Y-S1): “Change Priya's role to Admin?” is announced in a dialog; the result is announced politely and a refusal assertively.
+  - Errors (A11Y-E1): The last-admin error is text beside the control, linked to it, and the role stays as it was; a role change needs a confirm step and can be changed back, and is logged.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Explain what Admin can do in one plain sentence and say that changes take effect immediately.
 
 ---
 
@@ -125,7 +155,9 @@ Inputs: Keyboard and mouse, Paste from spreadsheet, CSV upload
 - Charge for seats before invites are accepted without saying so
 - Hide guests from the member count
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-K1: Email chips are removable by keyboard with a labelled delete button, and the whole journey works with no drag.
 - A11Y-E1: Validation errors are listed above the field and linked to each invalid chip, and the pasted text is kept.
@@ -134,6 +166,8 @@ Inputs: Keyboard and mouse, Paste from spreadsheet, CSV upload
 - A11Y-E3: Review shows access and cost before sending, and role changes need a confirm step and are logged and reversible.
 - A11Y-S1: Seat counts, sort changes and sent confirmations are announced politely.
 - A11Y-H1: Progress is saved at each step, and help sits in the same place on every step.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

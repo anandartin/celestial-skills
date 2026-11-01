@@ -82,28 +82,58 @@ Inputs: Touch, Screen reader, Voice dictation
 - Each item shows name, strength, dose and when last ordered
 - Whole row is the tap target, not a small checkbox
 - **empty:** You have no repeat medicines yet. Ask your prescriber to add them
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; each medicine is one large row, selected with Enter or Space, and no drag gesture is needed.
+  - Announced (A11Y-S1): Each row reads "name, strength, dose, last ordered" and its state, and each choice announces "2 of 6 medicines selected" politely.
+  - Errors (A11Y-E1): If nothing is selected, the message is text beside the list, and selections are kept. The empty state tells the person to ask their prescriber.
+  - Time limits (A11Y-W1): No time limit; the page never times out.
+  - Language (A11Y-L1): Show strength and dose in full words and avoid abbreviations such as "mg" alone without "milligrams" in the reading text.
 
 ### 2. Check
 
 - Review-due items flagged in words, not only colour
 - Explain what a review means and how long it adds
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first flagged item; review-due items are marked in words, and a link explains what a review means.
+  - Announced (A11Y-S1): Title "Check" is read; each item reads "needs a review by your prescriber, this can add 2 working days" in full.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Explain "review" and how long it adds in one plain sentence, and avoid clinical terms.
 
 ### 3. Pickup or delivery
 
 - Show ready date for each option before choosing
 - Controlled items explain the ID or signature needed
 - **error:** We can't deliver to this postcode. Choose a pharmacy instead
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first option; options are large radio rows with ready dates, and a postcode field accepts autofill, with no drag gestures.
+  - Announced (A11Y-S1): Each option reads "Delivery to your home, ready by Thursday"; the chosen option is announced politely.
+  - Errors (A11Y-E1): A postcode error is written in text beside the field and linked to it, with the postcode kept and a pharmacy offered; ID needs for controlled items are shown before choosing.
+  - Time limits (A11Y-W1): No time limit; the person can take as long as they need.
+  - Language (A11Y-L1): Give the ready date with the weekday in full, and say what ID or signature a controlled item needs.
 
 ### 4. Confirm
 
 - Restate items, option and expected date in large text
 - Show how to change or cancel before it is dispensed
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the "Request sent" heading; the restated items, option and expected date follow, then Change or Cancel as separate large buttons.
+  - Announced (A11Y-S1): "Request sent, we'll text you when it's ready" is read as the heading, with the items and date announced politely.
+  - Errors (A11Y-E1): Change or Cancel shows a confirm step and can be undone until the medicines are dispensed.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say "text" rather than "SMS", and note that texts never include medicine names.
 
 ### 5. Ready
 
 - Notification gives place, hours and what to bring
 - Delayed items explained with a new date
 - **error:** One item is out of stock. We'll have it by Monday
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; place, hours and what to bring are a short list, and directions open as text.
+  - Announced (A11Y-S1): "Your medicines are ready at the pharmacy until 6 pm" is read as the heading; an out-of-stock item is announced politely with its date.
+  - Errors (A11Y-E1): A stock problem is explained in text beside the item with its new date, and the rest of the order is kept.
+  - Time limits (A11Y-W1): Collection is until a stated time; a reminder is sent well before it ends, and the pharmacy can hold it later on request.
+  - Language (A11Y-L1): State the closing time in full, such as "6 pm", and explain delay dates in plain words.
 
 ---
 
@@ -127,7 +157,9 @@ Inputs: Touch, Screen reader, Voice dictation
 - Put medicine names in SMS or on parcels
 - Promise a date before checking stock and approval
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-T1: Targets are at least 48 by 48px, beyond the 24px minimum, and the whole row is the tap target
 - A11Y-S1: Selected items are announced with a count, such as "2 of 6 medicines selected"
@@ -136,6 +168,8 @@ Inputs: Touch, Screen reader, Voice dictation
 - A11Y-K1: No drag gestures are used; every action works by tap, keyboard or switch access
 - A11Y-E3: Confirm restates items, option and date, and Change or Cancel is available until the medicines are dispensed
 - A11Y-W1: The page never times out, and pickup deadlines are stated in full
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -79,6 +79,12 @@ Inputs: Keyboard and mouse, CSV or spreadsheet upload, Paste
 - Two questions at most: name and what it's for
 - Purpose choice tailors templates, can be changed later
 - **error:** That workspace address is taken — here are two close options
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first question heading; Tab goes to the name field, then the purpose choices, then Continue.
+  - Announced (A11Y-S1): Title reads “Name your workspace”; the question is read with the field, and the progress is announced politely.
+  - Errors (A11Y-E1): The taken-address error is text beside the field, linked to it, with two options offered, and the name typed is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Use short, literal sentences, and explain “workspace address” in one line.
 
 ### 2. Bring work in
 
@@ -86,22 +92,46 @@ Inputs: Keyboard and mouse, CSV or spreadsheet upload, Paste
 - Preview the first rows and map columns before importing
 - **error:** Row 14 has no date. Skip it or fix it and upload again.
 - **loading:** Reading your file…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the upload heading; a native file input with a visible label is the way to import, drag and drop is extra, and Tab goes to the column-mapping selects, each labelled with its source column.
+  - Announced (A11Y-S1): “Reading your file” is announced politely, then the row count; the preview table has header cells.
+  - Errors (A11Y-E1): The error “Row 14 has no date” is text beside that row, linked from a summary with Skip and Fix options; the file and mapping are kept, and nothing is imported until the preview is confirmed.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Name the row and what is missing in plain words, and explain “map columns” in one line.
 
 ### 3. First result
 
 - Land on the imported item, not a generic home
 - One highlighted next action
 - **empty:** Nothing imported yet — try a template with your own team names
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the main heading about the rota; Tab reaches the highlighted next action first, then the imported item.
+  - Announced (A11Y-S1): “Your rota for this week is ready” is announced politely, with the one next action named.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Use short literal sentences and say who a manager is in this product.
 
 ### 4. Invite one
 
 - Ask for one email, not a team list
 - Show what the colleague will see
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Invite one person heading; Tab goes to the email field with autofill, then Send invite, then Skip.
+  - Announced (A11Y-S1): The label “Invite one person” is read with the field; the sent invite is announced politely.
+  - Errors (A11Y-E1): The email error is text beside the field, linked to it, and the email typed is kept; nothing is sent until Send invite is pressed.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Show what the colleague will see in words, and ask for one email only.
 
 ### 5. Checklist
 
 - Three to five items, each with a reason
 - Dismissible and never blocking
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the Checklist heading; Tab goes through the items, each with a reason, then Dismiss.
+  - Announced (A11Y-S1): Progress is text, “2 of 4 done, next: set opening hours”, and updates are announced politely.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Give each item a reason in one short literal sentence and write counts in full.
 
 ---
 
@@ -125,7 +155,9 @@ Inputs: Keyboard and mouse, CSV or spreadsheet upload, Paste
 - Land people on an empty dashboard
 - Mix sample data with real data without labels
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-P1: File upload is a native input with a visible label, and drag and drop is only an extra.
 - A11Y-K1: The column-mapping table works by keyboard only, and each select has a label naming the source column.
@@ -134,6 +166,8 @@ Inputs: Keyboard and mouse, CSV or spreadsheet upload, Paste
 - A11Y-L1: Copy uses short, literal sentences, with terms such as workspace address explained in place.
 - A11Y-E1: Import errors name the row and the fix in text beside the row, and the uploaded file and mapping are kept.
 - A11Y-E3: Importing shows a preview of the first rows, and the person confirms before data is committed.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

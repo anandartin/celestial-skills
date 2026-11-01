@@ -80,6 +80,12 @@ Inputs: Keyboard, Voice control, Screen reader, Pointer
 - One documented shortcut plus a visible search button
 - Focus lands in the input; the page behind is inert
 - **empty:** Show recent items and suggested actions, not a blank list
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands in the search field when the shortcut opens the palette, and returns to the trigger on Escape; the shortcut can be remapped or turned off.
+  - Announced (A11Y-S1): Announces a dialog named 'Search or run a command' with the combobox; recent items and suggested actions are read as a labelled list.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Use plain command names such as 'Create invoice', and avoid jargon in suggested actions.
 
 ### 2. Type
 
@@ -87,22 +93,46 @@ Inputs: Keyboard, Voice control, Screen reader, Pointer
 - Group results by type: records, pages, actions
 - **empty:** No matches for “nrthline” — did you mean “Northline”?
 - **loading:** Keep previous results visible with a quiet progress bar
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus stays in the field; Down and Up arrows move the active result through aria-activedescendant, Enter opens it and filters are reachable by Tab.
+  - Announced (A11Y-S1): After a typing pause, announces the count politely, for example '6 results'; the previous results stay while loading, with no spoken progress.
+  - Errors (A11Y-E1): The no-matches message names the term and offers the 'Northline' suggestion as a button; the query stays in the field.
+  - Time limits (A11Y-W1): No time limit; results appear within 200 milliseconds for recent items and 800 for full search.
+  - Language (A11Y-L1): State counts in words such as '3 customers, 2 invoices, 1 action' and use the person's own terms.
 
 ### 3. Scope
 
 - Scope chips like Customers, Invoices, Settings
 - A typed prefix such as “>” switches to actions only
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus stays in the field; Backspace on an empty field clears the scope, and scope chips can also be chosen with Tab and Enter.
+  - Announced (A11Y-S1): Announces 'Searching in Invoices' politely when the scope changes; removing the scope announces 'Searching everything'.
+  - Errors (A11Y-E1): Nothing can fail here; the scope can be removed by keyboard and the typed query is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Name scopes as plain nouns, such as Invoices, and show the Backspace hint as text.
 
 ### 4. Act
 
 - Enter opens; a secondary key opens in a new tab
 - Actions show their shortcut next to the name
 - **error:** Action failed — say why and keep the palette open with the query
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus stays on the chosen result; Enter runs it, and the shown shortcut for each action is read as text, for example 'Command I'.
+  - Announced (A11Y-S1): Announces the action result politely, such as 'Invoice created'; a failure is announced assertively and focus returns to the field.
+  - Errors (A11Y-E1): A failed action says why in text under the field, keeps the palette open and keeps the query; no input is lost.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Show shortcuts as words as well as symbols, and say why an action failed in one plain sentence.
 
 ### 5. Confirm
 
 - Destructive actions ask once, naming the item
 - Undo offered for at least 10 seconds where possible
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the confirm dialog and lands on the safe button, Cancel; Tab reaches Archive, and Escape cancels.
+  - Announced (A11Y-S1): Announces the dialog title 'Archive Riverside Supplies?' and its description about restoring from Archive; the outcome is announced politely.
+  - Errors (A11Y-E1): Archiving is confirmed first, can be restored from Archive, and Escape cancels without change; this step has a clear way back.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Name the item in full in the question and say 'restore' rather than 'undo archive'.
 
 ---
 
@@ -126,7 +156,9 @@ Inputs: Keyboard, Voice control, Screen reader, Pointer
 - Show titles of records the user cannot access
 - Reorder results while the user is moving through them
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-P1: The palette is a modal dialog with role=dialog and a labelled combobox; focus is trapped and returns to the trigger on close (WCAG 2.4.3).
 - A11Y-S1: The result count is announced politely after typing pauses, for example '6 results'.
@@ -135,6 +167,8 @@ Inputs: Keyboard, Voice control, Screen reader, Pointer
 - A11Y-E3: Risky actions ask for confirmation first, default focus is on Cancel, and the item can be restored.
 - A11Y-E1: A failed action keeps the palette open with the query and states the reason in text.
 - A11Y-F1: The active result and focused chips have a visible focus indicator at 3:1 contrast.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

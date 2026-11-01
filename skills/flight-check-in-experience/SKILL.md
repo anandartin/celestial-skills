@@ -82,12 +82,24 @@ Inputs: Touch, Camera (passport scan), Wallet passes
 - Infant linked to adult shown together
 - **empty:** Check-in not open yet — 'Opens Tuesday 11 November at 07:15'
 - **error:** Booking not found — check the reference and last name
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Screen reader focus lands on the heading, then each passenger checkbox in order; switch access steps through the same order, and all are selected by default.
+  - Announced (A11Y-S1): Page title is Who's checking in; each passenger is read with name and whether an infant is linked, and the selected count is announced politely.
+  - Errors (A11Y-E1): Booking not found is named beside the reference field with the cause, and the reference and last name stay as typed.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'booking reference' plainly and write the check-in opening as Tuesday 11 November at 07:15.
 
 ### 2. Travel documents
 
 - Scan passport with camera or type it
 - Expiry checked against the return date
 - **error:** This passport expires before your return flight — check entry rules
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the first passenger's scan button; typing the passport details is an equal alternative, and fields follow the visual order for switch access.
+  - Announced (A11Y-S1): Each passenger's section has a heading; a successful scan is announced politely, 'Passport details read, please check them'.
+  - Errors (A11Y-E1): The expiry problem is named beside the date field, linked from a summary, and the details typed or scanned stay; no scan is required.
+  - Time limits (A11Y-W1): No time limit on document entry.
+  - Language (A11Y-L1): Say 'passport photo page' and 'expiry date' in full, and give the return date alongside the expiry date.
 
 ### 3. Seats
 
@@ -95,12 +107,24 @@ Inputs: Touch, Camera (passport scan), Wallet passes
 - Free seats shown first; paid seats clearly priced
 - **error:** Seats taken — suggest the nearest group of free seats
 - **loading:** Loading seat map
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading, then the list view of seats; the seat map has a list alternative, and each seat is a button of at least 44px.
+  - Announced (A11Y-S1): Each seat is read as row, letter, window or aisle, and price, for example '14A, window, no charge'; the map loading is announced politely.
+  - Errors (A11Y-E1): Seats taken is named in text with the nearest free group offered as a button; the current choices stay, and changing a seat shows the price before confirming.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Give seat features in words, such as 'window' and 'extra legroom', and show prices in full pounds.
 
 ### 4. Safety declaration
 
 - Short list of banned items with images and text
 - Single plain confirmation
 - **empty:** If they are, explain how to travel with them or call the airline
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the banned items list; the single confirmation is a native checkbox reachable with one tab stop, and images have text equivalents.
+  - Announced (A11Y-S1): The list is read as items with text descriptions; the confirmation is announced as 'I'm not carrying any of these items, not checked'.
+  - Errors (A11Y-E1): The missing confirmation is named next to the checkbox, and the person can read how to travel with these items or call; nothing else is lost.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Name each banned item in everyday words, and avoid terms such as 'dangerous goods' without a short explanation.
 
 ### 5. Boarding passes
 
@@ -108,6 +132,12 @@ Inputs: Touch, Camera (passport scan), Wallet passes
 - Assistance confirmation shown with the father's pass
 - **error:** Wallet add failed — passes saved in the app and available offline
 - **loading:** Creating your boarding passes
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the confirmation heading; passes are reached in order with next and previous buttons as well as swiping, and Add to wallet is a button.
+  - Announced (A11Y-S1): 'You're checked in' is announced politely; each pass is read with the passenger name, seat and gate time, and the assistance confirmation is read with the father's pass.
+  - Errors (A11Y-E1): A failed wallet add is named in text with the saved-offline message; the passes remain available and nothing is lost.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write times as '40 minutes before departure' and give the departure time in full.
 
 ---
 
@@ -131,7 +161,9 @@ Inputs: Touch, Camera (passport scan), Wallet passes
 - Make the seat grid the only way to choose
 - Hide the 'skip seat selection' option
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-P1: Meets WCAG 2.2 AA; the seat list announces row, letter, window or aisle and price for each seat.
 - A11Y-T1: Seat targets are at least 44px, with a list alternative for small grids.
@@ -141,6 +173,8 @@ Inputs: Touch, Camera (passport scan), Wallet passes
 - A11Y-E1: Passport and seat errors are named beside the field and linked from a summary, and entered details are kept.
 - A11Y-E3: Seat changes show the price before confirming, and the safety declaration is a single explicit confirmation that can be reviewed.
 - A11Y-H1: Help and the airline contact appear in the same place on every step.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

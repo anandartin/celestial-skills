@@ -81,6 +81,12 @@ Inputs: Touch, Biometrics or passcode, Screen reader
 - Name field labelled 'Name on their account'
 - Sort code and account number formatted as typed
 - **error:** Sort code must be 6 numbers — check the invoice and try again
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the name field; each field has a visible label, and the keyboard type suits the number fields; switch and screen reader focus follow the visual order.
+  - Announced (A11Y-S1): Announces the screen title, then each label; the sort code error is announced assertively and read with the field.
+  - Errors (A11Y-E1): The sort code message sits under the field, linked to it, says 'Sort code must be 6 numbers' and keeps what was typed.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'sort code' and '6 numbers' in full, and avoid abbreviations like 'ID'.
 
 ### 2. Name check
 
@@ -88,24 +94,48 @@ Inputs: Touch, Biometrics or passcode, Screen reader
 - Close match offers the suggested name; no match advises stopping
 - **error:** Name check unavailable — explain the risk and let them continue or wait
 - **loading:** Checking the name with their bank
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the result heading; Continue and Go back are separate, with a gap.
+  - Announced (A11Y-S1): Announces the result politely through a live region, such as 'The name doesn't match this account'; the outage message is assertive.
+  - Errors (A11Y-E1): If the name check is unavailable, the risk is explained next to the result and the person can wait or continue; typed details stay.
+  - Time limits (A11Y-W1): No time limit; the check can be retried.
+  - Language (A11Y-L1): Explain 'name check' in one line and tell the person to use a number they already have.
 
 ### 3. Why you're paying
 
 - Purpose chips: paying a bill, buying something, friend or family, investment, someone asked me to move money
 - Warning text changes with the purpose
 - **empty:** If no purpose is chosen, show the general warning
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the heading; purpose chips are a radio group and the warning is read before Continue.
+  - Announced (A11Y-S1): Announces the heading and the warning in text, then each chip as selected or not.
+  - Errors (A11Y-E1): If no purpose is chosen, the general warning appears in text; the choice stays.
+  - Time limits (A11Y-W1): No time limit; the warning step gives at least 20 minutes or an option to extend.
+  - Language (A11Y-L1): Say 'move money to keep it safe' in plain words and avoid 'authorised push payment'.
 
 ### 4. Amount and confirm
 
 - Payee name, amount and reference in large text above the approve button
 - Approve with biometrics or passcode linked to this payment
 - **error:** Over the daily limit — show the limit and when it resets
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the amount field; the summary lists payee, amount and reference before Approve, which is separated from Cancel; any one-time code field allows paste and autofill.
+  - Announced (A11Y-S1): Announces 'Send £350.00 to D Okafor Roofing' as the summary; limit errors are assertive; the code is on screen, not by phone.
+  - Errors (A11Y-E1): The limit message sits by the amount with the limit and reset time; the amount stays. This step is a review before sending, and Cancel is separate.
+  - Time limits (A11Y-W1): The code is valid at least 5 minutes, warned at least 20 seconds before it ends, with a Resend button.
+  - Language (A11Y-L1): Write the amount as '£350.00' and the limit in full.
 
 ### 5. Sent
 
 - Show time sent and expected arrival
 - Explain what to do if this was a scam
 - **loading:** Sending…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the confirmation heading; View payment is the first link.
+  - Announced (A11Y-S1): Announces 'Sending' politely, then '£350.00 sent to D Okafor Roofing at 14:12'.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write the amount in pounds and pence and say 'arrive within 2 hours'.
 
 ---
 
@@ -129,7 +159,9 @@ Inputs: Touch, Biometrics or passcode, Screen reader
 - Let a 'no match' payment go through with a single tap
 - Use red alone to signal danger
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-C2: Warnings use an icon and heading as well as colour (WCAG 1.4.1).
 - A11Y-S1: The name check result is announced by screen readers via a polite live region.
@@ -138,6 +170,8 @@ Inputs: Touch, Biometrics or passcode, Screen reader
 - A11Y-E3: The amount, payee and reference are shown for review before Approve, and Cancel is always available.
 - A11Y-A1: One-time code fields allow paste and autofill, with the code shown on screen and no puzzle.
 - A11Y-R1: At 175% text size the form and summary reflow without clipping.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

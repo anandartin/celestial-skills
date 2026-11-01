@@ -81,12 +81,24 @@ Inputs: Keyboard, Screen reader, Browser autofill, Digital wallet
 
 - Guest is a primary option, equal to sign in
 - Explain an account can be made after the order, optionally
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the checkout heading; Tab goes to Continue as guest and Sign in, which are equal options, in visual order. Sign in, if chosen, accepts paste, password managers and passkeys, with no puzzle or memory test.
+  - Announced (A11Y-S1): Title reads “Checkout”; both options are buttons with clear names, and the note that an account can be made later is read after them.
+  - Errors (A11Y-E1): No input on this step.
+  - Time limits (A11Y-W1): No time limit; the basket is kept for at least 30 minutes and the person is warned before it expires.
+  - Language (A11Y-L1): Say “guest” and “account” plainly, and explain that an account is optional and offered after the order.
 
 ### 2. Contact
 
 - Ask only email and, if the carrier needs it, phone
 - Marketing opt-in unticked and below the field
 - **error:** Enter an email address in the format name@example.com
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Email field; Tab goes to optional phone, then the unticked marketing box, then Continue. Autofill (email) and paste work.
+  - Announced (A11Y-S1): The field has a visible label “Email for your receipt”; a bad format is announced assertively on submit.
+  - Errors (A11Y-E1): The error “Enter an email address in the format name@example.com” is beside the field, linked to it and listed in a summary; the email typed is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say why the email is needed in one sentence, and keep the marketing option separate and unticked.
 
 ### 3. Address
 
@@ -94,12 +106,24 @@ Inputs: Keyboard, Screen reader, Browser autofill, Digital wallet
 - “Enter address manually” always visible
 - **empty:** No addresses found for “ZZ1 9QQ”. Enter it manually.
 - **loading:** Searching addresses… announced once
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the address search field; arrow keys move through lookup results, Enter chooses one, Escape closes, and a visible Enter address manually link is always reachable.
+  - Announced (A11Y-S1): The search field is a combobox; “Searching addresses” is announced once politely, and the result count is announced when results arrive.
+  - Errors (A11Y-E1): The empty-result message “No addresses found” is text beside the field, offers the manual link, and the postcode typed is kept; field errors are listed in a summary.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Show the postcode example in full and say “Enter address manually” rather than “Use fallback”.
 
 ### 4. Review
 
 - Every line, fee and tax itemised
 - Edit links next to each section
 - **error:** The price of one item changed. New total £56.98 — please review.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Review heading; Tab goes through the Edit link for each section, then to Continue to payment.
+  - Announced (A11Y-S1): The table has header cells; the total “£54.98 including £4.99 delivery” is read in full, and a price change is announced politely.
+  - Errors (A11Y-E1): The price-change message is text next to the changed line, with the new total and a way to accept or edit; this review is the check before any payment is taken.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write every price in full with the pound sign, itemise fees in words, and say what changed and by how much.
 
 ### 5. Pay
 
@@ -107,11 +131,23 @@ Inputs: Keyboard, Screen reader, Browser autofill, Digital wallet
 - Authentication failures return to this step with details kept
 - **error:** Your bank declined the payment. No money was taken. Try another card.
 - **loading:** Waiting for your bank — don’t close this page
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Pay heading; Tab goes to the hosted payment frame (with a title), then the pay button naming the amount. Autofill and paste work in the card fields, and focus is not trapped.
+  - Announced (A11Y-S1): “Waiting for your bank” is announced politely and a decline is announced assertively; after bank authentication focus returns to the pay button.
+  - Errors (A11Y-E1): A decline message is shown in text beside the payment fields stating that no money was taken, and all earlier details are kept; billing same as delivery is a checkbox, so nothing is asked twice.
+  - Time limits (A11Y-W1): No time limit; the basket survives the bank redirect and the session is kept for at least 30 minutes, with a warning before it ends and a way to extend.
+  - Language (A11Y-L1): Say “Your bank declined the payment” and “No money was taken” in plain words and avoid error codes.
 
 ### 6. Confirm
 
 - Order number, delivery date and address in large text
 - Offer to save details as an account, optional and after the fact
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the Order confirmed heading; Tab reaches the optional Save my details option and Done.
+  - Announced (A11Y-S1): The confirmation is announced politely with the order number and that a receipt was sent to the email address.
+  - Errors (A11Y-E1): The optional account setup is a separate form with its own errors beside fields; nothing is required, and the details already given are kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Show the order number, delivery date and address in full text, and offer an account as optional and after the order.
 
 ---
 
@@ -135,7 +171,9 @@ Inputs: Keyboard, Screen reader, Browser autofill, Digital wallet
 - Pre-tick marketing consent
 - Clear the form after a payment decline
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-N1: Every field has a visible label and the correct autocomplete token, for example email, postal-code and street-address.
 - A11Y-E1: Errors are listed in a summary at the top that links to each field, and are also shown beside each field; they are announced on submit.
@@ -144,6 +182,8 @@ Inputs: Keyboard, Screen reader, Browser autofill, Digital wallet
 - A11Y-E3: A Review step shows every line, fee and total before payment, and each section has an Edit link.
 - A11Y-W1: The session lasts at least 30 minutes, the basket survives the bank redirect, and a warning with an extend option appears at least 20 seconds before it ends.
 - A11Y-S1: Searching, price changes and payment status are announced politely, and failures assertively.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -81,33 +81,69 @@ Inputs: Keyboard, Pointer, Image upload
 
 - Autosave with version history
 - Checklist of required items: alt text, evidence, rights
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus returns to the last edited field after a reload; Tab reaches the editor, the checklist and Save, and the checklist items link to the field they need.
+  - Announced (A11Y-S1): 'Draft saved' is announced politely after autosave and '2 items needed before review' is read as a list of the missing items.
+  - Errors (A11Y-E1): Missing alt text, evidence or rights are named beside the item and listed in a summary with links; all text typed is kept.
+  - Time limits (A11Y-W1): No time limit; progress is saved automatically so short sessions can stop and resume.
+  - Language (A11Y-L1): Say 'rights' and 'evidence' with a one-line explanation, and use plain names for checklist items.
 
 ### 2. Request review
 
 - Reviewers pre-set by content type, editable by editor
 - Due date and notes for each reviewer
 - **error:** Add evidence for “save up to 20%” before sending to Legal
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the reviewer list; Tab reaches each reviewer chip, due date and note, and chips are removed with Delete.
+  - Announced (A11Y-S1): Reviewers and due date are read in full as 'Legal, due Wednesday 29 October'; sending is announced politely.
+  - Errors (A11Y-E1): The missing evidence for “save up to 20%” is named beside the claim, linked from a summary, and the request and notes are kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Write due dates in full with the weekday and month, and name teams by what they check.
 
 ### 3. Review
 
 - Comments anchored to text; approve or request changes
 - Reviewers see the exact version they approve
 - **empty:** Nothing to review today
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the document heading; Tab goes through comments in text order, then Approve and Request changes as separate buttons.
+  - Announced (A11Y-S1): The question 'Approve version 4 for Legal?' is read with the version number; the decision is announced politely and the empty state is read as text.
+  - Errors (A11Y-E1): Approval is a signing action, so it shows the exact version first and allows changing the decision; a comment left unfinished is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say 'approve' and 'request changes' plainly and keep version numbers and the team name in the button label.
 
 ### 4. Revise
 
 - Show which approvals an edit will reset
 - Diff between versions
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the warning when an edit would reset approval; Tab reaches Continue editing and Cancel, and the diff is navigable change by change.
+  - Announced (A11Y-S1): The warning is read before the edit proceeds, 'Editing this paragraph will reset Legal's approval'; diff changes are labelled 'inserted' and 'removed'.
+  - Errors (A11Y-E1): The reset warning names which approvals are affected before the edit, and Cancel keeps the text exactly as it was.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Explain 'reset' as 'Legal will need to approve again'.
 
 ### 5. Schedule
 
 - Blocked until all approvals are current
 - Time shown with time zone and preview
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus moves to the schedule heading; the date and time can be typed, and the preview and Schedule buttons follow in order.
+  - Announced (A11Y-S1): 'Scheduled for Tuesday 4 November, 08:00 GMT' is announced politely, with the time zone spoken in full.
+  - Errors (A11Y-E1): Scheduling is blocked with a text reason if an approval is stale; the time can be corrected or the schedule cancelled before it goes live.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Always show date, time and time zone in full, such as 08:00 GMT, and never just 'tomorrow'.
 
 ### 6. Track
 
 - Stages: draft, in review, approved, scheduled, live
 - Takedown path visible to editors
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the status heading; stages are an ordered list, and the Takedown button is reachable by keyboard for editors.
+  - Announced (A11Y-S1): Each stage change is announced politely, 'Live, published at 08:00', and the current stage is marked in text.
+  - Errors (A11Y-E1): Takedown asks for a confirmation and can be reversed by republishing; a failed publish is named in text.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Name stages in plain words and keep 'takedown' explained as 'remove from the site'.
 
 ---
 
@@ -131,7 +167,9 @@ Inputs: Keyboard, Pointer, Image upload
 - Publish without alt text
 - Hide who is blocking a piece
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-C1: The editor meets contrast of 4.5:1 for text in light and dark themes.
 - A11Y-M1: Animation is removed or reduced when the person asks the system for reduced motion, including stage changes.
@@ -141,6 +179,8 @@ Inputs: Keyboard, Pointer, Image upload
 - A11Y-E1: Missing checklist items are named beside the field and listed in a summary with links, and typed content is kept.
 - A11Y-E3: Scheduling shows approvals and the time zone first and can be cancelled before it goes live.
 - A11Y-W1: Autosave keeps progress so no session has to be finished in one go, and there is no time limit.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

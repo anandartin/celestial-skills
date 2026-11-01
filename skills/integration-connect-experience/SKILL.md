@@ -81,12 +81,24 @@ Inputs: Keyboard, Mouse, Pop-up or full-page redirect
 - Search and filter by category
 - Each tile says what the connection does in one line
 - **empty:** No match. Request an integration or use the webhook option.
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the search field; Tab goes to category filters as toggle buttons, then each tool tile, and Enter opens a tile.
+  - Announced (A11Y-S1): Title reads “Integrations”; the result count is announced politely after filtering, and each tile reads its name and one-line purpose.
+  - Errors (A11Y-E1): The no-match message is text under the search field, linked to it, with the request and webhook options; the search text is kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Describe each tool by what it does in one plain line, and avoid terms such as “bi-directional sync”.
 
 ### 2. Explain access
 
 - List each scope as read / write with a reason
 - Let people turn optional features off to drop scopes
 - **error:** Your admin needs to approve new integrations. Send a request?
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the tool heading; Tab goes through the scope list, each optional feature switch, then Continue. Switches work with Space, no drag.
+  - Announced (A11Y-S1): The scope list is read as a list with text labels Read and Write and a reason for each; turning off a feature announces the updated scope list politely.
+  - Errors (A11Y-E1): The admin-approval message is text beside the Continue button, linked to it, with a Send request button; the choices made are kept.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say Read and Write in words with a reason, and avoid terms such as “OAuth scope”.
 
 ### 3. Authorise
 
@@ -94,6 +106,12 @@ Inputs: Keyboard, Mouse, Pop-up or full-page redirect
 - Return to the same place after approval
 - **error:** Access wasn't granted. Nothing was connected.
 - **loading:** Waiting for approval…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Authorise heading; Tab reaches the Continue button and a full-page alternative to the pop-up, which is described in the instructions. Our side adds no puzzle or memory test, and the other tool's sign-in page should accept paste and password managers.
+  - Announced (A11Y-S1): “You'll be taken to sign in and approve” is read before the button; “Waiting for approval” is announced politely and a refusal is announced assertively.
+  - Errors (A11Y-E1): “Access wasn't granted. Nothing was connected.” is text with a Try again button; the earlier choices are kept. The consent is made on the other page, and nothing is connected until it is approved.
+  - Time limits (A11Y-W1): The redirect is not timed on this side; if the other page times out, a message says so and the person can start again from here.
+  - Language (A11Y-L1): Say what the next screen will look like and that the person will be brought back; avoid “redirect” and “token”.
 
 ### 4. Test
 
@@ -101,11 +119,23 @@ Inputs: Keyboard, Mouse, Pop-up or full-page redirect
 - Name any scope that was declined and what won't work
 - **error:** Comments couldn't be read because that access was declined. Reconnect to add it.
 - **loading:** Running a test sync…
+- **Accessibility:**
+  - Keyboard (A11Y-K1): On return focus lands on the result heading; Tab goes to the sample item, then Reconnect if a scope was declined, then Continue.
+  - Announced (A11Y-S1): “Connected. 24 issues found in the last 7 days” is announced politely; “Running a test sync” is also polite, and a declined scope is named in text.
+  - Errors (A11Y-E1): The declined-scope message is text beside the affected feature, naming what will not work, with a Reconnect button; nothing the person chose is lost.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Name the declined access and what stops working in plain words, and write counts and periods in full.
 
 ### 5. Manage
 
 - Show who connected it, when, and granted scopes
 - Disconnect revokes the token and says what stops
+- **Accessibility:**
+  - Keyboard (A11Y-K1): Focus lands on the Manage heading; Tab reaches the connection details, the scope list, then Disconnect, which opens a confirm step.
+  - Announced (A11Y-S1): The details read who connected it and when; Disconnect opens a dialog announced with its title, and the result is announced politely.
+  - Errors (A11Y-E1): Disconnecting needs a confirm step that says what stops and what stays, and the tool can be connected again to restore it; errors sit beside the button.
+  - Time limits (A11Y-W1): No time limit.
+  - Language (A11Y-L1): Say plainly what stops and what stays, for example “New issues will stop appearing. Existing ones stay.”
 
 ---
 
@@ -129,7 +159,9 @@ Inputs: Keyboard, Mouse, Pop-up or full-page redirect
 - Accept a password for another service
 - Leave a connection silently broken
 
-## Accessibility
+## Accessibility (core v1.0, WCAG 2.2 AA)
+
+Acceptance criteria — each ID is a requirement in Celestial's accessibility core; test against it before release.
 
 - A11Y-K1: The whole flow works by keyboard with no drag, including returning focus to a sensible place after the redirect.
 - A11Y-S1: On return, focus lands on the result heading and the outcome is announced politely, with a refusal announced assertively.
@@ -138,6 +170,8 @@ Inputs: Keyboard, Mouse, Pop-up or full-page redirect
 - A11Y-E3: Authorising and disconnecting each show what will be shared or stop, and a confirm step, before they take effect.
 - A11Y-E1: Errors such as a declined scope are named in text beside the affected feature, with a way to fix it.
 - A11Y-H1: Help is in the same place on every step, including after the redirect.
+
+Requirements this experience layer owns: **A11Y-K1** Every action works by keyboard in a logical order; nothing is drag-only; **A11Y-N1** Every step has a clear title, headings and visible labels; **A11Y-S1** Status, results and errors are announced to screen readers; **A11Y-E1** Errors are named in text, explained, and keep what the person typed; **A11Y-E2** Never ask for the same information twice in one flow; **A11Y-E3** Money, legal and data actions can be checked, corrected or undone; **A11Y-A1** Signing in needs no memory or puzzle test; **A11Y-H1** Help is in the same place on every step; **A11Y-W1** Time limits warn first and can be extended; **A11Y-L1** Plain language; no unexplained jargon or abbreviations.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 
