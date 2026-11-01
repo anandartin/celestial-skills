@@ -74,9 +74,9 @@ Tone of voice: plain, declarative, first-person plural ("Mars reads the whole th
 
   /* Semantic */
   --mars-error:        #c41c1c;
-  --mars-positive:     #6ad36d;
-  --mars-warning:      #fcd85d;
-  --mars-negative:     #ff6b6b;
+  --mars-positive:     #407f41;
+  --mars-warning:      #7e6c2f;
+  --mars-negative:     #b34b4b;
 }
 ```
 
