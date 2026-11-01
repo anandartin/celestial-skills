@@ -283,8 +283,8 @@ Mars applies to every output. When asked for a deck, a document, a report, an em
 | Surface | `#f1eee9` | Cards, panels, table rows |
 | Band | `#f1eee9` | Section bands, divider slides, table headers |
 | Ink | `#000000` | Headlines and body text |
-| Ink 2 | `#464645` | Secondary text |
-| Muted | `#646462` | Captions, footers, axis labels |
+| Ink 2 | `#313130` | Secondary text |
+| Muted | `#626260` | Captions, footers, axis labels |
 | Line | `#838280` | Rules, borders, chart gridlines |
 | Accent | `#ff5600` | One highlight per slide or page (stat numbers) |
 | On accent | `#111111` | Text on the accent |
@@ -309,13 +309,13 @@ Every Mars output carries the logo — never just the name typed out. Use the SV
 
 ### Presentations (PowerPoint, Keynote, Google Slides)
 - 16:9, 13.333 × 7.5 in (1920 × 1080). Margins 0.6 in; a 12-column grid.
-- **Theme** (set it on the master so every slide inherits it): dark 1 = `#000000`, light 1 = `#faf9f6`, dark 2 = `#464645`, light 2 = `#f1eee9`, accent 1–6 = `#ff5600`, `#a63800`, `#fd9f6f`, `#464645`, `#646462`, `#fbd0b9`; heading font = IBM Plex Serif, body font = Inter.
+- **Theme** (set it on the master so every slide inherits it): dark 1 = `#000000`, light 1 = `#faf9f6`, dark 2 = `#313130`, light 2 = `#f1eee9`, accent 1–6 = `#ff5600`, `#a63800`, `#fd9f6f`, `#313130`, `#626260`, `#fbd0b9`; heading font = IBM Plex Serif, body font = Inter.
 - **Title slide**: background `#faf9f6`; headline in IBM Plex Serif 54–64 pt, ink; one-line subtitle in Inter 20 pt, muted; the logo at the top left with clear space equal to its own height.
 - **Section divider**: full-bleed `#f1eee9` (or `#000000` with `#ffffff` text); section number in Geist Mono.
 - **Content slide**: title in IBM Plex Serif 32–40 pt; body Inter 18–24 pt, max six bullets; one accent highlight at most.
 - **Shapes and cards**: fill `#f1eee9`, 1 pt `#838280` border, corner radius 12px (about 0.13 in).
-- **Charts**: series in the accent order above; gridlines `#838280`; labels `#646462`; no 3-D, no gradients.
-- **Footer**: Geist Mono 10 pt in `#646462`: Mars · title · page number.
+- **Charts**: series in the accent order above; gridlines `#838280`; labels `#626260`; no 3-D, no gradients.
+- **Footer**: Geist Mono 10 pt in `#626260`: Mars · title · page number.
 - When generating .pptx with code (e.g. python-pptx), write these colours and fonts into the theme and master first, then add slides from the master.
 
 ### Documents and PDF reports (Word, Google Docs, PDF)
@@ -325,9 +325,9 @@ Every Mars output carries the logo — never just the name typed out. Use the SV
 - Cover page: logo, title in IBM Plex Serif, date and owner in Geist Mono.
 
 ### Email, social and diagrams
-- Email: 600 px column on `#faf9f6`; one primary button in `#d14700` with `#ffffff` text, 4px corners.
+- Email: 600 px column on `#faf9f6`; one primary button in `#000000` with `#ffffff` text, 4px corners.
 - Social: square 1080 × 1080 or 1200 × 628; headline in IBM Plex Serif; accent used once; logo bottom-left.
-- Diagrams: nodes `#f1eee9` with `#838280` borders and 12px corners; connectors `#646462`; the one emphasised node in `#ff5600`.
+- Diagrams: nodes `#f1eee9` with `#838280` borders and 12px corners; connectors `#626260`; the one emphasised node in `#ff5600`.
 
 
 ## Brand assets
@@ -388,7 +388,7 @@ Compositions of core components for recurring jobs. Each uses only contract toke
 
 
 ## Accessibility (core v1.0, WCAG 2.2 AA)
-Every Mars screen, document and graphic meets Celestial's accessibility core. Automated result for this palette: **Palette passes automated WCAG 2.2 AA checks**. Automated checks cover only part of WCAG 2.2 AA; keyboard, screen-reader and 200% zoom checks still need a person.
+Every Mars screen, document and graphic must meet Celestial's accessibility core; this file is checked against it, your product still needs testing. Automated result for this palette: **Palette passes automated WCAG 2.2 AA checks**. Automated checks cover only part of WCAG 2.2 AA; keyboard, screen-reader and 200% zoom checks still need a person.
 
 Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obsolete) maps to a core requirement: 1.1.1 Non-text Content (A) → A11Y-I1 · 1.2.1 Audio-only and Video-only (Prerecorded) (A) → A11Y-V1 · 1.2.2 Captions (Prerecorded) (A) → A11Y-V1 · 1.2.3 Audio Description or Media Alternative (Prerecorded) (A) → A11Y-V1 · 1.2.4 Captions (Live) (AA) → A11Y-V1 · 1.2.5 Audio Description (Prerecorded) (AA) → A11Y-V1 · 1.3.1 Info and Relationships (A) → A11Y-P1 · 1.3.2 Meaningful Sequence (A) → A11Y-P1 · 1.3.3 Sensory Characteristics (A) → A11Y-C2 · 1.3.4 Orientation (AA) → A11Y-R1 · 1.3.5 Identify Input Purpose (AA) → A11Y-E2 · 1.4.1 Use of Color (A) → A11Y-C2 · 1.4.2 Audio Control (A) → A11Y-V1 · 1.4.3 Contrast (Minimum) (AA) → A11Y-C1 · 1.4.4 Resize Text (AA) → A11Y-R1 · 1.4.5 Images of Text (AA) → A11Y-I1 · 1.4.10 Reflow (AA) → A11Y-R1 · 1.4.11 Non-text Contrast (AA) → A11Y-C1 · 1.4.12 Text Spacing (AA) → A11Y-R1 · 1.4.13 Content on Hover or Focus (AA) → A11Y-O1 · 2.1.1 Keyboard (A) → A11Y-K1 · 2.1.2 No Keyboard Trap (A) → A11Y-K1 · 2.1.4 Character Key Shortcuts (A) → A11Y-K1 · 2.2.1 Timing Adjustable (A) → A11Y-W1 · 2.2.2 Pause, Stop, Hide (A) → A11Y-M1 · 2.3.1 Three Flashes or Below Threshold (A) → A11Y-M1 · 2.4.1 Bypass Blocks (A) → A11Y-N1 · 2.4.2 Page Titled (A) → A11Y-N1 · 2.4.3 Focus Order (A) → A11Y-K1 · 2.4.4 Link Purpose (In Context) (A) → A11Y-N2 · 2.4.5 Multiple Ways (AA) → A11Y-N1 · 2.4.6 Headings and Labels (AA) → A11Y-N1 · 2.4.7 Focus Visible (AA) → A11Y-F1 · 2.4.11 Focus Not Obscured (Minimum) (AA) → A11Y-F1 · 2.5.1 Pointer Gestures (A) → A11Y-G1 · 2.5.2 Pointer Cancellation (A) → A11Y-G1 · 2.5.3 Label in Name (A) → A11Y-N2 · 2.5.4 Motion Actuation (A) → A11Y-G1 · 2.5.7 Dragging Movements (AA) → A11Y-G1 · 2.5.8 Target Size (Minimum) (AA) → A11Y-T1 · 3.1.1 Language of Page (A) → A11Y-L2 · 3.1.2 Language of Parts (AA) → A11Y-L2 · 3.2.1 On Focus (A) → A11Y-U1 · 3.2.2 On Input (A) → A11Y-U1 · 3.2.3 Consistent Navigation (AA) → A11Y-H1 · 3.2.4 Consistent Identification (AA) → A11Y-H1 · 3.2.6 Consistent Help (A) → A11Y-H1 · 3.3.1 Error Identification (A) → A11Y-E1 · 3.3.2 Labels or Instructions (A) → A11Y-N2 · 3.3.3 Error Suggestion (AA) → A11Y-E1 · 3.3.4 Error Prevention (Legal, Financial, Data) (AA) → A11Y-E3 · 3.3.7 Redundant Entry (A) → A11Y-E2 · 3.3.8 Accessible Authentication (Minimum) (AA) → A11Y-A1 · 4.1.2 Name, Role, Value (A) → A11Y-P1 · 4.1.3 Status Messages (AA) → A11Y-S1.
 
@@ -426,11 +426,11 @@ Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obso
 | warning · as text | `#7e6c2f` on `#faf9f6` | 4.90:1 | 4.5:1 | Pass |
 | success · as an icon | `#407f41` on `#faf9f6` | 4.61:1 | 3:1 | Pass |
 | success · as text | `#407f41` on `#faf9f6` | 4.61:1 | 4.5:1 | Pass |
-| Primary button label | `#ffffff` on `#d14700` | 4.55:1 | 4.5:1 | Pass |
-| Primary button label · hover | `#ffffff` on `#b03c00` | 6.01:1 | 4.5:1 | Pass |
+| Primary button label | `#ffffff` on `#000000` | 21.00:1 | 4.5:1 | Pass |
+| Primary button label · hover | `#ffffff` on `#0007cb` | 11.09:1 | 4.5:1 | Pass |
 | Focus ring | `#000ce1` on `#faf9f6` | 9.32:1 | 3:1 | Pass |
-| Muted text | `#646462` on `#faf9f6` | 5.63:1 | 4.5:1 | Pass |
-| Control height | 40px | — | ≥ 24px; 44px on touch (core) | Pass |
+| Muted text | `#626260` on `#faf9f6` | 5.81:1 | 4.5:1 | Pass |
+| Control height | 40px | — | ≥ 24px (WCAG 2.5.8); hit area padded to 44px on touch (core) | Pass — Pad the hit area to 44 × 44px on touch screens. |
 
 
 ## Celestial core foundations (included)
@@ -549,11 +549,11 @@ A value outside its class is an override: allowed only with a written reason in 
     },
     "body": {
       "$type": "color",
-      "$value": "#464645"
+      "$value": "#313130"
     },
     "muted": {
       "$type": "color",
-      "$value": "#646462"
+      "$value": "#626260"
     }
   },
   "line": {
@@ -577,7 +577,7 @@ A value outside its class is an override: allowed only with a written reason in 
   "action": {
     "primary-bg": {
       "$type": "color",
-      "$value": "#d14700"
+      "$value": "#000000"
     },
     "primary-hover": {
       "$type": "color",
