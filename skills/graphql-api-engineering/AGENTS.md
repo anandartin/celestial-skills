@@ -70,7 +70,7 @@ When a Celestial experience skill is in use, give each journey one end-to-end te
 | Preview deploy | Hosting preview environment | A working preview link on the pull request | Every pull request |
 | Schema compatibility | GraphQL Inspector diff against main | 0 breaking changes; removals only for fields deprecated 30+ days with zero recorded usage | Every pull request |
 
-Accessibility is never skipped. Automated: A11Y-C1, A11Y-F1, A11Y-N1, A11Y-S1, A11Y-P1 (partly). Manual pass before release: A11Y-K1, A11Y-R1, A11Y-M1, A11Y-E1, A11Y-L1 — keyboard-only run, screen reader on each journey step, 200% zoom and 320px width, reduced motion. Cite the requirement ID (for example A11Y-E1) in the pull request when you fix or test one.
+Accessibility is never skipped. Automated: A11Y-C1, A11Y-F1, A11Y-I1, A11Y-N1, A11Y-N2, A11Y-S1, A11Y-L2, A11Y-P1 (partly). Manual pass before release: A11Y-K1, A11Y-G1, A11Y-R1, A11Y-M1, A11Y-O1, A11Y-V1, A11Y-E1, A11Y-U1, A11Y-L1 — keyboard-only run, screen reader on each journey step, 200% zoom and 320px width, reduced motion, captions on any media. Cite the requirement ID (for example A11Y-E1) in the pull request when you fix or test one.
 
 ## Pull requests
 - Branching: Trunk-based: short-lived branches off main, squash-merged within two days.
