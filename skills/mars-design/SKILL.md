@@ -296,7 +296,7 @@ Mars applies to every output. When asked for a deck, a document, a report, an em
 - If a face isn't installed, use the closest system font of the same style and say so — never silently swap to a default.
 
 ### Logo on every output
-Every Mars output carries the logo — never just the name typed out. Use the SVG under **Brand assets** (or a PNG exported from it at 4×); on dark or accent backgrounds use the one-colour version in `#ffffff` / `#111111`. Keep clear space equal to the mark's height and never stretch, outline or recolour it otherwise.
+Every Mars output carries the logo — never just the name typed out. Use the SVG under **Brand assets** (or a PNG exported from it at 4×); keep the mark's own colour only where it reaches 3:1 against the background; otherwise use the one-colour version — `#ffffff` on ink or dark photos, `#111111` on the accent, `#000000` for monochrome. Never place the mark on a background of its own colour. Keep clear space equal to the mark's height and never stretch, outline or recolour it otherwise.
 | Output | Where the logo goes |
 |---|---|
 | Web and app UI | Top-left of the header on every page and screen; again in the footer; the mark as favicon and app icon |
@@ -429,6 +429,7 @@ Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obso
 | Primary button label | `#ffffff` on `#000000` | 21.00:1 | 4.5:1 | Pass |
 | Primary button label · hover | `#ffffff` on `#0007cb` | 11.09:1 | 4.5:1 | Pass |
 | Focus ring | `#000ce1` on `#faf9f6` | 9.32:1 | 3:1 | Pass |
+| Name on the accent lockup (large text) | `#111111` on `#ff5600` | 5.92:1 | 3:1 | Pass |
 | Muted text | `#626260` on `#faf9f6` | 5.81:1 | 4.5:1 | Pass |
 | Control height | 40px | — | ≥ 24px (WCAG 2.5.8); hit area padded to 44px on touch (core) | Pass — Pad the hit area to 44 × 44px on touch screens. |
 
