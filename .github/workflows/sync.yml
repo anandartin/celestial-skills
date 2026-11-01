@@ -1,6 +1,7 @@
 name: Sync skills from celestialskill.com
 
-# Runs when the site publishes, changes, unpublishes or deletes a public skill (repository_dispatch from the Worker),
+# Runs when the site publishes, changes, unpublishes or deletes a public skill, or when a deploy changes the site code
+# (repository_dispatch from the Worker, which compares the deployed page with .github/sync/site-version every 15 minutes),
 # every six hours as a backstop, and on demand from the Actions tab.
 on:
   repository_dispatch:
@@ -45,5 +46,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           changed="$(git diff --cached --name-only -- skills | cut -d/ -f2 | sort -u | head -20 | paste -sd ',' - | sed 's/,/, /g')"
-          git commit -m "Sync skills from celestialskill.com" -m "Changed: ${changed:-catalogue only}" -m "Triggered by: ${{ github.event_name }}"
+          git commit -m "Sync skills from celestialskill.com" -m "Changed: ${changed:-catalogue or site version only}" -m "Triggered by: ${{ github.event_name }}"
           git push

@@ -9,6 +9,7 @@
 import { JSDOM, VirtualConsole } from 'jsdom';
 import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
+import { createHash } from 'node:crypto';
 
 const API = (process.env.CELESTIAL_API || 'https://celestialskill.com').replace(/\/$/, '');
 const [out, ...rest] = process.argv.slice(2);
@@ -22,6 +23,9 @@ const site = arg('--site') || API + '/';
 
 // load the site so packages are built by exactly the code behind Download
 const page = /^https?:/.test(site) ? await (await fetch(site, { headers: { 'cache-control': 'no-cache' } })).text() : await readFile(site, 'utf8');
+// fingerprint of the site code these files were built with; the site's Worker compares it with what is deployed and asks for a
+// sync when they differ, so a code change reaches this repository after a deploy without anyone starting a sync by hand
+const siteVersion = createHash('sha256').update(page).digest('hex').slice(0, 16);
 const html = page.replace(/<script[^>]+src=[^>]*><\/script>/g, '');
 const vc = new VirtualConsole();
 const dom = new JSDOM(html, { runScripts: 'dangerously', url: API + '/', virtualConsole: vc, pretendToBeVisual: true,
@@ -135,7 +139,9 @@ Requests, fixes and new skills are welcome — see [CONTRIBUTING.md](CONTRIBUTIN
 [Apache License 2.0](LICENSE). The licence covers the skill text and files; it grants no rights to any trademark, brand name or logo a skill describes.
 `);
 
+await writeFile(join(out, '.github', 'sync', 'site-version'), siteVersion + '\n');
 console.log(`${total} skills · ${files} files → ${out}`);
+console.log(`  site version ${siteVersion}`);
 groups.forEach((g) => console.log(`  ${g.title}: ${g.items.filter((s) => s._slug).length}`));
 if (exclude.size) console.log(`  excluded: ${[...exclude].join(', ')}`);
 if (skipped.length) { console.log('  skipped:'); skipped.forEach((x) => console.log('   ', x)); }
