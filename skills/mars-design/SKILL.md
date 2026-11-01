@@ -134,7 +134,7 @@ Mars's display face is **IBM Plex Serif**; the sans is **Inter** and the mono is
 
 ## Shape and density — dials on the core ladders
 
-Everything structural follows **Celestial core v1.0** (`core/foundations.md`): the 4px spacing scale, the 12-column grid and breakpoints, control and radius ladders, elevation levels, motion durations, accessibility minimums, component anatomy and states. This file never restates core; it records only where Mars sits on each ladder.
+Everything structural follows **Celestial core v1.0** (*Celestial core foundations* below): the 4px spacing scale, the 12-column grid and breakpoints, control and radius ladders, elevation levels, motion durations, accessibility minimums, component anatomy and states. This file never restates core; it records only where Mars sits on each ladder.
 
 | Dial | Mars | Sets |
 |---|---|---|
@@ -215,7 +215,7 @@ Mars's chrome uses very few glyphs (chevrons, a play triangle, the `↑` submit,
 
 ## Signature patterns
 
-Mars extends core with four patterns, each built from contract tokens only (see `patterns.md`): **Registration marks** (6px squares at panel corners, ink-primary at 20%, full-width panels only), **Numbered argument** (dashed rule → letter-spaced serif index → display H3 → short paragraphs), **Stat callout** (mono eyebrow → serif callout with the number in accent → mono footnote) and **Dark media panel** (night surface with a bordered ▶ ghost button).
+Mars extends core with four patterns, each built from contract tokens only (see *Patterns* below): **Registration marks** (6px squares at panel corners, ink-primary at 20%, full-width panels only), **Numbered argument** (dashed rule → letter-spaced serif index → display H3 → short paragraphs), **Stat callout** (mono eyebrow → serif callout with the number in accent → mono footnote) and **Dark media panel** (night surface with a bordered ▶ ghost button).
 
 ---
 
@@ -344,8 +344,51 @@ Use this mark as-is: don't redraw, recolour (except to one solid colour on dark 
 - Geist Mono
 
 
+## Patterns (core v1.0)
+Compositions of core components for recurring jobs. Each uses only contract tokens, so it renders in Mars and in any other brand. Mars's own signature patterns follow at the end.
+
+### Navigation
+- **App shell:** side navigation with the logo on top and 4–7 destinations (icon and label), one marked current (`aria-current="page"`); content on the right under a page title.
+- **Breadcrumb and tabs** show the same current location as the navigation; they never disagree.
+- **Mobile:** a top bar (menu · title · one action); destinations move into a drawer or a bottom bar of up to 5 items.
+
+### Forms
+- One column, labels above fields, helper text below, one primary action at the end with the secondary beside it.
+- Validate on blur and on submit, never while typing. The error sits under the field in text with an icon, the border turns to the error colour, and the typed value is kept.
+- **Multi-step:** a step indicator (done · current · upcoming), one task per step, Back never loses answers, and the last step reviews everything before submit.
+
+### Search
+- **Command palette** (⌘K / Ctrl+K): one input, results grouped by type with the match highlighted; ↑ ↓ to move, Enter to open, Esc to close.
+- **Results list:** a search field with removable filter chips, a result count, and an empty result that says what to change.
+
+### Tables
+- Dense and scannable: the first cell is the record, numbers right-aligned, status as a badge with text, row actions in a trailing menu.
+- Sortable headers announce their sort order; search and filters sit above; bulk actions appear only after a selection.
+
+### Onboarding
+- **Welcome:** a greeting by name and one decision (template, import or blank).
+- **Checklist:** 3–5 tasks with a progress count ("2 of 4"); each task opens where it is done.
+- **First-run empty state:** an icon, one sentence on what goes here, one primary action — teach by doing.
+
+### Feedback
+- **Toast** for something that happened (dismisses itself, with Undo where possible); **alert** for something that needs attention (stays until resolved).
+- **Confirmation** only for what can't be undone: name the thing and the consequence ("Delete “Atlas”? This removes 42 issues"), and the destructive button names the action.
+- Status always pairs colour with an icon and words.
+
+### AI interactions
+- A prompt that invites a job, a streamed answer that cites its sources, and 2–3 suggestions to continue.
+- Anything irreversible stops at an **approval step** — what will happen, why, and the data it touches — with Approve, Edit and Reject. Never act first.
+- Long runs show progress; the person's prompt stays editable.
+
+### Mars signature patterns
+- **Registration marks** — Signal a full-width panel as a printed sheet Anatomy: 6px squares at the four corners of a panel. Tokens: ink-primary at 20%.
+- **Numbered argument** — Carry a long-form case one claim at a time Anatomy: Dashed rule → letter-spaced serif index in a 120px column → display H3 → 1–3 short paragraphs. Tokens: line (dashed), font-display, ink-body.
+- **Stat callout** — Make one number the whole point Anatomy: Mono eyebrow → serif callout with the number in accent → dashed rules between → mono footnote. Tokens: accent, font-display, font-mono, line.
+- **Dark media panel** — Hold video or a product clip inside the paper system Anatomy: Night surface, mono index label, bordered ▶ ghost button. Tokens: surface-night (brand extension), ink-inverse.
+
+
 ## Accessibility (core v1.0, WCAG 2.2 AA)
-Every Mars screen, document and graphic meets Celestial's accessibility core. Automated result for this palette: **Passes automated checks for WCAG 2.2 AA**. Automated checks cover only part of WCAG 2.2 AA; keyboard, screen-reader and 200% zoom checks still need a person.
+Every Mars screen, document and graphic meets Celestial's accessibility core. Automated result for this palette: **Palette passes automated WCAG 2.2 AA checks**. Automated checks cover only part of WCAG 2.2 AA; keyboard, screen-reader and 200% zoom checks still need a person.
 
 Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obsolete) maps to a core requirement: 1.1.1 Non-text Content (A) → A11Y-I1 · 1.2.1 Audio-only and Video-only (Prerecorded) (A) → A11Y-V1 · 1.2.2 Captions (Prerecorded) (A) → A11Y-V1 · 1.2.3 Audio Description or Media Alternative (Prerecorded) (A) → A11Y-V1 · 1.2.4 Captions (Live) (AA) → A11Y-V1 · 1.2.5 Audio Description (Prerecorded) (AA) → A11Y-V1 · 1.3.1 Info and Relationships (A) → A11Y-P1 · 1.3.2 Meaningful Sequence (A) → A11Y-P1 · 1.3.3 Sensory Characteristics (A) → A11Y-C2 · 1.3.4 Orientation (AA) → A11Y-R1 · 1.3.5 Identify Input Purpose (AA) → A11Y-E2 · 1.4.1 Use of Color (A) → A11Y-C2 · 1.4.2 Audio Control (A) → A11Y-V1 · 1.4.3 Contrast (Minimum) (AA) → A11Y-C1 · 1.4.4 Resize Text (AA) → A11Y-R1 · 1.4.5 Images of Text (AA) → A11Y-I1 · 1.4.10 Reflow (AA) → A11Y-R1 · 1.4.11 Non-text Contrast (AA) → A11Y-C1 · 1.4.12 Text Spacing (AA) → A11Y-R1 · 1.4.13 Content on Hover or Focus (AA) → A11Y-O1 · 2.1.1 Keyboard (A) → A11Y-K1 · 2.1.2 No Keyboard Trap (A) → A11Y-K1 · 2.1.4 Character Key Shortcuts (A) → A11Y-K1 · 2.2.1 Timing Adjustable (A) → A11Y-W1 · 2.2.2 Pause, Stop, Hide (A) → A11Y-M1 · 2.3.1 Three Flashes or Below Threshold (A) → A11Y-M1 · 2.4.1 Bypass Blocks (A) → A11Y-N1 · 2.4.2 Page Titled (A) → A11Y-N1 · 2.4.3 Focus Order (A) → A11Y-K1 · 2.4.4 Link Purpose (In Context) (A) → A11Y-N2 · 2.4.5 Multiple Ways (AA) → A11Y-N1 · 2.4.6 Headings and Labels (AA) → A11Y-N1 · 2.4.7 Focus Visible (AA) → A11Y-F1 · 2.4.11 Focus Not Obscured (Minimum) (AA) → A11Y-F1 · 2.5.1 Pointer Gestures (A) → A11Y-G1 · 2.5.2 Pointer Cancellation (A) → A11Y-G1 · 2.5.3 Label in Name (A) → A11Y-N2 · 2.5.4 Motion Actuation (A) → A11Y-G1 · 2.5.7 Dragging Movements (AA) → A11Y-G1 · 2.5.8 Target Size (Minimum) (AA) → A11Y-T1 · 3.1.1 Language of Page (A) → A11Y-L2 · 3.1.2 Language of Parts (AA) → A11Y-L2 · 3.2.1 On Focus (A) → A11Y-U1 · 3.2.2 On Input (A) → A11Y-U1 · 3.2.3 Consistent Navigation (AA) → A11Y-H1 · 3.2.4 Consistent Identification (AA) → A11Y-H1 · 3.2.6 Consistent Help (A) → A11Y-H1 · 3.3.1 Error Identification (A) → A11Y-E1 · 3.3.2 Labels or Instructions (A) → A11Y-N2 · 3.3.3 Error Suggestion (AA) → A11Y-E1 · 3.3.4 Error Prevention (Legal, Financial, Data) (AA) → A11Y-E3 · 3.3.7 Redundant Entry (A) → A11Y-E2 · 3.3.8 Accessible Authentication (Minimum) (AA) → A11Y-A1 · 4.1.2 Name, Role, Value (A) → A11Y-P1 · 4.1.3 Status Messages (AA) → A11Y-S1.
 
@@ -375,6 +418,16 @@ Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obso
 | focus ring | `#000ce1` on `#faf9f6` | 9.32:1 | 3:1 | Pass |
 | focus ring | `#000ce1` on `#f1eee9` | 8.48:1 | 3:1 | Pass |
 | input border · field border | `#838280` on `#faf9f6` | 3.65:1 | 3:1 | Pass |
+| SKILL.md: secondary text | `#313130` on `#faf9f6` | 12.37:1 | 4.5:1 | Pass |
+| SKILL.md: secondary text | `#313130` on `#f1eee9` | 11.25:1 | 4.5:1 | Pass |
+| SKILL.md: error · as an icon | `#c41c1c` on `#faf9f6` | 5.65:1 | 3:1 | Pass |
+| SKILL.md: error · as text | `#c41c1c` on `#faf9f6` | 5.65:1 | 4.5:1 | Pass |
+| SKILL.md: positive · as an icon | `#407f41` on `#faf9f6` | 4.61:1 | 3:1 | Pass |
+| SKILL.md: positive · as text | `#407f41` on `#faf9f6` | 4.61:1 | 4.5:1 | Pass |
+| SKILL.md: warning · as an icon | `#7e6c2f` on `#faf9f6` | 4.90:1 | 3:1 | Pass |
+| SKILL.md: warning · as text | `#7e6c2f` on `#faf9f6` | 4.90:1 | 4.5:1 | Pass |
+| SKILL.md: negative · as an icon | `#b34b4b` on `#faf9f6` | 4.96:1 | 3:1 | Pass |
+| SKILL.md: negative · as text | `#b34b4b` on `#faf9f6` | 4.96:1 | 4.5:1 | Pass |
 | Primary button label | `#ffffff` on `#d14700` | 4.55:1 | 4.5:1 | Pass |
 | Primary button label · hover | `#ffffff` on `#b03c00` | 6.01:1 | 4.5:1 | Pass |
 | Focus ring | `#000ce1` on `#faf9f6` | 9.32:1 | 3:1 | Pass |
