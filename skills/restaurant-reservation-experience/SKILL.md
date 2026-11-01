@@ -130,10 +130,13 @@ Inputs: Touch, Keyboard, Screen reader
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; chips are toggle buttons with pressed state announced
-- Targets ≥ 48px for time and party chips
-- Deposit terms are text, not an image, and read before the pay button
-- Error messages appear next to the field and in a summary (3.3.1)
+- A11Y-P1: Chips are toggle buttons and the pressed state is announced by a screen reader.
+- A11Y-T1: Party size and time chips are at least 48px, with enough space for a hand tremor.
+- A11Y-N1: Deposit terms are text before the pay button, not an image, and the amounts and refund date are written in full.
+- A11Y-E1: Error messages appear next to the field and in a summary, and the party, date and needs are kept.
+- A11Y-W1: The 10-minute table hold gives a warning at least 20 seconds before it ends, with a way to extend it.
+- A11Y-E3: Payment restates the deposit, and a booking can be changed or cancelled with a confirm step.
+- A11Y-C2: Chip state is shown by text, an icon or a tick, never colour alone.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

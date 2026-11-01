@@ -135,10 +135,13 @@ Inputs: Drag and drop, File picker, Touch, Keyboard
 
 ## Accessibility
 
-- Upload progress exposed as a progressbar with text value; completion announced
-- Drag and drop has a keyboard alternative: an Upload button (WCAG 2.5.7 dragging movements)
-- Access level selects have visible labels and are at least 24×24 px (WCAG 2.5.8)
-- External warning conveyed by text and icon, not colour alone (WCAG 1.4.1)
+- A11Y-K1: Drag and drop has a keyboard alternative, a native Upload button, and every step is operable by keyboard.
+- A11Y-S1: Upload progress is a progressbar with a text value, and completion is announced politely.
+- A11Y-N1: Access level selects have visible labels and the plain description of each level is linked to the select.
+- A11Y-C2: The external warning is text plus an icon, never colour alone.
+- A11Y-E3: Sharing shows a Review step before it takes effect, and removing access asks for confirmation and offers Undo.
+- A11Y-T1: Selects, chips and remove buttons are at least 24×24px, and 44px on touch.
+- A11Y-R1: Text spacing overrides and 200% zoom do not clip labels or hide controls.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

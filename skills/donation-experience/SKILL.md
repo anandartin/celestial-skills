@@ -135,10 +135,13 @@ Inputs: Voice control, Keyboard, Touch, Screen reader
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; visible labels match accessible names for voice control (2.5.3)
-- Amount chips are radio buttons in a labelled group, keyboard operable
-- Targets at least 24×24px minimum, 44px preferred (2.5.8)
-- Payment status announced via a live region
+- A11Y-N1: Every control has a visible label that matches its accessible name, so voice control commands work.
+- A11Y-K1: Amount chips are radio buttons in a labelled group and the whole journey works by keyboard with no drag.
+- A11Y-T1: Targets are at least 24×24px, and 44px where possible, on chips and buttons.
+- A11Y-S1: Payment status such as “Processing your gift” is announced through a polite live region, and a failure is announced assertively.
+- A11Y-E3: Payment shows the amount and frequency beside the pay button, and cancelling a monthly gift needs a confirm step.
+- A11Y-E1: Errors are in text next to the field, linked to it, and the typed amount and details are kept.
+- A11Y-L1: Amounts and dates are written in full, and the declaration text is plain language shown in the page.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

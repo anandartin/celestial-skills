@@ -130,10 +130,13 @@ Inputs: Keyboard, Touch, File upload (bank statements)
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; likelihood bands use text labels, not red/green alone (1.4.1)
-- Calculator sliders have number inputs as an alternative (2.5.7)
-- Figures read in full by screen readers: 'six thousand pounds'
-- Error summary links to each field; focus moves to it on submit
+- A11Y-C2: Likelihood bands use text labels, not red or green alone (WCAG 1.4.1).
+- A11Y-K1: Calculator sliders have number inputs as an alternative (WCAG 2.5.7).
+- A11Y-L1: Figures are read in full by screen readers, for example 'six thousand pounds'.
+- A11Y-E1: The error summary links to each field and focus moves to it on submit.
+- A11Y-E3: The agreement is reviewed before signing, a copy can be downloaded, and withdrawal is possible until 8 November.
+- A11Y-W1: The 30-day quote hold and the 8 November withdrawal date are written in full.
+- A11Y-R1: At 200% zoom and 320px width the calculator and forms reflow without horizontal scrolling.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

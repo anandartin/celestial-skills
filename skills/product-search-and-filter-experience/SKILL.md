@@ -130,10 +130,13 @@ Inputs: Touch, Keyboard, Voice dictation, Screen reader
 
 ## Accessibility
 
-- Search suggestions use the combobox pattern; arrow keys move, Enter selects, Escape closes (WCAG 2.2 4.1.2)
-- Result count changes are announced in a polite live region (WCAG 2.2 4.1.3)
-- Filter checkboxes and chip remove buttons are at least 44 × 44 px (WCAG 2.2 2.5.8 exceeded)
-- Focus moves to the results heading after applying filters, not to the top of the page
+- A11Y-P1: Search suggestions use the combobox pattern; arrow keys move, Enter selects and Escape closes.
+- A11Y-S1: Result counts and filter changes are announced in a polite live region, without moving focus.
+- A11Y-T1: Filter checkboxes and chip remove buttons are at least 44×44px.
+- A11Y-K1: After applying filters, focus moves to the results heading, not to the top of the page.
+- A11Y-C2: Sponsored labels, out-of-stock marks and compare differences are text, never colour alone.
+- A11Y-E1: Typed search text is never cleared by an error or correction, and the no-match message names the filter to remove.
+- A11Y-L1: Suggestions and corrections use plain language and accept rough spelling for people with dyslexia.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

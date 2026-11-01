@@ -133,10 +133,14 @@ Inputs: Touch, Camera (passport scan), Wallet passes
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; seat list announces row, letter, window or aisle and price
-- Seat targets ≥ 44px, with a list alternative for smaller grids (2.5.8)
-- Boarding pass barcode screen raises brightness and offers a large-text summary
-- Passport scan has typed-entry alternative; no time limit on document entry
+- A11Y-P1: Meets WCAG 2.2 AA; the seat list announces row, letter, window or aisle and price for each seat.
+- A11Y-T1: Seat targets are at least 44px, with a list alternative for small grids.
+- A11Y-K1: Boarding passes can be changed with next and previous buttons as well as by swiping, and work with switch access and a screen reader.
+- A11Y-C1: The boarding pass barcode screen raises brightness and offers a large-text summary with 4.5:1 contrast.
+- A11Y-W1: Passport scanning has a typed-entry alternative and no time limit on document entry.
+- A11Y-E1: Passport and seat errors are named beside the field and linked from a summary, and entered details are kept.
+- A11Y-E3: Seat changes show the price before confirming, and the safety declaration is a single explicit confirmation that can be reviewed.
+- A11Y-H1: Help and the airline contact appear in the same place on every step.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -130,10 +130,13 @@ Inputs: Mouse and keyboard, Touch, Screen reader
 
 ## Accessibility
 
-- Option groups use radio semantics with a visible group label; arrow keys move between options (WCAG 2.2 1.3.1)
-- Selected and unavailable states use text and shape, not colour alone (WCAG 2.2 1.4.1)
-- Add-to-basket result is announced in a live region and focus stays on the button (WCAG 2.2 4.1.3)
-- Page reflows at 400% zoom without horizontal scroll (WCAG 2.2 1.4.10)
+- A11Y-P1: Option groups use radio semantics with a visible group label; arrow keys move between options (WCAG 1.3.1).
+- A11Y-C2: Selected and unavailable states use text and shape, not colour alone (WCAG 1.4.1).
+- A11Y-S1: The add-to-basket result is announced in a live region and focus stays on the button (WCAG 4.1.3).
+- A11Y-R1: The page reflows at 400% zoom without horizontal scrolling (WCAG 1.4.10).
+- A11Y-E1: Out-of-stock and postcode errors are text beside the field and selections are kept.
+- A11Y-E2: The postcode and choices are not asked for again later in the basket.
+- A11Y-L1: Colours are named in text and prices include VAT in plain words.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -129,10 +129,14 @@ Inputs: Touch, Mouse and keyboard, Browser translation
 
 ## Accessibility
 
-- Price preview is in a table with headers and totals read in order by screen readers (WCAG 2.2 1.3.1)
-- Amounts and dates use the user’s locale format; currency is written as well as symbolised
-- Tap targets at least 48 × 48 px on tablet layouts (WCAG 2.2 2.5.8 exceeded)
-- Confirmation and error messages are announced and focus moves to their heading (WCAG 2.2 4.1.3)
+- A11Y-P1: The price preview is a table with headers and totals read in order by screen readers.
+- A11Y-L1: Amounts and dates use the person's locale format, and currency is written as well as symbolised.
+- A11Y-T1: Tap targets are at least 48 × 48 px on tablet layouts.
+- A11Y-S1: Confirmation and error messages are announced, and focus moves to their heading.
+- A11Y-E3: The upgrade shows amount, card and next bill before confirming, and can be undone for 24 hours with full credit.
+- A11Y-E1: Downgrade and card errors are named beside the field, and the choices made are kept.
+- A11Y-R1: The comparison table reflows at 200% zoom and 320px without losing a column's meaning.
+- A11Y-H1: A help link appears in the same place on every step.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -133,10 +133,14 @@ Inputs: Keyboard, Pointer, Image upload
 
 ## Accessibility
 
-- Editor meets WCAG 2.2 AA and supports reduced motion and dark mode
-- Alt text required for informative images; decorative images marked as such (WCAG 1.1.1)
-- Diff view uses insert/delete markup and text labels, not colour alone (WCAG 1.4.1)
-- Published output checked for heading order and link text before scheduling
+- A11Y-C1: The editor meets contrast of 4.5:1 for text in light and dark themes.
+- A11Y-M1: Animation is removed or reduced when the person asks the system for reduced motion, including stage changes.
+- A11Y-N1: Informative images require alt text before review, and decorative images are marked as such.
+- A11Y-C2: The diff view uses insert and delete labels as well as colour, so changes show without colour.
+- A11Y-N1: Published output is checked for heading order and meaningful link text before scheduling.
+- A11Y-E1: Missing checklist items are named beside the field and listed in a summary with links, and typed content is kept.
+- A11Y-E3: Scheduling shows approvals and the time zone first and can be cancelled before it goes live.
+- A11Y-W1: Autosave keeps progress so no session has to be finished in one go, and there is no time limit.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

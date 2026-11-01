@@ -132,10 +132,14 @@ Inputs: Camera and microphone, Touch and keyboard, Text chat during the call, Sc
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; captions on by default when the patient's profile requests them
-- Call controls are at least 48×48px and reachable by keyboard in a logical order: mute, camera, captions, chat, leave
-- Waiting-room updates announced through a polite live region, not every second
-- Leave button needs confirmation so it can't be hit by accident (3.3.4 style error prevention)
+- A11Y-P1: Meets WCAG 2.2 AA; captions are on by default when the patient's profile requests them.
+- A11Y-K1: Call controls are at least 48×48px and reachable by keyboard in a logical order: mute, camera, captions, chat, leave.
+- A11Y-S1: Waiting-room updates are announced through a polite live region, at most once a minute, not every second.
+- A11Y-E3: The Leave button needs confirmation so it cannot be pressed by accident.
+- A11Y-E1: Questions that need attention are named beside the field and listed in a summary, and all answers are kept.
+- A11Y-C2: Urgent guidance and connection states use text and icons, never colour alone, and do not rely on audio.
+- A11Y-W1: Any waiting-room or session time limit is warned at least 20 seconds before and can be extended.
+- A11Y-H1: A help link and a phone fallback appear in the same place on every step.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

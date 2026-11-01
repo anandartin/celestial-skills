@@ -129,10 +129,13 @@ Inputs: Touch, Screen reader, Voice dictation
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; target size at least 48×48px, beyond the 24px minimum in 2.5.8
-- Selected items announced with count: “2 of 6 medicines selected”
-- Status uses text and icon, never colour alone (1.4.1)
-- Text reflows at 200% with no horizontal scrolling (1.4.10)
+- A11Y-T1: Targets are at least 48 by 48px, beyond the 24px minimum, and the whole row is the tap target
+- A11Y-S1: Selected items are announced with a count, such as "2 of 6 medicines selected"
+- A11Y-C2: Status uses text and an icon, never colour alone
+- A11Y-R1: Text reflows at 200% with no horizontal scrolling
+- A11Y-K1: No drag gestures are used; every action works by tap, keyboard or switch access
+- A11Y-E3: Confirm restates items, option and date, and Change or Cancel is available until the medicines are dispensed
+- A11Y-W1: The page never times out, and pickup deadlines are stated in full
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

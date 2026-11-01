@@ -133,10 +133,13 @@ Inputs: Keyboard, Pointer, Screen magnifier, Touch
 
 ## Accessibility
 
-- Keyboard shortcuts move to next and previous comment; focus moves into the thread (WCAG 2.1.1)
-- Comment panel reflows at 400% zoom without horizontal scrolling (WCAG 1.4.10)
-- New replies announced through a polite live region, not by stealing focus
-- Comment pins have accessible names such as “Comment 3 by Oluwaseun, open”
+- A11Y-K1: Shortcuts move to the next and previous comment, and focus moves into the thread when it opens.
+- A11Y-R1: The comment panel reflows at 400% zoom and 320px width with no horizontal scrolling.
+- A11Y-S1: New replies and counts are announced through a polite live region and never steal focus.
+- A11Y-N1: Comment pins have accessible names such as “Comment 3 by Oluwaseun, open”, and visible text matches the name.
+- A11Y-E3: Resolving a thread is one action with an Undo that stays available and is reachable by keyboard.
+- A11Y-E1: The cannot-see-this-file error appears in text next to the comment box and the typed draft is kept.
+- A11Y-C2: Open and resolved states are shown by text or an icon with a label, never by colour alone.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

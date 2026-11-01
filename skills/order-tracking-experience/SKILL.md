@@ -128,10 +128,13 @@ Inputs: Touch, Keyboard, SMS reply
 
 ## Accessibility
 
-- Progress stages are an ordered list with the current stage marked in text, not colour only (WCAG 2.2 1.4.1)
-- Status changes on the page are announced in a polite live region without moving focus (WCAG 2.2 4.1.3)
-- Times read as full times and dates, e.g. “Wednesday 29 October, between 1 and 3 pm”
-- Delivery photos have alt text describing where the parcel was left (WCAG 2.2 1.1.1)
+- A11Y-C2: Progress stages are an ordered list with the current stage marked in text, not colour only
+- A11Y-S1: Status changes on the page are announced in a polite live region without moving focus
+- A11Y-L1: Times and dates are read in full, such as "Wednesday 29 October, between 1 and 3 pm"
+- A11Y-N1: Delivery photos have alt text describing where the parcel was left
+- A11Y-R1: At 150% and 200% text the stage list and notices reflow without horizontal scrolling
+- A11Y-E1: Late changes and unreachable courier states are explained in text next to the control, keeping the choice made
+- A11Y-H1: The "I haven't received it" route sits in the same place on every step
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

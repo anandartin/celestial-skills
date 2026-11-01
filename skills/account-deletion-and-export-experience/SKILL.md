@@ -129,10 +129,13 @@ Inputs: Mouse and keyboard, Touch, Email link
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; the close-account control is a real button reachable by keyboard
-- Consequence list is a semantic list read before the confirm button in focus order
-- Download sizes and expiry dates are text, not icons; dates written in full
-- Status of export (preparing, ready, expired) announced and not shown by colour alone
+- A11Y-P1: The close-account control is a native button reachable by keyboard and meets WCAG 2.2 AA.
+- A11Y-K1: The consequence list is a semantic list that is read before the confirm button in focus order.
+- A11Y-L1: Download sizes and expiry dates are written as text, not icons, with dates in full.
+- A11Y-S1: Export status (preparing, ready, expired) is announced politely and is never shown by colour alone.
+- A11Y-E3: Closing the account needs an explicit confirm control and can be cancelled by signing in until the stated date.
+- A11Y-W1: Download and closing dates are stated in text and email; no step expires without a written date.
+- A11Y-R1: At 200% zoom and 320px width the hub, table and form reflow without horizontal scrolling.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

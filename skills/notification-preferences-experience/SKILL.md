@@ -130,10 +130,14 @@ Inputs: Touch, Screen reader, System notification permission
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; each toggle is a switch with a name that includes topic and channel (“Payments by push”)
-- Toggle state changes announced; locked items explain why when focused
-- Time pickers accept typed input as well as scroll wheels
-- Targets at least 48 × 48 px on mobile with 8 px spacing
+- A11Y-P1: Meets WCAG 2.2 AA; each toggle is a switch named by topic and channel, such as “Payments by push”.
+- A11Y-S1: Switch changes are announced, and locked items explain why when focused.
+- A11Y-K1: Time pickers accept typed input as well as scroll wheels.
+- A11Y-T1: Targets are at least 48 × 48 px on mobile with 8 px spacing.
+- A11Y-L1: Copy uses short sentences and plain topic names suited to second-language readers.
+- A11Y-E3: Each change can be undone for at least five seconds, and the person can also reverse it later in settings.
+- A11Y-W1: The five-second undo is announced, can be extended, and the change stays reversible afterwards.
+- A11Y-H1: A help link appears in the same place on every step, and the page loads usable text first on a weak signal.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

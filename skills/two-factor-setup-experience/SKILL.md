@@ -128,10 +128,13 @@ Inputs: Keyboard and screen reader, Authenticator app, Hardware security key, Te
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA, including 2.2.1 Timing Adjustable and 3.3.8 Accessible Authentication
-- QR code has alt text pointing to the setup key; the key is read in groups of four characters
-- Recovery codes are in a list with each code as its own item, and copy confirmation is announced
-- Focus order: method → instructions → setup key → code field → continue
+- A11Y-A1: Sign-in and code fields allow paste, password managers and autofill, with no memory test (WCAG 3.3.8).
+- A11Y-W1: There are no fixed time limits during setup (WCAG 2.2.1).
+- A11Y-N1: The QR code has alt text pointing to the setup key, and the key is read in groups of four characters.
+- A11Y-P1: Recovery codes are a list with each code as its own item, and the copy confirmation is announced.
+- A11Y-K1: Focus order is method, instructions, setup key, code field, continue.
+- A11Y-E1: A wrong code is explained in text next to the field and the typed code is kept.
+- A11Y-E3: Setup can be reviewed and two-step verification can be turned off in settings.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

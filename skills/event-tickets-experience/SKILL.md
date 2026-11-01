@@ -131,10 +131,13 @@ Inputs: Touch, Keyboard, Screen reader
 
 ## Accessibility
 
-- Hold timer can be extended at least once with a simple action before expiry (WCAG 2.2 2.2.1)
-- Seat map has a list alternative sortable by price and section, fully keyboard operable (WCAG 2.2 2.1.1)
-- Queue position changes announced at most once a minute to avoid noise (WCAG 2.2 4.1.3)
-- Seat availability uses labels and patterns, not colour alone (WCAG 2.2 1.4.1)
+- A11Y-W1: The seat hold timer warns at least 20 seconds before expiry and can be extended at least once by a simple action
+- A11Y-K1: The seat map has a list alternative, sortable by price and section, and every seat can be chosen by keyboard without dragging
+- A11Y-S1: Queue position changes are announced politely at most once a minute, and lost connections are announced assertively
+- A11Y-C2: Seat availability uses text labels and patterns, never colour alone
+- A11Y-E3: Pay shows seats and an all-in total identical to the earlier price before payment, and a decline keeps the seats and shows time left
+- A11Y-E1: Taken seats and declined payments are named in text beside the control, with choices kept
+- A11Y-H1: Access information and help stay in the same place on every step
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

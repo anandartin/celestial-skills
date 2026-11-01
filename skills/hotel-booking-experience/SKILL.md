@@ -131,10 +131,14 @@ Inputs: Keyboard, Touch, Screen reader
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; results are a list with headings per stay and prices read in full
-- Filter changes announce the new result count in a live region
-- Map has a full text-list equivalent; no info only on the map (1.1.1)
-- Focus is not obscured by sticky headers or price bars (2.4.11)
+- A11Y-P1: Meets WCAG 2.2 AA; results are a list with a heading per stay and prices read in full.
+- A11Y-S1: Filter changes announce the new result count in a live region.
+- A11Y-K1: The map has a full text-list equivalent, and no information appears only on the map.
+- A11Y-F1: Focus is not hidden by sticky headers or price bars, and has a visible indicator.
+- A11Y-E1: Date and card errors are named beside the field and linked, and the search and guest details are kept.
+- A11Y-E3: Payment shows a price breakdown and total before confirming, and the cancellation deadline is shown as a date and time.
+- A11Y-N1: The search dates are typeable and every field has a visible label.
+- A11Y-W1: Any price hold is warned at least 20 seconds before it ends and can be extended.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

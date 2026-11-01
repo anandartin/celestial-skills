@@ -127,10 +127,13 @@ Inputs: Keyboard and mouse, Paste from spreadsheet, CSV upload
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; email chips are removable by keyboard with a labelled delete button
-- Validation errors listed above the field and linked to each invalid chip
-- Members table has proper header cells and sortable columns announce sort state
-- Role picker is a radio group with each description linked via aria-describedby
+- A11Y-K1: Email chips are removable by keyboard with a labelled delete button, and the whole journey works with no drag.
+- A11Y-E1: Validation errors are listed above the field and linked to each invalid chip, and the pasted text is kept.
+- A11Y-P1: The members table has header cells and sortable columns announce their sort state.
+- A11Y-N1: The role picker is a radio group with each description linked by aria-describedby.
+- A11Y-E3: Review shows access and cost before sending, and role changes need a confirm step and are logged and reversible.
+- A11Y-S1: Seat counts, sort changes and sent confirmations are announced politely.
+- A11Y-H1: Progress is saved at each step, and help sits in the same place on every step.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -131,10 +131,13 @@ Inputs: Touch, Biometrics or passcode, Screen reader
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; warnings use an icon and heading as well as colour (1.4.1)
-- Name check result announced by screen readers via a polite live region
-- No timeouts under 20 minutes on the warning step, or an option to extend (2.2.1)
-- Approve button ≥ 48px and separated from Cancel by at least 16px
+- A11Y-C2: Warnings use an icon and heading as well as colour (WCAG 1.4.1).
+- A11Y-S1: The name check result is announced by screen readers via a polite live region.
+- A11Y-W1: There is no timeout under 20 minutes on the warning step, or an option to extend (WCAG 2.2.1).
+- A11Y-T1: The Approve button is at least 48px and separated from Cancel by at least 16px.
+- A11Y-E3: The amount, payee and reference are shown for review before Approve, and Cancel is always available.
+- A11Y-A1: One-time code fields allow paste and autofill, with the code shown on screen and no puzzle.
+- A11Y-R1: At 175% text size the form and summary reflow without clipping.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

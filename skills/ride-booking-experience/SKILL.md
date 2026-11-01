@@ -131,10 +131,13 @@ Inputs: Touch, Location services, In-app messaging
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; all alerts are visual and haptic, never sound only
-- Plate and driver info read in a logical order by screen readers
-- Safety button ≥ 48px, fixed position, labelled 'Safety'
-- Live region announces 'Driver arriving in 1 minute' without moving focus
+- A11Y-C2: All alerts are visual and haptic, never sound only
+- A11Y-S1: Plate and driver information is read by screen readers in a logical order, with the plate first
+- A11Y-T1: The Safety button is at least 48px, fixed in position and labelled "Safety"
+- A11Y-S1: A polite live region announces "Driver arriving in 1 minute" without moving focus
+- A11Y-L1: Written English is short and plain for second-language readers, and key actions have visual icons with text
+- A11Y-E3: The final fare shows a breakdown and a dispute option, and any charge is shown before it is taken
+- A11Y-K1: Every control works with switch access and screen reader focus order matches the visual order
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

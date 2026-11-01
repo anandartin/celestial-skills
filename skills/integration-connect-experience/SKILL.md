@@ -131,10 +131,13 @@ Inputs: Keyboard, Mouse, Pop-up or full-page redirect
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; the flow is fully operable by keyboard, including returning focus after the redirect
-- On return, focus lands on the result heading and the outcome is announced
-- Scope list uses text labels (Read, Write), not icons alone, and passes 4.5:1 contrast in high-contrast themes
-- Pop-up flow has a full-page alternative announced in the instructions
+- A11Y-K1: The whole flow works by keyboard with no drag, including returning focus to a sensible place after the redirect.
+- A11Y-S1: On return, focus lands on the result heading and the outcome is announced politely, with a refusal announced assertively.
+- A11Y-C1: The scope list uses text labels Read and Write, not icons alone, and passes 4.5:1 contrast, including in high-contrast themes.
+- A11Y-P1: The pop-up flow has a full-page alternative announced in the instructions, and uses native buttons and links.
+- A11Y-E3: Authorising and disconnecting each show what will be shared or stop, and a confirm step, before they take effect.
+- A11Y-E1: Errors such as a declined scope are named in text beside the affected feature, with a way to fix it.
+- A11Y-H1: Help is in the same place on every step, including after the redirect.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -130,10 +130,13 @@ Inputs: Rear and front camera, Touch, File upload as fallback
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; camera guidance is shown as text and announced via a live region for screen reader users
-- No information conveyed by sound alone; haptic and visual cues for capture
-- Manual shutter button at least 48 × 48 px as an alternative to auto-capture
-- Non-camera route (upload or in-person/video-assisted check) offered for people who cannot use the camera flow
+- A11Y-S1: Camera guidance is shown as text and announced through a polite live region for screen reader users
+- A11Y-C2: No information is given by sound alone; haptic and visual cues accompany every capture prompt
+- A11Y-T1: The manual shutter button is at least 48 by 48px and works as an alternative to auto-capture
+- A11Y-K1: A non-camera route, such as upload or a video-assisted or in-person check, is offered, and every control works by switch access and keyboard
+- A11Y-E1: Failed captures are explained in text with a fix, and earlier uploads are kept
+- A11Y-H1: Help by chat, email or text relay sits in the same place on every step
+- A11Y-L1: Consent text names each use of biometric data in plain sentences with an alternative
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

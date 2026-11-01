@@ -136,10 +136,13 @@ Inputs: Touch, Voice assistant, Screen reader
 
 ## Accessibility
 
-- Allergen lists are text, not icons alone, with icon labels for screen readers (WCAG 2.2 1.1.1)
-- Filter chips at least 44 × 44 px with selected state in text and shape (WCAG 2.2 2.5.8, 1.4.1)
-- Delivery status updates announced politely; no auto-moving content without a pause control (WCAG 2.2 2.2.2)
-- Supports system text size to 200% without truncating allergen text (WCAG 2.2 1.4.4)
+- A11Y-N1: Allergen lists are text, with icons also labelled for screen readers, and Contains and May contain are separate headed lists
+- A11Y-T1: Filter chips are at least 44 by 44px and selected state is shown in text and shape
+- A11Y-S1: Delivery status updates are announced politely, and no content moves automatically without a pause control
+- A11Y-R1: At system text size 200% allergen text is never truncated and no horizontal scrolling is needed
+- A11Y-E3: Checkout shows itemised fees, the allergy note and a review of the basket before payment, and cancelling shows the effect on payment
+- A11Y-E1: Changed dishes and missing allergen data are named in text beside the item, with the basket kept
+- A11Y-W1: The 24-hour basket is kept, and any payment session timeout is warned at least 20 seconds before
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

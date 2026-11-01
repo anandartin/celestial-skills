@@ -126,10 +126,13 @@ Inputs: Touch, Voice dictation, Screen reader
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; aims for AAA contrast on text (7:1)
-- Every control ≥ 48px on mobile
-- Screen reader order follows the visual order; times read as full dates
-- No reliance on colour for availability
+- A11Y-C1: Text meets 7:1 contrast against its background and every non-text control meets 3:1, including in high contrast settings
+- A11Y-T1: Every control is at least 48px high and wide on mobile, with space between so a mild tremor does not cause a mis-tap
+- A11Y-R1: At 200% Dynamic Type or font scaling all text stays visible, wraps and is never truncated, and no horizontal scrolling is needed
+- A11Y-S1: Screen reader order follows the visual order, and times are read as full dates such as "Tuesday 14 October, 10:40 am"
+- A11Y-C2: Slot availability is shown with text labels, never colour alone
+- A11Y-H1: The urgent-symptoms link sits in the same place on every screen
+- A11Y-E3: Cancel and change show a confirm step and can be undone from the confirmation
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

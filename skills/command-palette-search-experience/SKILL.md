@@ -128,10 +128,13 @@ Inputs: Keyboard, Voice control, Screen reader, Pointer
 
 ## Accessibility
 
-- Palette is a modal dialog with role=dialog and a labelled combobox; focus is trapped and returns to the trigger on close (WCAG 2.4.3)
-- Result count announced politely after typing pauses, e.g. “6 results”
-- Active result exposed with aria-activedescendant; arrow keys move, Enter selects
-- Shortcut can be turned off or remapped (WCAG 2.1.4 character key shortcuts)
+- A11Y-P1: The palette is a modal dialog with role=dialog and a labelled combobox; focus is trapped and returns to the trigger on close (WCAG 2.4.3).
+- A11Y-S1: The result count is announced politely after typing pauses, for example '6 results'.
+- A11Y-K1: The active result is exposed with aria-activedescendant; arrow keys move and Enter selects.
+- A11Y-K1: The opening shortcut can be turned off or remapped and never overrides browser or assistive technology keys (WCAG 2.1.4).
+- A11Y-E3: Risky actions ask for confirmation first, default focus is on Cancel, and the item can be restored.
+- A11Y-E1: A failed action keeps the palette open with the query and states the reason in text.
+- A11Y-F1: The active result and focused chips have a visible focus indicator at 3:1 contrast.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -134,10 +134,13 @@ Inputs: Touch, Keyboard, Document upload, E-signature
 
 ## Accessibility
 
-- Starter portal meets WCAG 2.2 AA, including accessible authentication without cognitive tests (WCAG 3.3.8)
-- E-signature has a keyboard and screen reader path
-- Document upload accepts phone photos and explains format limits in text
-- Dashboard status uses text labels and patterns, not colour alone
+- A11Y-A1: The starter portal signs in without a memory or puzzle test; pasting, password managers and a magic link work.
+- A11Y-K1: The e-signature can be completed with a keyboard and a screen reader, without drawing.
+- A11Y-E2: Details from the offer are pre-filled and never asked for twice across the forms.
+- A11Y-E1: An expired document is named beside the upload with a text explanation, and the phone-photo upload explains format limits in text.
+- A11Y-C2: Dashboard status uses text labels and patterns as well as colour.
+- A11Y-H1: A named contact and help link appear in the same place on every step, and work before a company account exists.
+- A11Y-L1: Instructions are written in short plain sentences, with dates and times in full.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

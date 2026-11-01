@@ -130,10 +130,13 @@ Inputs: Touch, Push notifications, Keyboard
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA in light and dark themes
-- Table has proper row and column headers; totals announced with their label
-- Date picker fully keyboard-operable, with a typed-date alternative (2.5.7 alternative to dragging)
-- Reminder notifications include amount and date in text, not just an icon
+- A11Y-C1: The journey meets contrast of 4.5:1 for text and 3:1 for controls in both light and dark themes.
+- A11Y-P1: The bills table uses real header cells for rows and columns, and the total is read with its label.
+- A11Y-K1: The date picker works fully by keyboard, with a typed-date alternative so no date needs dragging or tapping a small grid.
+- A11Y-S1: Reminder notifications state the amount and date in text, not only with an icon, and status changes are announced.
+- A11Y-E3: Setting up the payment shows a summary with Edit and Cancel before it is confirmed, and skip or cancel can be undone.
+- A11Y-T1: Primary actions and row actions are at least 44px and sit within one-handed thumb reach on a phone.
+- A11Y-E1: A failed bills load names the problem, offers Retry, and never shows a zero total.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

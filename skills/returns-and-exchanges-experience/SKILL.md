@@ -130,10 +130,14 @@ Inputs: Touch, Keyboard, Switch access, Camera for photos of faults
 
 ## Accessibility
 
-- Drop-off list has a step-free filter and each location states its access details in text
-- QR code screen supports brightness boost and has the code number in text for manual entry (WCAG 2.2 1.1.1)
-- All controls work with switch and keyboard; focus order follows the visual order (WCAG 2.2 2.4.3)
-- Targets at least 44 × 44 px; refund status changes announced (WCAG 2.2 2.5.8, 4.1.3)
+- A11Y-P1: The drop-off list has a step-free filter, and each location states its access details in text.
+- A11Y-C1: The QR code screen supports a brightness boost and shows the code number in text for manual entry.
+- A11Y-K1: All controls work with switch access and keyboard, and focus order follows the visual order.
+- A11Y-T1: Targets are at least 44 × 44 px, and refund status changes are announced.
+- A11Y-E1: Return window and stock errors are named beside the field with options, and entries are kept.
+- A11Y-E3: The return shows items, method and refund amount for checking before it is confirmed, and can be changed before collection.
+- A11Y-W1: Return deadlines are shown as full dates and a reminder is sent before they end.
+- A11Y-H1: A help link appears in the same place on every step.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

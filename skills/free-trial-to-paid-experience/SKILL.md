@@ -128,10 +128,13 @@ Inputs: Mouse and keyboard, Touch, Notification actions
 
 ## Accessibility
 
-- Trial banner is a landmark with text, not an icon-only countdown (WCAG 2.2 1.1.1)
-- Plan comparison is a real table with row and column headers (WCAG 2.2 1.3.1)
-- Time-based reminders also available as a calendar file so users can set their own alerts
-- Consent checkbox has a visible label and is at least 24 × 24 px with a 44 px hit area (WCAG 2.2 2.5.8)
+- A11Y-N1: The trial banner is a landmark with text, not an icon-only countdown (WCAG 1.1.1).
+- A11Y-P1: Plan comparison is a real table with row and column headers (WCAG 1.3.1).
+- A11Y-W1: Reminders are sent at least 3 days ahead and also offered as a calendar file so people can set their own alerts.
+- A11Y-T1: The consent checkbox has a visible label and is at least 24×24px with a 44px hit area (WCAG 2.5.8).
+- A11Y-E3: The price and charge date are shown for review before payment, with cancel available in Settings.
+- A11Y-E1: A payment failure is explained in text beside the field and card details are kept.
+- A11Y-L1: Dates and prices are written in full, one decision per screen.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

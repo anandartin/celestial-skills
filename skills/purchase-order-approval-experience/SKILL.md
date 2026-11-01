@@ -128,10 +128,14 @@ Inputs: Keyboard, Pointer, File upload, Touch
 
 ## Accessibility
 
-- Progress steps marked up as an ordered list with current step indicated by text (WCAG 1.3.1)
-- Error summary at top of form links to each field (WCAG 3.3.1)
-- Session timeout warns at least 2 minutes before and lets the user extend (WCAG 2.2.1)
-- Tables of quotes keyboard navigable with headers
+- A11Y-P1: Progress steps are an ordered list with the current step indicated by text.
+- A11Y-E1: An error summary at the top of the form links to each field, and entries are kept.
+- A11Y-W1: The session timeout warns at least 2 minutes before and lets the person extend it.
+- A11Y-K1: Tables of quotes are navigable by keyboard and have row and column headers.
+- A11Y-E3: Approving or issuing an order shows the full request first, and a decision can be changed before the order is issued.
+- A11Y-E2: Details from a previous request or catalogue item are reused and never asked for twice.
+- A11Y-L1: Amounts are written in full with currency, and 'PO' is expanded as 'purchase order'.
+- A11Y-H1: Help and the finance contact appear in the same place on every step.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

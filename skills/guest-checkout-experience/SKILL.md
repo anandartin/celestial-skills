@@ -137,10 +137,13 @@ Inputs: Keyboard, Screen reader, Browser autofill, Digital wallet
 
 ## Accessibility
 
-- Every field has a visible label and the correct autocomplete token (WCAG 2.2 1.3.5)
-- Errors listed in a summary at the top with links to each field, and announced on submit (WCAG 2.2 3.3.1, 3.3.3)
-- Payment iframe has a title and does not trap focus; authentication dialog returns focus to the pay button
-- Information entered earlier is not asked for again, e.g. billing same as delivery is a checkbox (WCAG 2.2 3.3.7)
+- A11Y-N1: Every field has a visible label and the correct autocomplete token, for example email, postal-code and street-address.
+- A11Y-E1: Errors are listed in a summary at the top that links to each field, and are also shown beside each field; they are announced on submit.
+- A11Y-K1: The payment frame has a title, does not trap focus, and authentication returns focus to the pay button.
+- A11Y-E2: Billing same as delivery is a checkbox, and information entered earlier is not asked for again.
+- A11Y-E3: A Review step shows every line, fee and total before payment, and each section has an Edit link.
+- A11Y-W1: The session lasts at least 30 minutes, the basket survives the bank redirect, and a warning with an extend option appears at least 20 seconds before it ends.
+- A11Y-S1: Searching, price changes and payment status are announced politely, and failures assertively.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

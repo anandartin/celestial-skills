@@ -131,10 +131,13 @@ Inputs: Touch, Push notifications and SMS, Screen reader
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; options list announces departure, arrival and connection status
-- Notifications readable at 200% text with key info in the first line
-- No time limits on choosing an option beyond seat holds, which are announced (2.2.1)
-- Text-only mode works with screen readers on slow connections
+- A11Y-S1: The options list announces departure, arrival and connection status for each option
+- A11Y-R1: Notifications stay readable at 200% text, with key information in the first line
+- A11Y-W1: Seat holds are the only time limits, are announced, and are warned at least 20 seconds before ending, with an extension
+- A11Y-K1: Text-only mode works with screen readers on slow connections, and every action works by switch access
+- A11Y-L1: Notices use short sentences in the chosen language where available, with times and dates in full
+- A11Y-E3: Rebooking and the claim show a review before submit, and a failed upload keeps the claim saved
+- A11Y-H1: The phone number and ticket reference help route is in the same place on every step
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

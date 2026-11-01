@@ -136,10 +136,13 @@ Inputs: Touch, Keyboard, Screen reader
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; captions and transcripts for all video (1.2.2, 1.2.3)
-- Video player controls keyboard operable with visible focus (2.1.1, 2.4.7)
-- Payment errors announced and focus moved to the message
-- Touch targets at least 44×44px on tablet
+- A11Y-K1: The video player controls are keyboard operable with visible focus, and captions can be toggled by keyboard
+- A11Y-N1: Captions and a transcript are available for all video from the first second, and the sample lesson has both
+- A11Y-E1: Payment errors are announced assertively, focus moves to the message, and card and email details are kept
+- A11Y-E3: Pay shows the total and refund terms beside the button, with a separate agreement when the cooling-off period ends, and a clear no-money-taken message on decline
+- A11Y-A1: Sign-in supports pasting, password managers and autofill, offers a passkey or emailed code, and has no puzzle or memory test
+- A11Y-T1: Touch targets are at least 44 by 44px on tablet
+- A11Y-S1: Lesson loading and progress saving are announced politely without moving focus
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

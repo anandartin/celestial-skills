@@ -125,9 +125,12 @@ Inputs: Keyboard shortcuts, Mouse, Natural-language instructions
 
 ## Accessibility
 
-- Approval cards are articles with headings; shortcuts listed and remappable
-- Live progress uses a polite live region; errors use assertive
-- Reasoning text is real text, not an image or tooltip only
+- A11Y-K1: Approval cards are articles with headings; every approve, edit and skip action works by keyboard, and shortcuts are listed, remappable and can be turned off
+- A11Y-S1: Live progress uses a polite live region and errors an assertive one; each step status and completion is announced without moving focus
+- A11Y-N1: Reasoning text is real text, never an image or tooltip only, and the card has a heading naming the item
+- A11Y-E3: Approve shows a review of amount, recipient and effect before money moves, and Cancel stays available until it does
+- A11Y-E1: Agent uncertainty is shown as text with a question, and edits made by the person are kept
+- A11Y-C2: Risk and status are shown with words as well as colour or badges
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

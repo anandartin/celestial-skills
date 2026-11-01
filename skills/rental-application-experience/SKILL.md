@@ -132,10 +132,13 @@ Inputs: Touch, Camera for document photos, Keyboard
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; reference status shown with text labels and icons, not colour alone (1.4.1)
-- Consent checkboxes are separate, labelled and unticked (3.3.2)
-- Document upload works with keyboard and screen reader
-- Focus moves to the first error with a linked error summary
+- A11Y-C2: Reference status is shown with text labels and icons, not colour alone
+- A11Y-N1: Consent checkboxes are separate, labelled with visible text, and unticked by default
+- A11Y-K1: Document upload works by keyboard and screen reader, and dates have a typed alternative
+- A11Y-E1: Focus moves to the first error and a linked error summary lists each one, keeping what was typed
+- A11Y-E3: Submit shows a review of details, fee and consent first, and withdrawal is available with a confirm step
+- A11Y-L1: Criteria, fees and decisions are written in plain words with amounts and dates in full
+- A11Y-H1: Help and contact details sit in the same place on every step
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

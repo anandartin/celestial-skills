@@ -128,10 +128,13 @@ Inputs: Camera, Touch, Keyboard, Email forwarding of receipts
 
 ## Accessibility
 
-- Status shown with text and icon, not colour alone (WCAG 1.4.1)
-- Camera capture has a manual-entry alternative and an upload option
-- Approve and Reject buttons at least 44×44 px and separated to avoid mis-taps (WCAG 2.5.8)
-- Totals tables have header cells and captions for screen readers (WCAG 1.3.1)
+- A11Y-C2: Status uses text and icon, never colour alone (WCAG 1.4.1).
+- A11Y-K1: Camera capture has a manual-entry alternative and an upload option.
+- A11Y-T1: Approve and Reject buttons are at least 44×44px and separated to avoid mis-taps (WCAG 2.5.8).
+- A11Y-P1: Totals tables have header cells and captions for screen readers (WCAG 1.3.1).
+- A11Y-E3: Approving and scheduling payment each have a confirm step or undo before money moves.
+- A11Y-E1: Errors are named in text next to the field and typed values are kept.
+- A11Y-T1: Primary actions are reachable one-handed in the lower half of the screen.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -132,10 +132,13 @@ Inputs: Touch, Camera (document and face capture), Screen reader
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; camera screens have text instructions announced via a live region
-- Capture button and alternative upload link both ≥ 48px
-- Focus moves to the first error with an error summary at the top (3.3.1)
-- Accessible authentication (3.3.8): no memory puzzles; passcode fields allow paste and password managers
+- A11Y-S1: Camera screens give text instructions that are announced politely through a live region.
+- A11Y-T1: The capture button and the alternative upload link are each at least 48px.
+- A11Y-E1: On submit, focus moves to an error summary at the top that links to each field, and typed answers are kept.
+- A11Y-A1: Passcode and sign-in fields allow paste and password managers, with no memory puzzle (WCAG 3.3.8).
+- A11Y-K1: Every capture step has a non-camera route (upload or assisted video check) reachable by keyboard and switch access.
+- A11Y-L1: Headings and sentences are short and plain; terms are summarised before the full text.
+- A11Y-E3: The terms step allows review and is separate from the final accept action.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

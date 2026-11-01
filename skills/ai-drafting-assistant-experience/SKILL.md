@@ -128,10 +128,13 @@ Inputs: Keyboard, Pointer, Voice dictation
 
 ## Accessibility
 
-- Streaming text sits in a region announced only when complete: “Draft ready, 112 words”
-- Stop, Regenerate and Accept are buttons reachable by keyboard in a logical order (WCAG 2.4.3)
-- Highlights for unsupported claims use text labels and underline, not colour alone (WCAG 1.4.1)
-- No audio-only cues; all status changes appear as text
+- A11Y-S1: Streaming text sits in a region that is announced only when complete (“Draft ready, 112 words”); an automated screen reader test hears no per-word output.
+- A11Y-K1: Stop, Regenerate and Accept are native buttons reachable by keyboard in a logical order, and focus does not move while text streams.
+- A11Y-C2: Highlights for unsupported claims carry a text label and underline, and remain identifiable in greyscale.
+- A11Y-S1: Every status change, including start, stop and failure, appears as visible text; no cue depends on sound.
+- A11Y-E1: A failed draft shows a text message beside the draft area, and the typed prompt is still present after retry.
+- A11Y-E3: Sending requires an explicit action after a final preview of recipients and attachments, and the admin switch-off state is stated in text.
+- A11Y-W1: No step in the journey has a time limit, and generation can be stopped at any point.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

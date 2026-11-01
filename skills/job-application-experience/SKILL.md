@@ -134,10 +134,14 @@ Inputs: Keyboard, Screen reader, File upload, Touch
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; file upload is a native, labelled control operable by keyboard
-- Errors announced and linked from a summary that receives focus (3.3.1, 4.1.3)
-- No time limits on form questions; any timed assessment can be extended (2.2.1)
-- Status updates readable as plain text emails, not image-only
+- A11Y-P1: Meets WCAG 2.2 AA; the CV upload is a native, labelled file input operable by keyboard.
+- A11Y-E1: Errors are announced and linked from a summary that receives focus; typed answers are kept.
+- A11Y-W1: No form question has a time limit, and any timed assessment can be extended.
+- A11Y-S1: Status updates are readable as plain text emails and in the inbox, not image-only.
+- A11Y-N1: Every field has a visible label, and each screening question states the requirement it checks.
+- A11Y-E3: The submit step shows a summary with edit links before sending, and the parsed CV data is reviewed before use.
+- A11Y-E2: Details read from the CV are never asked for again on later steps.
+- A11Y-H1: Help and an adjustments contact appear in the same place on every step.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -125,10 +125,13 @@ Inputs: Mouse, Keyboard, Paste / import
 
 ## Accessibility
 
-- Checklist is a list with aria-current on the active step
-- Focus moves to the new step heading after each completion
-- Import progress announced via a polite live region
-- All steps reachable by keyboard in visual order
+- A11Y-P1: The checklist is a list with aria-current on the active item, and a screen reader announces its position, for example “2 of 4”.
+- A11Y-K1: After each step completes, focus moves to the new step heading, and every step is reachable by keyboard in visual order with no drag.
+- A11Y-S1: Import progress and row counts are announced through a polite live region without moving focus.
+- A11Y-R1: At 125% magnification and 200% zoom the checklist and forms stay usable with no horizontal scroll down to 320px.
+- A11Y-A1: Sign-up accepts paste, password managers and autofill, with no memory or puzzle test, and password rules are shown before typing.
+- A11Y-E1: Field errors appear in text beside the field with the fix, linked to it, and the entered values are kept.
+- A11Y-H1: Help and the way to contact support sit in the same place on every onboarding step.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

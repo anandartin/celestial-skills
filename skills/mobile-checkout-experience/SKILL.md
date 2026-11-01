@@ -127,10 +127,13 @@ Inputs: Touch, Autofill, Wallet pay (Apple Pay / Google Pay)
 
 ## Accessibility
 
-- Every field has a visible label and autocomplete token
-- Errors linked with aria-describedby and summarised at the top
-- Price changes announced in a live region
-- Supports 200% text without horizontal scroll
+- A11Y-N1: Every field has a visible label and the correct autocomplete token, with numeric keyboards for numbers.
+- A11Y-E1: Errors are linked with aria-describedby, appear beside the field, are summarised at the top, and the entered values are kept.
+- A11Y-S1: Price changes, filter counts and processing status are announced through a polite live region.
+- A11Y-R1: The page supports 200% text and Dynamic Type without horizontal scroll at 390px.
+- A11Y-T1: Touch targets, including chips, quantity controls and the pay button, are at least 44px.
+- A11Y-E3: The bag shows the full total including delivery and tax, and the pay button names the amount before anything is charged.
+- A11Y-K1: The filter sheet and chips work with VoiceOver and a keyboard, and focus returns to the filter button when the sheet closes.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

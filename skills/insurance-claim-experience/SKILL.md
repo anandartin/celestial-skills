@@ -131,10 +131,13 @@ Inputs: Touch, Camera and photo library, Voice control
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; all actions operable by voice control with visible labels matching accessible names (2.5.3)
-- Stage tracker has text status for each stage, not just filled circles
-- Upload progress announced at intervals, not every percent
-- Target size at least 24×24 CSS px (2.5.8); primary actions 48px
+- A11Y-N1: Every action has a visible label matching its accessible name so voice control works (WCAG 2.5.3).
+- A11Y-C2: The stage tracker has a text status for each stage, not just filled circles.
+- A11Y-S1: Upload progress is announced politely at intervals, not every percent.
+- A11Y-T1: Targets are at least 24×24 CSS px (WCAG 2.5.8) and primary actions 48px.
+- A11Y-E3: The claim has a review step before sending and details can be corrected afterwards.
+- A11Y-E1: Missing fields are named in text and the description is never cleared.
+- A11Y-H1: Help and how to contact the team appear in the same place on every step.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

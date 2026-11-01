@@ -137,10 +137,13 @@ Inputs: Keyboard, Mouse, Screen magnifier, Screen reader
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; reflows at 400% / 320px width without horizontal scroll for non-table content (1.4.10)
-- Charts have text alternatives and a data table (1.1.1)
-- All builder actions keyboard operable with visible focus not obscured (2.4.7, 2.4.11)
-- Chart colours meet 3:1 non-text contrast and use patterns or labels as well (1.4.11)
+- A11Y-R1: The layout reflows at 400% and 320px width without horizontal scrolling for non-table content (WCAG 1.4.10).
+- A11Y-N1: Charts have text alternatives and a data table (WCAG 1.1.1).
+- A11Y-K1: All builder actions are keyboard operable with no hover-only controls (WCAG 2.4.7, 2.4.11).
+- A11Y-C1: Chart colours meet 3:1 non-text contrast and use patterns or labels as well (WCAG 1.4.11).
+- A11Y-W1: Queries over 60 seconds show a warning and can be cancelled or narrowed.
+- A11Y-E3: Sharing and scheduling show what will happen for review before being saved, and can be turned off.
+- A11Y-E1: Share and filter errors are named in text beside the control and entries are kept.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

@@ -121,10 +121,14 @@ Inputs: Touch, Keyboard, Screen reader
 
 ## Accessibility
 
-- Cancel path works fully with keyboard and screen reader; no hover-only links (WCAG 2.2 2.1.1)
-- Buttons at least 48 px high with clear text labels (WCAG 2.2 2.5.8 exceeded)
-- Confirmation announced and focus moved to its heading (WCAG 2.2 4.1.3)
-- Decline and confirm buttons visually equal in size and contrast
+- A11Y-K1: The cancel path works fully by keyboard and screen reader, with no hover-only links.
+- A11Y-T1: Buttons are at least 48 px high with clear text labels.
+- A11Y-S1: The confirmation is announced and focus moves to its heading.
+- A11Y-C1: Decline and confirm buttons are equal in size and contrast, and meet 4.5:1 at 130% text size.
+- A11Y-E3: Cancelling states the end date, refund and data effect first, and a Restart option remains after it is done.
+- A11Y-E1: A failed cancellation is named in text, says nothing will be charged, and keeps what the person entered.
+- A11Y-R1: The path stays usable at 200% zoom and 320px width without loss of function.
+- A11Y-H1: A help link appears in the same place on every step.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

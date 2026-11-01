@@ -129,10 +129,13 @@ Inputs: Touch keyboard, Password manager, Email on the same phone
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA, including 3.3.8 Accessible Authentication (paste and autofill allowed)
-- Password requirements are a list linked by aria-describedby, with met state announced
-- Focus moves to the heading of each new screen; errors are summarised at the top and linked
-- Targets at least 44 × 44 px and at least 8 px from screen edges
+- A11Y-A1: Paste, autofill and password managers work, with no memory or puzzle test (WCAG 3.3.8).
+- A11Y-P1: Password requirements are a list linked by aria-describedby, with met state announced.
+- A11Y-N1: Focus moves to the heading of each new screen and errors are summarised at the top and linked.
+- A11Y-T1: Targets are at least 44×44px and at least 8px from screen edges.
+- A11Y-W1: The 30-minute link expiry is stated in text and a new link is one tap away.
+- A11Y-E1: Errors sit next to the field in text and the typed address is kept.
+- A11Y-L1: Messages avoid jargon and keep sentences short for readers with dyslexia.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

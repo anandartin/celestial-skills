@@ -128,10 +128,12 @@ Inputs: Touch, Keyboard, Screen reader
 
 ## Accessibility
 
-- Date picker has a typed alternative and announces selected range (WCAG 2.1.1)
-- Text scales to 200% on mobile without loss (WCAG 1.4.4)
-- Kiosk timeout warns with an option to continue (WCAG 2.2.1)
-- Language of page set correctly when translated (WCAG 3.1.1)
+- A11Y-K1: The date picker has a typed alternative and announces the selected range, and works by keyboard
+- A11Y-R1: Text scales to 200% on mobile without loss of content or horizontal scrolling
+- A11Y-W1: The kiosk warns at least 20 seconds before the 2-minute idle end and offers a Continue button, and typed entries are kept
+- A11Y-L1: The page language is set correctly when translated, and plain words are used for leave terms
+- A11Y-E3: Submitting shows days used and days left before Send, and cancel or change is available after approval with a confirm step
+- A11Y-E1: Balance and date errors are named in text beside the field, linked, and the dates kept
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

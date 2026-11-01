@@ -130,10 +130,13 @@ Inputs: Device unlock (fingerprint, face, PIN), Email link, Keyboard and screen 
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA, including 3.3.8 Accessible Authentication: no memory or transcription test is required
-- Status changes (“Waiting for your device”) are announced via a polite live region
-- Method choices are radio buttons in a fieldset with a visible legend
-- Text and layout hold at 200% zoom and 320px width with no horizontal scroll
+- A11Y-A1: No step requires a memory or transcription test; pasting, password managers and autofill work, and a passkey or email link is always offered.
+- A11Y-S1: Status changes such as “Waiting for your device” are announced through a polite live region, and failures assertively.
+- A11Y-P1: Method choices are radio buttons in a fieldset with a visible legend.
+- A11Y-R1: Text and layout hold at 175% text, 200% zoom and 320px width with no horizontal scroll.
+- A11Y-C2: Waiting, success and failure are shown by text and an icon, not colour or sound alone, for people with hearing loss.
+- A11Y-E1: Errors are named in text beside the field and the email typed is never cleared.
+- A11Y-W1: Link and code expiry are stated in text, and a new link or code can be requested at any time.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

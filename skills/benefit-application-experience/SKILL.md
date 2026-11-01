@@ -135,10 +135,13 @@ Inputs: Touch, Camera for document photos, Screen reader, Keyboard
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; timeout warning gives at least 20 seconds to extend (2.2.1)
-- Error summary at the top links to each field and receives focus on submit (3.3.1)
-- Previously entered answers are not asked again (3.3.7 redundant entry)
-- Sign-in allows paste and password managers; no cognitive tests (3.3.8)
+- A11Y-W1: A session warning appears at 25 minutes idle, at least 20 seconds before it ends, with an Extend control, and no work is lost.
+- A11Y-E1: An error summary at the top receives focus on submit and links to each field; each field also shows its error in text beside it, and answers are kept.
+- A11Y-E2: Answers already given are never asked for again, including in the Check answers step.
+- A11Y-A1: Sign-in allows paste, password managers and autofill, offers an email or phone code, and has no cognitive test.
+- A11Y-L1: Questions use short sentences and plain terms, with help text in place and no walls of text, for readers with dyslexia.
+- A11Y-E3: The Check answers step lets the applicant change any answer through its own Change link before the declaration is submitted.
+- A11Y-H1: Help and contact details appear in the same place on every step, with save-and-return shown at each one.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

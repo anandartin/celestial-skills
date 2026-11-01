@@ -135,10 +135,13 @@ Inputs: File upload and drag-and-drop, Keyboard, Mouse, Screen reader
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; drag-and-drop has a button alternative (2.5.7)
-- Error cells marked with icon and text, not only red (1.4.1)
-- Data table uses proper headers so row and column are announced (1.3.1)
-- Progress updates announced at 25% intervals, not continuously
+- A11Y-K1: Drag and drop has a file-button alternative that works by keyboard (WCAG 2.5.7).
+- A11Y-C2: Error cells carry an icon and text, not only red (WCAG 1.4.1).
+- A11Y-P1: Data tables use header cells so row and column are announced (WCAG 1.3.1).
+- A11Y-S1: Import progress is announced politely at 25% intervals, never continuously.
+- A11Y-E3: Import starts only after reviewing totals and can be undone until the stated time.
+- A11Y-E1: Each error names the row, column and fix next to the cell and keeps the typed value.
+- A11Y-W1: Background jobs have no time limit and the person can leave and return.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

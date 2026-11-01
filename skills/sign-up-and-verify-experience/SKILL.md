@@ -129,10 +129,13 @@ Inputs: Touch keyboard, Password manager autofill, One-time code autofill from e
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA, including 3.3.8 Accessible Authentication: paste and autofill allowed, no cognitive tests
-- Code input is one field with inputmode="numeric" and autocomplete="one-time-code", not six separate boxes
-- Password rules are linked with aria-describedby and their met state announced politely
-- Targets at least 44 × 44 px; focus moves to the first error on submit
+- A11Y-A1: Paste and autofill are allowed on every field, no cognitive test is required, and the code is one field with autocomplete one-time-code.
+- A11Y-E1: Focus moves to the first error on submit, and each error is text beside the field and linked to it, with typed values kept.
+- A11Y-S1: Password rules and their met state are linked with aria-describedby and announced politely.
+- A11Y-T1: Targets are at least 44×44px on the phone layout, including the show-password toggle.
+- A11Y-W1: The resend timer and code expiry are stated in text, and a new code can always be requested.
+- A11Y-P1: The code input is a single native field with inputmode numeric, not six separate boxes.
+- A11Y-L1: Short lines and plain words are used throughout for a reader with dyslexia.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

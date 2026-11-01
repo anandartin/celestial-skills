@@ -127,10 +127,13 @@ Inputs: Keyboard, Screen reader, Pointer
 
 ## Accessibility
 
-- Queue is a table or list with row headers; new tickets announced by count, not one by one
-- All triage actions have keyboard shortcuts that can be remapped (WCAG 2.1.4)
-- Confidence shown as text percentage, not just a colour bar (WCAG 1.4.1)
-- Focus stays on the current ticket when the queue updates (WCAG 3.2.2)
+- A11Y-P1: The queue is a table or list with row headers; new tickets are announced by count, not one by one.
+- A11Y-K1: All triage actions have keyboard shortcuts that can be remapped (WCAG 2.1.4).
+- A11Y-C2: Confidence is shown as a text percentage, not just a colour bar (WCAG 1.4.1).
+- A11Y-F1: Focus stays on the current ticket when the queue updates (WCAG 3.2.2).
+- A11Y-E3: Replies are checked before sending and routing can be changed afterwards.
+- A11Y-S1: Suggestion outages are announced assertively and triage continues manually.
+- A11Y-H1: Help and the shortcut list are in the same place on every step.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

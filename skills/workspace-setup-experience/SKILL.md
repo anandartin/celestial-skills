@@ -127,10 +127,13 @@ Inputs: Keyboard and mouse, CSV or spreadsheet upload, Paste
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; file upload is a native input with a visible label and drag-and-drop as an extra
-- Column-mapping table works with keyboard only; each select has a label naming the source column
-- Checklist progress is text (“2 of 4 done”) as well as a bar, and updates are announced
-- Focus moves to the main heading after each step; no step relies on hover
+- A11Y-P1: File upload is a native input with a visible label, and drag and drop is only an extra.
+- A11Y-K1: The column-mapping table works by keyboard only, and each select has a label naming the source column.
+- A11Y-S1: Checklist progress is text such as “2 of 4 done” as well as a bar, and updates are announced politely.
+- A11Y-K1: Focus moves to the main heading after each step, and no step relies on hover.
+- A11Y-L1: Copy uses short, literal sentences, with terms such as workspace address explained in place.
+- A11Y-E1: Import errors name the row and the fix in text beside the row, and the uploaded file and mapping are kept.
+- A11Y-E3: Importing shows a preview of the first rows, and the person confirms before data is committed.
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 

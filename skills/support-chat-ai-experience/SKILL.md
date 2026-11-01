@@ -134,10 +134,13 @@ Inputs: Keyboard, Touch, Screen reader, Voice dictation
 
 ## Accessibility
 
-- Meets WCAG 2.2 AA; new messages announced via a polite live region without stealing focus (4.1.3)
-- Chat log is a labelled list with each message's sender and time
-- Input and buttons reachable by keyboard; focus returns to the input after sending
-- No auto-closing chat; inactivity warning with option to continue (2.2.1)
+- A11Y-S1: New messages are announced in a polite live region without stealing focus
+- A11Y-N1: The chat log is a labelled list with each message's sender and time
+- A11Y-K1: Input and buttons are reachable by keyboard, and focus returns to the input after sending
+- A11Y-W1: The chat never auto-closes; an inactivity warning appears at least 20 seconds before with a Continue option
+- A11Y-A1: Verification supports pasting, autofill and one-time-code autocomplete, with no puzzle or memory test
+- A11Y-E3: Actions show the exact amount and timing, require Confirm, and can be cancelled before they happen
+- A11Y-L1: Messages use short, literal sentences, with no idioms and a predictable layout
 
 Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every control, 44px touch targets, no meaning by colour alone, reduced motion respected.
 
