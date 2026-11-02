@@ -1,4 +1,4 @@
-# Jupiter
+# Jupiter Admin Kit
 
 A Celestial design skill — how the brand looks, on web, in decks, documents and print.
 

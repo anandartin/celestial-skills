@@ -4,14 +4,14 @@ core: "1.0"
 dials: { density: compact, shape: soft, depth: hairline, contrast: standard }
 accent-scope: data series and links
 icons: lucide
-description: "Design-system skill for Jupiter. Use whenever creating any UI, landing page, dashboard, app screen, document, deck, report, prototype, or graphic that should look like Jupiter — A calm operations console: Public Sans at 14px, white work areas on a cool off-white sidebar, slate hairlines, 6px corners, a deep-teal primary button and one teal scale for data. Fonts: Public Sans, JetBrains Mono. Icons: Lucide. Triggers on 'Jupiter style', 'Jupiter look', or any request to design something for a Jupiter-branded product. Use it for every kind of output, not only web UI: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
+description: "Design-system skill for Jupiter Admin Kit. Use whenever creating any UI, landing page, dashboard, app screen, document, deck, report, prototype, or graphic that should look like Jupiter Admin Kit — An admin kit of 36 ready templates across eight areas — operations, billing, CRM, inventory, support, analytics, team and account — in one calm shell: Public Sans at 14px, slate hairlines, 6px corners, a deep-teal primary button and one teal scale for data. Fonts: Public Sans, JetBrains Mono. Icons: Lucide. Triggers on 'Jupiter Admin Kit style', 'Jupiter Admin Kit look', or any request to design something for a Jupiter Admin Kit-branded product. Use it for every kind of output, not only web UI: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
-# Jupiter — Design System Skill
+# Jupiter Admin Kit — Design System Skill
 
-Jupiter is an original operations console for teams that run several areas of work from one place — requests, billing and the team itself — with the same shell, components and numbers throughout.
+Jupiter Admin Kit is an original admin design system with 36 ready templates across eight areas: Operations, Billing, CRM, Inventory, Support, Analytics, Team and Account (sign-in and error pages). Every area uses the same shell, components and numbers, so a new screen starts from a template rather than a blank page.
 
-It suits internal tools and admin products first: overviews, long tables, detail sheets and settings. It also covers the docs and help pages that sit beside them, using the same type and teal.
+It suits internal tools and admin products first: overviews, long tables, boards, detail pages, forms and settings. It also covers the help and docs pages that sit beside them, using the same type and teal.
 
 Original brand created for Celestial. Teal is for actions, data and links only; status colours always come with an icon and text. Values were chosen for this skill, not taken from any template or kit.
 
@@ -28,9 +28,9 @@ Original brand created for Celestial. Teal is for actions, data and links only; 
 
 Tone of voice: Plain operator language in sentence case: name the thing and the number ('Open requests', '12 due today'). No exclamation marks; changes written as '+4.2% on last week'.
 
-**Logo** — the supplied mark (SVG, takes currentColor unless it carries its own fill) followed by the wordmark **Jupiter** set in a bold grotesk (Inter 700, −0.03em tracking). Keep clear space equal to the mark's width; never stretch, outline or recolour the mark.
+**Logo** — the supplied mark (SVG, takes currentColor unless it carries its own fill) followed by the wordmark **Jupiter Admin Kit** set in a bold grotesk (Inter 700, −0.03em tracking). Keep clear space equal to the mark's width; never stretch, outline or recolour the mark.
 
-Sample copy in the brand voice: eyebrow `Operations` · headline "Every request, one calm console." · body "Queues, invoices and your team in one shell — the same filters, tables and numbers wherever you look." · CTA "Open console" · stat "1,284 requests closed this week".
+Sample copy in the brand voice: eyebrow `Operations` · headline "Every admin screen, one calm kit." · body "36 ready templates — overviews, tables, boards, records, forms and account pages — in the same shell, filters and numbers." · CTA "Open the kit" · stat "1,284 requests closed this week".
 
 ---
 
@@ -119,9 +119,9 @@ Load from Google Fonts: `https://fonts.googleapis.com/css2?family=Public+Sans&fa
 
 ## Shape and density — dials on the core ladders
 
-Everything structural follows **Celestial core v1.0** (*Celestial core foundations* below): the 4px spacing scale, the 12-column grid and breakpoints, control and radius ladders, elevation levels, motion durations, accessibility minimums, component anatomy and states. This file never restates core; it records only where Jupiter sits on each ladder.
+Everything structural follows **Celestial core v1.0** (*Celestial core foundations* below): the 4px spacing scale, the 12-column grid and breakpoints, control and radius ladders, elevation levels, motion durations, accessibility minimums, component anatomy and states. This file never restates core; it records only where Jupiter Admin Kit sits on each ladder.
 
-| Dial | Jupiter | Sets |
+| Dial | Jupiter Admin Kit | Sets |
 |---|---|---|
 | Density | Compact | control height 36px, padding step, base font size, table row height |
 | Shape | Soft | control radius 6px, card radius 12px, chip radius |
@@ -188,13 +188,18 @@ Layout family: **product-led — hero, product frame, section cards**.
 ---
 ## Applications
 
-Jupiter is a multi-app console. One shell — 52px top bar (app name, ⌘K search, notifications, theme switcher), a 232px sidebar grouped by app, and a scrolling body — hosts every category below. Each group's first item is its dashboard; every screen is assembled from the same components above.
+Jupiter Admin Kit is a multi-app console. One shell — 52px top bar (app name, ⌘K search, notifications, theme switcher), a 232px sidebar grouped by app, and a scrolling body — hosts every category below. Each group's first item is its dashboard; every screen is assembled from the same components above.
 
 | App | Screens |
 |---|---|
-| **Operations** | Overview (dashboard), Requests (list), Request (detail), Schedule (calendar) |
+| **Operations** | Overview (dashboard), Requests (list), Request (detail), Request board (kanban), Schedule (calendar), New request (form) |
 | **Billing** | Overview (dashboard), Invoices (list), Invoice (detail), New plan (form) |
-| **Team** | Members (list), Messages (inbox), Settings (form) |
+| **CRM** | Pipeline (dashboard), Deals (list), Deal board (kanban), Deal (detail), New deal (form) |
+| **Inventory** | Overview (dashboard), Stock (list), Item (detail), Receive stock (form) |
+| **Support** | Overview (dashboard), Tickets (list), Ticket (detail), Shared inbox (inbox) |
+| **Analytics** | Usage (dashboard), Reports (list), Report (detail), New report (form) |
+| **Team** | Members (list), Member (detail), My tasks (todo), Settings (form) |
+| **Account** | Sign in (auth), Create account (auth), Forgot password (auth), Error 404 (error), Error 500 (error) |
 
 **Screen kinds** — *dashboard*: four KPI tiles (label, previous period, big number, signed delta) → main chart card → two half-width chart cards → a five-row table. *list*: filter chips, toolbar (search, filter, view, export, primary add), data table with checkbox column, status badges, row ⋯ menu and pagination. *detail*: header with title, status badge and actions; two-column body — items/activity on the left, summary/owner cards at 300px on the right. *form*: two-column fields in a card plus a right rail for status, toggles and organisation; Discard / Save in the header. *kanban*: columns on the band colour with white cards, tag badge, comment count and avatar. *calendar*: seven-column month grid, today as a filled ink circle, events as tinted chips. *inbox*: 320px message list + reading pane. *todo*: circle checkboxes coloured by priority, subtasks indented, due-date chip on the right. *auth*: centred 360px card on the band colour. *error*: 72px code, one-line message, Go back / Back to dashboard.
 
@@ -219,7 +224,7 @@ import { LayoutDashboard } from "lucide-react"
 
 ## Best for
 
-Operations consoles, internal tools, billing back offices and multi-area admin products that need one calm shell for many kinds of records.
+Admin consoles, internal tools and back offices that need many ready screens — dashboards, tables, boards, detail pages, forms, inboxes and account pages — in one consistent shell.
 
 ---
 
@@ -250,11 +255,11 @@ p{color:var(--ink-2);margin:0}
 .logo{display:inline-flex;align-items:center;gap:8px;font:700 19px/1 var(--body);letter-spacing:-.03em}
 ```
 
-When building for Jupiter: start from this CSS, keep every surface on these tokens, and let the accent carry the eye.
+When building for Jupiter Admin Kit: start from this CSS, keep every surface on these tokens, and let the accent carry the eye.
 
-## Using Jupiter beyond the web
+## Using Jupiter Admin Kit beyond the web
 
-Jupiter applies to every output. When asked for a deck, a document, a report, an email, a social post or a chart "for Jupiter" or "in Jupiter's style", build it from the tokens below — never from a default template or theme.
+Jupiter Admin Kit applies to every output. When asked for a deck, a document, a report, an email, a social post or a chart "for Jupiter Admin Kit" or "in Jupiter Admin Kit's style", build it from the tokens below — never from a default template or theme.
 
 ### Colour roles
 | Role | Value | Use |
@@ -276,7 +281,7 @@ Jupiter applies to every output. When asked for a deck, a document, a report, an
 - If a face isn't installed, use the closest system font of the same style and say so — never silently swap to a default.
 
 ### Logo on every output
-Every Jupiter output carries the logo — never just the name typed out. Use the SVG under **Brand assets** (or a PNG exported from it at 4×); keep the mark's own colour only where it reaches 3:1 against the background; otherwise use the one-colour version — `#ffffff` on ink or dark photos, `#ffffff` on the accent, `#0f1b1d` for monochrome. Never place the mark on a background of its own colour. Keep clear space equal to the mark's height and never stretch, outline or recolour it otherwise.
+Every Jupiter Admin Kit output carries the logo — never just the name typed out. Use the SVG under **Brand assets** (or a PNG exported from it at 4×); keep the mark's own colour only where it reaches 3:1 against the background; otherwise use the one-colour version — `#ffffff` on ink or dark photos, `#ffffff` on the accent, `#0f1b1d` for monochrome. Never place the mark on a background of its own colour. Keep clear space equal to the mark's height and never stretch, outline or recolour it otherwise.
 | Output | Where the logo goes |
 |---|---|
 | Web and app UI | Top-left of the header on every page and screen; again in the footer; the mark as favicon and app icon |
@@ -295,7 +300,7 @@ Every Jupiter output carries the logo — never just the name typed out. Use the
 - **Content slide**: title in Public Sans 32–40 pt; body Public Sans 18–24 pt, max six bullets; one accent highlight at most.
 - **Shapes and cards**: fill `#ffffff`, 1 pt `#dde3e3` border, corner radius 12px (about 0.13 in).
 - **Charts**: series in the accent order above; gridlines `#dde3e3`; labels `#56686a`; no 3-D, no gradients.
-- **Footer**: JetBrains Mono 10 pt in `#56686a`: Jupiter · title · page number.
+- **Footer**: JetBrains Mono 10 pt in `#56686a`: Jupiter Admin Kit · title · page number.
 - When generating .pptx with code (e.g. python-pptx), write these colours and fonts into the theme and master first, then add slides from the master.
 
 ### Documents and PDF reports (Word, Google Docs, PDF)
@@ -324,7 +329,7 @@ Use this mark as-is: don't redraw, recolour (except to one solid colour on dark 
 
 
 ## Patterns (core v1.0)
-Compositions of core components for recurring jobs. Each uses only contract tokens, so it renders in Jupiter and in any other brand. Jupiter's own signature patterns follow at the end.
+Compositions of core components for recurring jobs. Each uses only contract tokens, so it renders in Jupiter Admin Kit and in any other brand. Jupiter Admin Kit's own signature patterns follow at the end.
 
 ### Navigation
 - **App shell:** side navigation with the logo on top and 4–7 destinations (icon and label), one marked current (`aria-current="page"`); content on the right under a page title.
@@ -359,7 +364,7 @@ Compositions of core components for recurring jobs. Each uses only contract toke
 - Anything irreversible stops at an **approval step** — what will happen, why, and the data it touches — with Approve, Edit and Reject. Never act first.
 - Long runs show progress; the person's prompt stays editable.
 
-### Jupiter signature patterns
+### Jupiter Admin Kit signature patterns
 - **Metric strip** — Show the few numbers that matter, each with its comparison Anatomy: A row of three or four cells divided by hairlines: label → value in tabular figures → change against the last period in status colour with an arrow. Tokens: surface-card, line, ink-muted, status-success, status-error.
 - **Filter bar** — Narrow a long list without leaving it Anatomy: Search field → up to four filter chips → a saved-view menu on the right; active filters show a count and a clear button. Tokens: surface-muted, line, radius-control.
 - **Detail sheet** — Open one record beside the list Anatomy: A right-hand panel 480px wide: title and status badge → key facts as a two-column list → activity log → actions pinned to the bottom. Tokens: surface-card, line, elevation-overlay.
@@ -367,7 +372,7 @@ Compositions of core components for recurring jobs. Each uses only contract toke
 
 
 ## Accessibility (core v1.0, WCAG 2.2 AA)
-Every Jupiter screen, document and graphic must meet Celestial's accessibility core; this file is checked against it, your product still needs testing. Automated result for this palette: **Palette passes automated WCAG 2.2 AA checks**. Automated checks cover only part of WCAG 2.2 AA; keyboard, screen-reader and 200% zoom checks still need a person.
+Every Jupiter Admin Kit screen, document and graphic must meet Celestial's accessibility core; this file is checked against it, your product still needs testing. Automated result for this palette: **Palette passes automated WCAG 2.2 AA checks**. Automated checks cover only part of WCAG 2.2 AA; keyboard, screen-reader and 200% zoom checks still need a person.
 
 Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obsolete) maps to a core requirement: 1.1.1 Non-text Content (A) → A11Y-I1 · 1.2.1 Audio-only and Video-only (Prerecorded) (A) → A11Y-V1 · 1.2.2 Captions (Prerecorded) (A) → A11Y-V1 · 1.2.3 Audio Description or Media Alternative (Prerecorded) (A) → A11Y-V1 · 1.2.4 Captions (Live) (AA) → A11Y-V1 · 1.2.5 Audio Description (Prerecorded) (AA) → A11Y-V1 · 1.3.1 Info and Relationships (A) → A11Y-P1 · 1.3.2 Meaningful Sequence (A) → A11Y-P1 · 1.3.3 Sensory Characteristics (A) → A11Y-C2 · 1.3.4 Orientation (AA) → A11Y-R1 · 1.3.5 Identify Input Purpose (AA) → A11Y-E2 · 1.4.1 Use of Color (A) → A11Y-C2 · 1.4.2 Audio Control (A) → A11Y-V1 · 1.4.3 Contrast (Minimum) (AA) → A11Y-C1 · 1.4.4 Resize Text (AA) → A11Y-R1 · 1.4.5 Images of Text (AA) → A11Y-I1 · 1.4.10 Reflow (AA) → A11Y-R1 · 1.4.11 Non-text Contrast (AA) → A11Y-C1 · 1.4.12 Text Spacing (AA) → A11Y-R1 · 1.4.13 Content on Hover or Focus (AA) → A11Y-O1 · 2.1.1 Keyboard (A) → A11Y-K1 · 2.1.2 No Keyboard Trap (A) → A11Y-K1 · 2.1.4 Character Key Shortcuts (A) → A11Y-K1 · 2.2.1 Timing Adjustable (A) → A11Y-W1 · 2.2.2 Pause, Stop, Hide (A) → A11Y-M1 · 2.3.1 Three Flashes or Below Threshold (A) → A11Y-M1 · 2.4.1 Bypass Blocks (A) → A11Y-N1 · 2.4.2 Page Titled (A) → A11Y-N1 · 2.4.3 Focus Order (A) → A11Y-K1 · 2.4.4 Link Purpose (In Context) (A) → A11Y-N2 · 2.4.5 Multiple Ways (AA) → A11Y-N1 · 2.4.6 Headings and Labels (AA) → A11Y-N1 · 2.4.7 Focus Visible (AA) → A11Y-F1 · 2.4.11 Focus Not Obscured (Minimum) (AA) → A11Y-F1 · 2.5.1 Pointer Gestures (A) → A11Y-G1 · 2.5.2 Pointer Cancellation (A) → A11Y-G1 · 2.5.3 Label in Name (A) → A11Y-N2 · 2.5.4 Motion Actuation (A) → A11Y-G1 · 2.5.7 Dragging Movements (AA) → A11Y-G1 · 2.5.8 Target Size (Minimum) (AA) → A11Y-T1 · 3.1.1 Language of Page (A) → A11Y-L2 · 3.1.2 Language of Parts (AA) → A11Y-L2 · 3.2.1 On Focus (A) → A11Y-U1 · 3.2.2 On Input (A) → A11Y-U1 · 3.2.3 Consistent Navigation (AA) → A11Y-H1 · 3.2.4 Consistent Identification (AA) → A11Y-H1 · 3.2.6 Consistent Help (A) → A11Y-H1 · 3.3.1 Error Identification (A) → A11Y-E1 · 3.3.2 Labels or Instructions (A) → A11Y-N2 · 3.3.3 Error Suggestion (AA) → A11Y-E1 · 3.3.4 Error Prevention (Legal, Financial, Data) (AA) → A11Y-E3 · 3.3.7 Redundant Entry (A) → A11Y-E2 · 3.3.8 Accessible Authentication (Minimum) (AA) → A11Y-A1 · 4.1.2 Name, Role, Value (A) → A11Y-P1 · 4.1.3 Status Messages (AA) → A11Y-S1.
 
@@ -381,7 +386,7 @@ Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obso
 - **A11Y-O1** Tooltips and pop-overs shown on hover or focus can be dismissed, hovered and stay until dismissed (WCAG 1.4.13)
 - **A11Y-I1** Images, icons and charts have text alternatives (empty for decoration); text is never an image (WCAG 1.1.1, 1.4.5)
 
-### How to use Jupiter's colours accessibly
+### How to use Jupiter Admin Kit's colours accessibly
 - Body and small text: only colours marked Pass at 4.5:1 below. A colour that passes only at 3:1 is for large text (24px, or 18.7px bold), icons and graphics.
 - Field borders and focus rings need 3:1 against the page; hairline dividers are decorative and exempt.
 - Status colours always come with a word or an icon, never colour alone (A11Y-C2).
@@ -499,7 +504,7 @@ A value outside its class is an override: allowed only with a written reason in 
 ```json
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
-  "$name": "Jupiter",
+  "$name": "Jupiter Admin Kit",
   "core": "{core.version 1.0}",
   "dials": {
     "density": "Compact",
