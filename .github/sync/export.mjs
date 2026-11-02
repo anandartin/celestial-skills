@@ -6,8 +6,12 @@
 // own skillFiles() from the live page (or a local index.html), minus uploaded font files, whose licences may not allow
 // redistribution. Skills listed in .github/sync/config.json "exclude" (and --exclude) are left out. Writes the catalogue
 // README.md; LICENSE, NOTICE and .github are left alone. skills/ is replaced, so unpublished or deleted skills disappear.
+//
+// Safe by construction: the export is built in a temporary folder and validated (every expected skill present, required
+// files and metadata, no unresolved token aliases, local links resolve, no sudden drop in the catalogue). Only a complete,
+// valid export replaces skills/; anything else exits non-zero and the workflow commits nothing.
 import { JSDOM, VirtualConsole } from 'jsdom';
-import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, rm, rename, readdir, stat } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { createHash } from 'node:crypto';
 
@@ -42,7 +46,11 @@ for (const [col, kind, title, blurb] of KINDS) {
   groups.push({ col, kind, title, blurb, items });
 }
 
-await rm(join(out, 'skills'), { recursive: true, force: true });
+const fail = (msg) => { console.error(`✗ ${msg}\nNothing was replaced.`); process.exit(1); };
+const total0 = groups.reduce((n, g) => n + g.items.length, 0);
+if (!total0) fail('the library returned no public skills');
+const stage = join(out, '.skills-next');
+await rm(stage, { recursive: true, force: true });
 let files = 0; const skipped = [];
 for (const g of groups) for (const s of g.items) {
   let list;
@@ -51,13 +59,45 @@ for (const g of groups) for (const s of g.items) {
   for (const f of list) {
     let data = f.data;
     if (f.name.endsWith('/README.md') && f.name.split('/').length === 2) data = data.replace('and choose this .zip', 'and choose a .zip of this folder') + fontNote;
-    const p = join(out, 'skills', f.name);
+    const p = join(stage, f.name);
     await mkdir(dirname(p), { recursive: true });
     await writeFile(p, data);
     files++;
   }
   s._slug = slugify(s.slug || s.name);
 }
+
+// ── validate the whole export before it replaces anything ──
+const problems = [];
+if (skipped.length) problems.push(...skipped.map((x) => `could not build ${x}`));
+const exists = async (p) => stat(p).then(() => true, () => false);
+const expected = groups.flatMap((g) => g.items.filter((s) => s._slug).map((s) => ({ s, kind: g.kind, dir: join(stage, s._slug) })));
+for (const { s, kind, dir } of expected) {
+  const md = await readFile(join(dir, 'SKILL.md'), 'utf8').catch(() => null);
+  if (md === null) { problems.push(`${s._slug}: SKILL.md missing`); continue; }
+  const fm = (md.match(/^---\n([\s\S]*?)\n---/) || [])[1] || '';
+  if (!/^name:\s*\S/m.test(fm)) problems.push(`${s._slug}: frontmatter has no name`);
+  if (!/^description:\s*\S/m.test(fm)) problems.push(`${s._slug}: frontmatter has no description`);
+  if (!(await exists(join(dir, 'README.md')))) problems.push(`${s._slug}: README.md missing`);
+  if (kind === 'design') {
+    const tok = await readFile(join(dir, 'tokens.json'), 'utf8').catch(() => null);
+    if (tok === null) problems.push(`${s._slug}: tokens.json missing`);
+    else { try { JSON.parse(tok); } catch { problems.push(`${s._slug}: tokens.json is not valid JSON`); }
+      const alias = tok.match(/"\$value"\s*:\s*"\{[^}]+\}"/g); if (alias) problems.push(`${s._slug}: tokens.json has unresolved aliases ${alias.slice(0, 3).join(', ')}`); }
+  }
+  // local links in the package's markdown must resolve inside the package
+  for (const f of (await readdir(dir, { recursive: true })).filter((x) => x.endsWith('.md'))) {
+    const text = await readFile(join(dir, f), 'utf8');
+    for (const m of text.matchAll(/\]\((?!https?:|mailto:|#)([^)\s#]+)/g)) if (!(await exists(join(dir, dirname(f), m[1])))) problems.push(`${s._slug}/${f}: broken link ${m[1]}`);
+  }
+}
+// a sudden drop usually means the library or site failed to load, not that skills were withdrawn
+const before = (await readdir(join(out, 'skills')).catch(() => [])).length;
+if (before && expected.length < before * 0.8) problems.push(`catalogue would shrink from ${before} to ${expected.length} skills (more than 20%)`);
+if (problems.length) { await rm(stage, { recursive: true, force: true }); fail(`export failed validation (${problems.length}):\n  ${problems.slice(0, 40).join('\n  ')}`); }
+await rm(join(out, 'skills'), { recursive: true, force: true });
+await rename(stage, join(out, 'skills'));
+console.log(`✓ validated ${expected.length} skills`);
 
 const row = (s, kind) => `| [${s.name}](skills/${s._slug}/) | ${String(s.tagline || '').replace(/\|/g, '/').replace(/\s+/g, ' ').trim()} |`;
 const total = groups.reduce((n, g) => n + g.items.filter((s) => s._slug).length, 0);
@@ -144,5 +184,4 @@ console.log(`${total} skills · ${files} files → ${out}`);
 console.log(`  site version ${siteVersion}`);
 groups.forEach((g) => console.log(`  ${g.title}: ${g.items.filter((s) => s._slug).length}`));
 if (exclude.size) console.log(`  excluded: ${[...exclude].join(', ')}`);
-if (skipped.length) { console.log('  skipped:'); skipped.forEach((x) => console.log('   ', x)); }
 w.close(); process.exit(0);
