@@ -164,7 +164,7 @@ Layout family: **product-led — hero, product frame, section cards**.
 
 **Primary button** — bg `#507992`, text `#ffffff`, height 36px, padding 0 16px, radius 6px, 14px Public Sans 500; hover `#3e6077`; focus-visible 2px `#507992` ring; disabled at 45% opacity.
 
-**States** (core anatomy, brand values) — hover `#3e6077` (label 6.7:1), active `#3b5a6c` + 1px nudge, focus-visible 2px `#507992` ring offset 2px (4.7:1 on the page, never removed), disabled at 45% opacity with `aria-disabled`, loading keeps the label with `aria-busy`. Secondary (`#a8562f`) hovers to `#904a28` and presses to `#804124`; outline hovers to `#f6eeea` and presses to `#efe1da` with its border in `#974d2a`; dark hovers to `#495359`; ghost hovers to `#f1f2f3` and presses to `#e8eaea`. Focus, disabled and loading are the same for every type. Fields: hover border `#34434d`, focus border + 3px soft ring in the focus colour, error `#b42318` border plus icon and written fix, success `#1e7a3e`, disabled on `#f3f6f8`. Transitions 120ms; none under prefers-reduced-motion; 44px touch targets on mobile.
+**States** (core anatomy, brand values) — hover `#3e6077` (label 6.7:1), active `#375469` + 1px nudge, focus-visible 2px `#507992` ring offset 2px (4.7:1 on the page, never removed), disabled at 45% opacity with `aria-disabled`, loading keeps the label with `aria-busy`. Secondary (`#a8562f`) hovers to `#904a28` and presses to `#804124`; outline hovers to `#f6eeea` and presses to `#efe1da` with its border in `#974d2a`; dark hovers to `#495359`; ghost hovers to `#f1f2f3` and presses to `#e8eaea`. Focus, disabled and loading are the same for every type. Fields: hover border `#34434d`, focus border + 3px soft ring in the focus colour, error `#b42318` border plus icon and written fix, success `#1e7a3e`, disabled on `#f3f6f8`. Transitions 120ms; none under prefers-reduced-motion; 44px touch targets on mobile.
 
 **Secondary button** — bg `#a8562f`, text `#ffffff`, same geometry. **Outline** — transparent, 1px `#a8562f` border, text `#a8562f`; hover bg `#f3f6f8`. **Ghost** — no border, hover bg `#f3f6f8`.
 
@@ -261,7 +261,9 @@ p{color:var(--ink-2);margin:0}
 When building for Jupiter Admin Kit: start from this CSS, keep every surface on these tokens, and let the accent carry the eye.
 
 ## Brand colours
-Two brand colours balance every Jupiter Admin Kit output. **Primary** `#507992` — the primary action, the logo and the key figure. **Secondary** `#a8562f` — the secondary button (`#a8562f` fill, `#ffffff` label), outline buttons (border `#a8562f`, label `#a8562f`), secondary badges, the second data series and secondary highlights, about one part to four of the primary; use `#a8562f` where it is text. Never give the two equal weight side by side.
+Two brand colours balance every Jupiter Admin Kit output. **Primary** `#507992` — the primary action, the logo and the key figure. **Secondary** `#a8562f` — the secondary button (`#a8562f` fill, `#ffffff` label) and outline buttons (border `#a8562f`, label `#974d2a`), secondary badges, the second data series and secondary highlights, about one part to four of the primary; use `#a8562f` where it is text. Never give the two equal weight side by side.
+
+**Button states** — every type has the same six states, each from its own colour: primary `#507992` → hover `#3e6077` → active `#3b5a6c`; secondary `#a8562f` → `#904a28` → `#804124`; outline fill → `#f6eeea` → `#efe1da`; ghost → `#f1f2f3` → `#e8eaea`. Focus-visible is a 2px `#507992` ring offset 2px on every type; disabled is 45% opacity with `aria-disabled`; loading keeps the label with `aria-busy`. Labels stay at 4.5:1 in every state.
 
 ## Using Jupiter Admin Kit beyond the web
 

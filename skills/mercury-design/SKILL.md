@@ -237,7 +237,9 @@ p{color:var(--ink-2);margin:0}
 When building for Mercury: start from this CSS, keep every surface on these tokens, and let the accent carry the eye.
 
 ## Brand colours
-Two brand colours balance every Mercury output. **Primary** `#2547d0` — the primary action, the logo and the key figure. **Secondary** `#0e7a83` — the secondary button (`#0e7a83` fill, `#ffffff` label), outline buttons (border `#0e7a83`, label `#0e7a83`), secondary badges, the second data series and secondary highlights, about one part to four of the primary; use `#0e7a83` where it is text. Never give the two equal weight side by side.
+Two brand colours balance every Mercury output. **Primary** `#2547d0` — the primary action, the logo and the key figure. **Secondary** `#0e7a83` — the secondary button (`#0e7a83` fill, `#ffffff` label) and outline buttons (border `#0e7a83`, label `#0c686f`), secondary badges, the second data series and secondary highlights, about one part to four of the primary; use `#0e7a83` where it is text. Never give the two equal weight side by side.
+
+**Button states** — every type has the same six states, each from its own colour: primary `#2547d0` → hover `#1b37a6` → active `#1b359a`; secondary `#0e7a83` → `#0c6971` → `#0b5d64`; outline fill → `#e3eef0` → `#d0e4e6`; ghost → `#ededef` → `#e4e4e6`. Focus-visible is a 2px `#2547d0` ring offset 2px on every type; disabled is 45% opacity with `aria-disabled`; loading keeps the label with `aria-busy`. Labels stay at 4.5:1 in every state.
 
 ## Using Mercury beyond the web
 
