@@ -5,7 +5,7 @@ dials: { density: comfortable, shape: sharp, depth: flat, contrast: quiet }
 accent-scope: primary action and stat numbers
 icons: phosphor
 overrides: []
-description: "Design-system skill for Mars, an original AI customer-agent brand: IBM Plex Serif 300 headlines on warm paper neutrals, Mars rust for the primary action and the numbers, aubergine ink, 4px buttons, numbered mono eyebrows, solid hairlines, Phosphor icons. Use for any Mars-branded UI, page, doc, deck or graphic. Use it for every kind of output, not only web UI: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
+description: "Design-system skill for Mars, an original AI customer-agent brand: IBM Plex Serif 300 headlines on warm paper neutrals, Mars rust as the primary and wine as the secondary brand colour, aubergine ink, 4px buttons, numbered mono eyebrows, solid hairlines, Phosphor icons. Use for any Mars-branded UI, page, doc, deck or graphic. Use it for every kind of output, not only web UI: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
 # Mars — Design System Skill
@@ -57,6 +57,8 @@ Tone of voice: plain, declarative, first-person plural ("Mars reads the whole th
   /* Accent — the only saturated colour on a page */
   --mars-rust:         #c1440e;   /* stat figures, progress bars, 8px marker squares */
   --mars-rust-15:      rgba(193, 68, 14, 0.15);  /* soft tint behind rust figures */
+  --mars-wine:         #741630;   /* secondary brand colour: second data series, secondary highlights, quote marks */
+  --mars-wine-10:      #f3e6ea;   /* wine tint: secondary badges and selected rows (fill only) */
 
   /* Interaction */
   --mars-rust-deep:    #9a3409;   /* primary-button hover */
@@ -78,7 +80,8 @@ Tone of voice: plain, declarative, first-person plural ("Mars reads the whole th
 
 - Default page is white or dust; alternate long sections with `dune` / `sand` panels to create rhythm. Never use cool greys.
 - Text is black at reduced **opacity**, not grey hex: primary `#000`, secondary `rgba(0,0,0,.8)`, tertiary `rgba(0,0,0,.6)`, hints `rgba(0,0,0,.4)`.
-- Rust is the brand colour, used sparingly: the primary button, the logo, and the number inside a stat. Use it on the *number* inside a stat ("<span class=mars>81%</span> resolved without a hand-off"), on a thin 2px progress line, on an 8×8px square bullet — and nowhere else. No rust backgrounds, and never more than one rust button on a screen.
+- Two brand colours balance each other. **Rust** `#c1440e` is the primary: the primary button, the logo and the number inside a stat. **Wine** `#741630` is the secondary: the second data series, secondary badges, quote marks and links in long text. Use roughly four parts rust to one part wine, and never put the two side by side as equal fills.
+- Rust is used sparingly: Use it on the *number* inside a stat ("<span class=mars>81%</span> resolved without a hand-off"), on a thin 2px progress line, on an 8×8px square bullet — and nowhere else. No rust backgrounds, and never more than one rust button on a screen.
 - Borders and dividers are solid 1px hairlines in `#dccac7`; never dashed.
 - The primary button is **Mars rust** `#c1440e` with a white label, deepening to `#9a3409` on hover — one per screen.
 
@@ -276,7 +279,7 @@ Mars applies to every output. When asked for a deck, a document, a report, an em
 | Ink 2 | `#451804` | Secondary text |
 | Muted | `#735650` | Captions, footers, axis labels |
 | Line | `#a07e76` | Rules, borders, chart gridlines |
-| Accent | `#c1440e` | One highlight per slide or page (primary action and stat numbers) |
+| Accent | `#c1440e` | One highlight per slide or page (primary rust for the action and stat numbers; secondary wine for the second series and highlights) |
 | On accent | `#ffffff` | Text on the accent |
 | Success / warning / error | `#3a733b / #8a4f00 / #a81b28` | Status only, never decoration |
 
@@ -518,7 +521,7 @@ A value outside its class is an override: allowed only with a written reason in 
     "depth": "Flat",
     "contrast": "Quiet"
   },
-  "accent-scope": "primary action and stat numbers",
+  "accent-scope": "primary rust for the action and stat numbers; secondary wine for the second series and highlights",
   "surface": {
     "ground": {
       "$type": "color",

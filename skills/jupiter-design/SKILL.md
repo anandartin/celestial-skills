@@ -2,9 +2,9 @@
 name: jupiter-design
 core: "1.0"
 dials: { density: compact, shape: soft, depth: hairline, contrast: standard }
-accent-scope: data series and links (monotone blue-grey); terracotta complement for one highlight per view
+accent-scope: primary blue-grey for actions, links and data; secondary terracotta for the second series and highlights
 icons: lucide
-description: "Design-system skill for Jupiter Admin Kit. Use whenever creating any UI, landing page, dashboard, app screen, document, deck, report, prototype, or graphic that should look like Jupiter Admin Kit — An admin kit of 36 ready templates across eight areas — operations, billing, CRM, inventory, support, analytics, team and account — in one calm shell: Public Sans at 14px, blue-grey hairlines, 6px corners, a blue-grey primary button and a monotone blue-grey scale with one complementary terracotta for highlights. Fonts: Public Sans, JetBrains Mono. Icons: Lucide. Triggers on 'Jupiter Admin Kit style', 'Jupiter Admin Kit look', or any request to design something for a Jupiter Admin Kit-branded product. Use it for every kind of output, not only web UI: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
+description: "Design-system skill for Jupiter Admin Kit. Use whenever creating any UI, landing page, dashboard, app screen, document, deck, report, prototype, or graphic that should look like Jupiter Admin Kit — An admin kit of 36 ready templates across eight areas — operations, billing, CRM, inventory, support, analytics, team and account — in one calm shell: Public Sans at 14px, blue-grey hairlines, 6px corners, a blue-grey primary and its complement, terracotta, as the secondary brand colour. Fonts: Public Sans, JetBrains Mono. Icons: Lucide. Triggers on 'Jupiter Admin Kit style', 'Jupiter Admin Kit look', or any request to design something for a Jupiter Admin Kit-branded product. Use it for every kind of output, not only web UI: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
 # Jupiter Admin Kit — Design System Skill
@@ -13,7 +13,7 @@ Jupiter Admin Kit is an original admin design system with 36 ready templates acr
 
 It suits internal tools and admin products first: overviews, long tables, boards, detail pages, forms and settings. It also covers the help and docs pages that sit beside them, using the same type and blue-grey.
 
-Original brand created for Celestial. Monotone: every surface, line and data series is a shade of Jupiter's polar blue-grey. Its complement, terracotta #a8562f, is the only other hue — one highlight per view (the selected period, a key callout), never a button. Status colours always come with an icon and text. Values were chosen for this skill, not taken from any template or kit.
+Original brand created for Celestial. Two brand colours balance each other: polar blue-grey #507992 is the primary (buttons, links, focus, the first data series and every neutral, which are shades of it), and its complement terracotta #a8562f is the secondary (the second data series, highlights and secondary badges). Use roughly four parts blue-grey to one part terracotta; never two terracotta buttons. Status colours always come with an icon and text. Values were chosen for this skill, not taken from any template or kit.
 
 ---
 
@@ -21,7 +21,7 @@ Original brand created for Celestial. Monotone: every surface, line and data ser
 
 | Trait | Expression |
 |---|---|
-| **Calm** | One hue: white work areas and blue-grey surfaces, lines and data; colour is kept for actions and data, never decoration. |
+| **Calm** | Two brand colours in balance: blue-grey for structure and actions, terracotta for what stands out; colour is kept for actions and data, never decoration. |
 | **Exact** | Tabular figures, every number shown with its comparison, units always written. |
 | **Orderly** | One shell for every area: the same sidebar, filter bar, table and detail sheet everywhere. |
 | **Quietly confident** | Short labels in sentence case; one primary action per screen. |
@@ -52,11 +52,10 @@ Sample copy in the brand voice: eyebrow `Operations` · headline "Every admin sc
   --jupiter-primary-button-hover: #3e6077;   /* primary button hover */
   --jupiter-focus-ring: #507992;   /* focus ring */
   --jupiter-accent: #507992;   /* accent — data series 1 and links */
-  --jupiter-data-series-2: #2f4f63;   /* data series 2 (deep blue-grey, graphics only) */
+  --jupiter-secondary-brand-colour: #a8562f;   /* secondary brand colour (terracotta) — data series 2, highlights, secondary badges */
   --jupiter-data-series-3: #6f8fa5;   /* data series 3 (light blue-grey, graphics only) */
-  --jupiter-data-series-4: #3e6077;   /* data series 4 (mid blue-grey, graphics only) */
-  --jupiter-complement-highlight: #a8562f;   /* complement highlight (one per view) */
-  --jupiter-complement-tint: #f6e9e3;   /* complement tint (fill only) */
+  --jupiter-data-series-4: #2f4f63;   /* data series 4 (deep blue-grey, graphics only) */
+  --jupiter-secondary-tint: #f6e9e3;   /* secondary tint (fill only) */
   --jupiter-success: #1e7a3e;   /* success — text and icons */
   --jupiter-warning: #8a5a00;   /* warning — text and icons */
   --jupiter-error: #b42318;   /* error — text and icons */
@@ -71,6 +70,7 @@ Sample copy in the brand voice: eyebrow `Operations` · headline "Every admin sc
   --jupiter-line:      #dbe3e9;
   --jupiter-accent:    #507992;
   --jupiter-on-accent: #ffffff;
+  --jupiter-secondary: #a8562f;
   --jupiter-button:    #507992;
   --jupiter-on-button: #ffffff;
   --jupiter-ok:        #1e7a3e;
@@ -138,7 +138,7 @@ Everything structural follows **Celestial core v1.0** (*Celestial core foundatio
 --rule-style:     solid 1px;
 ```
 
-- Accent scope: **data series and links (monotone blue-grey); terracotta complement for one highlight per view** — the accent appears in this role and nowhere else.
+- Accent scope: **primary blue-grey for actions, links and data; secondary terracotta for the second series and highlights** — the accent appears in this role and nowhere else.
 - 6px controls, 12px cards, 1px blue-grey hairlines; no shadow on cards, a soft shadow on menus and sheets only Max content width 1280px.
 - A 36px blue-grey primary button with 6px corners and white label; outline and quiet variants for secondary actions. Inputs are 36px with a 1px #8796a1 border that turns blue-grey with a 3px soft ring on focus. Tables are 40px rows with a muted header, tabular figures and a filter bar above.
 
@@ -274,7 +274,7 @@ Jupiter Admin Kit applies to every output. When asked for a deck, a document, a 
 | Ink 2 | `#34434d` | Secondary text |
 | Muted | `#586873` | Captions, footers, axis labels |
 | Line | `#dbe3e9` | Rules, borders, chart gridlines |
-| Accent | `#507992` | One highlight per slide or page (data series and links (monotone blue-grey); terracotta complement for one highlight per view) |
+| Accent | `#507992` | One highlight per slide or page (primary blue-grey for actions, links and data; secondary terracotta for the second series and highlights) |
 | On accent | `#ffffff` | Text on the accent |
 | Success / warning / error | `#1e7a3e / #8a5a00 / #b42318` | Status only, never decoration |
 
@@ -408,9 +408,8 @@ Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obso
 | focus ring | `#507992` on `#ffffff` | 4.68:1 | 3:1 | Pass |
 | focus ring | `#507992` on `#f3f6f8` | 4.31:1 | 3:1 | Pass |
 | accent · chart | `#507992` on `#ffffff` | 4.68:1 | 3:1 | Pass |
-| data series 2 · chart | `#2f4f63` on `#ffffff` | 8.68:1 | 3:1 | Pass |
 | data series 3 · chart | `#6f8fa5` on `#ffffff` | 3.42:1 | 3:1 | Pass |
-| data series 4 · chart | `#3e6077` on `#ffffff` | 6.68:1 | 3:1 | Pass |
+| data series 4 · chart | `#2f4f63` on `#ffffff` | 8.68:1 | 3:1 | Pass |
 | success · as an icon | `#1e7a3e` on `#ffffff` | 5.37:1 | 3:1 | Pass |
 | success · as text | `#1e7a3e` on `#ffffff` | 5.37:1 | 4.5:1 | Pass |
 | warning · as an icon | `#8a5a00` on `#ffffff` | 5.93:1 | 3:1 | Pass |
@@ -516,7 +515,7 @@ A value outside its class is an override: allowed only with a written reason in 
     "depth": "Hairline",
     "contrast": "Standard"
   },
-  "accent-scope": "data series and links (monotone blue-grey); terracotta complement for one highlight per view",
+  "accent-scope": "primary blue-grey for actions, links and data; secondary terracotta for the second series and highlights",
   "surface": {
     "ground": {
       "$type": "color",
