@@ -3,3 +3,12 @@ Copyright 2026 Anand Artin
 
 This product includes skills written for Celestial (https://celestialskill.com).
 The licence grants no rights to any trademark, brand name or logo a skill describes.
+
+Some skills adapt open-source design systems. Each such skill states its source,
+licence and changes at the top of its SKILL.md and in a NOTICE file of its own.
+
+The Carbon-based design skill is based on the IBM Carbon Design System
+(https://github.com/carbon-design-system/carbon), licensed under the Apache
+License 2.0 (https://www.apache.org/licenses/LICENSE-2.0), adapted and
+restructured for Celestial. Carbon and IBM are trademarks of IBM. That skill is
+not made, endorsed or supported by IBM, and includes no IBM logo.
