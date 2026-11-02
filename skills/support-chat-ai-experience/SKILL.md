@@ -15,6 +15,8 @@ A customer asks for help in their own words, gets a clear answer or action from 
 
 **Outcome** — At least 60% of chats resolve without a person, and every handoff reaches an agent with the full transcript and no repeated questions.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Keyboard, Touch, Screen reader, Voice dictation
   - Errors (A11Y-E1): If a message fails to send, the text beside the input says so and the typed message is kept.
   - Time limits (A11Y-W1): The chat stays for 24 hours; there is no timeout, and any inactivity warning comes at least 20 seconds before with a Continue button.
   - Language (A11Y-L1): Say "AI assistant" at the start in plain words, and use short literal sentences with no jokes or idioms.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The customer opens the chat.
+  - Agent goal: Make clear who they are talking to and what it can do.
+  - Agent actions: The first message says it is an AI assistant, what it can check and fix, and that a person is available any time; then asks how it can help.
+  - Agent tone: Calm and literal; short sentences, no idioms.
+  - Agent type: Vertical support assistant; orchestrated.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input: ask one clear question at a time.
+  - Failure handover trigger: The customer asks for a person → handover immediately, no retry.
+  - Data needs: Help articles, service status.
+  - Agent memory: Short-term; episodic only after verification.
+  - Regulatory classification: Minimal risk; AI interaction disclosed in the first message (transparency).
 
 ### 2. Verify
 
@@ -99,6 +114,19 @@ Inputs: Keyboard, Touch, Screen reader, Voice dictation
   - Errors (A11Y-E1): A wrong code is written in text beside the field and linked to it, with "2 more tries"; the typed digits are kept, and a resend button is next to it.
   - Time limits (A11Y-W1): The code lasts for the time stated; a warning appears at least 20 seconds before it expires, with a Send a new code button.
   - Language (A11Y-L1): Say what will be accessed and why in one plain sentence, and write "one-time code" with its meaning.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The question needs account details.
+  - Agent goal: Get the customer verified without the assistant handling secrets.
+  - Agent actions: Explains why verification is needed and hands over to the secure verification form; the assistant never asks for or sees passwords or codes — it only learns verified or not.
+  - Agent tone: Reassuring and specific.
+  - Agent type: Vertical support assistant; verification service outside the AI.
+  - Multi-agent handoff: Assistant → verification service → result back to the assistant.
+  - Goal failure response: Verification fails twice: offer another method or a person.
+  - Failure handover trigger: A third failure, or the customer is stuck → a person, with the context package and no account details.
+  - Data needs: Verified / not verified result only.
+  - Agent memory: Short-term.
+  - Regulatory classification: Personal data: strong authentication done by the customer; data protection rules apply.
 
 ### 3. Answer
 
@@ -111,6 +139,19 @@ Inputs: Keyboard, Touch, Screen reader, Voice dictation
   - Errors (A11Y-E1): If the assistant does not know, it says so in text and offers Talk to a person; nothing typed is lost.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Give amounts and dates in full, such as "34 pounds twice on 3 October", and say plainly what the assistant does not know.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The customer is verified and asks about a charge.
+  - Agent goal: Explain what happened in plain words and suggest a fix.
+  - Agent actions: Explains the charge in plain words, says how sure it is, and suggests options with reasons.
+  - Agent tone: Plain and literal; one idea per sentence.
+  - Agent type: Vertical support assistant; billing specialist behind it.
+  - Multi-agent handoff: Assistant → billing specialist reads the account → assistant explains.
+  - Goal failure response: Data unavailable (billing system): say it can't see the bill right now, when to try again, and offer a person. Low confidence: say it isn't sure and offer a person.
+  - Failure handover trigger: Confidence still low after one retry, or the customer is making a complaint → a person with the context package.
+  - Data needs: Bills, payments, service events.
+  - Agent memory: Short-term: the conversation. Episodic: past contacts.
+  - Regulatory classification: Personal financial data; minimal AI risk.
 
 ### 4. Confirm action
 
@@ -122,6 +163,19 @@ Inputs: Keyboard, Touch, Screen reader, Voice dictation
   - Errors (A11Y-E1): The action, amount and timing are shown for review before Confirm, and Cancel leaves everything unchanged; over-threshold actions explain they go to a person.
   - Time limits (A11Y-W1): No time limit. Confirm waits until the person chooses.
   - Language (A11Y-L1): State the amount, the card ending and the timing in full words, and say plainly who acts next.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The customer agrees to a fix the assistant offered.
+  - Agent goal: Get explicit approval for the exact change.
+  - Agent actions: Shows the exact change (amount, card, timing) and waits for the customer to confirm; refunds over £50 and all complaints go to a person to decide.
+  - Agent tone: Precise; no pressure.
+  - Agent type: Vertical support assistant; refunds specialist.
+  - Multi-agent handoff: Assistant → refunds specialist submits after confirmation → confirmation back.
+  - Goal failure response: Before acting (refund system down): don't submit, say so, offer a person. Constraint violation (over £50): explain a person must approve and hand over.
+  - Failure handover trigger: Severity: money over £50 or complaints → a person immediately with the context package.
+  - Data needs: The proposed change, refund limits, card on file (masked).
+  - Agent memory: Short-term.
+  - Regulatory classification: Financial transaction confirmed by the customer; audit log of who proposed and who confirmed.
 
 ### 5. Handoff
 
@@ -134,6 +188,19 @@ Inputs: Keyboard, Touch, Screen reader, Voice dictation
   - Errors (A11Y-E1): If handoff fails, a text message says so beside the status with a retry button; the conversation is kept and passed on.
   - Time limits (A11Y-W1): The wait is stated as an estimate; the person is told if it changes, and can leave and be notified.
   - Language (A11Y-L1): Say the person will see the conversation, and give the wait in minutes.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The customer asks for a person, or a handover trigger fires.
+  - Agent goal: Reach a person without repeating anything.
+  - Agent actions: Announces the transfer and the wait time, shows the summary it is passing on and lets the customer correct it; the customer can keep reading answers while waiting.
+  - Agent tone: Warm and clear about what happens next.
+  - Agent type: Human liaison agent.
+  - Multi-agent handoff: Assistant → human liaison agent builds the context package → support agent.
+  - Goal failure response: No person available within the SLA: say so and offer a callback.
+  - Failure handover trigger: This is the handover: the person receives the goal in the customer's words, what was tried, what is done, emotional signals and compliance flags.
+  - Data needs: Conversation, account summary, queue status.
+  - Agent memory: Short-term plus episodic snapshot in the context package.
+  - Regulatory classification: Personal data shared with staff on a need-to-know basis.
 
 ### 6. Resolved
 
@@ -145,6 +212,19 @@ Inputs: Keyboard, Touch, Screen reader, Voice dictation
   - Errors (A11Y-E1): A failed transcript email is explained in text beside the button with a retry; the email address is kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Spell out the reference and say what was done in a short sentence.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The issue is resolved.
+  - Agent goal: Leave the customer with a record of what was done.
+  - Agent actions: Confirms what was done and by whom (assistant or person), the reference, and how to undo or dispute it.
+  - Agent tone: Concise and complete.
+  - Agent type: Vertical support assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Partial completion: say exactly what is done and what is still pending.
+  - Failure handover trigger: The customer disputes the outcome → a person.
+  - Data needs: Case record, reference, actions log.
+  - Agent memory: Episodic: the case is saved to the customer's history.
+  - Regulatory classification: Record of an automated action kept for the retention period.
 
 ---
 
@@ -192,10 +272,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Say limits honestly: “I can't change your contract. A person can”
 - Short messages, one idea each, with numbers in full
 
-## AI interactions
+## Agent and system (HAI)
 
-- The assistant answers questions and drafts account actions; the customer confirms every action and a person decides refunds over £50 and all complaints
-- Handoff summary is generated for the agent and shown to the customer, who can correct it
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The first message says it is an AI assistant and that a person is available any time
+- The assistant never asks for or sees passwords or codes
+- Every account change is shown exactly and confirmed by the customer; refunds over £50 and complaints are decided by a person
+- Handover passes the full context package so nothing is repeated, and the customer sees and can correct the summary
+- The record at the end says what the assistant did, what a person did, and how to undo or dispute it
 
 ## Edge cases
 

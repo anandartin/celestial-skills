@@ -15,6 +15,8 @@ A user asks an AI assistant for a first draft, checks and edits it with sources 
 
 **Outcome** — Users send AI-assisted drafts that they have reviewed, with zero messages sent without an explicit human action.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Keyboard, Pointer, Voice dictation
   - Errors (A11Y-E1): Missing prompt text is named beside the box and linked to it; whatever was typed stays in place.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say 'sources' and 'tone' in plain terms and keep the example prompt short and free of jargon.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The person opens the panel and describes the message.
+  - Agent goal: Understand what they want written.
+  - Agent actions: Says it is an AI assistant and which sources it may use (the account record, approved templates); offers prompt chips; asks a clarifying question when the request is vague.
+  - Agent tone: Helpful and brief.
+  - Agent type: Vertical writing assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input ("write to them"): ask who it is for and what it should do. Constraint violation (asks for a source it may not use): say it can't and why.
+  - Failure handover trigger: The person asks for help → the product support link; they can always write without the assistant.
+  - Data needs: Account record (permitted fields only), approved templates.
+  - Agent memory: Short-term: the request. Procedural: preferred tone and length.
+  - Regulatory classification: Minimal risk; the AI interaction is disclosed.
 
 ### 2. Generate
 
@@ -100,6 +115,19 @@ Inputs: Keyboard, Pointer, Voice dictation
   - Errors (A11Y-E1): The failure message sits next to the draft area, says the prompt is saved, and offers Try again with the prompt kept.
   - Time limits (A11Y-W1): No time limit; generation can be stopped at any time.
   - Language (A11Y-L1): Write status as 'Writing draft' and 'Draft ready', not 'inference' or 'tokens'.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The person presses Draft.
+  - Agent goal: Produce a draft that fits the request.
+  - Agent actions: Streams the draft into a clearly labelled AI draft area; Stop is always available and keeps what has arrived.
+  - Agent tone: Matches the requested tone.
+  - Agent type: Vertical writing assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Data unavailable (account record not loading): draft without figures and say so. Partial completion (stopped or timed out): keep the partial draft, labelled incomplete.
+  - Failure handover trigger: Generation fails twice → show the error plainly and offer the template library; no automatic retry loop.
+  - Data needs: The request, permitted account fields, templates.
+  - Agent memory: Short-term.
+  - Regulatory classification: Minimal risk; generated text is labelled.
 
 ### 3. Review
 
@@ -111,6 +139,19 @@ Inputs: Keyboard, Pointer, Voice dictation
   - Errors (A11Y-E1): Nothing is entered here; a flagged claim is explained in text beside it, and the person can dismiss or edit it without losing the draft.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say 'no source' rather than 'unsupported' or 'hallucination', and show figures in full with units.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The draft finishes.
+  - Agent goal: Make every fact checkable before sending.
+  - Agent actions: Marks which statements come from the account record and which have no source; the person checks, edits or removes them.
+  - Agent tone: Neutral; points out problems without alarm.
+  - Agent type: Vertical writing assistant with a fact-check verifier.
+  - Multi-agent handoff: Writer → verifier matches statements to sources → results shown.
+  - Goal failure response: Low confidence on a figure: flag it as unverified rather than hiding it. Goal drift (ignores "under 120 words"): show the gap and offer a rewrite.
+  - Failure handover trigger: Wrong figures that keep coming back → the person can report the draft; it goes to the content owner with the prompt and sources.
+  - Data needs: Account record, the draft, source links.
+  - Agent memory: Short-term.
+  - Regulatory classification: Minimal risk; sources shown.
 
 ### 4. Edit
 
@@ -122,6 +163,19 @@ Inputs: Keyboard, Pointer, Voice dictation
   - Errors (A11Y-E1): A failed rewrite is named beside that paragraph, the person's edits are kept, and undo restores the previous wording.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Name the buttons by their action, such as 'Rewrite this paragraph', and avoid terms like 'regenerate' without a short explanation.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The person selects text and asks for a change.
+  - Agent goal: Help them make the message their own.
+  - Agent actions: Suggests a rewrite beside the original; the person accepts or rejects it; their own edits are never overwritten.
+  - Agent tone: Respectful of the person's voice.
+  - Agent type: Vertical writing assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Rejected twice: stop suggesting for that paragraph. Ambiguous instruction: ask what to change.
+  - Failure handover trigger: No handover needed — the person stays in control and can close the assistant at any time.
+  - Data needs: The draft and the selected text.
+  - Agent memory: Short-term; procedural: accepted and rejected styles.
+  - Regulatory classification: Minimal risk.
 
 ### 5. Send
 
@@ -180,11 +234,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Describe limits honestly: “I couldn't find a renewal date in this account”
 - Avoid human-like claims: say “Draft”, not “I think you'll love this”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Drafts text from the user's prompt and permitted sources; the user reviews, edits and sends
-- Flags statements without a source so the user can check or remove them
-- No AI on the send step because the decision to communicate belongs to the user
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The assistant says it is AI and which sources it may use before drafting
+- Every draft and suggestion is labelled as AI-made until the person accepts it
+- Statements without a source are flagged before sending
+- Stop is available while drafting and keeps what has arrived
+- Nothing is sent without an explicit human action; the assistant takes no part in sending
 
 ## Edge cases
 

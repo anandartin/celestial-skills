@@ -15,6 +15,8 @@ Incoming tickets are categorised and prioritised with AI suggestions, agents con
 
 **Outcome** — Urgent tickets reach the right team within 15 minutes, and AI suggestions are reviewed by an agent before any customer-facing action.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Keyboard, Screen reader, Pointer
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the suggestion in words, such as 'Billing, high priority, 82 percent'.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: A ticket arrives.
+  - Agent goal: Suggest category, priority and team quickly.
+  - Agent actions: Shows suggestions with confidence on each ticket, labelled as AI suggestions, and flags possible duplicates.
+  - Agent tone: Compact.
+  - Agent type: Vertical triage agent; orchestrated with a duplicate-detection specialist.
+  - Multi-agent handoff: Intake → classifier → duplicate detector → suggestions shown.
+  - Goal failure response: Low confidence (below 70%): show the top two categories. Data unavailable: the ticket arrives without suggestions, marked not triaged.
+  - Failure handover trigger: Outage language with low confidence → the team lead immediately.
+  - Data needs: Ticket text, customer tier, past tickets.
+  - Agent memory: Short-term; procedural: team corrections.
+  - Regulatory classification: Minimal risk; suggestions are identified as AI.
 
 ### 2. Review
 
@@ -99,6 +114,19 @@ Inputs: Keyboard, Screen reader, Pointer
   - Errors (A11Y-E1): If suggestions fail, text says to triage manually and tickets stay in arrival order; the agent's choices are kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Show confidence as '82 percent' in text and say 'suggested' not 'predicted'.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The support agent opens a ticket.
+  - Agent goal: Confirm or correct the suggestion fast.
+  - Agent actions: The support agent confirms or corrects category and priority in one action; corrections are logged to calibrate the model.
+  - Agent tone: Neutral.
+  - Agent type: Vertical triage agent; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Rejected twice in a day for one category: that category falls back to manual triage and the lead is told.
+  - Failure handover trigger: Repeated corrections → the team lead reviews with the AI owner.
+  - Data needs: Suggestion, correction history.
+  - Agent memory: Procedural: correction patterns.
+  - Regulatory classification: Minimal risk.
 
 ### 3. Route
 
@@ -110,6 +138,19 @@ Inputs: Keyboard, Screen reader, Pointer
   - Errors (A11Y-E1): Routing is reversible from the ticket's history; the chosen team stays if routing fails.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Use plain team names and write queue counts in words.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: Category and priority are confirmed.
+  - Agent goal: Get the ticket to the right team.
+  - Agent actions: Suggests a team with its queue length; the support agent routes or keeps the ticket.
+  - Agent tone: Brief.
+  - Agent type: Vertical routing specialist.
+  - Multi-agent handoff: Triage agent → routing specialist → queue.
+  - Goal failure response: Target queue unavailable: suggest the next team and say why.
+  - Failure handover trigger: An urgent ticket not accepted within 15 minutes → the team lead.
+  - Data needs: Team rota, queue lengths, skills.
+  - Agent memory: Short-term.
+  - Regulatory classification: Minimal risk.
 
 ### 4. Respond
 
@@ -121,6 +162,19 @@ Inputs: Keyboard, Screen reader, Pointer
   - Errors (A11Y-E1): The draft must be checked before sending; text next to the field notes this, and edits are kept if sending fails.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Keep reply drafts in plain language and check refund timings are stated in full.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The support agent starts a reply.
+  - Agent goal: Give a reviewed starting point for the reply.
+  - Agent actions: Drafts a reply from a named knowledge-base article, labelled as a draft; the support agent edits and sends — customer-facing text never goes out without them.
+  - Agent tone: Matches the brand's support voice.
+  - Agent type: Vertical reply drafter with a knowledge-base retriever.
+  - Multi-agent handoff: Retriever finds the article → drafter writes → support agent edits.
+  - Goal failure response: No matching article: say so instead of inventing an answer. Low confidence: mark the draft as needing extra checking.
+  - Failure handover trigger: Complaint, legal issue or refund dispute → the specialist team.
+  - Data needs: Knowledge-base articles, ticket history.
+  - Agent memory: Short-term.
+  - Regulatory classification: Minimal risk; generated text reviewed before sending.
 
 ### 5. Monitor
 
@@ -132,6 +186,19 @@ Inputs: Keyboard, Screen reader, Pointer
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say 'overrides' as 'changed by an agent' on first use.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The team lead opens the queue dashboard.
+  - Agent goal: Show queue health and AI accuracy.
+  - Agent actions: Shows urgent-within-15-minutes rate, AI override rate and spikes, and flags spikes to the lead.
+  - Agent tone: Factual.
+  - Agent type: Generalist reporting agent.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Stale metrics: show the time of the last update.
+  - Failure handover trigger: Override rate above the threshold → the lead reviews the triage model with the AI owner.
+  - Data needs: Ticket events, overrides, timings.
+  - Agent memory: None beyond the session.
+  - Regulatory classification: Minimal risk.
 
 ---
 
@@ -179,11 +246,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Customer replies use plain language and the customer's name; no internal codes
 - Routing notes say why: “Routed to Payments — refund over 30 days”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Suggests category, priority and team with confidence; the agent confirms
-- Drafts replies from knowledge base articles; the agent edits and sends
-- Flags possible duplicates and spikes for the team lead to act on
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- Every suggestion shows its confidence and is labelled as an AI suggestion
+- No customer-facing reply is sent without the support agent's action
+- Corrections are logged and used to calibrate; a category that keeps being corrected falls back to manual triage
+- Urgent tickets that aren't accepted within 15 minutes go to the team lead
+- Drafts name the article they come from and never invent an answer
 
 ## Edge cases
 
