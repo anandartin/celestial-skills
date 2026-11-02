@@ -261,9 +261,9 @@ p{color:var(--ink-2);margin:0}
 When building for Jupiter Admin Kit: start from this CSS, keep every surface on these tokens, and let the primary carry the eye, with the secondary for balance.
 
 ## Brand colours
-Two brand colours balance every Jupiter Admin Kit output. **Primary** `#507992` — the primary action, the logo and the key figure. **Secondary** `#a8562f` — the secondary button (`#a8562f` fill, `#ffffff` label) and outline buttons (border `#a8562f`, label `#974d2a`), secondary badges, the second data series and secondary highlights, about one part to four of the primary; use `#a8562f` where it is text. Never give the two equal weight side by side.
+Two brand colours balance every Jupiter Admin Kit output. **Primary** `#507992` — the primary action, outline buttons (border `#507992`, label `#44677c`), the logo and the key figure. **Secondary** `#a8562f` — the secondary button (`#a8562f` fill, `#ffffff` label), secondary badges, the second data series and secondary highlights, about one part to four of the primary; use `#a8562f` where it is text. Never give the two equal weight side by side.
 
-**Button states** — every type has the same six states, each from its own colour: primary `#507992` → hover `#3e6077` → active `#375469`; secondary `#a8562f` → `#904a28` → `#804124`; outline fill → `#f6eeea` → `#efe1da`; ghost → `#f1f2f3` → `#e8eaea`. Focus-visible is a 2px `#507992` ring offset 2px on every type; disabled is 45% opacity with `aria-disabled`; loading keeps the label with `aria-busy`. Labels stay at 4.5:1 in every state.
+**Button states** — every type has the same six states, each from its own colour: primary `#507992` → hover `#3e6077` → active `#375469`; secondary `#a8562f` → `#904a28` → `#804124`; outline fill → `#eef2f4` → `#e0e7eb`; ghost → `#f1f2f3` → `#e8eaea`. Focus-visible is a 2px `#507992` ring offset 2px on every type; disabled is 45% opacity with `aria-disabled`; loading keeps the label with `aria-busy`. Labels stay at 4.5:1 in every state.
 
 ## Using Jupiter Admin Kit beyond the web
 
@@ -474,8 +474,17 @@ Respects prefers-reduced-motion. Brands choose the easing curve only.
 - No meaning carried by colour alone — pair with a label, icon or shape
 - Respects prefers-reduced-motion
 
+### Brand colours
+Every brand declares two brand colours. The **primary** (the accent) carries the primary action, outline buttons, the logo and the key figure. The **secondary** balances it: the secondary button, secondary badges, the second data series and secondary highlights, about one part to four. A brand with no secondary of its own takes the primary's complement, made legible at 4.5:1. Never give the two equal weight side by side.
+
 ### Component states
 Every component specifies: default, hover, focus-visible, active, disabled, loading, error (inputs), success (inputs). Core defines which token each state reads; brands only supply the token values.
+
+### Button types and states
+Five types — primary, secondary, dark, outline and ghost — share one state model, each from its own colour: hover one step deeper, active one step further with a 1px nudge (outline and ghost tint their own colour instead), focus-visible a 2px ring offset 2px, disabled 45% opacity with `aria-disabled`, loading keeps the label with `aria-busy`. Labels stay at 4.5:1 in every state. A brand whose secondary button is an outline says so (`secondaryButton: outline`); its secondary colour then becomes an accent button.
+
+### Logo
+The mark keeps its own colour only where it reaches 3:1 against the background; otherwise it is one solid colour. A brand's own dark-background logo, or the colour its guidelines give for dark, is used on ink and dark screens. Without a supplied logo a brand uses a placeholder (an initial tile) and says so.
 
 ### Z-index
 base 0 · sticky 100 · dropdown 200 · overlay 300 · modal 400 · toast 500
@@ -489,6 +498,9 @@ base 0 · sticky 100 · dropdown 200 · overlay 300 · modal 400 · toast 500
 | Contrast minimums (4.5:1 text, 3:1 UI) | Locked | Core | Nothing |
 | Focus ring presence and offset | Locked | Core | Colour only |
 | Component anatomy and states | Locked | Core | Nothing |
+| Button state model (every type: hover, active, focus, disabled, loading) | Locked | Core | Colours only |
+| Two brand colours (primary + secondary; outline buttons take the primary) | Locked | Core | The two values |
+| Logo legibility (3:1 on every background; dark-background version) | Locked | Core | Logo files and colours |
 | Motion durations (120 / 200 / 320ms) | Locked | Core | Easing curve choice |
 | Z-index scale | Locked | Core | Nothing |
 | Control height | Tunable | Brand picks step | 32 / 36 / 40 / 44px |
@@ -497,7 +509,7 @@ base 0 · sticky 100 · dropdown 200 · overlay 300 · modal 400 · toast 500
 | Type scale ratio | Tunable | Brand picks step | 1.200 / 1.250 / 1.333 |
 | Density (padding step) | Tunable | Brand picks step | Compact / Default / Comfortable |
 | Border width | Tunable | Brand picks step | 0.5 / 1 / 1.5px |
-| Colour palette | Free | Brand | Any, mapped to semantic roles |
+| Colour palette | Free | Brand | Any, mapped to semantic roles, with a primary and a secondary brand colour |
 | Typefaces and weights | Free | Brand | Any, mapped to display / body / mono |
 | Heading tracking and case | Free | Brand | Any |
 | Rule style (solid / dashed) | Free | Brand | Any |
@@ -572,6 +584,10 @@ A value outside its class is an override: allowed only with a written reason in 
     "$type": "color",
     "$value": "#507992"
   },
+  "secondary": {
+    "$type": "color",
+    "$value": "#a8562f"
+  },
   "action": {
     "primary-bg": {
       "$type": "color",
@@ -580,6 +596,30 @@ A value outside its class is an override: allowed only with a written reason in 
     "primary-hover": {
       "$type": "color",
       "$value": "#3e6077"
+    },
+    "primary-active": {
+      "$type": "color",
+      "$value": "#375469"
+    },
+    "secondary-bg": {
+      "$type": "color",
+      "$value": "#a8562f"
+    },
+    "secondary-hover": {
+      "$type": "color",
+      "$value": "#904a28"
+    },
+    "secondary-active": {
+      "$type": "color",
+      "$value": "#804124"
+    },
+    "outline-hover": {
+      "$type": "color",
+      "$value": "#eef2f4"
+    },
+    "ghost-hover": {
+      "$type": "color",
+      "$value": "#f1f2f3"
     },
     "focus-ring": {
       "$type": "color",
