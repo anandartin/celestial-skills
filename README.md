@@ -1,14 +1,14 @@
-<p align="center"><img src=".github/assets/social-preview.png" alt="Celestial skills — 120 open skills for AI agents" width="100%"></p>
+<p align="center"><img src=".github/assets/social-preview.png" alt="Celestial skills — 121 open skills for AI agents" width="100%"></p>
 
 <p align="center">
   <a href="LICENSE"><img alt="Licence: Apache-2.0" src="https://img.shields.io/badge/licence-Apache--2.0-blue"></a>
-  <img alt="120 skills" src="https://img.shields.io/badge/skills-120-7c5cff">
+  <img alt="121 skills" src="https://img.shields.io/badge/skills-121-7c5cff">
   <a href="https://celestialskill.com"><img alt="Browse on celestialskill.com" src="https://img.shields.io/badge/browse-celestialskill.com-111"></a>
 </p>
 
 # Celestial skills
 
-**120 open skills that teach AI agents how your product should look, work and be built** — 3 design skills (how a brand looks), 54 experience skills (how a journey works) and 63 engineering skills (how it's built and shipped), all written on one shared core so they work together.
+**121 open skills that teach AI agents how your product should look, work and be built** — 3 design skills (how a brand looks), 55 experience skills (how a journey works) and 63 engineering skills (how it's built and shipped), all written on one shared core so they work together.
 
 Each folder in [`skills/`](skills/) is one skill: a `SKILL.md` your agent reads, plus tokens, a logo, `AGENTS.md` or editor rules where the skill has them.
 
@@ -68,7 +68,7 @@ How a brand looks.
 | [Mars](skills/mars-design/) | Editorial serif headlines on dusty Mars-red neutrals, deep aubergine ink, Mars rust as the primary and wine as the secondary brand colour, and numbered mono labels. |
 | [Mercury](skills/mercury-design/) | A bright workspace for AI agents: Manrope at weight 500–700, graphite ink on cool white, soft-shadow cards with 16px corners, and one cobalt for actions and agent states. |
 
-## Experience skills (54)
+## Experience skills (55)
 
 How a journey works.
 
@@ -109,6 +109,7 @@ How a journey works.
 | [Opening a current account online for a new customer](skills/bank-account-opening-experience/) | A new customer opens a current account on their phone, proves who they are once, and knows exactly what happens if a check needs more time. |
 | [Ordering a meal for delivery with dietary and allergen needs](skills/food-delivery-order-experience/) | A parent orders dinner for the family, filters reliably by allergens, and gets food that is safe, on time and as described. |
 | [Paying someone new from a banking app](skills/send-money-experience/) | A customer adds a new payee, sees whether the name matches the account, and gets a clear fraud warning before money leaves. |
+| [Product spec](skills/product-spec-experience/) | Turn chosen journeys, a design skill and an engineering skill into one product spec — PRODUCT.md — in your own repository. |
 | [Rebooking after a cancelled train or flight](skills/travel-disruption-rebooking-experience/) | A traveller whose train or flight is cancelled sees their options straight away, rebooks or claims a refund, and learns what compensation they can claim. |
 | [Refund approval with an AI agent](skills/ai-refund-approval-experience/) | Let an agent draft and run refunds while a human stays in charge of anything irreversible — with a trace anyone can read. |
 | [Requesting a purchase with budget checks and approvals](skills/purchase-order-approval-experience/) | A requester asks to buy something, the system checks budget, and the right approvers sign off in order before a purchase order is issued. |
