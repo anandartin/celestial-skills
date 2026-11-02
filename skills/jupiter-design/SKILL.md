@@ -2,9 +2,9 @@
 name: jupiter-design
 core: "1.0"
 dials: { density: compact, shape: soft, depth: hairline, contrast: standard }
-accent-scope: data series and links
+accent-scope: data series and links (monotone blue-grey); terracotta complement for one highlight per view
 icons: lucide
-description: "Design-system skill for Jupiter Admin Kit. Use whenever creating any UI, landing page, dashboard, app screen, document, deck, report, prototype, or graphic that should look like Jupiter Admin Kit — An admin kit of 36 ready templates across eight areas — operations, billing, CRM, inventory, support, analytics, team and account — in one calm shell: Public Sans at 14px, warm cream hairlines, 6px corners, a blue-grey primary button and one banded colour scale for data. Fonts: Public Sans, JetBrains Mono. Icons: Lucide. Triggers on 'Jupiter Admin Kit style', 'Jupiter Admin Kit look', or any request to design something for a Jupiter Admin Kit-branded product. Use it for every kind of output, not only web UI: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
+description: "Design-system skill for Jupiter Admin Kit. Use whenever creating any UI, landing page, dashboard, app screen, document, deck, report, prototype, or graphic that should look like Jupiter Admin Kit — An admin kit of 36 ready templates across eight areas — operations, billing, CRM, inventory, support, analytics, team and account — in one calm shell: Public Sans at 14px, blue-grey hairlines, 6px corners, a blue-grey primary button and a monotone blue-grey scale with one complementary terracotta for highlights. Fonts: Public Sans, JetBrains Mono. Icons: Lucide. Triggers on 'Jupiter Admin Kit style', 'Jupiter Admin Kit look', or any request to design something for a Jupiter Admin Kit-branded product. Use it for every kind of output, not only web UI: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
 # Jupiter Admin Kit — Design System Skill
@@ -13,7 +13,7 @@ Jupiter Admin Kit is an original admin design system with 36 ready templates acr
 
 It suits internal tools and admin products first: overviews, long tables, boards, detail pages, forms and settings. It also covers the help and docs pages that sit beside them, using the same type and blue-grey.
 
-Original brand created for Celestial. Teal is for actions, data and links only; status colours always come with an icon and text. Values were chosen for this skill, not taken from any template or kit. Colours follow the planet: polar blue-grey for actions, and its cloud bands (brown, ochre, salmon) for data.
+Original brand created for Celestial. Monotone: every surface, line and data series is a shade of Jupiter's polar blue-grey. Its complement, terracotta #a8562f, is the only other hue — one highlight per view (the selected period, a key callout), never a button. Status colours always come with an icon and text. Values were chosen for this skill, not taken from any template or kit.
 
 ---
 
@@ -21,7 +21,7 @@ Original brand created for Celestial. Teal is for actions, data and links only; 
 
 | Trait | Expression |
 |---|---|
-| **Calm** | White work areas, an icy sidebar and cream bands; colour is kept for actions and data, never decoration. |
+| **Calm** | One hue: white work areas and blue-grey surfaces, lines and data; colour is kept for actions and data, never decoration. |
 | **Exact** | Tabular figures, every number shown with its comparison, units always written. |
 | **Orderly** | One shell for every area: the same sidebar, filter bar, table and detail sheet everywhere. |
 | **Quietly confident** | Short labels in sentence case; one primary action per screen. |
@@ -41,32 +41,34 @@ Sample copy in the brand voice: eyebrow `Operations` · headline "Every admin sc
   /* Palette */
   --jupiter-page-background: #ffffff;   /* page background */
   --jupiter-card-surface: #ffffff;   /* card surface */
-  --jupiter-sidebar-nav-raised-icy-band: #ebf3f6;   /* sidebar / nav (raised) — icy band */
-  --jupiter-muted-surface-table-headers-well: #f4f0e8;   /* muted surface — table headers, wells (cream band) */
-  --jupiter-border-decorative-hairlines-and-: #e3dccb;   /* border — decorative hairlines and dividers */
-  --jupiter-ink-headings: #1f2a31;   /* ink (headings) */
-  --jupiter-body-text: #36444d;   /* body text */
-  --jupiter-muted-text-captions-helper-place: #5b6870;   /* muted text — captions, helper, placeholder */
-  --jupiter-input-border-fields-checkboxes-r: #8f8a84;   /* input border — fields, checkboxes, radios (3:1) */
-  --jupiter-primary-button-and-brand-blue-gr: #507992;   /* primary button and brand blue-grey */
+  --jupiter-sidebar-nav: #eef3f6;   /* sidebar / nav (raised) */
+  --jupiter-muted-surface: #f3f6f8;   /* muted surface — table headers, wells */
+  --jupiter-border: #dbe3e9;   /* border — decorative hairlines and dividers */
+  --jupiter-ink: #1c2830;   /* ink (headings) */
+  --jupiter-body-text: #34434d;   /* body text */
+  --jupiter-muted-text: #586873;   /* muted text — captions, helper, placeholder */
+  --jupiter-input-border: #8796a1;   /* input border — fields, checkboxes, radios (3:1) */
+  --jupiter-primary-button: #507992;   /* primary button (brand blue-grey) */
   --jupiter-primary-button-hover: #3e6077;   /* primary button hover */
   --jupiter-focus-ring: #507992;   /* focus ring */
-  --jupiter-accent-data-series-1-and-links: #507992;   /* accent — data series 1 and links */
-  --jupiter-data-series-2-band-brown-graphic: #946956;   /* data series 2 (band brown, graphics only) */
-  --jupiter-data-series-3-ochre-band-graphic: #a87a2e;   /* data series 3 (ochre band, graphics only) */
-  --jupiter-data-series-4-great-spot-salmon-: #c17d6b;   /* data series 4 (great-spot salmon, graphics only) */
-  --jupiter-success-text-and-icons: #1e7a3e;   /* success — text and icons */
-  --jupiter-warning-text-and-icons: #8a5a00;   /* warning — text and icons */
-  --jupiter-error-text-and-icons: #b42318;   /* error — text and icons */
+  --jupiter-accent: #507992;   /* accent — data series 1 and links */
+  --jupiter-data-series-2: #2f4f63;   /* data series 2 (deep blue-grey, graphics only) */
+  --jupiter-data-series-3: #6f8fa5;   /* data series 3 (light blue-grey, graphics only) */
+  --jupiter-data-series-4: #3e6077;   /* data series 4 (mid blue-grey, graphics only) */
+  --jupiter-complement-highlight: #a8562f;   /* complement highlight (one per view) */
+  --jupiter-complement-tint: #f6e9e3;   /* complement tint (fill only) */
+  --jupiter-success: #1e7a3e;   /* success — text and icons */
+  --jupiter-warning: #8a5a00;   /* warning — text and icons */
+  --jupiter-error: #b42318;   /* error — text and icons */
 
   /* Semantic roles (derived from the palette above) */
   --jupiter-bg:        #ffffff;
   --jupiter-surface:   #ffffff;
-  --jupiter-band:      #ebf3f6;
-  --jupiter-ink:       #1f2a31;
-  --jupiter-ink-2:     #36444d;
-  --jupiter-muted:     #5b6870;
-  --jupiter-line:      #e3dccb;
+  --jupiter-band:      #f3f6f8;
+  --jupiter-ink:       #1c2830;
+  --jupiter-ink-2:     #34434d;
+  --jupiter-muted:     #586873;
+  --jupiter-line:      #dbe3e9;
   --jupiter-accent:    #507992;
   --jupiter-on-accent: #ffffff;
   --jupiter-button:    #507992;
@@ -79,11 +81,11 @@ Sample copy in the brand voice: eyebrow `Operations` · headline "Every admin sc
 
 **Palette rules**
 
-- Page is `#ffffff`; cards and panels sit on `#ffffff`; use `#ebf3f6` for alternating bands and wells. Never drift the neutrals warmer or cooler than these.
-- Text is `#1f2a31` for headings, `#36444d` for body and `#5b6870` for captions and placeholders. Hairlines are `#e3dccb`.
+- Page is `#ffffff`; cards and panels sit on `#ffffff`; use `#f3f6f8` for alternating bands and wells. Never drift the neutrals warmer or cooler than these.
+- Text is `#1c2830` for headings, `#34434d` for body and `#586873` for captions and placeholders. Hairlines are `#dbe3e9`.
 - The accent `#507992` is the primary action fill. One accent per screen.
 - Status colours (`#1e7a3e` success, `#8a5a00` warning, `#b42318` danger) mean state, never decoration.
-- Flat work areas. Cards are white with a 1px #e3dccb border; the sidebar sits an icy blue step (#ebf3f6). Menus, popovers and the detail sheet take a soft 0 6px 20px shadow at 8%.
+- Flat work areas. Cards are white with a 1px #dbe3e9 border; the sidebar sits one blue-grey step (#eef3f6). Menus, popovers and the detail sheet take a soft 0 6px 20px shadow at 8%.
 
 ---
 
@@ -136,9 +138,9 @@ Everything structural follows **Celestial core v1.0** (*Celestial core foundatio
 --rule-style:     solid 1px;
 ```
 
-- Accent scope: **data series and links** — the accent appears in this role and nowhere else.
-- 6px controls, 12px cards, 1px warm cream hairlines; no shadow on cards, a soft shadow on menus and sheets only Max content width 1280px.
-- A 36px blue-grey primary button with 6px corners and white label; outline and quiet variants for secondary actions. Inputs are 36px with a 1px #8f8a84 border that turns blue-grey with a 3px soft ring on focus. Tables are 40px rows with a muted header, tabular figures and a filter bar above.
+- Accent scope: **data series and links (monotone blue-grey); terracotta complement for one highlight per view** — the accent appears in this role and nowhere else.
+- 6px controls, 12px cards, 1px blue-grey hairlines; no shadow on cards, a soft shadow on menus and sheets only Max content width 1280px.
+- A 36px blue-grey primary button with 6px corners and white label; outline and quiet variants for secondary actions. Inputs are 36px with a 1px #8796a1 border that turns blue-grey with a 3px soft ring on focus. Tables are 40px rows with a muted header, tabular figures and a filter bar above.
 
 
 ---
@@ -162,27 +164,27 @@ Layout family: **product-led — hero, product frame, section cards**.
 
 **Primary button** — bg `#507992`, text `#ffffff`, height 36px, padding 0 16px, radius 6px, 14px Public Sans 500; hover `#3e6077`; focus-visible 2px `#507992` ring; disabled at 45% opacity.
 
-**States** (core anatomy, brand values) — hover `#3e6077` (label 6.7:1), active `#3b5a6c` + 1px nudge, focus-visible 2px `#507992` ring offset 2px (4.7:1 on the page, never removed), disabled at 45% opacity with `aria-disabled`, loading keeps the label with `aria-busy`. Secondary and ghost hover to `#f2f2f3`. Fields: hover border `#36444d`, focus border + 3px soft ring in the focus colour, error `#b42318` border plus icon and written fix, success `#1e7a3e`, disabled on `#ebf3f6`. Transitions 120ms; none under prefers-reduced-motion; 44px touch targets on mobile.
+**States** (core anatomy, brand values) — hover `#3e6077` (label 6.7:1), active `#3b5a6c` + 1px nudge, focus-visible 2px `#507992` ring offset 2px (4.7:1 on the page, never removed), disabled at 45% opacity with `aria-disabled`, loading keeps the label with `aria-busy`. Secondary and ghost hover to `#f1f2f3`. Fields: hover border `#34434d`, focus border + 3px soft ring in the focus colour, error `#b42318` border plus icon and written fix, success `#1e7a3e`, disabled on `#f3f6f8`. Transitions 120ms; none under prefers-reduced-motion; 44px touch targets on mobile.
 
-**Secondary button** — transparent, 1px `#8f8a84` border, text `#1f2a31`, same geometry; hover bg `#ebf3f6`. **Ghost** — no border, hover bg `#ebf3f6`.
+**Secondary button** — transparent, 1px `#8796a1` border, text `#1c2830`, same geometry; hover bg `#f3f6f8`. **Ghost** — no border, hover bg `#f3f6f8`.
 
-**Input** — height 36px, bg `#ffffff`, 1px `#8f8a84`, radius 6px, placeholder `#5b6870`; focus border `#507992` + 3px soft ring; error border `#b42318`; helper text 12px `#5b6870` below, never in a tooltip.
+**Input** — height 36px, bg `#ffffff`, 1px `#8796a1`, radius 6px, placeholder `#586873`; focus border `#507992` + 3px soft ring; error border `#b42318`; helper text 12px `#586873` below, never in a tooltip.
 
-**Select / menu** — same shell as input with a trailing chevron; menu on `#ffffff` with 6px corners and the overlay shadow; selected row on `#ebf3f6` with a check.
+**Select / menu** — same shell as input with a trailing chevron; menu on `#ffffff` with 6px corners and the overlay shadow; selected row on `#f3f6f8` with a check.
 
 **Checkbox / radio / toggle** — 16px box with 4px corners (radio round), filled `#507992` when on; toggle 36×20 pill, knob white, on = `#507992`.
 
 **Chip / badge** — 28px chip and 24px badge, radius 6px, soft tint of the semantic colour with its text colour; a dot before the label for live states.
 
-**Card** — bg `#ffffff`, 1px `#e3dccb`, radius 12px, padding 20–24px, shadow `none`; a heading, body copy, and at most one action.
+**Card** — bg `#ffffff`, 1px `#dbe3e9`, radius 12px, padding 20–24px, shadow `none`; a heading, body copy, and at most one action.
 
-**Table** — header row 12px uppercase mono in `#5b6870`, rows separated by `#e3dccb`, numerals tabular, status as badges, row actions in a trailing ⋯ menu.
+**Table** — header row 12px uppercase mono in `#586873`, rows separated by `#dbe3e9`, numerals tabular, status as badges, row actions in a trailing ⋯ menu.
 
-**Alert** — 1px border and soft tint of its semantic colour, 18px icon, bold first sentence, dismiss × at the end; lives in the flow, unlike a toast (dark `#1f2a31` pill, bottom-centre, one undo action).
+**Alert** — 1px border and soft tint of its semantic colour, 18px icon, bold first sentence, dismiss × at the end; lives in the flow, unlike a toast (dark `#1c2830` pill, bottom-centre, one undo action).
 
 **Modal / drawer** — `#ffffff`, radius 12px, overlay shadow, 22px padding; destructive confirm uses a `#b42318` filled button; both close on Escape or a click outside.
 
-**Navigation** — breadcrumbs with chevron separators and the current page in `#1f2a31`; tabs with a 2px `#507992` underline; pagination as 30px square buttons with the current page filled `#1f2a31`.
+**Navigation** — breadcrumbs with chevron separators and the current page in `#1c2830`; tabs with a 2px `#507992` underline; pagination as 30px square buttons with the current page filled `#1c2830`.
 
 **App shell** — 52px top bar on `#ffffff` with a pill search, primary action and avatar; a 40px icon rail and a 200px sidebar with 12.5px items, the active item tinted `#e7ecf0`; the body scrolls beneath a sticky chrome.
 
@@ -240,7 +242,7 @@ Admin consoles, internal tools and back offices that need many ready screens —
 ## Quick-start CSS
 
 ```css
-:root{--bg:#ffffff;--surface:#ffffff;--band:#ebf3f6;--ink:#1f2a31;--ink-2:#36444d;--muted:#5b6870;--line:#e3dccb;--line-strong:#8f8a84;--accent:#507992;--on-accent:#ffffff;--button:#507992;--on-button:#ffffff;
+:root{--bg:#ffffff;--surface:#ffffff;--band:#f3f6f8;--ink:#1c2830;--ink-2:#34434d;--muted:#586873;--line:#dbe3e9;--line-strong:#8796a1;--accent:#507992;--on-accent:#ffffff;--button:#507992;--on-button:#ffffff;
 --display:'Public Sans', system-ui, sans-serif;--body:'Public Sans', system-ui, sans-serif;--mono:'JetBrains Mono', ui-monospace, monospace;--r:6px;--rc:12px;}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--body);-webkit-font-smoothing:antialiased}
 h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.02em;line-height:1.1;margin:0}
@@ -267,12 +269,12 @@ Jupiter Admin Kit applies to every output. When asked for a deck, a document, a 
 |---|---|---|
 | Background | `#ffffff` | Slide and page background |
 | Surface | `#ffffff` | Cards, panels, table rows |
-| Band | `#ebf3f6` | Section bands, divider slides, table headers |
-| Ink | `#1f2a31` | Headlines and body text |
-| Ink 2 | `#36444d` | Secondary text |
-| Muted | `#5b6870` | Captions, footers, axis labels |
-| Line | `#e3dccb` | Rules, borders, chart gridlines |
-| Accent | `#507992` | One highlight per slide or page (data series and links) |
+| Band | `#f3f6f8` | Section bands, divider slides, table headers |
+| Ink | `#1c2830` | Headlines and body text |
+| Ink 2 | `#34434d` | Secondary text |
+| Muted | `#586873` | Captions, footers, axis labels |
+| Line | `#dbe3e9` | Rules, borders, chart gridlines |
+| Accent | `#507992` | One highlight per slide or page (data series and links (monotone blue-grey); terracotta complement for one highlight per view) |
 | On accent | `#ffffff` | Text on the accent |
 | Success / warning / error | `#1e7a3e / #8a5a00 / #b42318` | Status only, never decoration |
 
@@ -282,7 +284,7 @@ Jupiter Admin Kit applies to every output. When asked for a deck, a document, a 
 - If a face isn't installed, use the closest system font of the same style and say so — never silently swap to a default.
 
 ### Logo on every output
-Every Jupiter Admin Kit output carries the logo — never just the name typed out. Use the SVG under **Brand assets** (or a PNG exported from it at 4×); keep the mark's own colour only where it reaches 3:1 against the background; otherwise use the one-colour version — `#ffffff` on ink or dark photos, `#ffffff` on the accent, `#1f2a31` for monochrome. Never place the mark on a background of its own colour. Keep clear space equal to the mark's height and never stretch, outline or recolour it otherwise.
+Every Jupiter Admin Kit output carries the logo — never just the name typed out. Use the SVG under **Brand assets** (or a PNG exported from it at 4×); keep the mark's own colour only where it reaches 3:1 against the background; otherwise use the one-colour version — `#ffffff` on ink or dark photos, `#ffffff` on the accent, `#1c2830` for monochrome. Never place the mark on a background of its own colour. Keep clear space equal to the mark's height and never stretch, outline or recolour it otherwise.
 | Output | Where the logo goes |
 |---|---|
 | Web and app UI | Top-left of the header on every page and screen; again in the footer; the mark as favicon and app icon |
@@ -295,25 +297,25 @@ Every Jupiter Admin Kit output carries the logo — never just the name typed ou
 
 ### Presentations (PowerPoint, Keynote, Google Slides)
 - 16:9, 13.333 × 7.5 in (1920 × 1080). Margins 0.6 in; a 12-column grid.
-- **Theme** (set it on the master so every slide inherits it): dark 1 = `#1f2a31`, light 1 = `#ffffff`, dark 2 = `#36444d`, light 2 = `#ebf3f6`, accent 1–6 = `#507992`, `#3f5d70`, `#9fb5c3`, `#36444d`, `#5b6870`, `#d3dee4`; heading font = Public Sans, body font = Public Sans.
+- **Theme** (set it on the master so every slide inherits it): dark 1 = `#1c2830`, light 1 = `#ffffff`, dark 2 = `#34434d`, light 2 = `#f3f6f8`, accent 1–6 = `#507992`, `#3e5d70`, `#9fb5c3`, `#34434d`, `#586873`, `#d3dee4`; heading font = Public Sans, body font = Public Sans.
 - **Title slide**: background `#ffffff`; headline in Public Sans 54–64 pt, ink; one-line subtitle in Public Sans 20 pt, muted; the logo at the top left with clear space equal to its own height.
-- **Section divider**: full-bleed `#ebf3f6` (or `#1f2a31` with `#ffffff` text); section number in JetBrains Mono.
+- **Section divider**: full-bleed `#f3f6f8` (or `#1c2830` with `#ffffff` text); section number in JetBrains Mono.
 - **Content slide**: title in Public Sans 32–40 pt; body Public Sans 18–24 pt, max six bullets; one accent highlight at most.
-- **Shapes and cards**: fill `#ffffff`, 1 pt `#e3dccb` border, corner radius 12px (about 0.13 in).
-- **Charts**: series in the accent order above; gridlines `#e3dccb`; labels `#5b6870`; no 3-D, no gradients.
-- **Footer**: JetBrains Mono 10 pt in `#5b6870`: Jupiter Admin Kit · title · page number.
+- **Shapes and cards**: fill `#ffffff`, 1 pt `#dbe3e9` border, corner radius 12px (about 0.13 in).
+- **Charts**: series in the accent order above; gridlines `#dbe3e9`; labels `#586873`; no 3-D, no gradients.
+- **Footer**: JetBrains Mono 10 pt in `#586873`: Jupiter Admin Kit · title · page number.
 - When generating .pptx with code (e.g. python-pptx), write these colours and fonts into the theme and master first, then add slides from the master.
 
 ### Documents and PDF reports (Word, Google Docs, PDF)
-- Page `#ffffff`, text `#1f2a31`. H1 Public Sans 28 pt, H2 20 pt, H3 15 pt; body Public Sans 11 pt, line spacing 1.5.
-- Table header row `#ebf3f6`, 1 pt `#e3dccb` rules, numbers right-aligned in JetBrains Mono.
+- Page `#ffffff`, text `#1c2830`. H1 Public Sans 28 pt, H2 20 pt, H3 15 pt; body Public Sans 11 pt, line spacing 1.5.
+- Table header row `#f3f6f8`, 1 pt `#dbe3e9` rules, numbers right-aligned in JetBrains Mono.
 - Callouts: `#ffffff` box with a 3 pt left rule in `#507992`.
 - Cover page: logo, title in Public Sans, date and owner in JetBrains Mono.
 
 ### Email, social and diagrams
 - Email: 600 px column on `#ffffff`; one primary button in `#507992` with `#ffffff` text, 6px corners.
 - Social: square 1080 × 1080 or 1200 × 628; headline in Public Sans; accent used once; logo bottom-left.
-- Diagrams: nodes `#ffffff` with `#e3dccb` borders and 12px corners; connectors `#5b6870`; the one emphasised node in `#507992`.
+- Diagrams: nodes `#ffffff` with `#dbe3e9` borders and 12px corners; connectors `#586873`; the one emphasised node in `#507992`.
 
 
 ## Brand assets
@@ -396,17 +398,19 @@ Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obso
 ### Checks
 | Check | Colours | Ratio | Needs | Result |
 |---|---|---|---|---|
-| ink | `#1f2a31` on `#ffffff` | 14.65:1 | 4.5:1 | Pass |
-| ink | `#1f2a31` on `#ebf3f6` | 13.03:1 | 4.5:1 | Pass |
-| body text | `#36444d` on `#ffffff` | 10.04:1 | 4.5:1 | Pass |
-| body text | `#36444d` on `#ebf3f6` | 8.94:1 | 4.5:1 | Pass |
-| muted text | `#5b6870` on `#ffffff` | 5.74:1 | 4.5:1 | Pass |
-| muted text | `#5b6870` on `#ebf3f6` | 5.11:1 | 4.5:1 | Pass |
-| input border · field border | `#8f8a84` on `#ffffff` | 3.42:1 | 3:1 | Pass |
+| ink | `#1c2830` on `#ffffff` | 15.05:1 | 4.5:1 | Pass |
+| ink | `#1c2830` on `#f3f6f8` | 13.86:1 | 4.5:1 | Pass |
+| body text | `#34434d` on `#ffffff` | 10.21:1 | 4.5:1 | Pass |
+| body text | `#34434d` on `#f3f6f8` | 9.41:1 | 4.5:1 | Pass |
+| muted text | `#586873` on `#ffffff` | 5.77:1 | 4.5:1 | Pass |
+| muted text | `#586873` on `#f3f6f8` | 5.31:1 | 4.5:1 | Pass |
+| input border · field border | `#8796a1` on `#ffffff` | 3.04:1 | 3:1 | Pass |
 | focus ring | `#507992` on `#ffffff` | 4.68:1 | 3:1 | Pass |
-| focus ring | `#507992` on `#ebf3f6` | 4.16:1 | 3:1 | Pass |
+| focus ring | `#507992` on `#f3f6f8` | 4.31:1 | 3:1 | Pass |
 | accent · chart | `#507992` on `#ffffff` | 4.68:1 | 3:1 | Pass |
-| data series 4 · chart | `#c17d6b` on `#ffffff` | 3.27:1 | 3:1 | Pass |
+| data series 2 · chart | `#2f4f63` on `#ffffff` | 8.68:1 | 3:1 | Pass |
+| data series 3 · chart | `#6f8fa5` on `#ffffff` | 3.42:1 | 3:1 | Pass |
+| data series 4 · chart | `#3e6077` on `#ffffff` | 6.68:1 | 3:1 | Pass |
 | success · as an icon | `#1e7a3e` on `#ffffff` | 5.37:1 | 3:1 | Pass |
 | success · as text | `#1e7a3e` on `#ffffff` | 5.37:1 | 4.5:1 | Pass |
 | warning · as an icon | `#8a5a00` on `#ffffff` | 5.93:1 | 3:1 | Pass |
@@ -417,7 +421,7 @@ Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obso
 | Primary button label · hover | `#ffffff` on `#3e6077` | 6.68:1 | 4.5:1 | Pass |
 | Focus ring | `#507992` on `#ffffff` | 4.68:1 | 3:1 | Pass |
 | Name on the accent lockup (large text) | `#ffffff` on `#507992` | 4.68:1 | 3:1 | Pass |
-| Muted text | `#5b6870` on `#ffffff` | 5.74:1 | 4.5:1 | Pass |
+| Muted text | `#586873` on `#ffffff` | 5.77:1 | 4.5:1 | Pass |
 | Control height | 36px | — | ≥ 24px (WCAG 2.5.8); hit area padded to 44px on touch (core) | Pass — Pad the hit area to 44 × 44px on touch screens. |
 | Smallest component text | 12px | — | ≥ 12px | Pass |
 
@@ -512,7 +516,7 @@ A value outside its class is an override: allowed only with a written reason in 
     "depth": "Hairline",
     "contrast": "Standard"
   },
-  "accent-scope": "data series and links",
+  "accent-scope": "data series and links (monotone blue-grey); terracotta complement for one highlight per view",
   "surface": {
     "ground": {
       "$type": "color",
@@ -520,7 +524,7 @@ A value outside its class is an override: allowed only with a written reason in 
     },
     "raised": {
       "$type": "color",
-      "$value": "#ebf3f6"
+      "$value": "#eef3f6"
     },
     "card": {
       "$type": "color",
@@ -528,27 +532,27 @@ A value outside its class is an override: allowed only with a written reason in 
     },
     "muted": {
       "$type": "color",
-      "$value": "#ebf3f6"
+      "$value": "#f3f6f8"
     }
   },
   "ink": {
     "primary": {
       "$type": "color",
-      "$value": "#1f2a31"
+      "$value": "#1c2830"
     },
     "body": {
       "$type": "color",
-      "$value": "#36444d"
+      "$value": "#34434d"
     },
     "muted": {
       "$type": "color",
-      "$value": "#5b6870"
+      "$value": "#586873"
     }
   },
   "line": {
     "default": {
       "$type": "color",
-      "$value": "#e3dccb"
+      "$value": "#dbe3e9"
     },
     "width": {
       "$type": "dimension",

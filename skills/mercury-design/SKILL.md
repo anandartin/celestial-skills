@@ -42,19 +42,19 @@ Sample copy in the brand voice: eyebrow `Agents` · headline "Agents you can wat
   --mercury-page-background: #fbfbfc;   /* page background */
   --mercury-card-surface: #ffffff;   /* card surface */
   --mercury-band-muted-surface: #f1f2f5;   /* band / muted surface */
-  --mercury-border-decorative-hairlines-and-: #dcdfe6;   /* border — decorative hairlines and dividers */
-  --mercury-ink-headings-and-dark-panels: #14161b;   /* ink (headings) and dark panels */
+  --mercury-border: #dcdfe6;   /* border — decorative hairlines and dividers */
+  --mercury-ink: #14161b;   /* ink (headings) and dark panels */
   --mercury-body-text: #33373f;   /* body text */
-  --mercury-muted-text-captions-helper-place: #5c6270;   /* muted text — captions, helper, placeholder */
-  --mercury-input-border-fields-checkboxes-r: #868c99;   /* input border — fields, checkboxes, radios (3:1) */
-  --mercury-primary-button-and-brand-cobalt: #2547d0;   /* primary button and brand cobalt */
+  --mercury-muted-text: #5c6270;   /* muted text — captions, helper, placeholder */
+  --mercury-input-border: #868c99;   /* input border — fields, checkboxes, radios (3:1) */
+  --mercury-primary-button: #2547d0;   /* primary button (brand cobalt) */
   --mercury-primary-button-hover: #1b37a6;   /* primary button hover */
   --mercury-focus-ring: #2547d0;   /* focus ring */
-  --mercury-accent-actions-links-and-agent-s: #2547d0;   /* accent — actions, links and agent states */
-  --mercury-cobalt-tint-selected-rows-and-ru: #e8edfc;   /* cobalt tint — selected rows and running states (fill only) */
-  --mercury-success-text-and-icons: #1d7a4c;   /* success — text and icons */
-  --mercury-warning-text-and-icons: #8a5a00;   /* warning — text and icons */
-  --mercury-error-text-and-icons: #b42318;   /* error — text and icons */
+  --mercury-accent: #2547d0;   /* accent — actions, links and agent states */
+  --mercury-cobalt-tint: #e8edfc;   /* cobalt tint — selected rows and running states (fill only) */
+  --mercury-success: #1d7a4c;   /* success — text and icons */
+  --mercury-warning: #8a5a00;   /* warning — text and icons */
+  --mercury-error: #b42318;   /* error — text and icons */
 
   /* Semantic roles (derived from the palette above) */
   --mercury-bg:        #fbfbfc;
