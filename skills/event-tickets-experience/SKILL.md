@@ -61,7 +61,7 @@ Vocabulary to use: `queue`, `seat map`, `section / row / seat`, `wheelchair spac
 Inputs: Touch, Keyboard, Screen reader
 
 - Queue token tied to account and survives refresh, reconnect and app switch
-- Seat holds expire after a stated time with a visible timer and one extension
+- Seat holds expire after a stated time with a visible timer, a warning at least 20 seconds before expiry, and at least ten extensions
 - Seat map has a list view equivalent for keyboard and screen reader users
 
 ---
@@ -116,7 +116,7 @@ Inputs: Touch, Keyboard, Screen reader
 
 ### 4. Pay
 
-- Timer visible with one extension of at least 2 minutes
+- Timer visible; before it ends people can extend the hold at least ten times, each by at least 2 minutes, with at least 20 seconds to respond (WCAG 2.2.1)
 - Total identical to the seat price shown earlier
 - **error:** Payment declined. Your seats are held for 3 more minutes.
 - **Accessibility:**

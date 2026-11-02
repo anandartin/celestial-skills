@@ -13,7 +13,7 @@ description: "Experience skill: Downloading your data and closing your account �
 
 A customer downloads a copy of their data in a readable format and closes their account, knowing exactly what is deleted, what is kept by law, and how long they have to change their mind.
 
-**Outcome** — At least 95% of export and deletion requests complete within the legal deadline, and 90% of people say they understood what would happen before confirming.
+**Outcome** — Every export and deletion request completes within the legal deadline (target 100%; any request past 80% of the deadline alerts the team), and 90% of people say they understood what would happen before confirming.
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
 

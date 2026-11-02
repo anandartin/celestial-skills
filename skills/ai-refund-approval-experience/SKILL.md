@@ -188,6 +188,10 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Agent and human disagree — record both and the final decision
 - Payment provider down — pause queue, notify, retry
 - Partial refund — show remaining balance before approval
+- Refund execution failed — show 'Refund not completed' with the reason; the approval stays recorded; retry automatically up to three times, then hand to a person
+- Outcome unknown (timeout or no reply) — show 'Checking with the payment provider'; never retry blindly; reconcile by refund ID before any retry
+- Retry pending — visible state with the next attempt time and a way to cancel
+- Human intervention required — assign to the payments queue with the full trail; the customer is told who will reply and by when
 
 ---
 

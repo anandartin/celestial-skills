@@ -192,7 +192,7 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Source record changed during drafting — show “Source updated” and offer to refresh
 - Prompt asks for content against policy — decline briefly and say what the assistant can do
 - Assistant switched off by admin — editor works normally with a short notice
-- Draft contains another customer's data — never possible; retrieval limited to the open account
+- Draft could contain another customer's data — prevented and tested, not assumed: retrieval enforces account and tenant permissions; caches and generated output are isolation-tested; a suspected disclosure blocks the draft, alerts security and escalates to a person
 
 ---
 
