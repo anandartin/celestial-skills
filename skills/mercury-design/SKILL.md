@@ -237,7 +237,7 @@ p{color:var(--ink-2);margin:0}
 When building for Mercury: start from this CSS, keep every surface on these tokens, and let the accent carry the eye.
 
 ## Brand colours
-Two brand colours balance every Mercury output. **Primary** `#2547d0` — the primary action, the logo and the key figure. **Secondary** `#0e7a83` — the second data series and secondary highlights, about one part to four of the primary; use `#0e7a83` where it is text. Never give the two equal weight side by side.
+Two brand colours balance every Mercury output. **Primary** `#2547d0` — the primary action, the logo and the key figure. **Secondary** `#0e7a83` — the secondary button (`#0e7a83` fill, `#ffffff` label), outline buttons (border `#0e7a83`, label `#0e7a83`), secondary badges, the second data series and secondary highlights, about one part to four of the primary; use `#0e7a83` where it is text. Never give the two equal weight side by side.
 
 ## Using Mercury beyond the web
 

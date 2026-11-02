@@ -261,7 +261,7 @@ p{color:var(--ink-2);margin:0}
 When building for Jupiter Admin Kit: start from this CSS, keep every surface on these tokens, and let the accent carry the eye.
 
 ## Brand colours
-Two brand colours balance every Jupiter Admin Kit output. **Primary** `#507992` — the primary action, the logo and the key figure. **Secondary** `#a8562f` — the second data series and secondary highlights, about one part to four of the primary; use `#a8562f` where it is text. Never give the two equal weight side by side.
+Two brand colours balance every Jupiter Admin Kit output. **Primary** `#507992` — the primary action, the logo and the key figure. **Secondary** `#a8562f` — the secondary button (`#a8562f` fill, `#ffffff` label), outline buttons (border `#a8562f`, label `#a8562f`), secondary badges, the second data series and secondary highlights, about one part to four of the primary; use `#a8562f` where it is text. Never give the two equal weight side by side.
 
 ## Using Jupiter Admin Kit beyond the web
 
