@@ -299,7 +299,7 @@ Every Mercury output carries the logo — never just the name typed out. Use the
 Use this mark as-is: don't redraw, recolour (except to one solid colour on dark backgrounds), stretch or add effects.
 
 ```svg
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="11" fill="#2547d0"/><circle cx="16" cy="8" r="3" fill="#ffffff"/></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="12" fill="#2547d0"/></svg>
 ```
 
 ### Fonts

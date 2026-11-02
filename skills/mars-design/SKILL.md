@@ -2,15 +2,15 @@
 name: mars-design
 core: "1.0"
 dials: { density: comfortable, shape: sharp, depth: flat, contrast: quiet }
-accent-scope: stat numbers
+accent-scope: primary action and stat numbers
 icons: phosphor
 overrides: []
-description: "Design-system skill for Mars, an original AI customer-agent brand: IBM Plex Serif 300 headlines on warm paper neutrals, one rust accent for numbers, near-black 4px buttons, numbered mono eyebrows, solid hairlines, Phosphor icons. Use for any Mars-branded UI, page, doc, deck or graphic. Use it for every kind of output, not only web UI: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
+description: "Design-system skill for Mars, an original AI customer-agent brand: IBM Plex Serif 300 headlines on warm paper neutrals, Mars rust for the primary action and the numbers, aubergine ink, 4px buttons, numbered mono eyebrows, solid hairlines, Phosphor icons. Use for any Mars-branded UI, page, doc, deck or graphic. Use it for every kind of output, not only web UI: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
 # Mars — Design System Skill
 
-Mars is an AI customer agent (an original brand — never reference or copy any real company's site or copy). Its site sells a serious product with an **editorial, paper-and-ink** aesthetic: light serif display type, dusty warm surfaces with a faint red-earth cast, warm near-black ink, one rust accent used only to make a number pop, and numbered mono labels that read like field notes. Tokens below are the canonical Mars values.
+Mars is an AI customer agent (an original brand — never reference or copy any real company's site or copy). Its site sells a serious product with an **editorial, paper-and-ink** aesthetic: light serif display type, dusty warm surfaces with a faint red-earth cast, deep aubergine ink, and Mars rust for the one action that matters and the number that proves it, and numbered mono labels that read like field notes. Tokens below are the canonical Mars values.
 
 ---
 
@@ -26,7 +26,7 @@ Mars is an AI customer agent (an original brand — never reference or copy any 
 
 Tone of voice: plain, declarative, first-person plural ("Mars reads the whole thread…", "We score every reply…"). Plain explanations in order ("How Mars works", step by step). No exclamation marks, no hype adjectives. All copy is original — write fresh product copy in this voice rather than reusing lines from any existing website.
 
-**Logo** — a solid rust disc (`#b3471d`, 24–26px) followed by the wordmark **Mars** set in a bold grotesk (Inter 700, −0.03em tracking, optically same height as the disc). Reversed on ink the disc stays rust where it reaches 3:1, otherwise it turns white; on a rust surface the disc turns white. Never outline, stretch or recolour the disc beyond these one-colour versions.
+**Logo** — a solid rust disc (`#c1440e`, 24–26px) followed by the wordmark **Mars** set in a bold grotesk (Inter 700, −0.03em tracking, optically same height as the disc). Reversed on ink the disc stays rust where it reaches 3:1, otherwise it turns white; on a rust surface the disc turns white. Never outline, stretch or recolour the disc beyond these one-colour versions.
 
 ---
 
@@ -35,42 +35,42 @@ Tone of voice: plain, declarative, first-person plural ("Mars reads the whole th
 ```css
 :root {
   /* Ink */
-  --mars-ink:          #1a1412;   /* headings, primary buttons */
-  --mars-ink-90:       #2a211d;   /* secondary borders */
-  --mars-ink-80:       #3a302b;   /* secondary text */
-  --mars-ink-60:       #6b5f58;   /* tertiary text */
-  --mars-ink-50:       #857870;   /* neutral borders */
-  --mars-ink-20:       #cdbfb4;   /* decorative borders / solid hairlines */
-  --mars-ink-10:       #ddd2c7;
-  --mars-ink-5:        #ebe3da;
+  --mars-ink:          #241721;   /* headings, primary buttons */
+  --mars-ink-90:       #451804;   /* secondary borders */
+  --mars-ink-80:       #451804;   /* secondary text */
+  --mars-ink-60:       #735650;   /* tertiary text */
+  --mars-ink-50:       #8d6e67;   /* neutral borders */
+  --mars-ink-20:       #dccac7;   /* decorative borders / solid hairlines */
+  --mars-ink-10:       #e6d6d4;
+  --mars-ink-5:        #f0e4e3;
 
   /* Paper */
   --mars-white:        #ffffff;   /* page body */
-  --mars-dust:         #fbf7f3;   /* page, nav, elevated surfaces (default "paper") */
-  --mars-dune:         #efe6dc;   /* warm section bands */
-  --mars-sand:         #f3ece5;   /* cards, nav highlight */
-  --mars-canvas:       #e9e0d6;   /* darker warm panel */
-  --mars-linen:        #e0d5ca;
-  --mars-clay:         #d6c9bd;   /* muted UI, disabled, logo-wall grey */
-  --mars-beige:        #d3c6ba;
+  --mars-dust:         #fbf7f6;   /* page, nav, elevated surfaces (default "paper") */
+  --mars-dune:         #f0e7e7;   /* warm section bands */
+  --mars-sand:         #f6efee;   /* cards, nav highlight */
+  --mars-canvas:       #ebdcda;   /* darker warm panel */
+  --mars-linen:        #e3d0cd;
+  --mars-clay:         #d9c3bf;   /* muted UI, disabled, logo-wall grey */
+  --mars-beige:        #d6c0bb;
 
   /* Accent — the only saturated colour on a page */
-  --mars-rust:         #b3471d;   /* stat figures, progress bars, 8px marker squares */
-  --mars-rust-15:      rgba(179, 71, 29, 0.15);  /* soft tint behind rust figures */
+  --mars-rust:         #c1440e;   /* stat figures, progress bars, 8px marker squares */
+  --mars-rust-15:      rgba(193, 68, 14, 0.15);  /* soft tint behind rust figures */
 
   /* Interaction */
-  --mars-rust-deep:    #7a2a15;   /* primary-button hover */
-  --mars-focus:        #a0361a;   /* focus ring */
+  --mars-rust-deep:    #9a3409;   /* primary-button hover */
+  --mars-focus:        #c1440e;   /* focus ring */
 
   /* Dark surfaces (rare — video/feature panels) */
-  --mars-basalt:       #241a17;   /* dark media panel */
-  --mars-basalt-deep:  #15100e;
+  --mars-deep wine:       #40152a;   /* dark media panel */
+  --mars-deep wine-deep:  #241721;
 
   /* Semantic */
-  --mars-error:        #b5133b;
+  --mars-error:        #a81b28;
   --mars-positive:     #3a733b;
-  --mars-warning:      #725f22;
-  --mars-negative:     #b5133b;
+  --mars-warning:      #8a4f00;
+  --mars-negative:     #a81b28;
 }
 ```
 
@@ -78,9 +78,9 @@ Tone of voice: plain, declarative, first-person plural ("Mars reads the whole th
 
 - Default page is white or dust; alternate long sections with `dune` / `sand` panels to create rhythm. Never use cool greys.
 - Text is black at reduced **opacity**, not grey hex: primary `#000`, secondary `rgba(0,0,0,.8)`, tertiary `rgba(0,0,0,.6)`, hints `rgba(0,0,0,.4)`.
-- Rust is a highlighter, not a brand fill. Use it on the *number* inside a stat ("<span class=mars>81%</span> resolved without a hand-off"), on a thin 2px progress line, on an 8×8px square bullet — and nowhere else. No rust buttons, no rust backgrounds.
-- Borders and dividers are solid 1px hairlines in `#cdbfb4`; never dashed.
-- Hover on the near-black primary button deepens it to **rust** `#7a2a15` — the one moment of colour in the chrome.
+- Rust is the brand colour, used sparingly: the primary button, the logo, and the number inside a stat. Use it on the *number* inside a stat ("<span class=mars>81%</span> resolved without a hand-off"), on a thin 2px progress line, on an 8×8px square bullet — and nowhere else. No rust backgrounds, and never more than one rust button on a screen.
+- Borders and dividers are solid 1px hairlines in `#dccac7`; never dashed.
+- The primary button is **Mars rust** `#c1440e` with a white label, deepening to `#9a3409` on hover — one per screen.
 
 ---
 
@@ -156,11 +156,11 @@ Everything structural follows **Celestial core v1.0** (*Celestial core foundatio
 
 The Mars landing page structure, in this order (all copy below is original sample copy — vary it freely in the same voice):
 
-1. **Nav, 56px** — the Mars mark + wordmark; links (Platform ⌄, How it works, Customers, Pricing, Docs); right: `Sign in` as a plain link, then a **near-black `Try Mars`** and an **outlined `Book a demo`** button (4px radius).
+1. **Nav, 56px** — the Mars mark + wordmark; links (Platform ⌄, How it works, Customers, Pricing, Docs); right: `Sign in` as a plain link, then a **rust `Try Mars`** and an **outlined `Book a demo`** button (4px radius).
 2. **Hero** — two columns. Left: a light serif H1 at 72–96px (“Support that answers, not deflects.”), one sentence beneath and the two buttons. Right: a sand panel holding one large figure in rust (`81%`) with its mono label. No illustration.
 3. **How Mars works** — four steps in a row on desktop (stacked on mobile), each a mono number (`01 / CONNECT`), a serif H3 and one short paragraph, separated by solid hairlines.
 4. **Proof band** — a full-width dune band with three figures (number in rust, label in body ink) and a customer quote.
-5. **Detail sections** — alternating text and product frames: a **dark media panel** (`#241a17`, mono label, bordered ▶ Play), a use-case list (Support, Sales, Onboarding), a fictional logo row in clay, and security chips.
+5. **Detail sections** — alternating text and product frames: a **dark media panel** (`#40152a`, mono label, bordered ▶ Play), a use-case list (Support, Sales, Onboarding), a fictional logo row in clay, and security chips.
 6. **Closing section** repeats the two CTAs.
 7. **Footer** — sand, five mono-uppercase group labels with plain 14px links, a solid rule, `© 2026 Mars` and a plain status line.
 
@@ -170,25 +170,25 @@ Rhythm: 64px between sections; left-aligned and ragged-right; dust page with san
 
 ## Components
 
-**Primary button** — `bg #1a1412`, `color #fff`, 1px solid #1a1412, radius 4px, height 40px, padding 0 14px, 14–16px sans. Hover: `bg #7a2a15`. Active: `#7a2a15` at 85%. Disabled: 45% opacity.
+**Primary button** — `bg #c1440e`, `color #fff`, 1px solid #c1440e, radius 4px, height 40px, padding 0 14px, 14–16px sans. Hover: `bg #9a3409`. Active: `#9a3409` at 85%. Disabled: 45% opacity.
 
 **Secondary button** — transparent, 1px solid `#111`, text `#111`, same geometry. Hover: border/text `rgba(17,17,17,.75)`. Active bg `rgba(17,17,17,.02)`.
 
 **Text link / nav item** — 16px sans, no underline in nav; hover bg `rgba(0,0,0,.08)` with 6px radius. Arrow links end in `→`.
 
-**Stat callout** — mono eyebrow above, then `<span style="color:#b3471d">81%</span> resolved without a hand-off` in serif callout size; charts beneath use rust bars on `sand` with solid hairline gridlines and mono axis labels.
+**Stat callout** — mono eyebrow above, then `<span style="color:#c1440e">81%</span> resolved without a hand-off` in serif callout size; charts beneath use rust bars on `sand` with solid hairline gridlines and mono axis labels.
 
-**Card / panel** — `sand #f3ece5` or `dune #efe6dc` fill, no shadow, 8–12px radius, 20–24px padding, optional subtle paper-grain texture (very low-opacity noise).
+**Card / panel** — `sand #f6efee` or `dune #f0e7e7` fill, no shadow, 8–12px radius, 20–24px padding, optional subtle paper-grain texture (very low-opacity noise).
 
 **Numbered section header** — `02 / CUSTOMERS` in small mono above a serif H2.
 
 **Eyebrow** — 12px mono uppercase, +0.6px tracking, tertiary ink, numbered with a slash (`01 / SUPPORT`), never bracketed.
 
-**Logo wall** — monochrome logos in `clay #d6c9bd`, evenly spaced, no borders.
+**Logo wall** — monochrome logos in `clay #d9c3bf`, evenly spaced, no borders.
 
 **Accordion / footer** — mono uppercase group labels (`PLATFORM`, `CUSTOMERS`), solid 1px dividers, plus/minus on the right, plain 14px links beneath.
 
-**Dark media panel** — `#241a17` (basalt) background with a bordered "▶ Play" ghost button; keep text white at 60–100% opacity.
+**Dark media panel** — `#40152a` (deep wine) background with a bordered "▶ Play" ghost button; keep text white at 60–100% opacity.
 
 ---
 
@@ -206,7 +206,7 @@ Mars's chrome uses very few glyphs (chevrons, a play triangle, the `↑` submit,
 
 ## Signature patterns
 
-Mars extends core with four patterns, each built from contract tokens only (see *Patterns* below): **Field-note step** (mono number with a slash → display H3 → one short paragraph, steps in a row), **Proof band** (full-width dune band → three figures with the number in accent → one quote), **Stat callout** (mono eyebrow → serif callout with the number in accent → mono footnote) and **Dark media panel** (basalt surface with a bordered ▶ ghost button).
+Mars extends core with four patterns, each built from contract tokens only (see *Patterns* below): **Field-note step** (mono number with a slash → display H3 → one short paragraph, steps in a row), **Proof band** (full-width dune band → three figures with the number in accent → one quote), **Stat callout** (mono eyebrow → serif callout with the number in accent → mono footnote) and **Dark media panel** (deep wine surface with a bordered ▶ ghost button).
 
 ---
 
@@ -216,9 +216,9 @@ Anatomy and states are locked by Celestial core v1.0; this brand supplies only t
 
 | State | Primary button | Secondary / ghost | Field |
 |---|---|---|---|
-| Hover | fill `#7a2a15` | fill one neutral step darker, border to body ink | border to body ink |
+| Hover | fill `#9a3409` | fill one neutral step darker, border to body ink | border to body ink |
 | Active | one further step + 1px nudge | one further neutral step | — |
-| Focus-visible | 2px `#a0361a` ring, 2px offset (6.5:1 on the page) — never removed | same ring | border + 3px soft ring in the focus colour |
+| Focus-visible | 2px `#c1440e` ring, 2px offset (6.5:1 on the page) — never removed | same ring | border + 3px soft ring in the focus colour |
 | Disabled | 45% opacity, `aria-disabled="true"`, no pointer events | same | muted fill, legible text |
 | Loading | spinner + label kept, `aria-busy="true"` | same | — |
 | Error / success | — | — | status border + icon + written message (never colour alone) |
@@ -231,14 +231,14 @@ Labels stay at 4.5:1 or better on every fill, focus rings at 3:1 or better again
 
 **Do** — Lead with one big light serif line; let whitespace do the work; put every key metric in rust; number mono labels with a slash; alternate dust and dune sections; keep corners near-square on controls; write original copy in the Mars voice.
 
-**Don't** — Use bold or uppercase headlines; add gradients, glows, or drop shadows; use rust as a button or background; add any other hue; use dashed rules or bracketed labels; use cool greys or pure `#f5f5f5`; over-round buttons (>6px); use more than one accent colour per screen; reuse headlines, taglines or customer names from any real company's website.
+**Don't** — Use bold or uppercase headlines; add gradients, glows, or drop shadows; use rust as a background or on more than one button per screen; add any other hue; use dashed rules or bracketed labels; use cool greys or pure `#f5f5f5`; over-round buttons (>6px); use more than one accent colour per screen; reuse headlines, taglines or customer names from any real company's website.
 
 ---
 
 ## Quick-start CSS
 
 ```css
-:root{--ink:#1a1412;--paper:#fbf7f3;--dune:#efe6dc;--sand:#f3ece5;--rust:#b3471d;--hover:#7a2a15;
+:root{--ink:#241721;--paper:#fbf7f6;--dune:#f0e7e7;--sand:#f6efee;--rust:#c1440e;--hover:#9a3409;
 --serif:"IBM Plex Serif","Newsreader",Georgia,serif;
 --sans:"Inter","Hanken Grotesk",system-ui,sans-serif;
 --mono:"Geist Mono","JetBrains Mono",ui-monospace,monospace;}
@@ -247,10 +247,10 @@ h1,h2,h3{font-family:var(--serif);font-weight:300;line-height:1;margin:0}
 h1{font-size:clamp(48px,8vw,100px);letter-spacing:-.04em;line-height:.9}
 h2{font-size:clamp(40px,6vw,80px);letter-spacing:-.03em}
 .eyebrow{font:400 12px/1 var(--mono);letter-spacing:.6px;text-transform:uppercase;color:rgba(0,0,0,.6)}
-.btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:4px;font:400 14px/1.1 var(--sans);border:1px solid var(--ink);background:var(--ink);color:#fff;text-decoration:none;transition:background .15s}
+.btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:4px;font:400 14px/1.1 var(--sans);border:1px solid var(--rust);background:var(--rust);color:#fff;text-decoration:none;transition:background .15s}
 .btn:hover{background:var(--hover);border-color:var(--hover)}
 .btn.secondary{background:transparent;color:var(--ink);border-color:var(--ink)}
-.rule{border:0;border-top:1px solid #cdbfb4;margin:0}
+.rule{border:0;border-top:1px solid #dccac7;margin:0}
 .stat{font-family:var(--serif);font-weight:300;font-size:28px;letter-spacing:-1px}
 .stat b{font-weight:300;color:var(--rust)}
 .panel{background:var(--sand);border-radius:12px;padding:24px}
@@ -269,16 +269,16 @@ Mars applies to every output. When asked for a deck, a document, a report, an em
 ### Colour roles
 | Role | Value | Use |
 |---|---|---|
-| Background | `#fbf7f3` | Slide and page background |
-| Surface | `#f3ece5` | Cards, panels, table rows |
-| Band | `#efe6dc` | Section bands, divider slides, table headers |
-| Ink | `#1a1412` | Headlines and body text |
-| Ink 2 | `#3a302b` | Secondary text |
-| Muted | `#6b5f58` | Captions, footers, axis labels |
-| Line | `#8c7b70` | Rules, borders, chart gridlines |
-| Accent | `#b3471d` | One highlight per slide or page (stat numbers) |
+| Background | `#fbf7f6` | Slide and page background |
+| Surface | `#f6efee` | Cards, panels, table rows |
+| Band | `#f0e7e7` | Section bands, divider slides, table headers |
+| Ink | `#241721` | Headlines and body text |
+| Ink 2 | `#451804` | Secondary text |
+| Muted | `#735650` | Captions, footers, axis labels |
+| Line | `#a07e76` | Rules, borders, chart gridlines |
+| Accent | `#c1440e` | One highlight per slide or page (primary action and stat numbers) |
 | On accent | `#ffffff` | Text on the accent |
-| Success / warning / error | `#3a733b / #725f22 / #b5133b` | Status only, never decoration |
+| Success / warning / error | `#3a733b / #8a4f00 / #a81b28` | Status only, never decoration |
 
 ### Type
 - Headlines: **IBM Plex Serif**, weight 300, tracking -.01em.
@@ -286,7 +286,7 @@ Mars applies to every output. When asked for a deck, a document, a report, an em
 - If a face isn't installed, use the closest system font of the same style and say so — never silently swap to a default.
 
 ### Logo on every output
-Every Mars output carries the logo — never just the name typed out. Use the SVG under **Brand assets** (or a PNG exported from it at 4×); keep the mark's own colour only where it reaches 3:1 against the background; otherwise use the one-colour version — `#ffffff` on ink or dark photos, `#ffffff` on the accent, `#1a1412` for monochrome. Never place the mark on a background of its own colour. Keep clear space equal to the mark's height and never stretch, outline or recolour it otherwise.
+Every Mars output carries the logo — never just the name typed out. Use the SVG under **Brand assets** (or a PNG exported from it at 4×); keep the mark's own colour only where it reaches 3:1 against the background; otherwise use the one-colour version — `#ffffff` on ink or dark photos, `#ffffff` on the accent, `#241721` for monochrome. Never place the mark on a background of its own colour. Keep clear space equal to the mark's height and never stretch, outline or recolour it otherwise.
 | Output | Where the logo goes |
 |---|---|
 | Web and app UI | Top-left of the header on every page and screen; again in the footer; the mark as favicon and app icon |
@@ -299,25 +299,25 @@ Every Mars output carries the logo — never just the name typed out. Use the SV
 
 ### Presentations (PowerPoint, Keynote, Google Slides)
 - 16:9, 13.333 × 7.5 in (1920 × 1080). Margins 0.6 in; a 12-column grid.
-- **Theme** (set it on the master so every slide inherits it): dark 1 = `#1a1412`, light 1 = `#fbf7f3`, dark 2 = `#3a302b`, light 2 = `#efe6dc`, accent 1–6 = `#b3471d`, `#7d3519`, `#d3967d`, `#3a302b`, `#6b5f58`, `#e9cbbe`; heading font = IBM Plex Serif, body font = Inter.
-- **Title slide**: background `#fbf7f3`; headline in IBM Plex Serif 54–64 pt, ink; one-line subtitle in Inter 20 pt, muted; the logo at the top left with clear space equal to its own height.
-- **Section divider**: full-bleed `#efe6dc` (or `#1a1412` with `#ffffff` text); section number in Geist Mono.
+- **Theme** (set it on the master so every slide inherits it): dark 1 = `#241721`, light 1 = `#fbf7f6`, dark 2 = `#451804`, light 2 = `#f0e7e7`, accent 1–6 = `#c1440e`, `#8a3415`, `#db9576`, `#451804`, `#735650`, `#edcabc`; heading font = IBM Plex Serif, body font = Inter.
+- **Title slide**: background `#fbf7f6`; headline in IBM Plex Serif 54–64 pt, ink; one-line subtitle in Inter 20 pt, muted; the logo at the top left with clear space equal to its own height.
+- **Section divider**: full-bleed `#f0e7e7` (or `#241721` with `#ffffff` text); section number in Geist Mono.
 - **Content slide**: title in IBM Plex Serif 32–40 pt; body Inter 18–24 pt, max six bullets; one accent highlight at most.
-- **Shapes and cards**: fill `#f3ece5`, 1 pt `#8c7b70` border, corner radius 12px (about 0.13 in).
-- **Charts**: series in the accent order above; gridlines `#8c7b70`; labels `#6b5f58`; no 3-D, no gradients.
-- **Footer**: Geist Mono 10 pt in `#6b5f58`: Mars · title · page number.
+- **Shapes and cards**: fill `#f6efee`, 1 pt `#a07e76` border, corner radius 12px (about 0.13 in).
+- **Charts**: series in the accent order above; gridlines `#a07e76`; labels `#735650`; no 3-D, no gradients.
+- **Footer**: Geist Mono 10 pt in `#735650`: Mars · title · page number.
 - When generating .pptx with code (e.g. python-pptx), write these colours and fonts into the theme and master first, then add slides from the master.
 
 ### Documents and PDF reports (Word, Google Docs, PDF)
-- Page `#fbf7f3`, text `#1a1412`. H1 IBM Plex Serif 28 pt, H2 20 pt, H3 15 pt; body Inter 11 pt, line spacing 1.5.
-- Table header row `#efe6dc`, 1 pt `#8c7b70` rules, numbers right-aligned in Geist Mono.
-- Callouts: `#f3ece5` box with a 3 pt left rule in `#b3471d`.
+- Page `#fbf7f6`, text `#241721`. H1 IBM Plex Serif 28 pt, H2 20 pt, H3 15 pt; body Inter 11 pt, line spacing 1.5.
+- Table header row `#f0e7e7`, 1 pt `#a07e76` rules, numbers right-aligned in Geist Mono.
+- Callouts: `#f6efee` box with a 3 pt left rule in `#c1440e`.
 - Cover page: logo, title in IBM Plex Serif, date and owner in Geist Mono.
 
 ### Email, social and diagrams
-- Email: 600 px column on `#fbf7f3`; one primary button in `#1a1412` with `#ffffff` text, 4px corners.
+- Email: 600 px column on `#fbf7f6`; one primary button in `#c1440e` with `#ffffff` text, 4px corners.
 - Social: square 1080 × 1080 or 1200 × 628; headline in IBM Plex Serif; accent used once; logo bottom-left.
-- Diagrams: nodes `#f3ece5` with `#8c7b70` borders and 12px corners; connectors `#6b5f58`; the one emphasised node in `#b3471d`.
+- Diagrams: nodes `#f6efee` with `#a07e76` borders and 12px corners; connectors `#735650`; the one emphasised node in `#c1440e`.
 
 
 ## Brand assets
@@ -325,7 +325,7 @@ Every Mars output carries the logo — never just the name typed out. Use the SV
 Use this mark as-is: don't redraw, recolour (except to one solid colour on dark backgrounds), stretch or add effects.
 
 ```svg
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="12" fill="#b3471d"/></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="12" fill="#c1440e"/></svg>
 ```
 
 ### Fonts
@@ -374,7 +374,7 @@ Compositions of core components for recurring jobs. Each uses only contract toke
 - **Field-note step** — Explain how something works one step at a time Anatomy: Mono number with a slash (01 / CONNECT) → display H3 → one short paragraph; steps sit in a row, divided by solid hairlines. Tokens: font-mono, font-display, ink-body, line.
 - **Proof band** — Put the evidence in one place Anatomy: Full-width dune band → three figures with the number in accent and a mono label → one customer quote. Tokens: surface-band, accent, font-display, font-mono.
 - **Stat callout** — Make one number the whole point Anatomy: Mono eyebrow → serif callout with the number in accent → solid rule → mono footnote. Tokens: accent, font-display, font-mono, line.
-- **Dark media panel** — Hold video or a product clip inside the dust system Anatomy: Basalt surface, mono label, bordered ▶ ghost button. Tokens: surface-night (brand extension), ink-inverse.
+- **Dark media panel** — Hold video or a product clip inside the dust system Anatomy: Deep wine surface, mono label, bordered ▶ ghost button. Tokens: surface-night (brand extension), ink-inverse.
 
 
 ## Accessibility (core v1.0, WCAG 2.2 AA)
@@ -401,30 +401,30 @@ Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obso
 ### Checks
 | Check | Colours | Ratio | Needs | Result |
 |---|---|---|---|---|
-| ink / headings / primary button | `#1a1412` on `#fbf7f3` | 17.09:1 | 4.5:1 | Pass |
-| ink / headings / primary button | `#1a1412` on `#f3ece5` | 15.56:1 | 4.5:1 | Pass |
-| ink / headings / primary button | `#1a1412` on `#efe6dc` | 14.77:1 | 4.5:1 | Pass |
-| tertiary text | `#6b5f58` on `#fbf7f3` | 5.79:1 | 4.5:1 | Pass |
-| tertiary text | `#6b5f58` on `#f3ece5` | 5.27:1 | 4.5:1 | Pass |
-| tertiary text | `#6b5f58` on `#efe6dc` | 5.00:1 | 4.5:1 | Pass |
-| focus ring | `#a0361a` on `#fbf7f3` | 6.49:1 | 3:1 | Pass |
-| focus ring | `#a0361a` on `#f3ece5` | 5.91:1 | 3:1 | Pass |
-| focus ring | `#a0361a` on `#efe6dc` | 5.60:1 | 3:1 | Pass |
-| input border · field border | `#8c7b70` on `#fbf7f3` | 3.80:1 | 3:1 | Pass |
-| body text | `#3a302b` on `#fbf7f3` | 12.03:1 | 4.5:1 | Pass |
-| body text | `#3a302b` on `#f3ece5` | 10.96:1 | 4.5:1 | Pass |
-| body text | `#3a302b` on `#efe6dc` | 10.39:1 | 4.5:1 | Pass |
-| error · as an icon | `#b5133b` on `#fbf7f3` | 6.31:1 | 3:1 | Pass |
-| error · as text | `#b5133b` on `#fbf7f3` | 6.31:1 | 4.5:1 | Pass |
-| warning · as an icon | `#725f22` on `#fbf7f3` | 5.84:1 | 3:1 | Pass |
-| warning · as text | `#725f22` on `#fbf7f3` | 5.84:1 | 4.5:1 | Pass |
-| success · as an icon | `#3a733b` on `#fbf7f3` | 5.33:1 | 3:1 | Pass |
-| success · as text | `#3a733b` on `#fbf7f3` | 5.33:1 | 4.5:1 | Pass |
-| Primary button label | `#ffffff` on `#1a1412` | 18.22:1 | 4.5:1 | Pass |
-| Primary button label · hover | `#ffffff` on `#7a2a15` | 9.68:1 | 4.5:1 | Pass |
-| Focus ring | `#a0361a` on `#fbf7f3` | 6.49:1 | 3:1 | Pass |
-| Name on the accent lockup (large text) | `#ffffff` on `#b3471d` | 5.47:1 | 3:1 | Pass |
-| Muted text | `#6b5f58` on `#fbf7f3` | 5.79:1 | 4.5:1 | Pass |
+| ink / headings | `#241721` on `#fbf7f6` | 16.18:1 | 4.5:1 | Pass |
+| ink / headings | `#241721` on `#f6efee` | 15.17:1 | 4.5:1 | Pass |
+| ink / headings | `#241721` on `#f0e7e7` | 14.18:1 | 4.5:1 | Pass |
+| tertiary text | `#735650` on `#fbf7f6` | 6.21:1 | 4.5:1 | Pass |
+| tertiary text | `#735650` on `#f6efee` | 5.83:1 | 4.5:1 | Pass |
+| tertiary text | `#735650` on `#f0e7e7` | 5.44:1 | 4.5:1 | Pass |
+| focus ring | `#c1440e` on `#fbf7f6` | 4.81:1 | 3:1 | Pass |
+| focus ring | `#c1440e` on `#f6efee` | 4.51:1 | 3:1 | Pass |
+| focus ring | `#c1440e` on `#f0e7e7` | 4.22:1 | 3:1 | Pass |
+| input border · field border | `#a07e76` on `#fbf7f6` | 3.44:1 | 3:1 | Pass |
+| body text | `#451804` on `#fbf7f6` | 14.25:1 | 4.5:1 | Pass |
+| body text | `#451804` on `#f6efee` | 13.35:1 | 4.5:1 | Pass |
+| body text | `#451804` on `#f0e7e7` | 12.48:1 | 4.5:1 | Pass |
+| error · as an icon | `#a81b28` on `#fbf7f6` | 6.92:1 | 3:1 | Pass |
+| error · as text | `#a81b28` on `#fbf7f6` | 6.92:1 | 4.5:1 | Pass |
+| warning · as an icon | `#8a4f00` on `#fbf7f6` | 6.17:1 | 3:1 | Pass |
+| warning · as text | `#8a4f00` on `#fbf7f6` | 6.17:1 | 4.5:1 | Pass |
+| success · as an icon | `#3a733b` on `#fbf7f6` | 5.34:1 | 3:1 | Pass |
+| success · as text | `#3a733b` on `#fbf7f6` | 5.34:1 | 4.5:1 | Pass |
+| Primary button label | `#ffffff` on `#c1440e` | 5.12:1 | 4.5:1 | Pass |
+| Primary button label · hover | `#ffffff` on `#9a3409` | 7.32:1 | 4.5:1 | Pass |
+| Focus ring | `#c1440e` on `#fbf7f6` | 4.81:1 | 3:1 | Pass |
+| Name on the accent lockup (large text) | `#ffffff` on `#c1440e` | 5.12:1 | 3:1 | Pass |
+| Muted text | `#735650` on `#fbf7f6` | 6.21:1 | 4.5:1 | Pass |
 | Control height | 40px | — | ≥ 24px (WCAG 2.5.8); hit area padded to 44px on touch (core) | Pass — Pad the hit area to 44 × 44px on touch screens. |
 
 
@@ -518,43 +518,43 @@ A value outside its class is an override: allowed only with a written reason in 
     "depth": "Flat",
     "contrast": "Quiet"
   },
-  "accent-scope": "stat numbers",
+  "accent-scope": "primary action and stat numbers",
   "surface": {
     "ground": {
       "$type": "color",
-      "$value": "#fbf7f3"
+      "$value": "#fbf7f6"
     },
     "raised": {
       "$type": "color",
-      "$value": "#f3ece5"
+      "$value": "#f6efee"
     },
     "card": {
       "$type": "color",
-      "$value": "#f3ece5"
+      "$value": "#f6efee"
     },
     "muted": {
       "$type": "color",
-      "$value": "#efe6dc"
+      "$value": "#f0e7e7"
     }
   },
   "ink": {
     "primary": {
       "$type": "color",
-      "$value": "#1a1412"
+      "$value": "#241721"
     },
     "body": {
       "$type": "color",
-      "$value": "#3a302b"
+      "$value": "#451804"
     },
     "muted": {
       "$type": "color",
-      "$value": "#6b5f58"
+      "$value": "#735650"
     }
   },
   "line": {
     "default": {
       "$type": "color",
-      "$value": "#8c7b70"
+      "$value": "#a07e76"
     },
     "width": {
       "$type": "dimension",
@@ -567,20 +567,20 @@ A value outside its class is an override: allowed only with a written reason in 
   },
   "accent": {
     "$type": "color",
-    "$value": "#b3471d"
+    "$value": "#c1440e"
   },
   "action": {
     "primary-bg": {
       "$type": "color",
-      "$value": "#1a1412"
+      "$value": "#c1440e"
     },
     "primary-hover": {
       "$type": "color",
-      "$value": "#7a2a15"
+      "$value": "#9a3409"
     },
     "focus-ring": {
       "$type": "color",
-      "$value": "#a0361a"
+      "$value": "#c1440e"
     }
   },
   "status": {
@@ -590,11 +590,11 @@ A value outside its class is an override: allowed only with a written reason in 
     },
     "warning": {
       "$type": "color",
-      "$value": "#725f22"
+      "$value": "#8a4f00"
     },
     "error": {
       "$type": "color",
-      "$value": "#b5133b"
+      "$value": "#a81b28"
     }
   },
   "font": {

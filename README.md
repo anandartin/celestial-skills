@@ -64,8 +64,8 @@ How a brand looks.
 
 | Skill | What it covers |
 |---|---|
-| [Jupiter Admin Kit](skills/jupiter-design/) | An admin kit of 36 ready templates across eight areas — operations, billing, CRM, inventory, support, analytics, team and account — in one calm shell: Public Sans at 14px, slate hairlines, 6px corners, a deep-teal primary button and one teal scale for data. |
-| [Mars](skills/mars-design/) | Editorial serif headlines on dusty red-earth neutrals, warm near-black ink, one rust accent reserved for numbers, and numbered mono labels. |
+| [Jupiter Admin Kit](skills/jupiter-design/) | An admin kit of 36 ready templates across eight areas — operations, billing, CRM, inventory, support, analytics, team and account — in one calm shell: Public Sans at 14px, warm cream hairlines, 6px corners, a blue-grey primary button and one banded colour scale for data. |
+| [Mars](skills/mars-design/) | Editorial serif headlines on dusty Mars-red neutrals, deep aubergine ink, Mars rust for the primary action and the numbers, and numbered mono labels. |
 | [Mercury](skills/mercury-design/) | A bright workspace for AI agents: Manrope at weight 500–700, graphite ink on cool white, soft-shadow cards with 16px corners, and one cobalt for actions and agent states. |
 
 ## Experience skills (54)
