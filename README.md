@@ -65,7 +65,7 @@ How a brand looks.
 | Skill | What it covers |
 |---|---|
 | [Jupiter](skills/jupiter-design/) | A calm operations console: Public Sans at 14px, white work areas on a cool off-white sidebar, slate hairlines, 6px corners, a deep-teal primary button and one teal scale for data. |
-| [Mars](skills/mars-design/) | Editorial serif headlines on warm paper neutrals, near-black ink, one hot-orange accent reserved for numbers, and mono eyebrow labels in square brackets. |
+| [Mars](skills/mars-design/) | Editorial serif headlines on dusty red-earth neutrals, warm near-black ink, one rust accent reserved for numbers, and numbered mono labels. |
 | [Mercury](skills/mercury-design/) | A bright workspace for AI agents: Manrope at weight 500–700, graphite ink on cool white, soft-shadow cards with 16px corners, and one cobalt for actions and agent states. |
 
 ## Experience skills (54)
