@@ -265,6 +265,9 @@ section.dune{background:var(--dune)}
 
 When building for Mars: start from this CSS, keep the page 95% ink-on-dust, and let one rust number carry the eye.
 
+## Brand colours
+Two brand colours balance every Mars output. **Primary** `#c1440e` — the primary action, the logo and the key figure. **Secondary** `#741630` — the second data series and secondary highlights, about one part to four of the primary; use `#741630` where it is text. Never give the two equal weight side by side.
+
 ## Using Mars beyond the web
 
 Mars applies to every output. When asked for a deck, a document, a report, an email, a social post or a chart "for Mars" or "in Mars's style", build it from the tokens below — never from a default template or theme.
@@ -278,9 +281,10 @@ Mars applies to every output. When asked for a deck, a document, a report, an em
 | Ink | `#241721` | Headlines and body text |
 | Ink 2 | `#451804` | Secondary text |
 | Muted | `#735650` | Captions, footers, axis labels |
-| Line | `#a07e76` | Rules, borders, chart gridlines |
+| Line | `#dccac7` | Rules, borders, chart gridlines |
 | Accent | `#c1440e` | One highlight per slide or page (primary rust for the action and stat numbers; secondary wine for the second series and highlights) |
 | On accent | `#ffffff` | Text on the accent |
+| Secondary | `#741630` | Second brand colour: the second data series and secondary highlights, about one part to four of the primary |
 | Success / warning / error | `#3a733b / #8a4f00 / #a81b28` | Status only, never decoration |
 
 ### Type
@@ -306,21 +310,21 @@ Every Mars output carries the logo — never just the name typed out. Use the SV
 - **Title slide**: background `#fbf7f6`; headline in IBM Plex Serif 54–64 pt, ink; one-line subtitle in Inter 20 pt, muted; the logo at the top left with clear space equal to its own height.
 - **Section divider**: full-bleed `#f0e7e7` (or `#241721` with `#ffffff` text); section number in Geist Mono.
 - **Content slide**: title in IBM Plex Serif 32–40 pt; body Inter 18–24 pt, max six bullets; one accent highlight at most.
-- **Shapes and cards**: fill `#f6efee`, 1 pt `#a07e76` border, corner radius 12px (about 0.13 in).
-- **Charts**: series in the accent order above; gridlines `#a07e76`; labels `#735650`; no 3-D, no gradients.
+- **Shapes and cards**: fill `#f6efee`, 1 pt `#dccac7` border, corner radius 12px (about 0.13 in).
+- **Charts**: series in the accent order above; gridlines `#dccac7`; labels `#735650`; no 3-D, no gradients.
 - **Footer**: Geist Mono 10 pt in `#735650`: Mars · title · page number.
 - When generating .pptx with code (e.g. python-pptx), write these colours and fonts into the theme and master first, then add slides from the master.
 
 ### Documents and PDF reports (Word, Google Docs, PDF)
 - Page `#fbf7f6`, text `#241721`. H1 IBM Plex Serif 28 pt, H2 20 pt, H3 15 pt; body Inter 11 pt, line spacing 1.5.
-- Table header row `#f0e7e7`, 1 pt `#a07e76` rules, numbers right-aligned in Geist Mono.
+- Table header row `#f0e7e7`, 1 pt `#dccac7` rules, numbers right-aligned in Geist Mono.
 - Callouts: `#f6efee` box with a 3 pt left rule in `#c1440e`.
 - Cover page: logo, title in IBM Plex Serif, date and owner in Geist Mono.
 
 ### Email, social and diagrams
 - Email: 600 px column on `#fbf7f6`; one primary button in `#c1440e` with `#ffffff` text, 4px corners.
 - Social: square 1080 × 1080 or 1200 × 628; headline in IBM Plex Serif; accent used once; logo bottom-left.
-- Diagrams: nodes `#f6efee` with `#a07e76` borders and 12px corners; connectors `#735650`; the one emphasised node in `#c1440e`.
+- Diagrams: nodes `#f6efee` with `#dccac7` borders and 12px corners; connectors `#735650`; the one emphasised node in `#c1440e`.
 
 
 ## Brand assets
@@ -557,7 +561,7 @@ A value outside its class is an override: allowed only with a written reason in 
   "line": {
     "default": {
       "$type": "color",
-      "$value": "#a07e76"
+      "$value": "#dccac7"
     },
     "width": {
       "$type": "dimension",

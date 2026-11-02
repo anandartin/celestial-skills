@@ -236,6 +236,9 @@ p{color:var(--ink-2);margin:0}
 
 When building for Mercury: start from this CSS, keep every surface on these tokens, and let the accent carry the eye.
 
+## Brand colours
+Two brand colours balance every Mercury output. **Primary** `#2547d0` — the primary action, the logo and the key figure. **Secondary** `#0e7a83` — the second data series and secondary highlights, about one part to four of the primary; use `#0e7a83` where it is text. Never give the two equal weight side by side.
+
 ## Using Mercury beyond the web
 
 Mercury applies to every output. When asked for a deck, a document, a report, an email, a social post or a chart "for Mercury" or "in Mercury's style", build it from the tokens below — never from a default template or theme.
@@ -252,6 +255,7 @@ Mercury applies to every output. When asked for a deck, a document, a report, an
 | Line | `#dcdfe6` | Rules, borders, chart gridlines |
 | Accent | `#2547d0` | One highlight per slide or page (actions, links and agent states) |
 | On accent | `#ffffff` | Text on the accent |
+| Secondary | `#0e7a83` | Second brand colour: the second data series and secondary highlights, about one part to four of the primary |
 | Success / warning / error | `#1d7a4c / #8a5a00 / #b42318` | Status only, never decoration |
 
 ### Type

@@ -260,6 +260,9 @@ p{color:var(--ink-2);margin:0}
 
 When building for Jupiter Admin Kit: start from this CSS, keep every surface on these tokens, and let the accent carry the eye.
 
+## Brand colours
+Two brand colours balance every Jupiter Admin Kit output. **Primary** `#507992` — the primary action, the logo and the key figure. **Secondary** `#a8562f` — the second data series and secondary highlights, about one part to four of the primary; use `#a8562f` where it is text. Never give the two equal weight side by side.
+
 ## Using Jupiter Admin Kit beyond the web
 
 Jupiter Admin Kit applies to every output. When asked for a deck, a document, a report, an email, a social post or a chart "for Jupiter Admin Kit" or "in Jupiter Admin Kit's style", build it from the tokens below — never from a default template or theme.
@@ -276,6 +279,7 @@ Jupiter Admin Kit applies to every output. When asked for a deck, a document, a 
 | Line | `#dbe3e9` | Rules, borders, chart gridlines |
 | Accent | `#507992` | One highlight per slide or page (primary blue-grey for actions, links and data; secondary terracotta for the second series and highlights) |
 | On accent | `#ffffff` | Text on the accent |
+| Secondary | `#a8562f` | Second brand colour: the second data series and secondary highlights, about one part to four of the primary |
 | Success / warning / error | `#1e7a3e / #8a5a00 / #b42318` | Status only, never decoration |
 
 ### Type
