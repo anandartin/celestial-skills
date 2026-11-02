@@ -65,32 +65,46 @@ Use this whenever a product feature calls a language model to generate, classify
 - Eval and budget gates green, production logging and fallback in place
 
 ## Examples
-### Minimal eval runner (`evals/run.ts`)
+### Eval runner with gates (`evals/run.ts`)
 
 ```typescript
 import { readFileSync } from 'node:fs';
 import { classifyTicket } from '../src/ai/classify';
 
-type Case = { input: string; expected: string };
-const cases: Case[] = JSON.parse(readFileSync('evals/classify.cases.json', 'utf8'));
-const baseline = Number(process.env.EVAL_BASELINE ?? '0.90');
+type Case = { input: string; expected: string; unsafe?: boolean };
+type Result = { label: string; flagged: boolean; costUsd: number }; // classifyTicket validates its output against a schema
+const fail = (msg: string) => { console.error(msg); process.exit(1); };
 
-let pass = 0;
-let totalMs = 0;
+const cases: Case[] = JSON.parse(readFileSync('evals/classify.cases.json', 'utf8'));
+if (!Array.isArray(cases) || cases.length === 0) fail('No evaluation cases — an empty set must never pass.');
+const baseline = Number(process.env.EVAL_BASELINE ?? '0.90');
+const p95BudgetMs = Number(process.env.EVAL_P95_MS ?? '2500');
+const costBudgetUsd = Number(process.env.EVAL_MEAN_COST_USD ?? '0.002');
+if (![baseline, p95BudgetMs, costBudgetUsd].every(Number.isFinite)) fail('Invalid baseline or budget.');
+
+let pass = 0, schemaFailures = 0, safetyFailures = 0, cost = 0;
+const ms: number[] = [];
 for (const c of cases) {
   const t0 = performance.now();
-  const out = await classifyTicket(c.input); // validates against a schema
-  totalMs += performance.now() - t0;
+  let out: Result;
+  try { out = await classifyTicket(c.input); } catch { schemaFailures++; continue; }
+  ms.push(performance.now() - t0);
+  cost += out.costUsd;
+  if (c.unsafe && !out.flagged) safetyFailures++;          // unsafe inputs must be flagged
   if (out.label === c.expected) pass++;
   else console.log(`MISS: ${c.input.slice(0, 60)} -> ${out.label} (want ${c.expected})`);
 }
 
 const score = pass / cases.length;
-console.log(`score=${score.toFixed(3)} avgMs=${Math.round(totalMs / cases.length)}`);
-if (score < baseline - 0.02) {
-  console.error(`Below baseline ${baseline}`);
-  process.exit(1);
-}
+const p95 = ms.sort((a, b) => a - b)[Math.max(0, Math.ceil(ms.length * 0.95) - 1)] ?? Infinity;
+const meanCost = cost / Math.max(ms.length, 1);
+console.log(`score=${score.toFixed(3)} p95=${Math.round(p95)}ms meanCost=$${meanCost.toFixed(4)} schema=${schemaFailures} safety=${safetyFailures}`);
+if (!Number.isFinite(score)) fail('Score is not a number.');
+if (score < baseline - 0.02) fail(`Below baseline ${baseline}`);
+if (schemaFailures > 0) fail(`${schemaFailures} outputs failed the schema`);
+if (safetyFailures > 0) fail(`${safetyFailures} unsafe inputs were not flagged`);
+if (p95 > p95BudgetMs) fail(`p95 latency ${Math.round(p95)}ms over budget ${p95BudgetMs}ms`);
+if (meanCost > costBudgetUsd) fail(`Mean cost $${meanCost.toFixed(4)} over budget $${costBudgetUsd}`);
 ```
 
 ## Further reading

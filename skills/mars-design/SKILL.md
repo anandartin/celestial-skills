@@ -181,7 +181,7 @@ Rhythm: 64px between sections; left-aligned and ragged-right; dust page with san
 
 **Stat callout** — mono eyebrow above, then `<span style="color:#c1440e">81%</span> resolved without a hand-off` in serif callout size; charts beneath use rust bars on `sand` with solid hairline gridlines and mono axis labels.
 
-**Card / panel** — `sand #f6efee` or `dune #f0e7e7` fill, no shadow, 8–12px radius, 20–24px padding, optional subtle paper-grain texture (very low-opacity noise).
+**Card / panel** — `sand #f6efee` or `dune #f0e7e7` fill, no shadow, 12px radius, 20–24px padding, optional subtle paper-grain texture (very low-opacity noise).
 
 **Numbered section header** — `02 / CUSTOMERS` in small mono above a serif H2.
 

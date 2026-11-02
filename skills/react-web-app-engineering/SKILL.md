@@ -161,11 +161,18 @@ export const Button = forwardRef<HTMLButtonElement, Props>(({ variant = 'primary
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
+// a signed-in returning shopper with a saved test card (created by tests/e2e/auth.setup.ts; payments run in test mode)
+test.use({ storageState: 'tests/e2e/.auth/returning-shopper.json' });
+
 test('returning shopper pays in under a minute', async ({ page }) => {
+  const started = Date.now();
   await page.goto('/product/sample');
   await page.getByRole('button', { name: 'Add to bag' }).click();
   await page.getByRole('link', { name: 'Checkout' }).click();
   await expect(page.getByRole('heading', { name: 'Review and pay' })).toBeVisible();
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.getByRole('button', { name: /^Pay / }).click();
+  await expect(page.getByRole('heading', { name: 'Order confirmed' })).toBeVisible();
+  expect(Date.now() - started).toBeLessThan(60_000);
 });
 ```

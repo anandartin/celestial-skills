@@ -14,14 +14,14 @@ Cloud infrastructure declared in Terraform, changed only through reviewed plans,
 For teams that manage networks, databases, queues, DNS and permissions as code across several environments. Changes are planned on every pull request and applied from CI after merge, never from a laptop.
 
 ## Stack
-- **Language:** HCL Terraform 1.9+ — Declarative, diffable and readable in review.
-- **Framework:** Terraform (or the compatible OpenTofu CLI) 1.9+ — Plan-then-apply makes every change visible before it happens.
+- **Language:** HCL Terraform 1.10+ — Declarative, diffable and readable in review.
+- **Framework:** Terraform (or the compatible OpenTofu CLI) 1.10+ — Plan-then-apply makes every change visible before it happens.
 - **State:** Remote state backend with locking, one state per environment and component — Small states plan fast and limit the blast radius of a mistake.
 - **Data:** Pinned cloud providers provider major pinned with ~> — Provider upgrades become deliberate pull requests.
-- **Build:** terraform plan saved to a file 1.9+ — The applied plan is exactly the one that was reviewed.
+- **Build:** terraform plan saved to a file 1.10+ — The applied plan is exactly the one that was reviewed.
 - **Hosting:** CI runner with short-lived cloud credentials via OIDC — No long-lived keys stored anywhere.
 - **Package manager:** Terraform registry + .terraform.lock.hcl committed — Provider checksums are pinned per platform.
-- **Testing:** terraform test 1.9+ — Native tests run plans against modules with mocked or real providers.
+- **Testing:** terraform test 1.10+ — Native tests run plans against modules with mocked or real providers.
 - **Testing:** TFLint ^0.53 — Catches invalid instance types, unused variables and provider-specific mistakes.
 - **Testing:** Checkov or Trivy config scan — Flags public buckets, open security groups and unencrypted storage.
 
@@ -151,7 +151,7 @@ The Accessibility gate checks Celestial accessibility core v1.0 (WCAG 2.2 AA); i
 
 ```hcl
 terraform {
-  required_version = ">= 1.9, < 2.0"
+  required_version = ">= 1.10, < 2.0"
 
   required_providers {
     aws = {

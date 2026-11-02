@@ -48,6 +48,7 @@ Sample copy in the brand voice: eyebrow `Agents` · headline "Agents you can wat
   --mercury-muted-text: #5c6270;   /* muted text — captions, helper, placeholder */
   --mercury-input-border: #868c99;   /* input border — fields, checkboxes, radios (3:1) */
   --mercury-primary-button: #2547d0;   /* primary button (brand cobalt) */
+  --mercury-secondary-brand-colour: #0e7a83;   /* secondary brand colour (teal) — second data series, secondary highlights and agent tags */
   --mercury-primary-button-hover: #1b37a6;   /* primary button hover */
   --mercury-focus-ring: #2547d0;   /* focus ring */
   --mercury-accent: #2547d0;   /* accent — actions, links and agent states */
@@ -66,6 +67,7 @@ Sample copy in the brand voice: eyebrow `Agents` · headline "Agents you can wat
   --mercury-line:      #dcdfe6;
   --mercury-accent:    #2547d0;
   --mercury-on-accent: #ffffff;
+  --mercury-secondary: #0e7a83;
   --mercury-button:    #2547d0;
   --mercury-on-button: #ffffff;
   --mercury-ok:        #1d7a4c;
@@ -78,7 +80,7 @@ Sample copy in the brand voice: eyebrow `Agents` · headline "Agents you can wat
 
 - Page is `#fbfbfc`; cards and panels sit on `#ffffff`; use `#f1f2f5` for alternating bands and wells. Never drift the neutrals warmer or cooler than these.
 - Text is `#14161b` for headings, `#33373f` for body and `#5c6270` for captions and placeholders. Hairlines are `#dcdfe6`.
-- The accent `#2547d0` is the primary action fill. One accent per screen.
+- The primary brand colour `#2547d0` fills the primary action; it appears only in these roles: actions, links and agent states. One primary action per screen; the secondary `#0e7a83` balances it.
 - Status colours (`#1d7a4c` success, `#8a5a00` warning, `#b42318` danger) mean state, never decoration.
 - Layered: white cards sit on a cool-white page with a soft two-layer shadow (0 1px 2px and 0 8px 24px at 6%). Bands step to #f1f2f5. Dark panels use the graphite ink.
 
@@ -159,9 +161,9 @@ Layout family: **product-led — hero, product frame, section cards**.
 
 **Primary button** — bg `#2547d0`, text `#ffffff`, height 40px, padding 0 16px, radius 8px, 14px Manrope 500; hover `#1b37a6`; focus-visible 2px `#2547d0` ring; disabled at 45% opacity.
 
-**States** (core anatomy, brand values) — hover `#1b37a6` (label 9.8:1), active `#1b359a` + 1px nudge, focus-visible 2px `#2547d0` ring offset 2px (7.0:1 on the page, never removed), disabled at 45% opacity with `aria-disabled`, loading keeps the label with `aria-busy`. Secondary and ghost hover to `#ededef`. Fields: hover border `#33373f`, focus border + 3px soft ring in the focus colour, error `#b42318` border plus icon and written fix, success `#1d7a4c`, disabled on `#f1f2f5`. Transitions 120ms; none under prefers-reduced-motion; 44px touch targets on mobile.
+**States** (core anatomy, brand values) — hover `#1b37a6` (label 9.8:1), active `#183092` + 1px nudge, focus-visible 2px `#2547d0` ring offset 2px (7.0:1 on the page, never removed), disabled at 45% opacity with `aria-disabled`, loading keeps the label with `aria-busy`. Secondary (`#0e7a83`) hovers to `#0c6971` and presses to `#0b5d64`; outline hovers to `#e6e9f8` and presses to `#d4dbf4` with its border in `#2547d0`; dark hovers to `#434549`; ghost hovers to `#ededef` and presses to `#e4e4e6`. Focus, disabled and loading are the same for every type. Fields: hover border `#33373f`, focus border + 3px soft ring in the focus colour, error `#b42318` border plus icon and written fix, success `#1d7a4c`, disabled on `#f1f2f5`. Transitions 120ms; none under prefers-reduced-motion; 44px touch targets on mobile.
 
-**Secondary button** — transparent, 1px `#868c99` border, text `#14161b`, same geometry; hover bg `#f1f2f5`. **Ghost** — no border, hover bg `#f1f2f5`.
+**Secondary button** — bg `#0e7a83`, text `#ffffff`, same geometry. **Outline** — transparent, 1px `#2547d0` border, text `#0e7a83`; hover bg `#f1f2f5`. **Ghost** — no border, hover bg `#f1f2f5`.
 
 **Input** — height 40px, bg `#ffffff`, 1px `#868c99`, radius 8px, placeholder `#5c6270`; focus border `#2547d0` + 3px soft ring; error border `#b42318`; helper text 12px `#5c6270` below, never in a tooltip.
 
@@ -171,13 +173,13 @@ Layout family: **product-led — hero, product frame, section cards**.
 
 **Chip / badge** — 28px chip and 24px badge, radius 8px, soft tint of the semantic colour with its text colour; a dot before the label for live states.
 
-**Card** — bg `#ffffff`, 1px `#dcdfe6`, radius 16px, padding 20–24px, shadow `none`; a heading, body copy, and at most one action.
+**Card** — bg `#ffffff`, 1px `#dcdfe6`, radius 16px, padding 20px, shadow `0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06)`; a heading, body copy, and at most one action.
 
 **Table** — header row 12px uppercase mono in `#5c6270`, rows separated by `#dcdfe6`, numerals tabular, status as badges, row actions in a trailing ⋯ menu.
 
 **Alert** — 1px border and soft tint of its semantic colour, 18px icon, bold first sentence, dismiss × at the end; lives in the flow, unlike a toast (dark `#14161b` pill, bottom-centre, one undo action).
 
-**Modal / drawer** — `#ffffff`, radius 16px, overlay shadow, 22px padding; destructive confirm uses a `#b42318` filled button; both close on Escape or a click outside.
+**Modal / drawer** — `#ffffff`, radius 16px, overlay shadow, 24px padding; destructive confirm uses a `#b42318` filled button; both close on Escape or a click outside.
 
 **Navigation** — breadcrumbs with chevron separators and the current page in `#14161b`; tabs with a 2px `#2547d0` underline; pagination as 30px square buttons with the current page filled `#14161b`.
 
@@ -209,9 +211,9 @@ AI agent workspaces, automation products, run logs and the marketing pages that 
 
 ## Do / Don't
 
-**Do** — keep to one accent per screen; set headings in Manrope at weight 700 with -.02em tracking; use 8px controls and 16px panels everywhere; separate surfaces with tone and hairlines; let status colours mean state.
+**Do** — keep the primary for the one main action and the secondary for balance; set headings in Manrope at weight 700 with -.02em tracking; use 8px controls and 16px panels everywhere; separate surfaces with tone and hairlines; let status colours mean state.
 
-**Don't** — introduce a second accent or a second display face; mix corner radii; add drop shadows or glows; use colour for decoration; centre what the layout family sets left (or vice versa).
+**Don't** — introduce a third brand colour or a second display face; mix corner radii; stack heavy shadows; use colour for decoration; centre what the layout family sets left (or vice versa).
 
 ---
 
@@ -227,14 +229,14 @@ p{color:var(--ink-2);margin:0}
 .eyebrow{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:var(--r);background:var(--button);color:var(--on-button);font:500 14px/1 var(--body);border:1px solid transparent;text-decoration:none;cursor:pointer}
 .btn.secondary{background:transparent;color:var(--ink);border-color:var(--line-strong)}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--rc);padding:22px;box-shadow:none}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--rc);padding:20px;box-shadow:0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06)}
 .input{height:40px;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface);padding:0 12px;font:inherit;color:var(--ink)}
 .input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px #dde2f6}
 .badge{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:var(--r);font-size:12px;font-weight:500;background:#dde2f6;color:#2547d0}
 .logo{display:inline-flex;align-items:center;gap:8px;font:700 19px/1 var(--display)}
 ```
 
-When building for Mercury: start from this CSS, keep every surface on these tokens, and let the accent carry the eye.
+When building for Mercury: start from this CSS, keep every surface on these tokens, and let the primary carry the eye, with the secondary for balance.
 
 ## Brand colours
 Two brand colours balance every Mercury output. **Primary** `#2547d0` — the primary action, outline buttons (border `#2547d0`, label `#2547d0`), the logo and the key figure. **Secondary** `#0e7a83` — the secondary button (`#0e7a83` fill, `#ffffff` label), secondary badges, the second data series and secondary highlights, about one part to four of the primary; use `#0e7a83` where it is text. Never give the two equal weight side by side.

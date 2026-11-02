@@ -4,11 +4,11 @@ globs:
 alwaysApply: true
 ---
 
-- **Language:** Rust 1.80+ (2021 or 2024 edition) — Ownership rules catch data races and use-after-free at compile time.
+- **Language:** Rust 1.85+ (2024 edition; 1.80+ only with the 2021 edition) — Ownership rules catch data races and use-after-free at compile time.
 - **Framework:** Axum on Tokio axum ^0.8 · tokio ^1 — Handlers are plain async functions; middleware comes from the Tower ecosystem.
 - **State:** Shared AppState via Arc and the State extractor — Pools and clients are created once and cloned cheaply into handlers.
 - **Data:** PostgreSQL with SQLx sqlx ^0.8 — Async queries checked against the schema at compile time.
-- **Build:** Cargo 1.80+ — Builds, tests and lints; release profile with LTO for production.
+- **Build:** Cargo 1.85+ — Builds, tests and lints; release profile with LTO for production.
 - **Hosting:** Container platform with a distroless image — Small image, fast start, preview per pull request.
 - **Package manager:** Cargo Cargo.lock committed — Reproducible builds for a binary crate.
 - **Testing:** cargo test + tokio::test built in — Unit and async tests in the same crate.

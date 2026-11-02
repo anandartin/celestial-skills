@@ -83,7 +83,7 @@ Sample copy in the brand voice: eyebrow `Operations` · headline "Every admin sc
 
 - Page is `#ffffff`; cards and panels sit on `#ffffff`; use `#f3f6f8` for alternating bands and wells. Never drift the neutrals warmer or cooler than these.
 - Text is `#1c2830` for headings, `#34434d` for body and `#586873` for captions and placeholders. Hairlines are `#dbe3e9`.
-- The accent `#507992` is the primary action fill. One accent per screen.
+- The primary brand colour `#507992` fills the primary action; it appears only in these roles: primary blue-grey for actions, links and data; secondary terracotta for the second series and highlights. One primary action per screen; the secondary `#a8562f` balances it.
 - Status colours (`#1e7a3e` success, `#8a5a00` warning, `#b42318` danger) mean state, never decoration.
 - Flat work areas. Cards are white with a 1px #dbe3e9 border; the sidebar sits one blue-grey step (#eef3f6). Menus, popovers and the detail sheet take a soft 0 6px 20px shadow at 8%.
 
@@ -176,13 +176,13 @@ Layout family: **product-led — hero, product frame, section cards**.
 
 **Chip / badge** — 28px chip and 24px badge, radius 6px, soft tint of the semantic colour with its text colour; a dot before the label for live states.
 
-**Card** — bg `#ffffff`, 1px `#dbe3e9`, radius 12px, padding 20–24px, shadow `none`; a heading, body copy, and at most one action.
+**Card** — bg `#ffffff`, 1px `#dbe3e9`, radius 12px, padding 16px, shadow `none`; a heading, body copy, and at most one action.
 
 **Table** — header row 12px uppercase mono in `#586873`, rows separated by `#dbe3e9`, numerals tabular, status as badges, row actions in a trailing ⋯ menu.
 
 **Alert** — 1px border and soft tint of its semantic colour, 18px icon, bold first sentence, dismiss × at the end; lives in the flow, unlike a toast (dark `#1c2830` pill, bottom-centre, one undo action).
 
-**Modal / drawer** — `#ffffff`, radius 12px, overlay shadow, 22px padding; destructive confirm uses a `#b42318` filled button; both close on Escape or a click outside.
+**Modal / drawer** — `#ffffff`, radius 12px, overlay shadow, 24px padding; destructive confirm uses a `#b42318` filled button; both close on Escape or a click outside.
 
 **Navigation** — breadcrumbs with chevron separators and the current page in `#1c2830`; tabs with a 2px `#507992` underline; pagination as 30px square buttons with the current page filled `#1c2830`.
 
@@ -235,7 +235,7 @@ Admin consoles, internal tools and back offices that need many ready screens —
 
 **Do** — keep the primary for the one main action and the secondary for balance; set headings in Public Sans at weight 600 with -.02em tracking; use 6px controls and 12px panels everywhere; separate surfaces with tone and hairlines; let status colours mean state.
 
-**Don't** — introduce a second accent or a second display face; mix corner radii; add drop shadows or glows; use colour for decoration; centre what the layout family sets left (or vice versa).
+**Don't** — introduce a third brand colour or a second display face; mix corner radii; add drop shadows or glows; use colour for decoration; centre what the layout family sets left (or vice versa).
 
 ---
 
@@ -251,7 +251,7 @@ p{color:var(--ink-2);margin:0}
 .eyebrow{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:var(--r);background:var(--button);color:var(--on-button);font:500 14px/1 var(--body);border:1px solid transparent;text-decoration:none;cursor:pointer}
 .btn.secondary{background:transparent;color:var(--ink);border-color:var(--line-strong)}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--rc);padding:22px;box-shadow:none}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--rc);padding:16px;box-shadow:none}
 .input{height:40px;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface);padding:0 12px;font:inherit;color:var(--ink)}
 .input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px #e7ecf0}
 .badge{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:var(--r);font-size:12px;font-weight:500;background:#e7ecf0;color:#486d83}
