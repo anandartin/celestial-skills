@@ -1,4 +1,8 @@
 {
-  "exclude": ["dclo7q70", "nova-design"],
-  "note": "Skill ids left out of the public repo: dclo7q70 is the Carbon-based design skill, nova-design is Nova. Remove an id to publish that skill."
+  "exclude": [
+    "dclo7q70",
+    "nova-design",
+    "hai"
+  ],
+  "note": "Skill ids left out of the public repo: dclo7q70 is the Carbon-based design skill, nova-design is Nova, hai is the HAI experience practice skill (the owner's framework, kept on the site only). Remove an id to publish that skill."
 }
