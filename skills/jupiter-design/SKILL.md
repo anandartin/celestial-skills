@@ -166,7 +166,7 @@ Layout family: **product-led — hero, product frame, section cards**.
 
 **States** (core anatomy, brand values) — hover `#3e6077` (label 6.7:1), active `#3b5a6c` + 1px nudge, focus-visible 2px `#507992` ring offset 2px (4.7:1 on the page, never removed), disabled at 45% opacity with `aria-disabled`, loading keeps the label with `aria-busy`. Secondary and ghost hover to `#f1f2f3`. Fields: hover border `#34434d`, focus border + 3px soft ring in the focus colour, error `#b42318` border plus icon and written fix, success `#1e7a3e`, disabled on `#f3f6f8`. Transitions 120ms; none under prefers-reduced-motion; 44px touch targets on mobile.
 
-**Secondary button** — transparent, 1px `#8796a1` border, text `#1c2830`, same geometry; hover bg `#f3f6f8`. **Ghost** — no border, hover bg `#f3f6f8`.
+**Secondary button** — bg `#a8562f`, text `#ffffff`, same geometry; hover 8% darker. **Outline** — transparent, 1px `#a8562f` border, text `#a8562f`; hover bg `#f3f6f8`. **Ghost** — no border, hover bg `#f3f6f8`.
 
 **Input** — height 36px, bg `#ffffff`, 1px `#8796a1`, radius 6px, placeholder `#586873`; focus border `#507992` + 3px soft ring; error border `#b42318`; helper text 12px `#586873` below, never in a tooltip.
 
