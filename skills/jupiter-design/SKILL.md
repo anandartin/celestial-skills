@@ -263,7 +263,7 @@ When building for Jupiter Admin Kit: start from this CSS, keep every surface on 
 ## Brand colours
 Two brand colours balance every Jupiter Admin Kit output. **Primary** `#507992` — the primary action, the logo and the key figure. **Secondary** `#a8562f` — the secondary button (`#a8562f` fill, `#ffffff` label) and outline buttons (border `#a8562f`, label `#974d2a`), secondary badges, the second data series and secondary highlights, about one part to four of the primary; use `#a8562f` where it is text. Never give the two equal weight side by side.
 
-**Button states** — every type has the same six states, each from its own colour: primary `#507992` → hover `#3e6077` → active `#3b5a6c`; secondary `#a8562f` → `#904a28` → `#804124`; outline fill → `#f6eeea` → `#efe1da`; ghost → `#f1f2f3` → `#e8eaea`. Focus-visible is a 2px `#507992` ring offset 2px on every type; disabled is 45% opacity with `aria-disabled`; loading keeps the label with `aria-busy`. Labels stay at 4.5:1 in every state.
+**Button states** — every type has the same six states, each from its own colour: primary `#507992` → hover `#3e6077` → active `#375469`; secondary `#a8562f` → `#904a28` → `#804124`; outline fill → `#f6eeea` → `#efe1da`; ghost → `#f1f2f3` → `#e8eaea`. Focus-visible is a 2px `#507992` ring offset 2px on every type; disabled is 45% opacity with `aria-disabled`; loading keeps the label with `aria-busy`. Labels stay at 4.5:1 in every state.
 
 ## Using Jupiter Admin Kit beyond the web
 

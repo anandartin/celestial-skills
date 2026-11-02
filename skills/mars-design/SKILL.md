@@ -268,7 +268,7 @@ When building for Mars: start from this CSS, keep the page 95% ink-on-dust, and 
 ## Brand colours
 Two brand colours balance every Mars output. **Primary** `#c1440e` — the primary action, the logo and the key figure. **Secondary** `#741630` — the secondary button (`#741630` fill, `#ffffff` label) and outline buttons (border `#741630`, label `#741630`), secondary badges, the second data series and secondary highlights, about one part to four of the primary; use `#741630` where it is text. Never give the two equal weight side by side.
 
-**Button states** — every type has the same six states, each from its own colour: primary `#c1440e` → hover `#9a3409` → active `#8f320a`; secondary `#741630` → `#641329` → `#581124`; outline fill → `#eee1e2` → `#e3cfd2`; ghost → `#eeeae9` → `#e6e1e1`. Focus-visible is a 2px `#c1440e` ring offset 2px on every type; disabled is 45% opacity with `aria-disabled`; loading keeps the label with `aria-busy`. Labels stay at 4.5:1 in every state.
+**Button states** — every type has the same six states, each from its own colour: primary `#c1440e` → hover `#9a3409` → active `#882e08`; secondary `#741630` → `#641329` → `#581124`; outline fill → `#eee1e2` → `#e3cfd2`; ghost → `#eeeae9` → `#e6e1e1`. Focus-visible is a 2px `#c1440e` ring offset 2px on every type; disabled is 45% opacity with `aria-disabled`; loading keeps the label with `aria-busy`. Labels stay at 4.5:1 in every state.
 
 ## Using Mars beyond the web
 
