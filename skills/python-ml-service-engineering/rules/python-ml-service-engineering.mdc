@@ -1,7 +1,7 @@
 ---
 description: Python ML service — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.py
+alwaysApply: false
 ---
 
 - **Language:** Python 3.12+ — The ecosystem for training, evaluation and serving lives here.

@@ -1,7 +1,7 @@
 ---
 description: Rails app with Hotwire — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.{rb,erb}
+alwaysApply: false
 ---
 
 - **Language:** Ruby 3.3+ — YJIT on by default; fast enough for most web workloads.

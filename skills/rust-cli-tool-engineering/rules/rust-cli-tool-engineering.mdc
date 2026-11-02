@@ -1,7 +1,7 @@
 ---
 description: Rust CLI tool — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.rs
+alwaysApply: false
 ---
 
 - **Language:** Rust 1.82+ (edition 2021) — Memory safety without a runtime, so the binary starts fast and has no install dependencies.

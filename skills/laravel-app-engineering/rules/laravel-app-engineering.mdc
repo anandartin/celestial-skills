@@ -1,7 +1,7 @@
 ---
 description: Laravel app — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.php
+alwaysApply: false
 ---
 
 - **Language:** PHP 8.3+ — Typed properties, enums and readonly classes keep domain code explicit.

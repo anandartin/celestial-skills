@@ -1,7 +1,7 @@
 ---
 description: Expo React Native app — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.{ts,tsx,js,jsx,mjs,cjs}
+alwaysApply: false
 ---
 
 - **Language:** TypeScript ^5.6 — Typed props, routes and API responses across both platforms.

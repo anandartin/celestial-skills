@@ -1,7 +1,7 @@
 ---
 description: Django web app — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.py
+alwaysApply: false
 ---
 
 - **Language:** Python 3.12+ — Type hints checked in CI; modern syntax and speed improvements.

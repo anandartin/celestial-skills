@@ -1,7 +1,7 @@
 ---
 description: Next.js full-stack app — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.{ts,tsx,js,jsx,mjs,cjs}
+alwaysApply: false
 ---
 
 - **Language:** TypeScript ^5.6 — One type system across server components, server actions and client components.

@@ -1,7 +1,7 @@
 ---
 description: Rust Axum service — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.rs
+alwaysApply: false
 ---
 
 - **Language:** Rust 1.85+ (2024 edition; 1.80+ only with the 2021 edition) — Ownership rules catch data races and use-after-free at compile time.

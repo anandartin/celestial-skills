@@ -1,7 +1,7 @@
 ---
 description: GraphQL API server — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.{ts,tsx,js,jsx,mjs,cjs}
+alwaysApply: false
 ---
 
 - **Language:** TypeScript on Node.js TypeScript ^5.6 · Node 22 LTS+ — Schema, resolvers and database types share one type system.

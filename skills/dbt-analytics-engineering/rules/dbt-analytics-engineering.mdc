@@ -1,7 +1,7 @@
 ---
 description: dbt analytics project — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.sql
+alwaysApply: false
 ---
 
 - **Language:** SQL + Jinja warehouse dialect — Analysts already read SQL; Jinja removes repetition without hiding the query.

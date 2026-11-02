@@ -1,7 +1,7 @@
 ---
 description: Terraform infrastructure — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.{tf,tfvars,hcl}
+alwaysApply: false
 ---
 
 - **Language:** HCL Terraform 1.10+ — Declarative, diffable and readable in review.

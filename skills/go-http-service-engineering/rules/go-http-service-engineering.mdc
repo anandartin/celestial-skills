@@ -1,7 +1,7 @@
 ---
 description: Go HTTP service — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.go
+alwaysApply: false
 ---
 
 - **Language:** Go 1.23+ — Simple language, fast compile, built-in race detector and profiler.

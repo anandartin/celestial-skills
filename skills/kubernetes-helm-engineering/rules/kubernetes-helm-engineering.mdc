@@ -1,7 +1,7 @@
 ---
 description: Kubernetes with Helm — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.go,**/*.{yaml,yml,tpl}
+alwaysApply: false
 ---
 
 - **Language:** YAML + Go templates Kubernetes 1.30+ — Kubernetes manifests with templating for per-environment values.

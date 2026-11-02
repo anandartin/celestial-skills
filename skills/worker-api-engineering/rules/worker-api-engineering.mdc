@@ -1,7 +1,7 @@
 ---
 description: Edge Worker API — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.{ts,tsx,js,jsx,mjs,cjs}
+alwaysApply: false
 ---
 
 - **Language:** JavaScript (ES modules) or TypeScript — Runs natively in the Workers runtime.

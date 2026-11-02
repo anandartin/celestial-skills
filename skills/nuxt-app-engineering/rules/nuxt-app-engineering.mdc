@@ -1,7 +1,7 @@
 ---
 description: Nuxt web app — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.{ts,tsx,js,jsx,mjs,cjs}
+alwaysApply: false
 ---
 
 - **Language:** TypeScript ^5.6 — Auto-generated types cover pages, server routes and runtime config.

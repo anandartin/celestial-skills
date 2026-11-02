@@ -532,7 +532,7 @@ A value outside its class is an override: allowed only with a written reason in 
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "$name": "Mars",
-  "core": "{core.version 1.0}",
+  "core": "1.0",
   "dials": {
     "density": "Comfortable",
     "shape": "Sharp",
@@ -576,6 +576,10 @@ A value outside its class is an override: allowed only with a written reason in 
     "default": {
       "$type": "color",
       "$value": "#dccac7"
+    },
+    "input": {
+      "$type": "color",
+      "$value": "#a07e76"
     },
     "width": {
       "$type": "dimension",
@@ -681,17 +685,40 @@ A value outside its class is an override: allowed only with a written reason in 
   "control": {
     "height": {
       "$type": "dimension",
-      "$value": "{core.control.40}"
+      "$value": "40px",
+      "$extensions": {
+        "celestial": {
+          "core-step": "control.40"
+        }
+      }
     },
     "radius": {
       "$type": "dimension",
-      "$value": "{core.radius.4}"
+      "$value": "4px",
+      "$extensions": {
+        "celestial": {
+          "core-step": "radius.4"
+        }
+      }
     }
   },
   "card": {
     "radius": {
       "$type": "dimension",
-      "$value": "{core.radius.12}"
+      "$value": "12px",
+      "$extensions": {
+        "celestial": {
+          "core-step": "radius.12"
+        }
+      }
+    },
+    "padding": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "shadow": {
+      "$type": "shadow",
+      "$value": "none"
     }
   },
   "elevation": {

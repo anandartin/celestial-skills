@@ -1,7 +1,7 @@
 ---
 description: Flutter app — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.dart
+alwaysApply: false
 ---
 
 - **Language:** Dart ^3.9 — Sound null safety, records and pattern matching keep state handling explicit.

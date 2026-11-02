@@ -526,7 +526,7 @@ A value outside its class is an override: allowed only with a written reason in 
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "$name": "Jupiter Admin Kit",
-  "core": "{core.version 1.0}",
+  "core": "1.0",
   "dials": {
     "density": "Compact",
     "shape": "Soft",
@@ -570,6 +570,10 @@ A value outside its class is an override: allowed only with a written reason in 
     "default": {
       "$type": "color",
       "$value": "#dbe3e9"
+    },
+    "input": {
+      "$type": "color",
+      "$value": "#8796a1"
     },
     "width": {
       "$type": "dimension",
@@ -675,17 +679,40 @@ A value outside its class is an override: allowed only with a written reason in 
   "control": {
     "height": {
       "$type": "dimension",
-      "$value": "{core.control.36}"
+      "$value": "36px",
+      "$extensions": {
+        "celestial": {
+          "core-step": "control.36"
+        }
+      }
     },
     "radius": {
       "$type": "dimension",
-      "$value": "{core.radius.6}"
+      "$value": "6px",
+      "$extensions": {
+        "celestial": {
+          "core-step": "radius.6"
+        }
+      }
     }
   },
   "card": {
     "radius": {
       "$type": "dimension",
-      "$value": "{core.radius.12}"
+      "$value": "12px",
+      "$extensions": {
+        "celestial": {
+          "core-step": "radius.12"
+        }
+      }
+    },
+    "padding": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "shadow": {
+      "$type": "shadow",
+      "$value": "none"
     }
   },
   "elevation": {

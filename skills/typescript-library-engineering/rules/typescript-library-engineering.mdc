@@ -1,7 +1,7 @@
 ---
 description: TypeScript npm library — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.{ts,tsx,js,jsx,mjs,cjs}
+alwaysApply: false
 ---
 
 - **Language:** TypeScript (strict, isolatedDeclarations) ^7 (or ^5.9 where tooling has not moved yet) — Explicit return types on exports make declarations fast to emit and the API easy to review.

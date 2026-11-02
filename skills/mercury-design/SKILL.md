@@ -508,7 +508,7 @@ A value outside its class is an override: allowed only with a written reason in 
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "$name": "Mercury",
-  "core": "{core.version 1.0}",
+  "core": "1.0",
   "dials": {
     "density": "Default",
     "shape": "Soft",
@@ -552,6 +552,10 @@ A value outside its class is an override: allowed only with a written reason in 
     "default": {
       "$type": "color",
       "$value": "#dcdfe6"
+    },
+    "input": {
+      "$type": "color",
+      "$value": "#868c99"
     },
     "width": {
       "$type": "dimension",
@@ -657,17 +661,40 @@ A value outside its class is an override: allowed only with a written reason in 
   "control": {
     "height": {
       "$type": "dimension",
-      "$value": "{core.control.40}"
+      "$value": "40px",
+      "$extensions": {
+        "celestial": {
+          "core-step": "control.40"
+        }
+      }
     },
     "radius": {
       "$type": "dimension",
-      "$value": "{core.radius.8}"
+      "$value": "8px",
+      "$extensions": {
+        "celestial": {
+          "core-step": "radius.8"
+        }
+      }
     }
   },
   "card": {
     "radius": {
       "$type": "dimension",
-      "$value": "{core.radius.16}"
+      "$value": "16px",
+      "$extensions": {
+        "celestial": {
+          "core-step": "radius.16"
+        }
+      }
+    },
+    "padding": {
+      "$type": "dimension",
+      "$value": "20px"
+    },
+    "shadow": {
+      "$type": "shadow",
+      "$value": "0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06)"
     }
   },
   "elevation": {

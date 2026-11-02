@@ -1,7 +1,7 @@
 ---
 description: Browser extension (Manifest V3) — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.{ts,tsx,js,jsx,mjs,cjs}
+alwaysApply: false
 ---
 
 - **Language:** TypeScript ^5.6 — Typed messages between the service worker, content scripts and UI pages.

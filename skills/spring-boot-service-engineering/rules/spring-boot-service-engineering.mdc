@@ -1,7 +1,7 @@
 ---
 description: Spring Boot service — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.java
+alwaysApply: false
 ---
 
 - **Language:** Java 21+ (LTS) — Records, sealed types, pattern matching and virtual threads.

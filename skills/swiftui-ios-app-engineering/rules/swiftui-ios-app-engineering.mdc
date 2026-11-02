@@ -1,7 +1,7 @@
 ---
 description: SwiftUI iOS app — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.swift
+alwaysApply: false
 ---
 
 - **Language:** Swift 6 — Strict concurrency checking catches data races at compile time.

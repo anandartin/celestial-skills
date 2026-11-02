@@ -1,7 +1,7 @@
 ---
 description: ASP.NET Core Web API — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.cs
+alwaysApply: false
 ---
 
 - **Language:** C# 13+ — Nullable reference types and records make contracts explicit.

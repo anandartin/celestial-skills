@@ -1,7 +1,7 @@
 ---
 description: FastAPI service — stack conventions and quality gates
-globs:
-alwaysApply: true
+globs: **/*.py
+alwaysApply: false
 ---
 
 - **Language:** Python 3.12+ — Type hints drive validation and are checked in CI.
