@@ -164,9 +164,9 @@ Layout family: **product-led — hero, product frame, section cards**.
 
 **Primary button** — bg `#507992`, text `#ffffff`, height 36px, padding 0 16px, radius 6px, 14px Public Sans 500; hover `#3e6077`; focus-visible 2px `#507992` ring; disabled at 45% opacity.
 
-**States** (core anatomy, brand values) — hover `#3e6077` (label 6.7:1), active `#375469` + 1px nudge, focus-visible 2px `#507992` ring offset 2px (4.7:1 on the page, never removed), disabled at 45% opacity with `aria-disabled`, loading keeps the label with `aria-busy`. Secondary (`#a8562f`) hovers to `#904a28` and presses to `#804124`; outline hovers to `#f6eeea` and presses to `#efe1da` with its border in `#974d2a`; dark hovers to `#495359`; ghost hovers to `#f1f2f3` and presses to `#e8eaea`. Focus, disabled and loading are the same for every type. Fields: hover border `#34434d`, focus border + 3px soft ring in the focus colour, error `#b42318` border plus icon and written fix, success `#1e7a3e`, disabled on `#f3f6f8`. Transitions 120ms; none under prefers-reduced-motion; 44px touch targets on mobile.
+**States** (core anatomy, brand values) — hover `#3e6077` (label 6.7:1), active `#375469` + 1px nudge, focus-visible 2px `#507992` ring offset 2px (4.7:1 on the page, never removed), disabled at 45% opacity with `aria-disabled`, loading keeps the label with `aria-busy`. Secondary (`#a8562f`) hovers to `#904a28` and presses to `#804124`; outline hovers to `#eef2f4` and presses to `#e0e7eb` with its border in `#44677c`; dark hovers to `#495359`; ghost hovers to `#f1f2f3` and presses to `#e8eaea`. Focus, disabled and loading are the same for every type. Fields: hover border `#34434d`, focus border + 3px soft ring in the focus colour, error `#b42318` border plus icon and written fix, success `#1e7a3e`, disabled on `#f3f6f8`. Transitions 120ms; none under prefers-reduced-motion; 44px touch targets on mobile.
 
-**Secondary button** — bg `#a8562f`, text `#ffffff`, same geometry. **Outline** — transparent, 1px `#a8562f` border, text `#a8562f`; hover bg `#f3f6f8`. **Ghost** — no border, hover bg `#f3f6f8`.
+**Secondary button** — bg `#a8562f`, text `#ffffff`, same geometry. **Outline** — transparent, 1px `#507992` border, text `#a8562f`; hover bg `#f3f6f8`. **Ghost** — no border, hover bg `#f3f6f8`.
 
 **Input** — height 36px, bg `#ffffff`, 1px `#8796a1`, radius 6px, placeholder `#586873`; focus border `#507992` + 3px soft ring; error border `#b42318`; helper text 12px `#586873` below, never in a tooltip.
 
@@ -233,7 +233,7 @@ Admin consoles, internal tools and back offices that need many ready screens —
 
 ## Do / Don't
 
-**Do** — keep to one accent per screen; set headings in Public Sans at weight 600 with -.02em tracking; use 6px controls and 12px panels everywhere; separate surfaces with tone and hairlines; let status colours mean state.
+**Do** — keep the primary for the one main action and the secondary for balance; set headings in Public Sans at weight 600 with -.02em tracking; use 6px controls and 12px panels everywhere; separate surfaces with tone and hairlines; let status colours mean state.
 
 **Don't** — introduce a second accent or a second display face; mix corner radii; add drop shadows or glows; use colour for decoration; centre what the layout family sets left (or vice versa).
 
@@ -258,7 +258,7 @@ p{color:var(--ink-2);margin:0}
 .logo{display:inline-flex;align-items:center;gap:8px;font:700 19px/1 var(--body);letter-spacing:-.03em}
 ```
 
-When building for Jupiter Admin Kit: start from this CSS, keep every surface on these tokens, and let the accent carry the eye.
+When building for Jupiter Admin Kit: start from this CSS, keep every surface on these tokens, and let the primary carry the eye, with the secondary for balance.
 
 ## Brand colours
 Two brand colours balance every Jupiter Admin Kit output. **Primary** `#507992` — the primary action, the logo and the key figure. **Secondary** `#a8562f` — the secondary button (`#a8562f` fill, `#ffffff` label) and outline buttons (border `#a8562f`, label `#974d2a`), secondary badges, the second data series and secondary highlights, about one part to four of the primary; use `#a8562f` where it is text. Never give the two equal weight side by side.
