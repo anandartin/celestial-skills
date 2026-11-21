@@ -304,15 +304,22 @@ Every Mercury output carries the logo — never just the name typed out. Use the
 
 ## Brand assets
 ### Logo (SVG)
-Use this mark as-is: don't redraw, recolour (except to one solid colour on dark backgrounds), stretch or add effects.
+Use this mark as-is: don't redraw, recolour (except to one solid colour on dark backgrounds), stretch or add effects. File: `assets/logo.svg`.
 
 ```svg
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="12" fill="#2547d0"/></svg>
 ```
 
 ### Fonts
-- Manrope
-- DM Mono
+| Family | Used for | Weights | Source and licence |
+|---|---|---|---|
+| Manrope | Display, Body | 400, 500, 600, 700 | Google Fonts, free under the open licence shown at https://fonts.google.com/specimen/Manrope |
+| DM Mono | Mono | 400 | Google Fonts, free under the open licence shown at https://fonts.google.com/specimen/DM+Mono |
+
+Load every family at once with `assets/fonts/fonts.css`. In decks and documents, install the same families (or embed them) before you start; if a family is missing, use the closest system face and say so.
+
+### Using these assets
+The logo, its dark version and any supplied font files belong to their owners. Use them only to make Mercury work, as they are, and keep the font licences. The asset files sit beside this file in `assets/` (in the download and the public repository); a linked copy lists each one's web address under *Files with this skill*.
 
 
 ## Components (core v1.4)

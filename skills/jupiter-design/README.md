@@ -6,6 +6,7 @@ A Celestial design skill — how the brand looks, on web, in decks, documents an
 - `SKILL.md`
 - `tokens.json`
 - `assets/logo.svg`
+- `assets/fonts/fonts.css`
 - `templates/screens/web/tokens.css`
 - `templates/screens/web/index.html`
 - `templates/screens/web/tailwind.config.js`
