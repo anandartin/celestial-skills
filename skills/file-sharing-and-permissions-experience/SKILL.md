@@ -15,6 +15,8 @@ A user uploads a file, chooses exactly who can view or edit it, and can see and 
 
 **Outcome** — A user shares a file with the intended people at the intended access level on the first try, with zero accidental public links.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -101,6 +103,19 @@ Inputs: Drag and drop, File picker, Touch, Keyboard
   - Errors (A11Y-E1): The error “sam@ isn't a full email address” is in text beside the field, linked to it, and the typed text is kept for correction.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Use “Outside your organisation” as text with an icon, and avoid terms such as “external principal”.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The person opens Add people or groups.
+  - Agent goal: Help the person find the right people quickly without widening access by accident.
+  - Agent actions: Says it is an AI assistant that suggests people who usually work on similar files, and that it never decides access. Shows up to five suggestions labelled as from the AI assistant, each with a short reason and an Outside your organisation label where it applies; a suggestion becomes a chip only when the person adds it.
+  - Agent tone: Short labels with text, never icons alone.
+  - Agent type: Vertical sharing AI assistant; single.
+  - Multi-agent handoff: Policy check first, then the AI assistant suggests only people the file can be shared with, then the person adds or ignores them.
+  - Goal failure response: Ambiguous input (two people with the same name): show email and team for each. Constraint violation (external sharing blocked): leave external people out and say who can approve an exception. Low confidence: show no suggestions rather than weak ones. Data unavailable: name and email search still works.
+  - Failure handover trigger: The person asks for a person: the workspace admin or product support immediately, with the handover context package (file name and people chosen, no file content).
+  - Data needs: The directory, the person's sharing history on similar files (names and folders, not contents), admin sharing policy.
+  - Agent memory: Procedural: who the person often shares with, viewable and resettable. Short-term: this share.
+  - Regulatory classification: Access control and personal data; suggestions only, and access is decided and confirmed by the person.
 
 ### 3. Set access
 
@@ -193,9 +208,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Warnings are specific: “Anyone with the link can open this, even without an account”
 - Confirmation names the count and audience: “Shared with 3 people”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: suggest people who usually work on similar files, shown as suggestions the user must add; no AI decides access
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- Suggested people appear only as suggestions labelled as from the AI assistant; nobody gets access unless the person adds them, picks the access level and confirms Share
+- The AI assistant never sets or changes access levels, link sharing, guest expiry or ownership, and never suggests public links
+- People outside the organisation are labelled in every suggestion, and none are suggested when admin policy blocks external sharing
+- Suggestions come from who the person already works with and never reveal files or people the person cannot see
+- Uploading and sharing work fully with suggestions turned off
 
 ## Edge cases
 
@@ -204,6 +225,58 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - File contains personal data flagged by a scan — warn before external sharing
 - Owner leaves the organisation — ownership transfers to a named person, not lost
 - Duplicate file name in the folder — offer keep both or replace
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Person — name, email, organisation, inside or outside the organisation, account or guest · relates to Access grant, Group · personal data
+- Group — name, members · relates to Person, Access grant
+- File — name, size, owner, folder, upload status, personal data flag · relates to Access grant, Link setting
+- Access grant — file, person or group, level (viewer, commenter, editor), granted by, granted at, expiry · relates to File, Person · personal data
+- Link setting — scope (off, people with access, organisation, anyone with the link), set by, set at · relates to File
+- Access log — change, by, when, outside the organisation (yes or no) · relates to File, Access grant · personal data
+- Sharing policy — external sharing allowed, approved domains, guest expiry default, exception approver · relates to File
+
+### Systems it touches
+
+- File storage — reads files, upload progress; writes files, resumable upload parts · when down: Uploads pause and resume when the connection returns; the person sees the paused state.
+- Access control service — reads grants, link settings; writes grants, removals, link settings · when down: No access change is made; the person is told and the share is kept as a draft.
+- Directory — reads people, groups, leavers · when down: Full email addresses can still be typed; names don't autocomplete.
+- Admin policy service — reads external sharing rules, approved domains · when down: External and public sharing are blocked until policy can be checked.
+- Personal data scan — reads file contents; writes personal data flag · when down: External sharing shows a reminder to check for personal data.
+- AI assistant service — reads sharing history, directory, policy; writes people suggestions labelled as from the AI assistant · when down: Suggestions are left out; sharing works as normal.
+
+### Roles
+
+- Owner — share and set access levels, see everyone with access, remove access and undo, set guest expiry, transfer ownership
+- Editor — change content, share within the limits the owner allows
+- Commenter — view and comment
+- Viewer — open and download
+- External guest — open the file at the level given until expiry
+- Workspace admin — set sharing policy, approve exceptions, read access logs, reassign ownership of leavers' files
+- AI assistant — suggest people who work on similar files, labelled as suggestions, works at most in Advisory mode; never grants or changes access
+
+### Default targets (the product confirms or replaces them)
+
+- Access change takes effect: within 10 seconds (range 2–10 seconds)
+- Largest upload: 5 GB, resumable (range set by plan)
+- Correct first share: 95% (range 90–98%)
+- Accidental public links: 0 (range 0)
+- Upload completion: 99% (range 98–99.9%)
+- Time to share: under 30 seconds (range 15–60 seconds)
+- Guest access expiry: 30 days (range 1–90 days, per admin policy)
+- Access logs kept: the legal minimum for the jurisdiction (range set by law and organisation policy)
+
+### Required inputs and configuration
+
+- Admin sharing policy and approved external domains
+- Who approves external sharing exceptions
+- Guest expiry default
+- Personal data scan rules
+- Ownership transfer rule for leavers
 
 ---
 

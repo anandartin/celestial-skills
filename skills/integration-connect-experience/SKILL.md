@@ -183,9 +183,12 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Say what stops on disconnect: “New issues will stop appearing. Existing ones stay.”
 - Errors name the cause and the fix: “That access was declined. Reconnect to add it.”
 
-## AI interactions
+## Agent and system (HAI)
 
-- No AI in authorisation because consent must be explicit and identical each time; optional AI may summarise incoming issues later, labelled and switchable off
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- No step uses an AI assistant: the access list, the consent given on the other tool's page, the test and disconnecting are explicit choices that must read and work the same way every time.
+- Any later AI summary of incoming items sits outside this journey, is labelled as AI-made and can be switched off from Manage; it never requests, grants or widens access.
 
 ## Edge cases
 
@@ -194,6 +197,54 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Connector leaves the company — connection keeps running under a named owner or pauses with a notice to admins
 - Token revoked from the other tool — mark the connection as broken and email the owner with a reconnect link
 - Return from consent with a mismatched state — stop, connect nothing, and explain
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Integration — name, category, one-line purpose, features, access scopes per feature · relates to Access scope, Connection
+- Access scope — plain-words name, read or write, reason, required or optional, feature it serves · relates to Integration, Connection
+- Connection — workspace, owner, connected by, connected date, granted scopes, declined scopes, status, last successful sync · relates to Integration, Token, Sync run, Audit record · personal data
+- Token — encrypted access token, encrypted refresh token, expiry, revoked date · relates to Connection · personal data
+- Approval request — requested by, scopes listed, admin, status, decided date · relates to Integration, Connection · personal data
+- Sync run — started, outcome, items found, sample item, error · relates to Connection
+- Audit record — action, who, scopes granted or removed, when · relates to Connection · personal data
+
+### Systems it touches
+
+- Integration catalogue — reads integrations, features, scopes · when down: Show the last known list with a notice, or the webhook option; nothing is connected from stale details.
+- Other tool's authorisation page — reads requested scopes, state value; writes consent result, granted scopes, authorisation code · when down: Say the other tool's page isn't available, connect nothing, and let the person try again from here with their choices kept.
+- Token store — reads tokens; writes encrypted tokens, refreshes, revocations · when down: New connections wait and nothing is half-connected; existing connections keep running and the owner is told if syncing stops.
+- Sync service — reads granted scopes, items from the other tool; writes sync runs, synced items · when down: Show the connection as connected but not yet synced, retry, and tell the owner if it stays down for 24 hours.
+- Admin approval and notification service — reads approval rules, requests; writes requests, decisions, messages to admins and owners · when down: Keep the request with its scopes and send it when the service is back; tell the person it is queued.
+- Audit log; writes who connected, scopes granted, disconnections and when · when down: Hold new connections until the entry can be written; disconnecting still revokes access at once and is logged when the log is back.
+
+### Roles
+
+- Connecting user — browse and request integrations, turn optional features off to drop scopes, approve access on the other tool's page, run a test and reconnect to add declined access, disconnect connections they own
+- Workspace admin — require approval for new integrations, approve or decline requests with the scopes shown, see every active connection, disconnect any connection, name a new owner when the connecting user leaves
+- Security reviewer — read the audit log and granted scopes for every connection
+
+### Default targets (the product confirms or replaces them)
+
+- Connection completion with a successful test sync: 85% or more (range 80–95%)
+- Time to connect: Under 3 minutes, median, keyboard-only included (range 2–5 minutes)
+- Disconnects for unexpected access: Under 3% within 7 days (range 1–5%)
+- Broken connections: Under 2% at any time (range 1–3%)
+- Connection marked broken after failed syncs: 24 hours (range 1–24 hours)
+- Audit records kept: The legal minimum for the jurisdiction, or longer if the workspace's policy says so (range Set by law and workspace policy)
+
+### Required inputs and configuration
+
+- Integrations offered, with a one-line purpose each
+- Access scopes per feature, read or write, with a plain reason
+- Whether admins must approve new integrations
+- Webhook option for tools not listed
+- Owner rule when the connecting user leaves
+- Test sync sample and period
+- Audit retention policy
 
 ---
 

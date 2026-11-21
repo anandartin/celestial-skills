@@ -181,9 +181,12 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Name the sender so people can search: “The email comes from Northfield Lists”
 - Errors say how to fix, not what went wrong: “Add the part after @”
 
-## AI interactions
+## Agent and system (HAI)
 
-- No AI in this journey because sign-up must be predictable and auditable; spam and bot detection runs server-side without blocking real people
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- No step uses an AI assistant: sign-up, the password, consent and the verification code must be predictable and auditable, and the form never reveals whether an email is already registered.
+- Server-side spam and bot detection shows no puzzle and never blocks a real person without a route to a person, and terms and marketing consent stay separate, unticked choices made by the person.
 
 ## Edge cases
 
@@ -191,6 +194,54 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Email never arrives — after two resends offer a different address and show a help link
 - Code opened on a different device — verify the account and ask the original device to continue
 - Disposable or mistyped domain (e.g. a common typo) — suggest the likely correction, never block silently
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Account — email, password hash, verified, created · relates to Consent record, Verification code, Pending action · personal data
+- Consent record — terms version accepted, privacy notice version shown, marketing opt-in, date and time, withdrawn date · relates to Account · personal data
+- Verification code — code hash, link token hash, sent to, issued, expires, used, resend count · relates to Account · personal data
+- Pending action — saved item, return page, device · relates to Account · personal data
+- Bot check — score band, action taken, reviewed by · relates to Account · personal data
+- Audit record — event, when, by whom or which system · relates to Account, Consent record · personal data
+
+### Systems it touches
+
+- Identity service — reads accounts; writes accounts, verified status, sessions · when down: Keep what was typed and the saved item on the device, say sign-up is paused for a short time, and continue when back.
+- Email delivery; writes verification email with code and link, 'you already have an account' message · when down: Queue and retry; resend unlocks after 30 seconds, and after two resends offer a different address and help.
+- Consent record store; writes terms acceptance, marketing choice · when down: The account is not created until the consent record is written; marketing stays off.
+- Spam and bot detection — reads sign-up signals; writes score band · when down: Sign-ups continue under rate limits and are checked later; no puzzle is shown.
+- Saved-state store — reads pending action; writes pending action · when down: Land on the home page with a message that the item can be found again; never lose the account.
+
+### Roles
+
+- New customer — create an account with email and password, accept terms, choose marketing separately, verify with a code or link, correct the email from the verify screen
+- Support team member — help when the email never arrives, release a sign-up wrongly flagged as a bot
+- Privacy team — set consent wording, audit consent records
+
+### Default targets (the product confirms or replaces them)
+
+- Sign-up starts reaching a verified account: 75% or more (range 70–85%)
+- Time to verified account: Under 5 minutes, median (range 2–5 minutes)
+- Verification code lifetime: 15 minutes, single use (range 10–15 minutes)
+- Verification email sent: Within 30 seconds (range 10–30 seconds)
+- Resend unlocks: After 30 seconds (range 30–60 seconds)
+- Minimum password length: 12 characters (range 12–16 characters)
+- Verification support contacts: Under 2% of sign-ups (range 1–3%)
+- Consent records kept: The legal minimum for the jurisdiction (range Set by data protection and e-privacy law)
+
+### Required inputs and configuration
+
+- One-line account benefit
+- Password rules
+- Terms, privacy notice and marketing consent wording
+- Sender name for verification emails
+- Code lifetime and resend limits
+- Bot detection rules and the review route
+- Support contact
 
 ---
 

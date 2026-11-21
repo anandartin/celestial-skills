@@ -15,6 +15,8 @@ A fan joins a fair queue, picks seats on an accessible map with full prices show
 
 **Outcome** — At least 85% of fans who reach seat selection complete purchase within the hold time, and the all-in price never rises after seats are chosen.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -113,6 +115,19 @@ Inputs: Touch, Keyboard, Screen reader
   - Errors (A11Y-E1): If seats are taken, the message in text names the seats and lists the closest three pairs; the person's filters and view are kept.
   - Time limits (A11Y-W1): No hold yet. The seat hold timer begins at the next step, and the screen states its length first.
   - Language (A11Y-L1): Include fees in every price, and describe step-free routes in short plain sentences rather than symbols alone.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The fan opens the seat map or list and asks the AI assistant for seats that fit, such as “2 seats under £60, step-free”.
+  - Agent goal: Suggest seats that meet the stated needs so the fan can choose quickly and fairly.
+  - Agent actions: Says it is an AI assistant that can suggest seats, but the fan chooses and pays. Shows up to three options in the list view, each with section, row, seats, all-in price and why it matches (price, view note, step-free route), marked as suggested by the AI assistant; a wheelchair space always comes with its companion seat. Selecting a suggestion is the fan’s own action and starts the stated hold.
+  - Agent tone: Calm and factual; no hurry words and no talk of seats running out beyond the real count.
+  - Agent type: Vertical ticketing AI assistant; single.
+  - Multi-agent handoff: AI assistant → seat availability service (read only); the fan’s selection → hold service.
+  - Goal failure response: Ambiguous input (“a good view”): ask whether closer to the stage or more central matters. Data unavailable (seats still loading): say so and point to the list view. Constraint violation (no step-free pair within budget): say so and show the nearest option with the price difference. Goal drift (suggests a pricier section): re-align to the stated budget. Seats taken while suggesting: drop them and show the next closest pairs.
+  - Failure handover trigger: The fan asks for a person, or an accessible booking can’t be matched online → customer service immediately, with the handover context package including the stated needs and the seats considered.
+  - Data needs: Live seat availability, all-in prices, section view and step-free notes, the needs the fan stated for this booking.
+  - Agent memory: Short-term only: the stated needs for this booking; access needs are not kept for later suggestions unless the fan agrees, and can be viewed or deleted.
+  - Regulatory classification: Consumer protection (all-in pricing, fair queueing) and personal data (access needs are sensitive); minimal AI risk; AI interaction disclosed when the AI assistant opens.
 
 ### 4. Pay
 
@@ -183,10 +198,16 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Queue copy is honest: “About 12 minutes” and “Tickets aren’t guaranteed until you pay”
 - Seat-taken copy offers the next action: “Here are the 3 closest pairs.”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: suggest the best available seats for stated needs (budget, view, step-free), shown as choices the fan selects
-- Bot detection runs in the background; any challenge offers an accessible alternative and never depends on vision alone
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant appears only at seat choice, says it is AI, and explains why each suggested pair of seats matches the fan’s stated needs (budget, view, step-free)
+- The AI assistant has no part in the queue: using it never changes, holds or speeds up a queue place, and fans who don’t use it have the same chance of seats
+- Every price the AI assistant quotes is the all-in price from the seat map; it never suggests a pricier seat without saying so and why, and never uses the hold timer or seat counts to hurry the fan
+- A wheelchair space and its companion seat are always suggested together, and suggestions stay marked as from the AI assistant until the fan selects them
+- The AI assistant steps back before Pay: the fan sees the seats, the all-in total and the time left, pays and does any bank check themselves, and the tickets screen states the refund terms if the event is cancelled or postponed
+- A payment problem, a hold lost during payment, or a request for a person goes to customer service immediately with the handover context package
 
 ## Edge cases
 
@@ -195,6 +216,60 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Hold expires during bank authentication — extend the hold until authentication returns
 - Ticket limit reached across accounts — explain the limit plainly without accusing the fan
 - Companion seat sold separately by mistake — keep wheelchair space and companion seat together in one hold
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Fan account — name, email, phone, tickets bought for this event (for the limit) · relates to Queue place, Order, Access requirement · personal data
+- Queue place — queue token, position, estimated wait, held until, devices joined · relates to Fan account · personal data
+- Access requirement — wheelchair space, companion seat, step-free route needed, keep for future bookings (consent) · relates to Fan account, Hold · personal data
+- Seat — section, row, seat number, all-in price, fees included, seat type (standard, wheelchair space, companion), view note, step-free route, status · relates to Hold
+- Hold — seats, started at, expires at, extensions used, paused for bank check · relates to Seat, Order
+- Order — order number, seats, all-in total, fees, status, refund and resale terms, idempotency key · relates to Fan account, Payment, Ticket · personal data
+- Payment — amount, method type, payment token, authentication outcome, status · relates to Order · personal data
+- Ticket — ticket code, wallet pass, seat, entry time, gate, step-free entrance, parking and access contact · relates to Order · personal data
+- AI assistant conversation — needs stated, seats suggested with reasons, suggestion chosen, handover if any, time · relates to Fan account, Hold · personal data
+
+### Systems it touches
+
+- Queue service — reads queue tokens, account sessions; writes positions, estimates, held-until times · when down: Places are frozen, not reset; the fan sees the last position and that their place is saved.
+- Seat availability and hold service — reads seats, all-in prices, holds; writes holds, extensions, releases · when down: Seat choice pauses; no hold starts, so no timer runs, and the fan is told plainly.
+- Bot protection — reads request patterns, ticket limits; writes challenges · when down: Ticket limits are still checked at payment; any challenge has an accessible alternative that doesn’t rely on sight.
+- Payment provider — reads authentication outcome, payment status; writes payment token, charge, refund · when down: Pay is unavailable, the hold is extended and no charge is made; the fan is told plainly.
+- Ticketing and wallet service — reads orders; writes tickets, wallet passes, access information · when down: The order shows on screen and tickets are issued to the account when the service is back.
+- Notification service; writes order emails, postponement and cancellation notices · when down: Notices are queued and the account page shows them.
+- AI assistant service — reads seat availability, all-in prices, view and step-free notes; writes seat suggestions marked as made by the AI assistant · when down: Seat choice works fully by map and list; the AI assistant is simply not offered.
+
+### Roles
+
+- Fan — join the queue on any device, state ticket and access needs, choose seats, extend the hold, pay and authenticate, ask for a person
+- Customer service and access team — see queue, hold and order status, book accessible seating with the fan, fix ticket problems, refund
+- Event organiser — set sections, prices and fees, set ticket limits, postpone or cancel with refund options
+- AI assistant — suggest seats for stated needs with reasons, explain view and step-free notes, show how to reach a person, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Purchase completion (seat selection to paid, within the hold): at least 85% (range 80–90%)
+- Price consistency (checkout total equals seat price shown): 100% (range 100%; no lower target)
+- Queue place held after closing the page: 10 minutes (range 10–15 minutes)
+- Seat hold at Pay: 8 minutes, extendable at least ten times by at least 2 minutes (range 8–15 minutes)
+- Warning before a hold or queue place ends: at least 20 seconds (range 20–60 seconds)
+- Queue resets after a reconnect: under 0.5% (range 0–0.5%)
+- Accessible bookings made online: at least 90% (range 90–100%)
+- Order and payment records: the legal minimum for the jurisdiction (range set by tax and consumer law)
+
+### Required inputs and configuration
+
+- Venue seat map with sections, views and step-free routes
+- All-in price and fee rules for each jurisdiction sold into
+- Ticket limits per buyer and bot protection rules
+- Accessible seating and companion ticket policy, and any proof asked for where law allows
+- Refund policy for cancelled or postponed events, and resale terms
+- Payment provider with bank authentication
+- Customer service and access team contact route and hours
 
 ---
 

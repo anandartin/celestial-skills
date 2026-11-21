@@ -181,9 +181,12 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - State time limits in the copy: “This link works for 30 minutes”
 - Reassure without blame: “It happens. Let's get you back in.”
 
-## AI interactions
+## Agent and system (HAI)
 
-- No AI in the reset itself because recovery must be deterministic; anomaly detection may hold a reset for manual review, and the customer is told how long that takes
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- No step uses an AI assistant: recovery must be deterministic, so the request, reset link, new password, sign-in and notice work the same way for everyone and never reveal whether an account exists.
+- Automated anomaly detection may only hold a reset for review by a trained person; the customer is told how long that takes, and a 'this wasn't me' report reaches a trained person at once.
 
 ## Edge cases
 
@@ -191,6 +194,58 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Person no longer has the email address — route to assisted recovery with identity checks and a waiting period
 - Link forwarded or opened twice — second open shows “already used” with a new-link button
 - Account has two-step verification — ask for the second factor before the new password is set
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Account — email, password hash, two-step verification on, status · relates to Reset request, Session · personal data
+- Reset request — email entered, requested time, network, status, held for review · relates to Account, Reset link, Review case · personal data
+- Reset link — single-use token hash, issued, expires, used, invalidated by newer link · relates to Reset request · personal data
+- Session — device, approximate location, started, ended by reset · relates to Account · personal data
+- Sign-in notice — time, device, approximate location, sent to, 'this wasn't me' used · relates to Account · personal data
+- Review case — reason, type (held reset, assisted recovery or 'this wasn't me'), reviewer, outcome, due by · relates to Reset request, Account · personal data
+- Audit record — event, when, network, by whom or which system · relates to Account · personal data
+
+### Systems it touches
+
+- Identity and sign-in service — reads account, second factor; writes new password hash, sign-in · when down: Show that resets are paused for a short time, keep no partial change, and give the helpline.
+- Email delivery; writes reset emails with a plain-text version, change notices · when down: Queue and retry; offer resend after 60 seconds and a route to assisted recovery.
+- Rate limiter — reads requests per email and network; writes limits · when down: Fail safe: send at most one email per window per address.
+- Breached-password check — reads new password check value · when down: Apply the length rule and a local list of common passwords, and check again at the next sign-in.
+- Anomaly detection — reads request patterns; writes hold flags · when down: Rate limits still apply; resets follow the normal rules and are logged for later review.
+- Session service — reads active sessions; writes ended sessions · when down: The new password is not saved until other sessions can be ended; the person is told and offered a fresh link.
+- Case management for review and assisted recovery — reads held resets, reports; writes review outcomes · when down: Queue cases, keep the promised time and tell the person if it slips.
+
+### Roles
+
+- Account holder — request a reset link, set a new password, sign out other devices, report 'this wasn't me', ask for assisted recovery
+- Trained recovery reviewer — review held resets, run assisted recovery with identity checks and a waiting period
+- Security team — act on 'this wasn't me' reports, set rate limits and hold rules
+- Helpline team member — route people to assisted recovery, explain the steps; never asks for or sets a password
+
+### Default targets (the product confirms or replaces them)
+
+- Reset requests ending in sign-in: 85% or more within 10 minutes (range 80–95%)
+- Reset link lifetime: 30 minutes, single use (range 15–30 minutes)
+- Resend available: After 60 seconds (range 30–60 seconds)
+- Reset email delivery: Under 60 seconds at the 95th percentile (range 30–120 seconds)
+- Reset email size: Under 100 KB (range 50–100 KB)
+- Minimum password length: 12 characters (range 12–16 characters)
+- 'This wasn't me' reports actioned: All within 1 hour (range 15 minutes – 1 hour)
+- Audit records kept: The legal minimum for the jurisdiction (range Set by law)
+
+### Required inputs and configuration
+
+- Reset link lifetime and resend wait
+- Password rules and breached-password list
+- Rate limits per email and network
+- Anomaly hold rules and the review time told to customers
+- Assisted recovery checks and waiting period
+- Helpline contact
+- Notice wording and the 'this wasn't me' route
 
 ---
 

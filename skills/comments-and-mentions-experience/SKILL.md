@@ -15,6 +15,8 @@ A reviewer leaves comments anchored to the work, mentions the right people, and 
 
 **Outcome** — Every review comment reaches the right person and is resolved or answered within the agreed review window.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Assistive — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -121,6 +123,19 @@ Inputs: Keyboard, Pointer, Screen magnifier, Touch
   - Errors (A11Y-E1): A reply error is shown in text beside the reply box and linked to it; the draft reply is kept if the person leaves the thread.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Explain “content changed” in one plain sentence, naming what changed and when.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: Someone opens a long thread and asks for a summary.
+  - Agent goal: Show the decisions and open questions so far, each traceable to the comments behind it.
+  - Agent actions: Says it is an AI assistant that can summarise threads and cannot resolve them. Lists decisions and open questions, labelled as a summary by the AI assistant and each linked to its source comments, and notes where the anchored content changed after a comment. The summary is not added to the thread unless a person posts it themselves.
+  - Agent tone: Neutral and short; uses people's own words for decisions.
+  - Agent type: Generalist summarising AI assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Low confidence (no clear agreement): list the point as an open question. Data unavailable (comments still loading, or anchored content removed): say the summary is incomplete and which part is missing. Goal drift (a stated decision nobody made): every point must link to a source comment or it is left out.
+  - Failure handover trigger: The reader disagrees with the summary: they reply in the thread, and people settle it. The person asks for a person: product support immediately, with the handover context package.
+  - Data needs: Comments and replies the reader can see, the anchor and its change history.
+  - Agent memory: Short-term only: built on request and not stored, so edits and deletions always show.
+  - Regulatory classification: Minimal risk; comments may hold personal data, so summaries follow the same access and deletion rules as the comments.
 
 ### 5. Resolve
 
@@ -144,6 +159,19 @@ Inputs: Keyboard, Pointer, Screen magnifier, Touch
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Spell out the counts and the filter names in full; avoid abbreviations such as “thr.” or “cmts”.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The reviewer opens the open-threads list before sign-off and asks for summaries.
+  - Agent goal: Show what each open thread still needs before sign-off.
+  - Agent actions: Gives a one-line summary per open thread (the open question and who it is waiting on), labelled as by the AI assistant and linked to the thread. The reviewer checks each change and resolves threads themselves; the open count comes from the system, never from the AI assistant.
+  - Agent tone: Plain and checklist-like.
+  - Agent type: Generalist summarising AI assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Data unavailable: show the list without summaries and say why. Partial completion (some threads not summarised): mark which ones. Low confidence on who a thread is waiting on: say it is unclear rather than guess.
+  - Failure handover trigger: The person asks for a person: product support immediately, with the handover context package.
+  - Data needs: Open threads, mentions, participants and anchors the reviewer can see.
+  - Agent memory: Short-term: summaries for this view only.
+  - Regulatory classification: Minimal risk; not used to judge people's responsiveness, which would be a high-risk employment use.
 
 ---
 
@@ -191,9 +219,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Status words are consistent: open, resolved, reopened
 - Error copy offers the next step: “Share it with him first?”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: summarise a long thread into decisions and open questions, labelled as a summary with a link to every source comment; the reviewer resolves threads, not the AI
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- A thread summary is made only when someone asks, is labelled as a summary by the AI assistant, and links every decision and open question to its source comments
+- The AI assistant never posts, mentions, notifies, resolves or reopens; people do all of these
+- A summary includes only comments the reader can already see, and is built fresh each time so edited or deleted comments are reflected
+- A point the AI assistant cannot link to a source comment is left out, and unclear agreement is shown as an open question, not a decision
+- Summaries are never used to rate how quickly people respond, and commenting and sign-off work fully with the AI assistant off
 
 ## Edge cases
 
@@ -201,6 +235,51 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Mentioned person has left the organisation — suggest their replacement or the item owner
 - Two people resolve and reopen at once — last action wins, both shown in history
 - Comment contains personal data — author can edit or delete; edits are logged
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Person — name, organisation status (active or left), notification preferences · relates to Comment, Mention · personal data
+- Item — title, owner, access list, sign-off status · relates to Thread
+- Thread — anchor, status (open, resolved, reopened), participants, resolved by, resolved at · relates to Item, Comment · personal data
+- Comment — author, text, created, edit and delete history, anchored content changed since (yes or no) · relates to Thread, Mention · personal data
+- Mention — mentioned person, notified at, replied or resolved at · relates to Comment, Person · personal data
+- Notification — recipient, item, channel, grouped with, delivered at · relates to Mention, Person · personal data
+
+### Systems it touches
+
+- Collaboration service — reads threads, comments, anchors; writes comments, thread status, edit history · when down: Drafts are kept on the device and posted when it is back; the person is told.
+- Access service — reads who can see each item · when down: Mentions wait until access can be checked; nobody is notified who might not have access.
+- Notification service — reads preferences; writes in-app, email and mobile notifications · when down: Notifications queue and are sent once, deduplicated; in-app counts stay correct.
+- People directory — reads people, leavers, replacements · when down: The @ list shows recent collaborators only.
+- AI assistant service — reads comments the reader can see; writes summaries labelled as by the AI assistant, not stored · when down: Summarise is unavailable; threads work as normal.
+
+### Roles
+
+- Reviewer — comment and mention, resolve and reopen threads, ask for a summary, sign off an item
+- Item owner — share the item, see all threads, sign off
+- Mentioned person — reply, resolve, mute a thread without missing mentions
+- Workspace admin — see comment edit and delete records, reassign mentions of people who have left
+- AI assistant — summarise a thread on request, linked to source comments, summarise open threads before sign-off, works at most in Assistive mode
+
+### Default targets (the product confirms or replaces them)
+
+- Real-time update: within 2 seconds (range 1–5 seconds)
+- Mention response time: under 1 working day (range half a day–2 working days)
+- Unacknowledged open threads at sign-off: 0 (range 0)
+- Lost comments after edits: under 1% (range 0–2%)
+- People muting all notifications within 30 days: under 10% (range 5–15%)
+
+### Required inputs and configuration
+
+- Notification channels and default frequency
+- Review window agreed per team
+- Rule for mentions of people who have left
+- Who can see comment edit and delete history
+- Whether thread summaries are on for the workspace
 
 ---
 

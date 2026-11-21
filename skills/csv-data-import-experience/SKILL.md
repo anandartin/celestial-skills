@@ -15,6 +15,8 @@ A user uploads a spreadsheet, maps columns to fields, fixes errors in place, and
 
 **Outcome** — A user imports a 5,000-row spreadsheet with all valid rows written and every error explained, in under 10 minutes and with no silent data loss.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -99,6 +101,19 @@ Inputs: File upload and drag-and-drop, Keyboard, Mouse, Screen reader
   - Errors (A11Y-E1): Unmatched columns are marked with an icon and the words 'Not matched', listed in a summary, and chosen mappings stay.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Call them 'spreadsheet columns' and 'fields', and keep the names the same as in the template.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The file is parsed and some headers don't match a field by name.
+  - Agent goal: Get every column mapped to the right field, with dates read the right way.
+  - Agent actions: Says it is an AI assistant that suggests mappings and fixes for the person to accept, and that it never imports. Suggests a field for each unmatched column with sample values and a short reason, marked as suggested by the AI assistant; the person accepts, changes or leaves the column unmapped. For ambiguous dates it asks which format to use for the whole column.
+  - Agent tone: Neutral and exact: “Couldn't match”, never “Invalid”.
+  - Agent type: Vertical data-import AI assistant; single.
+  - Multi-agent handoff: Header auto-match runs first, then the AI assistant suggests for the rest, then the person accepts.
+  - Goal failure response: Ambiguous input (03/04 dates, or two columns that could be the phone field): ask once and never guess. Low confidence: leave the column unmapped and say why. Constraint violation (a required field has no column): name the field and offer the template.
+  - Failure handover trigger: The person asks for a person: product support immediately, with the handover context package (file name, mapping so far and errors; no row data unless the person agrees).
+  - Data needs: Headers, a few sample values per column, target fields and formats.
+  - Agent memory: Short-term: this mapping. Procedural: mappings the person saves for files from the same source, viewable and deletable.
+  - Regulatory classification: Personal data, possibly health-related because the records are clinic clients; data minimisation applies; minimal AI Act risk with suggestions labelled.
 
 ### 3. Review
 
@@ -123,6 +138,19 @@ Inputs: File upload and drag-and-drop, Keyboard, Mouse, Screen reader
   - Errors (A11Y-E1): Each error is text beside the cell, such as 'isn't a real date', linked to it; the original value stays until corrected, and errors can be downloaded.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Explain the date problem in words and show the expected format, such as day, month, year.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The person filters to rows with errors or opens one.
+  - Agent goal: Suggest a fix for each error that the person can check and accept.
+  - Agent actions: Shows a suggested fix beside each fixable error, such as a date in the chosen format, with the original value beside it and the fix marked as suggested by the AI assistant. The person accepts row by row, or in bulk after seeing exactly how many rows will change; accepted fixes are re-validated at once and a bulk fix can be undone.
+  - Agent tone: Row, column and fix, in that order.
+  - Agent type: Vertical data-import AI assistant; single.
+  - Multi-agent handoff: AI assistant suggests, the person accepts, then validation re-checks the row.
+  - Goal failure response: Low confidence (“31/02/2024” isn't a real date): offer no fix and leave the row for the person with the reason. Goal drift (a bulk fix would change rows that were fine): show the count and a sample before acceptance. Data unavailable: inline editing and exporting error rows still work.
+  - Failure handover trigger: The person asks for a person: product support immediately, with the handover context package.
+  - Data needs: Rows with errors and their reasons, the column format rules.
+  - Agent memory: Short-term: suggestions and acceptances for this import, recorded in the import report.
+  - Regulatory classification: Personal data; every change is traceable to the person who accepted it.
 
 ### 5. Import
 
@@ -193,9 +221,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Counts first, then detail: “143 rows need attention”
 - Neutral wording: “Couldn't match” not “Invalid”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: suggest column mappings and fixes (e.g. date formats) that the user reviews and accepts row by row or in bulk; nothing is changed without acceptance
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- Every column mapping and cell fix from the AI assistant is marked as suggested until the person accepts it, one by one or in bulk, and nothing changes without acceptance
+- The AI assistant never guesses an ambiguous date format; the person chooses the format once for the whole column
+- The AI assistant never imports, updates existing records or chooses how duplicates are handled; the person confirms the exact counts to create, update and skip
+- The import report shows which values came from accepted AI suggestions, and the whole import can be undone for 24 hours
+- Unmapped columns are discarded and never passed to the AI assistant; it sees only sample values for mapping and the cells it is asked to fix
 
 ## Edge cases
 
@@ -204,6 +238,53 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - User closes browser during import — job continues and emails a report
 - Import would exceed plan limits — warn before writing and show the count that fits
 - Two users import the same file — detect and warn about likely duplicates
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Import job — file name, size, encoding, row count, status, started by, started at, undo deadline · relates to Column mapping, Row result, Import report · personal data
+- Column mapping — source header, target field, date format, from an accepted AI suggestion (yes or no) · relates to Import job
+- Row result — row number, outcome (created, updated, skipped, error), reason, values fixed by accepted AI suggestion · relates to Import job, Client record · personal data
+- Client record — name, contact details, date of birth, clinic, created or updated by import · relates to Row result · personal data
+- Duplicate rule — matching fields, handling chosen (skip, update, create) · relates to Import job
+- Import report — created count, updated count, skipped rows with reasons, who imported, when · relates to Import job · personal data
+
+### Systems it touches
+
+- Upload storage — reads uploaded files; writes uploaded files · when down: Upload fails with a reason; nothing is parsed or written.
+- Validation job — reads file, mapping, existing records for duplicates; writes row results · when down: Validation pauses and resumes; nothing is imported until the whole file is checked.
+- Records database — reads existing records; writes created and updated records, undo snapshot · when down: The import stops before writing or rolls back the batch; the person sees what was and wasn't written.
+- Notification and email service — reads job status; writes finish notices, import reports · when down: The report stays available in the app.
+- AI assistant service — reads headers, sample values, cells with errors; writes mapping and fix suggestions labelled as from the AI assistant · when down: Auto-match by header, manual mapping and inline fixing work as normal.
+
+### Roles
+
+- Importer — upload and map, accept or reject AI suggestions, choose duplicate handling, start and undo their import, ask for a person
+- Workspace admin — set plan and import limits, read the import audit log, undo any import in the window
+- Product support — see job status and error summaries, help with mapping
+- AI assistant — suggest column mappings, marked as suggested, suggest fixes for row errors, marked as suggested, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Largest file: 50 MB or 100,000 rows (range set by plan)
+- Time to import 5,000 rows, including fixes: under 10 minutes (range 5–15 minutes)
+- Import success: 95% (range 90–98%)
+- Silent data loss: 0 rows (range 0)
+- Undo window: 24 hours (range 1–72 hours)
+- Imports undone: under 5% (range 2–8%)
+- Uploaded file kept: until the undo window closes (range 0–7 days)
+
+### Required inputs and configuration
+
+- Target fields, required fields and formats
+- Template file with required columns
+- Duplicate matching rule
+- Accepted date formats
+- Plan limits
+- Undo window and report email settings
 
 ---
 

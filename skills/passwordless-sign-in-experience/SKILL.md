@@ -182,9 +182,12 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Link emails state the expiry: “This link works once, for 15 minutes”
 - Fallback copy is equal in tone, not a lesser option: “Email me a link instead”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: risk scoring flags an unusual sign-in for a step-up check; a person reviews any account lock, and the customer is told why and how to resolve it
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- No step uses an AI assistant: passkey prompts, one-time links and fallbacks are the person's own and read the same whether or not an account exists.
+- Optional risk scoring can only ask for a step-up check; it never signs anyone in or out on its own, a trained person reviews any account lock, and the customer is told why and how to resolve it.
 
 ## Edge cases
 
@@ -192,6 +195,54 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Passkey lost with a device — fall back to email link and prompt to remove the old passkey
 - Email account itself compromised — offer recovery via a second factor or support with identity checks
 - Shared family tablet — do not offer passkey creation when “shared device” was chosen
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Account — email, status, recovery methods count · relates to Passkey, Recovery method, Session · personal data
+- Passkey — name, device, created, last used, public key · relates to Account, Device · personal data
+- One-time link — token hash, requesting browser, issued, expires, used · relates to Account · personal data
+- Device — type, shared or personal, trusted, last seen · relates to Passkey, Session · personal data
+- Session — device, started, stay signed in, return page · relates to Account, Device · personal data
+- Recovery method — type, verified, last checked · relates to Account · personal data
+- Risk assessment — score band, reason, step-up asked, outcome, lock review case · relates to Session · personal data
+- Sign-in notice — time, device, sent to · relates to Account · personal data
+
+### Systems it touches
+
+- Passkey service — reads public keys, device support; writes new passkeys, sign-in results · when down: Offer the email link first with the same tone; nothing is lost.
+- Email delivery; writes one-time links, sign-in notices · when down: Say the email may be slow, offer the passkey if there is one, and let the person send a new link at any time.
+- Session service — reads sessions; writes sessions, sign-outs · when down: Say sign-in is unavailable for a short time and keep the page they were going to.
+- Risk scoring service — reads sign-in signals; writes score band, step-up request · when down: Sign-ins follow the normal rules with notices for new devices; no account is locked because a score is missing.
+- Support case management — reads lock reviews, recovery requests; writes review outcomes · when down: Queue the case and tell the person when to expect a reply.
+
+### Roles
+
+- Account holder — sign in with a passkey or one-time link, switch method without starting again, choose not to stay signed in, add, name and remove passkeys while keeping one recovery method
+- Trained security reviewer — review any account lock, unlock with a recorded reason
+- Support team member — run recovery through a second factor or identity checks
+
+### Default targets (the product confirms or replaces them)
+
+- Sign-ins that succeed on the first method: 90% or more (range 85–95%)
+- One-time link lifetime: 15 minutes, single use (range 10–15 minutes)
+- Time to sign in with a passkey: Under 20 seconds, median (range 10–30 seconds)
+- Accounts with a passkey: 40% within 6 months (range 30–60%)
+- Lockout support contacts: Down 50% on the password baseline (range 30–60% fewer)
+- Working recovery methods per account: At least 1 (range 1–2 or more)
+- Account lock review: Same working day (range 1 hour – 1 working day)
+
+### Required inputs and configuration
+
+- Sign-in methods offered and the recommended one
+- One-time link lifetime
+- Shared-device wording
+- Risk scoring signals and the step-up check used
+- Lock review route and time told to customers
+- Recovery options and support contact
 
 ---
 

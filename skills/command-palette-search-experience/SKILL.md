@@ -15,6 +15,8 @@ A busy product user jumps to any record, page or action from one keyboard shortc
 
 **Outcome** — A user reaches the record or action they want in under five seconds from anywhere in the product, without touching the mouse.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -86,6 +88,19 @@ Inputs: Keyboard, Voice control, Screen reader, Pointer
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Use plain command names such as 'Create invoice', and avoid jargon in suggested actions.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The person opens the palette by shortcut, button or voice command, with the Suggested group switched on.
+  - Agent goal: Offer the two or three actions the person most likely wants right now.
+  - Agent actions: Shows a Suggested group below recent items, labelled as suggestions from the AI assistant based on the person's own recent use, with a link to turn it off and see how it works. Nothing runs until the person picks a suggestion, and picking one behaves exactly like choosing that action from the list.
+  - Agent tone: Silent and compact; labels only, no chat.
+  - Agent type: Vertical in-product AI assistant; single, ranking only.
+  - Multi-agent handoff: Permission check first, then the AI assistant ranks only allowed actions, then the palette shows them.
+  - Goal failure response: Data unavailable (suggestions slower than recent items): show recent items without the group, with a short “Suggestions unavailable” note. Low confidence: show no suggestions rather than weak ones. Goal drift (suggestions keep missing): the person dismisses a suggestion and it stops appearing.
+  - Failure handover trigger: The person asks for a person: the Contact support action opens support straight away, with the page name attached only if the person agrees.
+  - Data needs: The person's own recent actions and opened items, their current permissions, the page they are on.
+  - Agent memory: Procedural: per-person usage patterns, viewable and resettable in settings, never shared with other users. Short-term: this palette session.
+  - Regulatory classification: Minimal risk; usage data about one person kept private to them; suggestions labelled as AI.
 
 ### 2. Type
 
@@ -99,6 +114,19 @@ Inputs: Keyboard, Voice control, Screen reader, Pointer
   - Errors (A11Y-E1): The no-matches message names the term and offers the 'Northline' suggestion as a button; the query stays in the field.
   - Time limits (A11Y-W1): No time limit; results appear within 200 milliseconds for recent items and 800 for full search.
   - Language (A11Y-L1): State counts in words such as '3 customers, 2 invoices, 1 action' and use the person's own terms.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The person types a query.
+  - Agent goal: Keep suggested actions that match the query without getting in the way of search results.
+  - Agent actions: Narrows the Suggested group to allowed actions that match the query and keeps it below the grouped results, never mixed in; it stops updating while the person moves through the list. Search matching is not AI and works the same with suggestions off.
+  - Agent tone: Silent and compact.
+  - Agent type: Vertical in-product AI assistant; single, ranking only.
+  - Multi-agent handoff: Search service returns results, then the AI assistant ranks matching allowed actions.
+  - Goal failure response: Ambiguous input (query matches several actions): show each with its scope and never pick one. Constraint violation (a matching action isn't allowed for this person): leave it out entirely. Data unavailable: drop the group and keep search results.
+  - Failure handover trigger: The person asks for a person: support opens straight away and the query is kept.
+  - Data needs: The query, matching allowed actions, the person's recent use.
+  - Agent memory: Short-term: the query. Procedural: as at Open.
+  - Regulatory classification: Minimal risk; queries are private to the person and never used to suggest actions to others.
 
 ### 3. Scope
 
@@ -180,9 +208,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Action names are verbs: “Create invoice”, not “Invoice creation”
 - No-match copy suggests a fix: “Try a customer number or check the spelling”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: suggest likely actions from recent behaviour, shown in a separate “Suggested” group the user can turn off; never runs an action on its own
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- Suggested actions appear only in a separate group labelled as suggestions from the AI assistant, and the person can turn the group off in one step
+- The AI assistant never runs, opens or confirms anything; an action runs only when the person chooses it, and destructive actions get the same confirmation as on the page
+- Suggestions never include records the person cannot open or actions they are not allowed to run, and never reveal a hidden title
+- Suggestions never reorder or push down search results while the person is moving through them, and are based only on that person's own use
+- With suggestions off or the AI assistant unavailable, search and the palette work exactly the same
 
 ## Edge cases
 
@@ -190,6 +224,52 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Index is behind after a bulk import — label results “May be out of date” and offer a full search
 - Two records share a name — show a second line with ID and owner
 - Palette opened inside a form with unsaved changes — opening a result asks before leaving
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Person — user id, permissions, opening shortcut, suggestions on or off · relates to Recent item, Query, AI suggestion · personal data
+- Index entry — type (record, page, action), title, id, owner, status (live, archived, deleted), last updated · relates to Recent item
+- Action — name, shortcut, permission needed, destructive (yes or no), undo window · relates to AI suggestion
+- Recent item — person, item, time opened · relates to Person, Index entry · personal data
+- Query — text, scope, result count, result opened · relates to Person · personal data
+- AI suggestion — person, action suggested, time shown, picked or dismissed · relates to Person, Action · personal data
+
+### Systems it touches
+
+- Search index — reads records, pages, actions · when down: Recent items still show; results are labelled “May be out of date” and a full search is offered.
+- Permission service — reads what the person can open and run · when down: No result or action is shown that can't be checked; the palette says search is limited.
+- Action service — reads action rules; writes action results, undo records · when down: The action fails with a reason and the palette stays open with the query.
+- Usage history store — reads recent items, recent actions; writes recent items · when down: The empty state shows suggested pages instead of recent items.
+- AI assistant service — reads the person's recent use, allowed actions; writes suggestions labelled as from the AI assistant · when down: The Suggested group is left out; everything else works.
+
+### Roles
+
+- Product user — search and run allowed actions, remap the opening shortcut, turn suggestions off, reset their usage history
+- Workspace admin — turn suggestions off for everyone, set which record types are searchable
+- Search owner — review zero-result and misspelt queries without names attached, add synonyms
+- AI assistant — suggest likely actions from the person's own recent use, labelled as suggestions, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- First results for recent items: under 200 ms (range 100–300 ms)
+- Full search results: under 800 ms (range 500 ms–1 second)
+- Index update after a change: within 1 minute (range 10 seconds–2 minutes)
+- Time to target: under 5 seconds (range 3–8 seconds)
+- Search success: 90% (range 85–95%)
+- Zero-result queries: under 5% (range 2–8%)
+- Undo window for actions: 10 seconds (range 10–30 seconds)
+
+### Required inputs and configuration
+
+- Searchable record types and fields
+- Action catalogue with shortcuts, permissions and undo rules
+- Default opening shortcut and keys reserved by browsers and assistive technology
+- Synonym and common misspelling list
+- Whether the Suggested group is on by default
 
 ---
 

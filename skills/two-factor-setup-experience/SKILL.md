@@ -180,9 +180,12 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Say why: “This stops someone signing in with only your password”
 - Be exact about recovery codes: “Each code works once. Keep them somewhere other than this phone.”
 
-## AI interactions
+## Agent and system (HAI)
 
-- No AI in this journey because security set-up must be predictable and identical for everyone
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- No step uses an AI assistant: security set-up must be predictable and identical for everyone, and setup keys, codes and recovery codes are handled only by the person and the account security service.
+- Two-step verification is not switched on until a working code has been entered, recovery codes are shown once as text, and every change sends a notice email.
 
 ## Edge cases
 
@@ -190,6 +193,54 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Person closes the page before saving codes — keep the factor off and resume where they left off
 - Phone lost later — recovery codes or backup method sign them in; otherwise route to assisted recovery with a waiting period
 - Number recycled by the carrier — prompt periodic review of the text-message number and prefer app or key
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Account — email, two-step verification on, last recent sign-in · relates to Second factor, Recovery code set · personal data
+- Second factor — type (app, security key or text), name, encrypted setup key or key details, added, last used · relates to Account · personal data
+- Recovery code set — hashed codes, generated, codes used, saved confirmed · relates to Account · personal data
+- Text message number — number, verified, last reviewed · relates to Second factor · personal data
+- Trusted device — device, trusted until · relates to Account · personal data
+- Security notice — change, time, sent to · relates to Account · personal data
+- Audit record — event, when, device · relates to Account · personal data
+
+### Systems it touches
+
+- Identity and sign-in service — reads recent sign-in; writes two-step verification status · when down: Settings can't be changed; nothing is half-enabled and the person can resume later.
+- Code checker — reads setup key, entered code; writes test result · when down: The factor stays off; the setup key stays on screen and the person can test again later.
+- Security key service — reads key response; writes registered key · when down: Offer the authenticator app; the key can be added later.
+- Text message delivery — reads number; writes codes · when down: Offer the app or key method; text stays a fallback.
+- Email notifications; writes notices when a factor is added or removed and when codes are regenerated · when down: Queue the notice and show it in security settings.
+- Assisted recovery case management — reads recovery requests; writes outcomes · when down: Queue the request and keep the stated waiting period.
+
+### Roles
+
+- Account holder — choose and connect a second factor, test it, save, download or print recovery codes, add a backup method, remove a factor after signing in again
+- Assisted recovery specialist — restore access with identity checks and a waiting period
+- Security team — set accepted methods, review lockouts
+
+### Default targets (the product confirms or replaces them)
+
+- Set-up starts ending with a tested factor and saved codes: 80% or more (range 75–90%)
+- Set-up completion with a screen reader: 80% or more (range 75–90%)
+- Lockouts within 90 days of set-up: Under 1% (range 0.5–1%)
+- App or key chosen over text message: 70% or more (range 60–85%)
+- Recovery codes issued: 10, each single use (range 8–12)
+- Clock drift accepted: One time step (range One time step)
+- Trusted device remembered: 30 days (range 7–30 days)
+
+### Required inputs and configuration
+
+- Methods offered and the recommended ones
+- Recent sign-in rule before security changes
+- Number of recovery codes
+- Trusted device period
+- Notice email wording
+- Assisted recovery checks and waiting period
 
 ---
 

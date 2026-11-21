@@ -15,6 +15,8 @@ A writer drafts a piece, legal and brand reviewers check it in parallel, and an 
 
 **Outcome** — Every published piece has all required approvals recorded, and approved pieces go live at the scheduled time with no unreviewed edits.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Keyboard, Pointer, Image upload
   - Errors (A11Y-E1): Missing alt text, evidence or rights are named beside the item and listed in a summary with links; all text typed is kept.
   - Time limits (A11Y-W1): No time limit; progress is saved automatically so short sessions can stop and resume.
   - Language (A11Y-L1): Say 'rights' and 'evidence' with a one-line explanation, and use plain names for checklist items.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The writer saves a draft or opens the required-items checklist.
+  - Agent goal: Catch unevidenced claims, missing alt text and hard-to-read passages before review.
+  - Agent actions: Says it is an AI assistant that checks drafts and suggests changes, and that only named reviewers approve. Highlights claims about prices, savings or the environment with no evidence attached, images without alt text and long or complex passages, each with its reason; the writer accepts, edits or dismisses each one. Drafted alt text and rewordings are marked as AI-drafted until accepted.
+  - Agent tone: Specific and calm; names the fix.
+  - Agent type: Vertical editorial-check AI assistant; single.
+  - Multi-agent handoff: Draft autosaves, then the AI assistant checks, then suggestions appear in the checklist.
+  - Goal failure response: Low confidence (unsure whether a sentence is a claim): flag it as a question, not an error. Ambiguous input (evidence attached but unclear which claim it supports): ask the writer to link them. Goal drift (a rewording makes a claim stronger): only suggest wording the attached evidence supports. Data unavailable: the checklist works by hand and says the AI check is off.
+  - Failure handover trigger: Unsure whether a claim needs evidence: the writer asks Legal through the review request, not the AI assistant. The writer asks for a person: the editor or product support immediately, with the handover context package.
+  - Data needs: Draft text, attached evidence, image details and alt text, the reading-level target for the channel.
+  - Agent memory: Short-term: suggestions for this version. Episodic: which suggestions were accepted or dismissed, kept with the version history.
+  - Regulatory classification: Content governance; claims fall under consumer protection law, so suggestions support but never replace legal review; minimal AI Act risk with suggestions labelled.
 
 ### 2. Request review
 
@@ -122,6 +137,19 @@ Inputs: Keyboard, Pointer, Image upload
   - Errors (A11Y-E1): The reset warning names which approvals are affected before the edit, and Cancel keeps the text exactly as it was.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Explain 'reset' as 'Legal will need to approve again'.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: A reviewer requests changes and the writer starts revising.
+  - Agent goal: Help the writer address each requested change without resetting more approvals than needed.
+  - Agent actions: Re-runs the checks on edited text and, when the writer asks, suggests wording for a reviewer comment, marked as AI-drafted. Before a suggestion is accepted it shows which approvals the edit will reset; the writer decides, and the diff records which changes came from the AI assistant.
+  - Agent tone: Brief and practical; suited to short sessions.
+  - Agent type: Vertical editorial-check AI assistant; single.
+  - Multi-agent handoff: AI assistant suggests, the writer accepts or edits, then the version service records the change and resets the affected approvals.
+  - Goal failure response: Goal drift (a suggestion fixes the comment but adds a new claim): re-check and flag it. Constraint violation (a suggestion touches an approved paragraph): say which approval resets. Low confidence about what the reviewer meant: suggest the writer reply to the comment instead.
+  - Failure handover trigger: Writer and reviewer disagree: the editor decides, with the comment thread. The writer asks for a person: the editor or product support immediately, with the handover context package.
+  - Data needs: Reviewer comments, current and approved versions, which approval covers which paragraph.
+  - Agent memory: Short-term: this revision. Episodic: version history with AI-drafted changes marked.
+  - Regulatory classification: Content governance; approvals attach to exact versions and the audit trail shows AI-drafted edits.
 
 ### 5. Schedule
 
@@ -192,9 +220,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Status copy names the blocker: “Waiting on Legal (Aisha) · due Wed”
 - Schedule copy always includes the time zone
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: check drafts for unevidenced claims, missing alt text and reading level, shown as suggestions the writer accepts; approvals are only by named reviewers
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- Every check result from the AI assistant (an unevidenced claim, missing alt text, a hard-to-read passage) is a labelled suggestion and changes nothing until the writer accepts it
+- Approvals come only from named reviewers on an exact version; the AI assistant never approves, requests changes, schedules, publishes or takes down
+- A clean AI check never unblocks publishing; the system still blocks until every required approval is current
+- Alt text and rewordings drafted by the AI assistant are marked as AI-drafted and must be checked by the writer before the item counts as done
+- Accepting an AI suggestion after approval is an edit like any other: the approvals it will reset are shown before it is accepted
 
 ## Edge cases
 
@@ -203,6 +237,56 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Scheduled time passes while an approval is reset — hold publication and alert editor
 - Image rights expire — flag published pages using it for replacement
 - Takedown request — editor can unpublish immediately with a reason recorded
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Contributor — name, role (writer, editor, legal reviewer, brand reviewer), availability · relates to Version, Approval · personal data
+- Piece — title, content type, channels, status (draft, in review, approved, scheduled, live) · relates to Version, Schedule
+- Version — number, author, created, diff, changes drafted by the AI assistant · relates to Piece, Approval
+- Review request — reviewer, version, due date, notes · relates to Version, Contributor
+- Approval — reviewer, version, decision, comments, date, reset by edit (yes or no) · relates to Version, Contributor · personal data
+- Claim evidence — claim text, evidence file, version · relates to Version
+- Image — file, usage rights, rights expiry, alt text, alt text drafted by the AI assistant (yes or no) · relates to Version
+- Schedule — publish time, time zone, channels, scheduled by · relates to Piece
+- Publication record — live version, approvals, published at, takedown reason · relates to Piece, Version
+
+### Systems it touches
+
+- Content management system — reads drafts, versions; writes drafts, versions, diffs · when down: Autosave keeps changes on the device and syncs later; the writer is told.
+- Approval workflow — reads required reviewers by content type; writes review requests, approvals, resets · when down: Scheduling stays blocked; reviewers and the editor see the delay.
+- Asset library — reads image rights, expiry; writes alt text · when down: Images can't be marked ready until rights can be checked.
+- Publishing scheduler — reads schedules, approval status; writes live pages, emails, takedowns · when down: Publication is held and the editor is alerted; nothing goes live without current approvals.
+- AI assistant service — reads draft text, evidence, image details; writes suggestions labelled as from the AI assistant · when down: The checklist works by hand.
+
+### Roles
+
+- Writer — draft and revise, attach evidence and rights, accept or dismiss AI suggestions, request review
+- Editor — set and change reviewers, reassign overdue reviews, schedule, take down with a reason, fast-track urgent corrections with legal approval
+- Legal reviewer — approve or request changes on an exact version
+- Brand reviewer — approve or request changes on an exact version
+- Auditor — read published versions, approvals and change history
+- AI assistant — check drafts for unevidenced claims, missing alt text and reading level, draft alt text and wording, marked as AI-drafted, show which approvals an edit resets, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Published pieces with full approvals: 100% (range 100%)
+- Review cycle time: 3 working days (range 1–5 working days)
+- Edits after approval without re-review: 0 (range 0)
+- On-time publishing: 98% (range 95–99.5%)
+- Published versions and approvals kept: the legal minimum for the jurisdiction (range set by consumer protection law and organisation policy)
+
+### Required inputs and configuration
+
+- Content types and required reviewers for each
+- Claim types that need evidence
+- Reading-level target per channel
+- Publication time zone and channels for preview
+- Urgent correction and takedown policy
+- Image rights source
 
 ---
 

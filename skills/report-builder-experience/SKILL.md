@@ -15,6 +15,8 @@ An analyst turns a dashboard view into a report with clear filters, shares it wi
 
 **Outcome** — A user builds and shares a filtered report in under 5 minutes, and every recipient sees only data they are allowed to see, with the filters stated on the report.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -124,6 +126,19 @@ Inputs: Keyboard, Mouse, Screen magnifier, Screen reader
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Keep summaries short, state 'costs rose 4 percent' and say it was drafted by a tool.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The owner chooses Draft summary once the tables and totals are set.
+  - Agent goal: Draft a short, accurate account of what changed that the owner can check and sign off.
+  - Agent actions: Says it is an AI assistant that drafts summaries from the report's own tables, and that the owner edits and approves it. Drafts two or three sentences labelled as a draft by the AI assistant, with every figure linked to its source table; the owner edits, accepts or discards it, and only accepted text is saved, with their name.
+  - Agent tone: Plain and factual: “rose 4%”, not “surged”.
+  - Agent type: Vertical reporting AI assistant; single.
+  - Multi-agent handoff: The query service supplies the filtered tables, the AI assistant drafts, the owner approves.
+  - Goal failure response: Low confidence (a change with no clear cause): state the change and say the cause isn't clear from the data. Data unavailable (query timed out or data is stale): don't draft; say why and show the refresh time. Goal drift (the draft mentions depots outside the filters): drop it and redraft from the filtered tables only. Constraint violation: never quote masked personal data.
+  - Failure handover trigger: Totals don't match the finance system: the owner checks with the data owner, and the AI assistant doesn't explain the gap away. The owner asks for a person: product support immediately, with the handover context package.
+  - Data needs: The report's filtered tables and totals, the comparison period, the data refresh time.
+  - Agent memory: Short-term: the draft. Episodic: accepted summaries kept with the report version and who approved them.
+  - Regulatory classification: Minimal AI Act risk; financial reporting accuracy and row-level access rules apply; AI-drafted text labelled and approved by the owner.
 
 ### 5. Share
 
@@ -195,10 +210,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Times with zone: “08:00 GMT”
 - Failures name the cause and next step: “Data source unavailable. Retrying at 09:00”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: draft a written summary of changes from the report data; the user edits and approves it, and each figure links to the table it came from
-- No AI in deciding who can see what because access must follow the organisation's permission rules exactly
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The written summary is drafted only when the owner asks, is labelled as a draft by the AI assistant, and is saved only after the owner edits or accepts it
+- Every figure in the summary links to the table it came from and matches it exactly; a figure that can't be linked is left out
+- The AI assistant takes no part in filters, recipients, sharing, access or schedules; who sees what follows the organisation's permission rules exactly
+- A recipient whose access is narrower than the report's filters does not see the summary, because it may describe data they cannot see; they get the tables for their access with a note
+- A scheduled export includes the summary only for the period it was accepted for; later runs go without it, with a note, until the owner accepts a new one
 
 ## Edge cases
 
@@ -207,6 +227,54 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Report query times out — partial results are never sent; owner notified
 - Data refresh late at scheduled time — wait up to a set limit, then send with a stale-data note or skip, per owner setting
 - Owner deactivated — schedules paused and admin asked to reassign
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Report — title with scope, filters, date range, data refresh time, tables and charts, owner · relates to Summary, Share, Schedule
+- Summary — text, drafted by the AI assistant (yes or no), edited by owner, approved by, approved at, period covered, source table links · relates to Report
+- Recipient — name, email, inside or outside the organisation, data access scope · relates to Share, Schedule · personal data
+- Share — report, recipient, shared by, shared at · relates to Report, Recipient · personal data
+- Schedule — formats (PDF, CSV), day, time, time zone, recipients, next run, stale-data rule, owner · relates to Report, Run
+- Run — time, status, retries, failure reason, stale-data note · relates to Schedule
+- Change log — what changed, who, when · relates to Report, Schedule · personal data
+
+### Systems it touches
+
+- Data query service — reads dashboard data, refresh times · when down: Queries stop after 60 seconds with a clear message; partial results are never sent.
+- Permission service — reads row-level access for each person, masked columns · when down: Sharing and scheduled sends wait; nobody receives data that can't be checked.
+- Export service — reads report, recipient access; writes PDF and CSV files with filters and refresh time, formula characters escaped · when down: The run fails, is retried at the set time and the owner is told.
+- Scheduler and email — reads schedules; writes runs, sends, failure notices · when down: Runs are retried; after the retry limit the owner is notified and nothing partial is sent.
+- AI assistant service — reads the report's filtered tables; writes summary drafts labelled as from the AI assistant · when down: The summary is written by hand.
+
+### Roles
+
+- Report owner — build and filter reports, ask for, edit, accept or discard a summary draft, share, schedule and change schedules
+- Recipient — view reports limited to their own data access
+- Data owner — set row-level access and masked columns, check totals against source systems
+- Workspace admin — set approved external domains, reassign schedules of deactivated owners, read change logs
+- AI assistant — draft a written summary from the report's tables, labelled as a draft, with figures linked to source, works at most in Advisory mode; no part in access or sharing
+
+### Default targets (the product confirms or replaces them)
+
+- Query time limit: 60 seconds (range 30–120 seconds)
+- Time to first shared report: under 5 minutes (range 3–10 minutes)
+- Access leaks: 0 (range 0)
+- Scheduled export reliability: 99.5% (range 99–99.9%)
+- Exports showing filters and refresh time: 100% (range 100%)
+- Retry after a failed run: 1 hour (range 15 minutes–4 hours)
+
+### Required inputs and configuration
+
+- Data sources and refresh schedule
+- Row-level access rules and masked personal data columns
+- Approved external domains
+- Report templates
+- Default time zone
+- Stale-data rule: wait limit, then send with a note or skip
 
 ---
 

@@ -15,6 +15,8 @@ Take a busy admin from sign-up to their first real result in one sitting — no 
 
 **Outcome** — An admin reaches a first meaningful result with their own data in one sitting and knows the single next step.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -107,6 +109,19 @@ Inputs: Mouse, Keyboard, Paste / import
   - Errors (A11Y-E1): If an import row fails, the problem is named in text beside that row and linked from a summary; the uploaded file and choices are kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Explain terms such as “data source” and “template” in place, and write row counts in full, for example “1,200 rows imported”.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The admin chooses Set it up for me on the set-up checklist and describes their team and work in a sentence or two.
+  - Agent goal: Draft a ready-to-use workspace from the description so the admin never faces a blank page.
+  - Agent actions: Says it is an AI assistant that can draft a workspace (a template, fields and a first project) from a short description, for the admin to check before anything is created. Shows the draft as a list of what will be created, each item marked as drafted by the AI assistant; the admin edits, removes or accepts items and then confirms Create, or picks a template, import or sample instead.
+  - Agent tone: Brisk and concrete; respects the admin's twenty minutes.
+  - Agent type: Vertical onboarding AI assistant; single.
+  - Multi-agent handoff: AI assistant drafts, the admin reviews and confirms, then the workspace service creates only the accepted items. Connecting a data source and granting it access stay with the admin.
+  - Goal failure response: Ambiguous input (description too short to choose a template): ask one clarifying question and show two or three likely templates. Low confidence: say the draft is a best guess and mark the unsure parts. Partial completion (some items created, others failed): list what was created, retry the rest and keep the description. Full task failure (drafting unavailable): say so plainly and offer template, import or sample.
+  - Failure handover trigger: Drafting fails twice, or the admin asks for a person: product support immediately, with the handover context package (the description in the admin's words, the draft, what was created, what failed and the retry history).
+  - Data needs: The admin's description, the template catalogue and workspace field types; never the data source's credentials.
+  - Agent memory: Short-term: the description and draft, saved with checklist progress so a later session can pick up. Nothing kept longer unless the admin agrees.
+  - Regulatory classification: Minimal risk; business account data; AI interaction disclosed and drafted items labelled.
 
 ### 4. First task
 
@@ -119,6 +134,19 @@ Inputs: Mouse, Keyboard, Paste / import
   - Errors (A11Y-E1): Project name errors are shown in text beside the field and linked to it; the name typed is kept and the pre-filled import data is not asked for again.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say what a “project” is in one short sentence and keep the empty-state text at a simple reading level.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The admin reaches the empty dashboard after importing or connecting data, with an accepted AI draft.
+  - Agent goal: Make the first project one click, using the admin's own data.
+  - Agent actions: Pre-fills the first project's name and settings from the imported data and the accepted draft, each value marked as filled by the AI assistant. The admin changes anything and presses Create your first project; the AI assistant never creates it itself, and the project can be renamed or deleted afterwards.
+  - Agent tone: Short and encouraging, without hype.
+  - Agent type: Vertical onboarding AI assistant; single.
+  - Multi-agent handoff: AI assistant pre-fills, the admin creates, the project service saves.
+  - Goal failure response: Data unavailable (import still running or failed): say so and offer sample data or a blank project. Goal drift (suggested project doesn't match what the admin described): show the description beside it and redraft. Constraint violation (name already in use): suggest another and say why.
+  - Failure handover trigger: The admin asks for a person, or creating the project fails after one retry: product support, with the handover context package.
+  - Data needs: Imported column names and row counts (not full records), the accepted draft, project naming rules.
+  - Agent memory: Short-term: the draft and pre-filled values. Episodic: what the admin accepted or changed, viewable and deletable.
+  - Regulatory classification: Minimal risk; imported data may hold personal data, so the AI assistant reads only what it needs to name and set up the project (data minimisation).
 
 ### 5. First success
 
@@ -177,15 +205,68 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Numbers over adjectives: “Imported 1,240 rows”
 - Never blame: “We couldn’t read that file — try CSV or XLSX”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Offer “Set it up for me” that drafts the workspace from a short description, shown for review before it is created
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is AI before it drafts anything, and every template choice, field and project it drafts is marked as drafted by the AI assistant until the admin accepts it
+- Nothing is created from an AI draft until the admin has seen the exact list of what will be created and confirmed it; they can remove any item first and rename or delete created items afterwards
+- The AI assistant takes no part in sign-up, passwords, single sign-on, granting a data source access or sending invites; the admin does these themselves
+- Set it up for me is optional and every step works fully without the AI assistant, using a template, an import or sample data
+- A failed or partial draft says what was created and what wasn't, keeps the admin's description, and asking for a person reaches product support straight away with the handover context package
 
 ## Edge cases
 
 - Import fails halfway — keep what worked, list what didn’t
 - Admin invited by someone else — skip workspace creation
 - SSO enforced — hide password fields entirely
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Admin — name, work email, sign-in method (password or single sign-on), role, marketing email consent (separate from sign-up) · relates to Workspace, Invite · personal data
+- Workspace — name, template, plan, created by, created from AI draft (yes or no) · relates to Admin, Project, Data source, Onboarding checklist
+- Onboarding checklist — items, status of each item, skipped items, last step reached · relates to Workspace
+- Data source — type (import or integration), file name, rows imported, rows failed with reasons, connected by · relates to Workspace, Project · personal data
+- Project — name, settings, created by, values filled by the AI assistant · relates to Workspace, Data source
+- AI draft — description given, items drafted, accepted, changed or removed by the admin, time · relates to Workspace, Admin · personal data
+- Invite — email, role, sent by, status · relates to Workspace, Admin · personal data
+
+### Systems it touches
+
+- Identity and sign-in service — reads account, single sign-on settings; writes accounts, sessions · when down: Sign-up shows the problem beside the button and offers an email to try again later; nothing typed is lost.
+- Workspace service — reads templates, workspace settings; writes workspaces, projects, checklist progress · when down: Progress already saved is kept; the admin is told plainly and can come back to the same step.
+- Import and integration service — reads files, connected sources; writes imported rows, row errors · when down: Sample data stays available; a failed import keeps what worked and lists what didn't.
+- Email service — reads invite list; writes invites, retry-later emails · when down: Invites are queued and the admin sees they haven't gone yet.
+- AI assistant service — reads the admin's description, template catalogue, import summary; writes drafts marked as made by the AI assistant · when down: Set it up for me is hidden or says it is unavailable; template, import and sample work as normal.
+
+### Roles
+
+- Operations admin — create the workspace, choose a template, import or sample, connect data sources, accept, change or reject AI drafts, invite the team, ask for a person
+- Invited admin — join an existing workspace without creating one, continue the checklist
+- IT administrator — set up single sign-on and user provisioning, enforce single sign-on
+- Product support — see onboarding progress and import errors, help finish set-up
+- AI assistant — draft a workspace from a description, marked as AI-drafted, pre-fill the first project, marked as AI-filled, explain set-up choices, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Time to first value: under 15 minutes (range 10–20 minutes)
+- Activation (step 4 done within 7 days): 45% (range 35–60%)
+- Checklist completion: 60% (range 50–75%)
+- Invites within 24 hours of first success: 30% (range 20–40%)
+- AI draft ready: under 10 seconds (range 5–20 seconds)
+
+### Required inputs and configuration
+
+- Template catalogue and what each creates
+- Supported import formats and integrations
+- Single sign-on and user provisioning options
+- Marketing consent wording, kept separate from sign-up
+- Onboarding checklist items
+- Support contact route and hours
 
 ---
 

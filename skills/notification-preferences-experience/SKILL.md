@@ -15,6 +15,8 @@ A customer decides which alerts they get by email, push or text, sets quiet hour
 
 **Outcome** — At least 70% of people who open notification settings leave with a saved change, and opt-outs from all notifications fall by 30% versus a single on/off switch.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -111,6 +113,19 @@ Inputs: Touch, Screen reader, System notification permission
   - Errors (A11Y-E1): An invalid time is named beside the field and linked to it, and the typed times stay.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write times in 24-hour form with the time zone name, and say 'London time' rather than an abbreviation.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The person opens Quiet hours and there is enough history of alerts left unread to suggest a window, or they ask for a suggestion.
+  - Agent goal: Suggest a quiet-hours window that fits the person's real schedule and time zone.
+  - Agent actions: Says it is an AI assistant that can suggest quiet hours from when alerts usually go unread, and that it cannot change settings or consent. Shows one labelled suggestion, such as 'Quiet from 08:00 to 16:00, London time', with the reason; the person accepts, edits or dismisses it, and nothing is saved without their tap.
+  - Agent tone: Brief and plain, easy for second-language readers; no pressure.
+  - Agent type: Vertical settings assistant; single.
+  - Multi-agent handoff: The AI assistant prepares the suggestion; the settings service saves only what the person confirms.
+  - Goal failure response: Data unavailable (too little history, or a recent change of time zone): say so and leave the times for the person to set. Goal drift (the window would also delay payment alerts the person wants): name which alerts still come through and let them choose. Ambiguous input (travelling across time zones): ask whether quiet hours should follow the phone or stay fixed.
+  - Failure handover trigger: The person asks for a person: support by chat or email immediately, with the handover context package (their goal, the times suggested and edited, time zone, current settings). After two rejected suggestions it stops suggesting and leaves manual times.
+  - Data needs: When alerts were opened or left unread over recent weeks, the chosen time zone, current quiet hours.
+  - Agent memory: Short-term for the suggestion; the read-time history it uses can be viewed and deleted by the person.
+  - Regulatory classification: Minimal AI risk; data protection applies to the behaviour data used, with the purpose stated and a way to turn it off; AI interaction disclosed; consent records under e-privacy rules are untouched.
 
 ### 4. Save
 
@@ -183,9 +198,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Locked items give a reason: “We always send this so you can stop unauthorised sign-ins”
 - Confirmation is short and specific: “Saved. Offers are off.”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: suggest a quiet-hours window from when the person usually ignores notifications; they accept or edit it, and no setting changes without a tap
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- Only the Quiet hours step uses an AI assistant; it says it is an AI assistant that can suggest a quiet-hours window and that it cannot change any setting or consent.
+- The suggested window is labelled as AI-made with its reason, and nothing changes until the person taps to accept it or edits it.
+- Marketing consent, channel choices, text-message charges and unsubscribes are the person's own choices; the AI assistant never sets, suggests or changes them.
+- Essential security and legal messages stay on and labelled, and the suggestion says that urgent security alerts may still arrive during quiet hours.
+- The person can turn suggestions off, see and delete the read-time history they use, and ask for a person at any time.
 
 ## Edge cases
 
@@ -193,6 +214,56 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Person travels across time zones — ask whether quiet hours should follow the phone or stay fixed
 - Urgent security alert during quiet hours — deliver it and explain the override in the message
 - Unsubscribe link clicked from an old email — honour it immediately without sign-in
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Person — preferred language, time zone, email, phone number for texts, push devices · relates to Channel preference, Quiet hours, Marketing consent · personal data
+- Notification topic — name, essential or optional, reason if essential, example alert · relates to Channel preference
+- Channel preference — topic, push, email, text message, updated date · relates to Person, Notification topic · personal data
+- Marketing consent — given, channel, date and time, source, withdrawn date · relates to Person, Consent audit record · personal data
+- Quiet hours — start, end, time zone, follows phone or fixed, set by person or accepted suggestion · relates to Person · personal data
+- Alert read history — sent time, opened time, left unread · relates to Person, Quiet hours · personal data
+- Digest — date, items, channel · relates to Person · personal data
+- Consent audit record — change, channel, when, how made · relates to Marketing consent, Channel preference · personal data
+
+### Systems it touches
+
+- Preferences service — reads preferences, quiet hours; writes preferences, quiet hours · when down: Current choices still apply; changes are kept on the device and saved when the service is back, and the person is told.
+- Consent record store — reads consent history; writes consent changes with time and channel · when down: Opt-outs and unsubscribes take effect at once and are recorded when the store is back; new marketing opt-ins wait until they can be recorded.
+- Messaging service (email, push, text) — reads channel preferences, quiet hours, essential list; writes sent alerts, digests · when down: Optional alerts are queued; essential security alerts go by another working channel.
+- Phone notification permission — reads permission state · when down: Treat push as off, say which alerts won't arrive and how to turn it back on.
+- Quiet-hours suggestion service — reads alert read history, time zone; writes suggestion only · when down: No suggestion is shown; the person sets times themselves.
+
+### Roles
+
+- Customer — choose channels per topic, give or withdraw marketing consent, set quiet hours and time zone, accept, edit or dismiss a suggestion, undo a change, unsubscribe from any message without signing in
+- Privacy team — set the essential message list and reasons, audit consent records, receive handovers about consent
+- Support team member — explain settings, receive handovers from the AI assistant
+- AI assistant — suggest a quiet-hours window, explain why it was suggested, hand over to a person, works at most in Advisory mode; never changes settings or consent
+
+### Default targets (the product confirms or replaces them)
+
+- Sessions in settings with a saved change: 70% or more (range 60–80%)
+- Settings synced across devices: Within 1 minute (range 10 seconds – 1 minute)
+- Undo shown after a change: 5 seconds, extendable (range 5–10 seconds)
+- Settings page size: Under 200 KB (range 100–200 KB)
+- Unsubscribe honoured: Immediately, without sign-in (range Immediately)
+- AI assistant reply time: Under 3 seconds (range 1–5 seconds)
+- Consent records kept: The legal minimum for the jurisdiction (range Set by data protection and e-privacy law)
+
+### Required inputs and configuration
+
+- Topics, with essential ones and the reason each is essential
+- Channels offered and text-message charge wording
+- Marketing consent wording
+- Default quiet hours and time zone rule when travelling
+- Digest timing and contents
+- Whether quiet-hours suggestions are offered, and the data they use
+- Support contact
 
 ---
 

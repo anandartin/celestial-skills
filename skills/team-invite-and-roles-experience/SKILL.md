@@ -15,6 +15,8 @@ A workspace admin invites colleagues by email or in bulk, gives each the least a
 
 **Outcome** — Admins invite a team of ten in under five minutes, at least 85% of invites are accepted within seven days, and fewer than 5% of members need a role change in their first month.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -98,6 +100,19 @@ Inputs: Keyboard and mouse, Paste from spreadsheet, CSV upload
   - Errors (A11Y-E1): The error “2 emails look wrong” is listed above the field, linked to each invalid chip, and the pasted text and valid chips are kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Describe each role by what it can and cannot do, in short sentences, with no jargon.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The admin pastes or uploads a list that includes job titles, or asks for help choosing roles.
+  - Agent goal: Help the admin give each invitee the least access they need, faster.
+  - Agent actions: Says it is an AI assistant that can suggest roles from the admin's past choices for similar job titles, and that it cannot send invites or change access. Shows a labelled suggestion beside each email with a one-line reason, such as 'Member: you chose Member for 6 other analysts'; the admin accepts, changes or clears each one, or accepts all after reading them, and no role is set until they do.
+  - Agent tone: Brief and factual; points out only what needs attention, so a busy, interrupted admin keeps their place.
+  - Agent type: Vertical workspace-administration assistant; single.
+  - Multi-agent handoff: AI assistant suggests → the admin confirms each role → Review shows the exact people, roles and cost → the admin sends.
+  - Goal failure response: Low confidence (no similar job title, or past choices disagree): leave the least-privileged role and say no suggestion was made. Constraint violation (a suggestion would give Owner, or Admin to an external email): don't make it, and mark external emails as Guest for the admin to confirm. Goal drift (broader access than past choices because of one word in a title): re-align to least privilege and show the reason. Data unavailable (members managed by directory sync): show them read-only with where to change them.
+  - Failure handover trigger: The admin asks for a person, or most suggestions in a batch are changed: stop suggesting and offer support by chat or email with the handover context package (the admin's goal, the batch, suggestions made and changed). A request for a person is met immediately.
+  - Data needs: This workspace's past role choices and job titles, role definitions, the email domain allow-list.
+  - Agent memory: Procedural: past role choices in this workspace only, which admins can view and clear; nothing about invitees is kept beyond the invite.
+  - Regulatory classification: Access control: the AI assistant only suggests, and an owner or admin grants access after an exact preview. Minimal AI risk because roles set product access, not hiring or work allocation; data protection applies to invitee emails and job titles; AI interaction disclosed.
 
 ### 3. Review
 
@@ -179,9 +194,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Invite email names the inviter and workspace: “Marcus invited you to join Fernhill Studio”
 - Plain status words: Active, Invited, Expired — no internal codes
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: suggest a role for each invitee based on the admin's past choices for similar job titles; the admin confirms every role before sending
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- Only the Invite step uses an AI assistant; it says it is an AI assistant that can suggest roles from the admin's past choices, and that it cannot send invites or change anyone's access.
+- Every suggested role is labelled as AI-suggested with its reason; the AI assistant never suggests Owner, never pre-selects Admin, and leaves the least-privileged role when unsure.
+- Nothing is sent until the admin confirms an exact review of each person, role, seat count and added cost; invites can be revoked and roles changed back from Manage, and every change is logged.
+- Role changes, removals and revocations are made only by an owner or admin, after a confirm step that shows the exact change; the last-admin rule still applies.
+- The AI assistant uses only this workspace's past role choices, which admins can view and clear, and an admin who asks for a person gets one immediately.
 
 ## Edge cases
 
@@ -190,6 +211,60 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Members managed by directory sync — show them as read-only with where to change them
 - Admin invites past the seat limit — offer to buy seats or remove pending invites, with costs shown
 - Person leaves the company — removal revokes sessions and transfers their content to a chosen owner
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Workspace — name, plan, seats bought, seats used, email domain allow-list · relates to Member, Invite, Seat charge
+- Member — name, email, job title, role, status, joined, managed by directory sync · relates to Workspace, Role, Audit record · personal data
+- Role — name, can, can't · relates to Member, Invite
+- Invite — email, role, AI-suggested role, role confirmed by, invited by, sent, expires, status, revoked date · relates to Workspace, Role, Member · personal data
+- Seat charge — seats added, prorated amount, billing date · relates to Workspace, Invite
+- Role suggestion history — job title, role chosen, chosen by, date · relates to Workspace, Role · personal data
+- Audit record — action, who, member, old role, new role, when · relates to Member, Invite · personal data
+
+### Systems it touches
+
+- Membership service — reads members, invites, roles; writes invites, roles, removals, revocations · when down: Show the last known list read-only; nothing is sent or changed, and the admin's list and roles are kept.
+- Billing system — reads plan, seats; writes seat changes, prorated charges · when down: Invites that add seats wait until the cost can be shown exactly; invites within free seats can go.
+- Email delivery; writes invite emails, reminders · when down: Queue invites, show them as pending and offer the copyable join link.
+- Directory sync and single sign-on — reads managed members · when down: Show managed members read-only with a note that changes are made in the directory.
+- Audit log; writes invites, role changes, removals with who and when · when down: Hold role changes until the entry can be written; revoking access still happens at once and is logged when the log is back.
+- Role suggestion service — reads role suggestion history, job titles; writes suggestions only · when down: No suggestions; each invitee gets the least-privileged role for the admin to set.
+
+### Roles
+
+- Owner — everything an admin can, make other people owners
+- Admin — invite people, set and change roles except Owner, resend and revoke invites, remove members with a content transfer, confirm bulk role changes after a review, clear role suggestion history
+- Member — work in the workspace as their role allows
+- Guest — work only in what they are invited to
+- Invitee — accept an invite, join with an existing account
+- AI assistant — suggest a role for each invitee, explain the reason, hand over to a person, works at most in Advisory mode; never sends invites or changes access
+
+### Default targets (the product confirms or replaces them)
+
+- Time to invite 10 people: Under 5 minutes, median (range 3–5 minutes)
+- Invite expiry: 14 days (range 7–30 days)
+- Invites accepted: 85% or more within 7 days (range 75–95%)
+- Invites per batch: Up to 500 (range 100–500)
+- Role changes in the first month: Under 5% of members (range 2–5%)
+- Admins as a share of members: Under 10% (range 5–10%)
+- AI assistant suggestion time: Under 3 seconds (range 1–5 seconds)
+- Audit records kept: The legal minimum for the jurisdiction, or longer if the workspace's policy says so (range Set by law and workspace policy)
+
+### Required inputs and configuration
+
+- Roles with what each can and can't do
+- Least-privileged default role
+- Seat price and proration rules
+- Invite expiry
+- Email domain allow-list and guest rule
+- Whether role suggestions are offered
+- Directory sync and single sign-on set-up
+- Support contact
 
 ---
 
