@@ -1,6 +1,6 @@
 ---
 name: jupiter-design
-core: "1.0"
+core: "1.1"
 dials: { density: compact, shape: soft, depth: hairline, contrast: standard }
 accent-scope: primary blue-grey for actions, links and data; secondary terracotta for the second series and highlights
 icons: lucide

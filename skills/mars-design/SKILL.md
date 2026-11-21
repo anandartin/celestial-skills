@@ -1,6 +1,6 @@
 ---
 name: mars-design
-core: "1.0"
+core: "1.1"
 dials: { density: comfortable, shape: sharp, depth: flat, contrast: quiet }
 accent-scope: primary action and stat numbers
 icons: phosphor

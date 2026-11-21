@@ -1,6 +1,6 @@
 ---
 name: mercury-design
-core: "1.0"
+core: "1.1"
 dials: { density: default, shape: soft, depth: layered, contrast: standard }
 accent-scope: actions, links and agent states
 icons: lucide
