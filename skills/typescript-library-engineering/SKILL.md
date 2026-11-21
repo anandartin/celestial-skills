@@ -3,7 +3,7 @@ name: typescript-library-engineering
 description: "Engineering skill: TypeScript npm library — how to build and ship a library with None — plain TypeScript, ESM-first, TypeScript, Vitest. Use when writing, reviewing, testing or releasing code in this stack, and when turning a Celestial design or experience skill into code."
 type: engineering
 stack: library
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 
@@ -97,6 +97,7 @@ When a Celestial experience skill is in use, give each journey one end-to-end te
 | Unit and component tests | The stack’s test runner | All pass; every design-skill component state covered | Every pull request |
 | Accessibility | Automated audit (axe on web, platform audit on mobile) | WCAG 2.2 AA · no new violations | Every pull request |
 | Dependency and secret scan | Dependency audit + secret scanner | No high or critical findings; no secrets | Every pull request and nightly |
+| Agent behaviour (HAI) | Journey tests for every agent step + a golden dataset of 20–50 cases (HAI skill, measurement) | Each agent step's failure response and handover are tested; the AI says it is AI; nothing commits without the person; 100% of AI actions in the audit log; no regression on the golden dataset | Every pull request that changes an AI feature; skip with "Not applicable — no AI assistant or agent" |
 | Package correctness | publint + @arethetypeswrong/cli on the packed tarball | 0 errors; types resolve for node16, bundler and ESM consumers | Every pull request |
 | API report | API Extractor | Report committed and up to date; any change has a matching changeset with the right semver bump | Every pull request |
 | Size budget | size-limit | Main entry ≤ 10KB minified and gzipped; no growth over 5% without approval | Every pull request |

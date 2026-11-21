@@ -3,7 +3,7 @@ name: context-engineering-engineering
 description: "Engineering practice: Context engineering for coding agents — Give a coding agent the right information at the right time, and nothing else, so it follows your conventions, touches the right files and needs fewer corrections. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

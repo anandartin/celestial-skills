@@ -3,7 +3,7 @@ name: internationalisation-engineering
 description: "Engineering practice: Internationalisation and localisation — Externalise every string, format numbers and dates by locale, handle plurals and right-to-left layouts, and prove it with pseudo-localisation, so adding a language is translation work rather than a rewrite. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

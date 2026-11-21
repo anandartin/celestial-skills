@@ -3,7 +3,7 @@ name: framework-upgrades-engineering
 description: "Engineering practice: Framework upgrades — Upgrade a framework or major dependency in planned, reversible steps with tests at each one, so you stay current without a long, risky freeze. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

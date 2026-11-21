@@ -3,7 +3,7 @@ name: spring-boot-service-engineering
 description: "Engineering skill: Spring Boot service — how to build and ship a api / service with Spring Boot, Java, JUnit 5 + AssertJ. Use when writing, reviewing, testing or releasing code in this stack, and when turning a Celestial design or experience skill into code."
 type: engineering
 stack: api
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 
@@ -99,6 +99,7 @@ When a Celestial experience skill is in use, give each journey one end-to-end te
 | Performance budget | Gatling or k6 load test against the preview environment | p95 ≤ 250ms and p99 ≤ 600ms at target RPS; error rate < 0.1% | Every pull request touching an endpoint or query |
 | Dependency and secret scan | Dependency audit + secret scanner | No high or critical findings; no secrets | Every pull request and nightly |
 | Preview deploy | Hosting preview environment | A working preview link on the pull request | Every pull request |
+| Agent behaviour (HAI) | Journey tests for every agent step + a golden dataset of 20–50 cases (HAI skill, measurement) | Each agent step's failure response and handover are tested; the AI says it is AI; nothing commits without the person; 100% of AI actions in the audit log; no regression on the golden dataset | Every pull request that changes an AI feature; skip with "Not applicable — no AI assistant or agent" |
 | Integration tests | Testcontainers suite | All pass against real Postgres | Every pull request |
 
 ## Workflow

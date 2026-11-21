@@ -3,7 +3,7 @@ name: secure-code-review-engineering
 description: "Engineering practice: Secure code review — Read every change the way an attacker would, so injection, broken access control and leaked secrets are caught before merge instead of after an incident. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

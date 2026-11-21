@@ -3,7 +3,7 @@ name: task-breakdown-engineering
 description: "Engineering practice: Task breakdown — Turn a spec into small, ordered tasks that each have acceptance criteria and a check that proves them done, so work can be reviewed, handed to an agent and finished one piece at a time. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

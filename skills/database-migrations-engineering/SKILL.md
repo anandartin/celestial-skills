@@ -3,7 +3,7 @@ name: database-migrations-engineering
 description: "Engineering practice: Database schema and safe migrations — Change the schema in small expand-then-contract steps that old and new code can both run against, so deploys never need downtime or a frantic rollback. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

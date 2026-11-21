@@ -68,6 +68,7 @@ When a Celestial experience skill is in use, give each journey one end-to-end te
 | Accessibility | Automated audit (axe on web, platform audit on mobile) | WCAG 2.2 AA · no new violations | Every pull request |
 | Performance budget | Bundle analyzer + Playwright trace on fixture pages | Each content script ≤ 50KB · no long task over 50ms on host pages · popup interactive ≤ 300ms | Every pull request |
 | Dependency and secret scan | Dependency audit + secret scanner | No high or critical findings; no secrets | Every pull request and nightly |
+| Agent behaviour (HAI) | Journey tests for every agent step + a golden dataset of 20–50 cases (HAI skill, measurement) | Each agent step's failure response and handover are tested; the AI says it is AI; nothing commits without the person; 100% of AI actions in the audit log; no regression on the golden dataset | Every pull request that changes an AI feature; skip with "Not applicable — no AI assistant or agent" |
 | Permission diff | Script comparing the built manifest's permissions with main | No new permission or host pattern without a written justification approved in review | Every pull request |
 
 Accessibility is never skipped. Automated: A11Y-C1, A11Y-F1, A11Y-I1, A11Y-N1, A11Y-N2, A11Y-S1, A11Y-L2, A11Y-P1 (partly). Manual pass before release: A11Y-K1, A11Y-G1, A11Y-R1, A11Y-M1, A11Y-O1, A11Y-V1, A11Y-E1, A11Y-U1, A11Y-L1 — keyboard-only run, screen reader on each journey step, 200% zoom and 320px width, reduced motion, captions on any media. Cite the requirement ID (for example A11Y-E1) in the pull request when you fix or test one.
@@ -105,4 +106,4 @@ Accessibility is never skipped. Automated: A11Y-C1, A11Y-F1, A11Y-I1, A11Y-N1, A
 - Submit the previous version with a higher version number; disable risky features through remote config that changes data, never code
 - Write a blameless note within 48 hours: what happened, impact, fix, prevention
 
-_Generated from the Celestial engineering skill “Browser extension (Manifest V3)” (engineering core v1.0, checked 2026-10-26)._
+_Generated from the Celestial engineering skill “Browser extension (Manifest V3)” (engineering core v1.1, checked 2026-10-26)._

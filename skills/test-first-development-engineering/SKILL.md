@@ -3,7 +3,7 @@ name: test-first-development-engineering
 description: "Engineering practice: Test-first development — Write a failing test for one small behaviour, make it pass with the least code, then tidy up, so every line you ship is already proven. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

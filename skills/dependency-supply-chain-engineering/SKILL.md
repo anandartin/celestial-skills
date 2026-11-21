@@ -3,7 +3,7 @@ name: dependency-supply-chain-engineering
 description: "Engineering practice: Dependency and supply-chain hygiene — Know exactly what code you ship and where it came from, so a compromised or abandoned package cannot slip into production unnoticed. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

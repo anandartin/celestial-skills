@@ -3,7 +3,7 @@ name: git-workflow-engineering
 description: "Engineering practice: Git workflow — Work in short-lived branches with small, well-described commits, so history explains itself and any change can be reviewed, bisected or reverted. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

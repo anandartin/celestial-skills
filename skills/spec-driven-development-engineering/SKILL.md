@@ -3,7 +3,7 @@ name: spec-driven-development-engineering
 description: "Engineering practice: Spec-driven development — Keep a versioned spec in the repository as the source of truth that people and coding agents implement against, with requirement IDs traced into tasks, tests and pull requests, so behaviour and intent never quietly drift apart. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

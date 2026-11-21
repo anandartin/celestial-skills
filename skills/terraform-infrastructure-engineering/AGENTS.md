@@ -66,6 +66,7 @@ When a Celestial experience skill is in use, give each journey one end-to-end te
 | Performance budget | Lab measurement in CI | Web: LCP ≤ 2.5s · INP ≤ 200ms · CLS ≤ 0.1 · ≤ 170KB JS per route. Mobile: cold start ≤ 2s · 60fps scroll | Every pull request |
 | Dependency and secret scan | Checkov or Trivy config scan + secret scanner | No high or critical misconfigurations without a documented exception; no secrets | Every pull request and nightly |
 | Preview deploy | Hosting preview environment | A working preview link on the pull request | Every pull request |
+| Agent behaviour (HAI) | Journey tests for every agent step + a golden dataset of 20–50 cases (HAI skill, measurement) | Each agent step's failure response and handover are tested; the AI says it is AI; nothing commits without the person; 100% of AI actions in the audit log; no regression on the golden dataset | Every pull request that changes an AI feature; skip with "Not applicable — no AI assistant or agent" |
 | Reviewed plan | terraform plan in CI, posted to the pull request | Plan succeeds; no unexpected destroy or replace; apply uses the saved plan | Every pull request and before every apply |
 
 Accessibility is never skipped. Automated: A11Y-C1, A11Y-F1, A11Y-I1, A11Y-N1, A11Y-N2, A11Y-S1, A11Y-L2, A11Y-P1 (partly). Manual pass before release: A11Y-K1, A11Y-G1, A11Y-R1, A11Y-M1, A11Y-O1, A11Y-V1, A11Y-E1, A11Y-U1, A11Y-L1 — keyboard-only run, screen reader on each journey step, 200% zoom and 320px width, reduced motion, captions on any media. Cite the requirement ID (for example A11Y-E1) in the pull request when you fix or test one.
@@ -104,4 +105,4 @@ Accessibility is never skipped. Automated: A11Y-C1, A11Y-F1, A11Y-I1, A11Y-N1, A
 - Revert the commit and apply the previous configuration; restore stateful resources from backups if replaced
 - Lock the affected state while investigating so no one applies over the fix
 
-_Generated from the Celestial engineering skill “Terraform infrastructure” (engineering core v1.0, checked 2026-10-26)._
+_Generated from the Celestial engineering skill “Terraform infrastructure” (engineering core v1.1, checked 2026-10-26)._

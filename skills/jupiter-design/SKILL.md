@@ -337,7 +337,7 @@ Use this mark as-is: don't redraw, recolour (except to one solid colour on dark 
 - JetBrains Mono
 
 
-## Components (core v1.1)
+## Components (core v1.2)
 Every component's anatomy and states are core: Jupiter Admin Kit only supplies the token values. Control sizes for Jupiter Admin Kit: SM 28px · MD 36px · LG 44px · XL 56px; anything under 44px keeps a 44px hit area on touch. Borders are drawn inside. Disabled is 0.45 opacity with `aria-disabled`.
 
 | Group | Component | Anatomy | Sizes | States | Keyboard and accessibility |
@@ -371,11 +371,19 @@ Every component's anatomy and states are core: Jupiter Admin Kit only supplies t
 | Surfaces | Accordion | item · trigger (label · chevron) · panel | SM · MD · LG | collapsed · expanded · hover · focus-visible · disabled | The trigger is a button with `aria-expanded` (A11Y-P1) |
 | Surfaces | Table | header · rows · cells · sort · selection · row actions | compact · default · comfortable | default · hover · selected · sorted · loading · empty | Real table markup; sort order announced (A11Y-P1, A11Y-S1) |
 | Overlays | Modal | scrim · dialog · title · body · actions · close | 320 · 480 · 600 · 800 · 1024px or full screen | closed · opening · open · closing | Focus moves in and is kept inside; Escape closes and returns focus (A11Y-K1, A11Y-O1) |
+| AI (HAI) | AI label | "AI" chip with a spark icon · optional "Made by AI assistant" tag on filled fields and drafts | SM · MD | default · hover (explains what the AI did) · accepted (tag removed) | The text says "AI assistant" or "AI agent", never just "agent"; the tag stays until a person accepts the content (A11Y-C2) |
+| AI (HAI) | Mode indicator | current mode (Assistive · Advisory · Autonomous) · what that means here · change link | one size | assistive · advisory · autonomous · paused | The mode is in text, not colour alone; changing it is a person's action (A11Y-C2) |
+| AI (HAI) | Decision card | AI label · proposed action with exact values · reasons and sources · confidence · approve · edit · decline | one size | default · low confidence · approved · edited · declined | Nothing is committed until a person chooses; low confidence is said in words (A11Y-E3, A11Y-S1) |
+| AI (HAI) | Activity and undo | list of AI actions (what · when · result) · undo or reverse · stop | compact · default | running · done · undone · failed | Stop and undo are buttons, reachable by keyboard; results are announced (A11Y-K1, A11Y-S1) |
+| AI (HAI) | Standing rules | limits (amount, categories) · expiry · set by · end rules | one size | active · expiring soon · ended | Ending the rules is one step and is confirmed in text (A11Y-E3) |
+| AI (HAI) | AI states | message with icon: uncertain · degraded · escalating · resolved by a person | one size | uncertain · degraded · escalating · resolved | Each state says what happens next; nothing fails silently (A11Y-S1, A11Y-C2) |
+| AI (HAI) | Handover | announcement · summary of what is done and what remains (editable) · wait time · keep reading answers | one size | connecting · connected · call-back offered | The person can correct the summary; the receiving person sees the full context (A11Y-H1) |
+| AI (HAI) | AI receipt | what was done · prepared by the AI · approved by whom · reference · undo or dispute | one size | default · reversed · disputed | Says who did what in words; undo or dispute links name the action (A11Y-E3) |
 | Overlays | Drawer | scrim · panel · header · body · footer | 280 · 400 · 600 · 800px or full | closed · opening · open · closing | As modal; it slides in from the edge (motion respects reduced-motion) (A11Y-M1) |
 
 Commerce parts (product price, product media, size and colour selector, store rating) are compositions of these components and belong to a brand's own patterns.
 
-## Patterns (core v1.1)
+## Patterns (core v1.2)
 Compositions of core components for recurring jobs. Each uses only contract tokens, so it renders in Jupiter Admin Kit and in any other brand. Jupiter Admin Kit's own signature patterns follow at the end.
 
 ### Navigation
@@ -470,7 +478,7 @@ Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obso
 
 
 ## Celestial core foundations (included)
-This brand sits on Celestial core v1.1. The shared rules are included here so this file works on its own.
+This brand sits on Celestial core v1.2. The shared rules are included here so this file works on its own.
 
 Shared by every Celestial design skill. Locked values live here once; a brand SKILL.md documents only its deltas and never restates core.
 
@@ -485,7 +493,7 @@ Base unit 4px. Scale: 0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160p
 | Desktop | 1024px | 12 | 24px | 32–40px |
 | Wide | 1440px | 12 | 32px | auto · max 1120 / 1200 / 1280px |
 
-What's new in v1.1 (additive — no v1.0 value changed): Component size ladder: SM / MD / LG / XL around the brand control height, plus selection, icon, avatar and overlay sizes; Opacity scale for scrims, tints and disabled states; Tonal step names 50–950 for colour ramps; Paragraph spacing; Borders drawn inside the element; Colour roles: info, link, visited link, scrim, inverse; States: selected, read-only, expanded, visited, dragging and drop target; Component specs for every core component, including date picker, rating, avatar, list, link and header.
+What's new in v1.2 (additive — no v1.0 value changed): Component size ladder: SM / MD / LG / XL around the brand control height, plus selection, icon, avatar and overlay sizes; Opacity scale for scrims, tints and disabled states; Tonal step names 50–950 for colour ramps; Paragraph spacing; Borders drawn inside the element; Colour roles: info, link, visited link, scrim, inverse; States: selected, read-only, expanded, visited, dragging and drop target; Component specs for every core component, including date picker, rating, avatar, list, link and header; v1.2: AI interaction components for the HAI framework — AI label, mode indicator, decision card, activity and undo, standing rules, AI states and handover, receipt.
 
 ### Ladders (brands pick a step, never invent a value)
 - Control height: 32 / 36 / 40 / 44px — inputs, buttons and selects share one height per size.
@@ -583,7 +591,7 @@ A value outside its class is an override: allowed only with a written reason in 
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "$name": "Jupiter Admin Kit",
-  "core": "1.1",
+  "core": "1.2",
   "dials": {
     "density": "Compact",
     "shape": "Soft",

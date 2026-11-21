@@ -3,7 +3,7 @@ name: technical-documentation-engineering
 description: "Engineering practice: Technical documentation — Keep a working README, short decision records and docs that change in the same pull request as the code, so people and agents can trust what they read. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

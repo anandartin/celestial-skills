@@ -65,6 +65,7 @@ When a Celestial experience skill is in use, give each journey one end-to-end te
 | Unit and component tests | The stack’s test runner | All pass; every design-skill component state covered | Every pull request |
 | Accessibility | Automated audit (axe on web, platform audit on mobile) | WCAG 2.2 AA · no new violations | Every pull request |
 | Dependency and secret scan | Dependency audit + secret scanner | No high or critical findings; no secrets | Every pull request and nightly |
+| Agent behaviour (HAI) | Journey tests for every agent step + a golden dataset of 20–50 cases (HAI skill, measurement) | Each agent step's failure response and handover are tested; the AI says it is AI; nothing commits without the person; 100% of AI actions in the audit log; no regression on the golden dataset | Every pull request that changes an AI feature; skip with "Not applicable — no AI assistant or agent" |
 | Package correctness | publint + @arethetypeswrong/cli on the packed tarball | 0 errors; types resolve for node16, bundler and ESM consumers | Every pull request |
 | API report | API Extractor | Report committed and up to date; any change has a matching changeset with the right semver bump | Every pull request |
 | Size budget | size-limit | Main entry ≤ 10KB minified and gzipped; no growth over 5% without approval | Every pull request |
@@ -105,4 +106,4 @@ Accessibility is never skipped. Automated: A11Y-C1, A11Y-F1, A11Y-I1, A11Y-N1, A
 - Publish a fixed patch and deprecate the bad version with a message pointing to it
 - Write a blameless note within 48 hours: what happened, impact, fix, prevention
 
-_Generated from the Celestial engineering skill “TypeScript npm library” (engineering core v1.0, checked 2026-10-26)._
+_Generated from the Celestial engineering skill “TypeScript npm library” (engineering core v1.1, checked 2026-10-26)._

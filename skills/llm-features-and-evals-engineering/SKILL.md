@@ -3,7 +3,7 @@ name: llm-features-and-evals-engineering
 description: "Engineering practice: LLM features and evals — Build features on large language models with versioned prompts, an evaluation set that gates every change, guardrails and cost and latency budgets, so quality is measured instead of hoped for. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

@@ -5,7 +5,7 @@ journey: user
 persona: Design lead (36), reviews three teams' work
 domain: Workplace software · collaboration
 technology: Web app with mobile notifications
-core: "1.1"
+core: "1.2"
 description: "Experience skill: Reviewing work together with comments and mentions — the best-practice user journey for a design lead (36), reviews three teams' work in Workplace software · collaboration on Web app with mobile notifications. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -17,7 +17,7 @@ A reviewer leaves comments anchored to the work, mentions the right people, and 
 
 **Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Assistive — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.2 components and patterns, and let the active design skill render them.
 
 ---
 

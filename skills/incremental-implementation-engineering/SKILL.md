@@ -3,7 +3,7 @@ name: incremental-implementation-engineering
 description: "Engineering practice: Incremental implementation — Build in thin vertical slices that each compile, pass tests and get committed, so you always have a working save point and any mistake costs one small revert. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

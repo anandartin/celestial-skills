@@ -3,7 +3,7 @@ name: code-review-engineering
 description: "Engineering practice: Code review — Review a pull request in a fixed order, from whether it is correct to whether it is tested, so real problems are caught and feedback is clear enough to act on. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

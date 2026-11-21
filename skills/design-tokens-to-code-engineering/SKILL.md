@@ -3,7 +3,7 @@ name: design-tokens-to-code-engineering
 description: "Engineering practice: Design tokens to code — Generate platform code from one token source, build components that only read tokens and guard them with visual regression, so a brand change ships in one commit. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

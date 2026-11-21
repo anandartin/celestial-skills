@@ -3,7 +3,7 @@ name: requirements-interview-engineering
 description: "Engineering practice: Requirements interview — Turn a vague request into a confirmed plan by asking one decision-changing question at a time with a recommended default, so nothing gets built on a guess. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

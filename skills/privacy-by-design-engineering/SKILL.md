@@ -3,7 +3,7 @@ name: privacy-by-design-engineering
 description: "Engineering practice: Privacy by design — Collect only the personal data a feature needs, keep it only as long as needed and make it easy to find and delete, so privacy holds up in code and not just in policy. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

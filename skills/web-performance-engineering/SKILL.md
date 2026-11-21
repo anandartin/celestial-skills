@@ -3,7 +3,7 @@ name: web-performance-engineering
 description: "Engineering practice: Web performance — Measure Core Web Vitals in the lab and the field, fix the biggest cause first and hold the line with budgets, so pages stay fast as features pile on. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

@@ -3,7 +3,7 @@ name: release-and-versioning-engineering
 description: "Engineering practice: Release and versioning — Semantic versions, a human-written changelog and tagged releases, so users know what changed and whether upgrading is safe. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

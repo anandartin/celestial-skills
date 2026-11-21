@@ -62,6 +62,7 @@ When a Celestial experience skill is in use, give each journey one end-to-end te
 | Performance budget | Macrobenchmark | Cold start ≤ 2s on a mid-range device · no janky frames in list scroll | Nightly |
 | Dependency and secret scan | Dependency audit + secret scanner | No high or critical findings; no secrets | Every pull request and nightly |
 | Preview deploy | Hosting preview environment | A working preview link on the pull request | Every pull request |
+| Agent behaviour (HAI) | Journey tests for every agent step + a golden dataset of 20–50 cases (HAI skill, measurement) | Each agent step's failure response and handover are tested; the AI says it is AI; nothing commits without the person; 100% of AI actions in the audit log; no regression on the golden dataset | Every pull request that changes an AI feature; skip with "Not applicable — no AI assistant or agent" |
 
 Accessibility is never skipped. Automated: A11Y-C1, A11Y-F1, A11Y-I1, A11Y-N1, A11Y-N2, A11Y-S1, A11Y-L2, A11Y-P1 (partly). Manual pass before release: A11Y-K1, A11Y-G1, A11Y-R1, A11Y-M1, A11Y-O1, A11Y-V1, A11Y-E1, A11Y-U1, A11Y-L1 — keyboard-only run, screen reader on each journey step, 200% zoom and 320px width, reduced motion, captions on any media. Cite the requirement ID (for example A11Y-E1) in the pull request when you fix or test one.
 
@@ -94,4 +95,4 @@ Accessibility is never skipped. Automated: A11Y-C1, A11Y-F1, A11Y-I1, A11Y-N1, A
 **Incidents**
 - Halt the staged rollout; remote config flags to disable features
 
-_Generated from the Celestial engineering skill “Jetpack Compose Android app” (engineering core v1.0, checked 2026-10-25)._
+_Generated from the Celestial engineering skill “Jetpack Compose Android app” (engineering core v1.1, checked 2026-10-25)._

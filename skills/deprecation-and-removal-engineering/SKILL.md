@@ -3,7 +3,7 @@ name: deprecation-and-removal-engineering
 description: "Engineering practice: Deprecation and removal — Retire code, APIs and features in announced, measured steps and then delete them completely, so the codebase shrinks without breaking anyone who still depends on it. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

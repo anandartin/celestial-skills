@@ -5,7 +5,7 @@ journey: user
 persona: Project coordinator (29) at a small charity
 domain: Workplace software · documents and access control
 technology: Web app and mobile app
-core: "1.1"
+core: "1.2"
 description: "Experience skill: Uploading a file and sharing it with the right access — the best-practice user journey for a project coordinator (29) at a small charity in Workplace software · documents and access control on Web app and mobile app. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -17,7 +17,7 @@ A user uploads a file, chooses exactly who can view or edit it, and can see and 
 
 **Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.2 components and patterns, and let the active design skill render them.
 
 ---
 

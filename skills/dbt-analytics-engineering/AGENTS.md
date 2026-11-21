@@ -69,6 +69,7 @@ When a Celestial experience skill is in use, give each journey one end-to-end te
 | Performance budget | Lab measurement in CI | Web: LCP ≤ 2.5s · INP ≤ 200ms · CLS ≤ 0.1 · ≤ 170KB JS per route. Mobile: cold start ≤ 2s · 60fps scroll | Every pull request |
 | Dependency and secret scan | Dependency audit + secret scanner | No high or critical findings; no secrets | Every pull request and nightly |
 | Preview deploy | Hosting preview environment | A working preview link on the pull request | Every pull request |
+| Agent behaviour (HAI) | Journey tests for every agent step + a golden dataset of 20–50 cases (HAI skill, measurement) | Each agent step's failure response and handover are tested; the AI says it is AI; nothing commits without the person; 100% of AI actions in the audit log; no regression on the golden dataset | Every pull request that changes an AI feature; skip with "Not applicable — no AI assistant or agent" |
 | Slim CI build | dbt build --select state:modified+ into a pull-request schema | All modified models and their children build; all tests pass; contracts hold | Every pull request |
 | Source freshness | dbt source freshness | No source past its error_after window | Before each production run |
 
@@ -108,4 +109,4 @@ Accessibility is never skipped. Automated: A11Y-C1, A11Y-F1, A11Y-I1, A11Y-N1, A
 - Revert the merge and rerun the affected models with --full-refresh only if incremental state is corrupt
 - Tell dashboard owners which tables and dates were wrong, then add the test that would have caught it
 
-_Generated from the Celestial engineering skill “dbt analytics project” (engineering core v1.0, checked 2026-10-26)._
+_Generated from the Celestial engineering skill “dbt analytics project” (engineering core v1.1, checked 2026-10-26)._

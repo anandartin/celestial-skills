@@ -3,7 +3,7 @@ name: spec-before-code-engineering
 description: "Engineering practice: Spec before code — Write a one-page spec and a step plan before implementing, then build and check against it, so the work matches what was asked the first time. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

@@ -3,7 +3,7 @@ name: dbt-analytics-engineering
 description: "Engineering skill: dbt analytics project — how to build and ship a library with dbt Core, SQL + Jinja, dbt data tests. Use when writing, reviewing, testing or releasing code in this stack, and when turning a Celestial design or experience skill into code."
 type: engineering
 stack: library
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 
@@ -103,6 +103,7 @@ When a Celestial experience skill is in use, give each journey one end-to-end te
 | Performance budget | Lab measurement in CI | Web: LCP ≤ 2.5s · INP ≤ 200ms · CLS ≤ 0.1 · ≤ 170KB JS per route. Mobile: cold start ≤ 2s · 60fps scroll | Every pull request |
 | Dependency and secret scan | Dependency audit + secret scanner | No high or critical findings; no secrets | Every pull request and nightly |
 | Preview deploy | Hosting preview environment | A working preview link on the pull request | Every pull request |
+| Agent behaviour (HAI) | Journey tests for every agent step + a golden dataset of 20–50 cases (HAI skill, measurement) | Each agent step's failure response and handover are tested; the AI says it is AI; nothing commits without the person; 100% of AI actions in the audit log; no regression on the golden dataset | Every pull request that changes an AI feature; skip with "Not applicable — no AI assistant or agent" |
 | Slim CI build | dbt build --select state:modified+ into a pull-request schema | All modified models and their children build; all tests pass; contracts hold | Every pull request |
 | Source freshness | dbt source freshness | No source past its error_after window | Before each production run |
 

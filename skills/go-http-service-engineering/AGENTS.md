@@ -65,6 +65,7 @@ When a Celestial experience skill is in use, give each journey one end-to-end te
 | Performance budget | Load test against the preview environment + go test -bench on hot paths | p95 ≤ 100ms and p99 ≤ 300ms at target RPS; no benchmark regression > 10% | Every pull request touching a handler or query |
 | Dependency and secret scan | Dependency audit + secret scanner | No high or critical findings; no secrets | Every pull request and nightly |
 | Preview deploy | Hosting preview environment | A working preview link on the pull request | Every pull request |
+| Agent behaviour (HAI) | Journey tests for every agent step + a golden dataset of 20–50 cases (HAI skill, measurement) | Each agent step's failure response and handover are tested; the AI says it is AI; nothing commits without the person; 100% of AI actions in the audit log; no regression on the golden dataset | Every pull request that changes an AI feature; skip with "Not applicable — no AI assistant or agent" |
 
 ## Pull requests
 - Branching: Trunk-based: short-lived branches off main, squash-merged within two days.
@@ -100,4 +101,4 @@ When a Celestial experience skill is in use, give each journey one end-to-end te
 - Roll back by redeploying the previous image tag
 - Capture a pprof profile before restarting if latency is the symptom; blameless note within 48 hours
 
-_Generated from the Celestial engineering skill “Go HTTP service” (engineering core v1.0, checked 2026-10-26)._
+_Generated from the Celestial engineering skill “Go HTTP service” (engineering core v1.1, checked 2026-10-26)._

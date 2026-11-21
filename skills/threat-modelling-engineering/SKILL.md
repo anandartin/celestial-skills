@@ -3,7 +3,7 @@ name: threat-modelling-engineering
 description: "Engineering practice: Threat modelling — Spend thirty minutes before building a feature asking what could go wrong, so security controls are designed in rather than bolted on after launch. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

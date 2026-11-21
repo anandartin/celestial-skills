@@ -5,7 +5,7 @@ journey: customer
 persona: Retired engineer (68), uses a walking frame
 domain: Hospitality
 technology: Responsive web and tablet
-core: "1.1"
+core: "1.2"
 description: "Experience skill: Reserving a restaurant table with access needs and deposits — the best-practice customer journey for a retired engineer (68), uses a walking frame in Hospitality on Responsive web and tablet. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A diner reserves a table for their group, says what access or dietary needs they
 
 **Outcome** — At least 90% of reservations with access notes are seated as requested, and no-shows fall by 30% without deposit complaints rising.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.2 components and patterns, and let the active design skill render them.
 
 ---
 

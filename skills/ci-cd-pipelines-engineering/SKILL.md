@@ -3,7 +3,7 @@ name: ci-cd-pipelines-engineering
 description: "Engineering practice: CI/CD pipelines — Pipelines that give a pass or fail in minutes, build once, preview every change and keep main always deployable. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

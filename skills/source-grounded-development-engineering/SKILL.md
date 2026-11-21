@@ -3,7 +3,7 @@ name: source-grounded-development-engineering
 description: "Engineering practice: Source-grounded development — Check every framework and library decision against the official documentation for the exact version installed, so code uses APIs that actually exist and behave as written. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 

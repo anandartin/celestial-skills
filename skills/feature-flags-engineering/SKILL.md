@@ -3,7 +3,7 @@ name: feature-flags-engineering
 description: "Engineering practice: Feature flags — Ship code dark, roll it out in stages, switch it off in seconds, and delete the flag once the rollout is done. Use in any language or framework whenever this practice applies, and when reviewing work that should follow it."
 type: engineering
 stack: practice
-core: "1.0"
+core: "1.1"
 checked: 2026-10-26
 ---
 
