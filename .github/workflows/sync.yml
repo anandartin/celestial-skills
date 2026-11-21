@@ -23,7 +23,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      # a queued run must start from the latest main, not the commit it was triggered on
       - uses: actions/checkout@v5
+        with:
+          ref: main
 
       - uses: actions/setup-node@v5
         with:
@@ -47,4 +50,6 @@ jobs:
           git add -A
           changed="$(git diff --cached --name-only -- skills | cut -d/ -f2 | sort -u | head -20 | paste -sd ',' - | sed 's/,/, /g')"
           git commit -m "Sync skills from celestialskill.com" -m "Changed: ${changed:-catalogue or site version only}" -m "Triggered by: ${{ github.event_name }}"
+          # if another run pushed first, replay this export on top of it rather than failing
+          git pull --rebase -X theirs origin main || { git rebase --abort; git fetch origin main; git reset --hard origin/main; node .github/sync/export.mjs .; git add -A; git commit -m "Sync skills from celestialskill.com" -m "Re-exported after a concurrent sync" || exit 0; }
           git push
