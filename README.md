@@ -10,7 +10,7 @@
 
 **121 open skills that teach AI agents how your product should look, work and be built** — 3 design skills (how a brand looks), 55 experience skills (how a journey works) and 63 engineering skills (how it's built and shipped), all written on one shared core so they work together.
 
-Each folder in [`skills/`](skills/) is one skill: a `SKILL.md` your agent reads, plus tokens, a logo, `AGENTS.md` or editor rules where the skill has them.
+Each folder in [`skills/`](skills/) is one skill: one complete `SKILL.md` your agent reads, with its files beside it. A design skill's `SKILL.md` covers the brand, colour and type, brand assets, icons, every component and pattern, templates, accessibility, the core foundations and the design tokens; beside it sit `tokens.json`, `assets/` (the logo or a placeholder, a dark logo when there is one, and `fonts/fonts.css` with each font's source and licence) and `templates/` (starter code for web, mobile web, iOS and Android, and document templates). Engineering skills add `AGENTS.md` and editor rules; practice skills add `references/`. The same files come with each skill's download and link on [celestialskill.com](https://celestialskill.com); licensed font files are published only there, never in this repository.
 
 ## Quick start
 
