@@ -477,7 +477,7 @@ Compositions of core components for recurring jobs. Each uses only contract toke
 
 ## Templates (core v1.4)
 
-Ready-made compositions of the components and patterns above, drawn in Jupiter Admin Kit's tokens. Build any page, screen, journey or document from the recipe that fits; swap the copy and data, keep the order, and take every value from the tokens. Every screen also needs its empty, loading and error states from *Patterns*. When this file comes as a download, the starter code and documents sit beside it in `templates/`.
+Ready-made compositions of the components and patterns above, drawn in Jupiter Admin Kit's tokens. Build any page, screen, journey or document from the recipe that fits; swap the copy and data, keep the order, and take every value from the tokens. Every screen also needs its empty, loading and error states from *Patterns*. The starter code and documents sit beside this file in `templates/` (in the download and the public repository), and a linked copy lists each one's web address under *Files with this skill*.
 
 ### Marketing pages
 Jupiter Admin Kit's default landing layout is **Product-led**; the other two suit other briefs. Sections run top to bottom in this order.
