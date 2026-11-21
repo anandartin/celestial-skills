@@ -5,7 +5,7 @@ journey: customer
 persona: Freelance translator (38), blind, uses a screen reader
 domain: Account security
 technology: Web app settings, desktop and mobile
-core: "1.2"
+core: "1.3"
 description: "Experience skill: Turning on two-step verification and saving recovery codes — the best-practice customer journey for a freelance translator (38), blind, uses a screen reader in Account security on Web app settings, desktop and mobile. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A customer adds a second step to sign-in using an authenticator app, a security 
 
 **Outcome** — At least 80% of people who start set-up finish with a tested second factor and saved recovery codes, and lockouts after set-up stay under 1%.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.2 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.3 components and patterns, and let the active design skill render them.
 
 ---
 

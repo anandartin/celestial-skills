@@ -337,7 +337,7 @@ Use this mark as-is: don't redraw, recolour (except to one solid colour on dark 
 - JetBrains Mono
 
 
-## Components (core v1.2)
+## Components (core v1.3)
 Every component's anatomy and states are core: Jupiter Admin Kit only supplies the token values. Control sizes for Jupiter Admin Kit: SM 28px · MD 36px · LG 44px · XL 56px; anything under 44px keeps a 44px hit area on touch. Borders are drawn inside. Disabled is 0.45 opacity with `aria-disabled`.
 
 | Group | Component | Anatomy | Sizes | States | Keyboard and accessibility |
@@ -349,23 +349,35 @@ Every component's anatomy and states are core: Jupiter Admin Kit only supplies t
 | Forms | Input | label · field · leading icon · trailing action · helper or error text | SM · MD · LG | default · hover · focus-visible · disabled · read-only · error · success | A visible label tied to the field; errors in text and announced; typed value kept (A11Y-N2, A11Y-E1, A11Y-S1) |
 | Forms | Textarea | label · field · counter · helper or error text | SM · MD · LG (rows grow) | as input | Counter changes announced politely (A11Y-S1) |
 | Forms | Select | label · trigger · value · chevron · option list | SM · MD · LG | as input, plus open | Native select first; a custom one follows the listbox pattern (A11Y-P1) |
+| Forms | Search | search icon · field · clear button · result count | SM · MD · LG | empty · typing · results · no results · focus-visible | A search landmark or labelled field; Escape clears; the result count is announced (A11Y-S1, A11Y-K1) |
+| Forms | Multiselect | label · field with removable tags · option list with checkboxes · count | SM · MD · LG | closed · open · option selected · focus-visible · disabled · error | Each tag's remove button names the option; the count is in text (A11Y-N2, A11Y-P1) |
 | Forms | Date picker | label · input with calendar button · calendar panel (month nav, weekday row, day grid) · helper text | SM · MD · LG | default · focus-visible · open · day hover · today · selected · range · disabled day · error | Dates can always be typed; the grid moves with arrow keys, Page Up/Down for months; the format is shown (A11Y-K1, A11Y-G1, A11Y-N2) |
 | Forms | File upload | drop zone · browse button · constraints text · file list with progress | SM · MD · LG | default · drag over · uploading · success · error | A real file button beside the drop zone; progress and errors announced (A11Y-G1, A11Y-S1) |
 | Forms | Range | label · track · fill · thumb · value | one size | default · hover · focus-visible · active · disabled | Arrow keys step; the value is shown in text (A11Y-K1) |
-| Selection | Checkbox | box · check or dash · label · helper text | 16 · 20 · 24px | unchecked · checked · indeterminate · hover · focus-visible · disabled · error | The label is clickable; a group has a legend (A11Y-P1) |
-| Selection | Radio | circle · dot · label · helper text | 16 · 20 · 24px | unselected · selected · hover · focus-visible · disabled · error | Arrow keys move within the group; one selected (A11Y-K1) |
+| Selection | Checkbox | box · tick (checked) or dash (indeterminate) in the label colour on the fill · label · helper text | 16 · 20 · 24px | unchecked · checked · indeterminate · hover · focus-visible · disabled · error | The label is clickable; a group has a legend (A11Y-P1) |
+| Selection | Radio | ring · inner dot in the brand colour when selected · label · helper text | 16 · 20 · 24px | unselected · selected · hover · focus-visible · disabled · error | Arrow keys move within the group; one selected (A11Y-K1) |
 | Selection | Switch | track · thumb · label | 16 · 20 · 24px | off · on · hover · focus-visible · disabled | Takes effect at once; `role="switch"` with `aria-checked` (A11Y-U1) |
+| Selection | Tags | label · optional remove button | SM · MD | default · selected (filter) · hover · focus-visible · disabled | A remove button says what it removes; colour is never the only sign of a selected tag (A11Y-C2, A11Y-N2) |
 | Selection | Rating | stars (or other marks) · value · count | 12 · 16 · 20 · 24px marks | display · hover preview · selected · focus-visible · disabled · read-only | The value is in text ("4.5 out of 5, 128 reviews"); input ratings are radio groups (A11Y-C2, A11Y-I1) |
 | Feedback | Alert | container · icon · title · text · action · close | one size | info · success · warning · error | Status in text and icon, not colour alone; important alerts announced (A11Y-C2, A11Y-S1) |
 | Feedback | Badge | container · label · optional dot or icon | SM · MD · LG | neutral · brand · secondary · success · warning · error | Text always says the status (A11Y-C2) |
 | Feedback | Progress and loading | bar · spinner · skeleton · toast | one size each | determinate · indeterminate · complete | `role="progressbar"` with a name; loading regions marked busy (A11Y-S1, A11Y-M1) |
+| Feedback | Inline loading | spinner or icon · status text · retry | one size | loading · done · failed | The status text is announced; nothing moves out from under the pointer (A11Y-S1, A11Y-U1) |
+| Feedback | Toast notification | icon · message · action (Undo, Retry) · close | one size | info · success · error · leaving | Announced politely; a toast with an action stays until dismissed or long enough to use it (A11Y-S1, A11Y-W1) |
+| Feedback | Popover | trigger · panel with title, text and links · pointer | one size | closed · open | Opens on click or Enter, traps nothing, closes on Escape and returns focus (A11Y-O1, A11Y-K1) |
 | Feedback | Tooltip | trigger · bubble | one size | hidden · shown | Shown on hover and focus, dismissable with Escape, never the only place information lives (A11Y-O1) |
 | Navigation | Header and navigation menu | bar · logo · destinations · search · account | SM · MD · LG bar heights | default · hover · current · focus-visible · open (mobile menu) | A `nav` landmark; the current page has `aria-current`; a skip link comes first (A11Y-N1, A11Y-H1) |
 | Navigation | Link | text · optional icon | inherits the text size | default · hover · focus-visible · visited · disabled | Underlined in body text; says where it goes (A11Y-N2, A11Y-C2) |
+| Navigation | Progress indicator | steps (number · name · done, current, upcoming) · connector | one size | done · current · upcoming · error · disabled | The current step has `aria-current="step"`; states are written, not colour only (A11Y-C2, A11Y-N1) |
+| Navigation | Side navigation | groups · destinations (icon · label) · current marker · collapse | one size; collapsed rail | default · hover · current · focus-visible · collapsed | A `nav` landmark; the current page has `aria-current`; the rail keeps labels as tooltips (A11Y-N1, A11Y-H1) |
+| Navigation | Tree view | items · expand chevron · icon · label · indentation | compact · default | collapsed · expanded · selected · focus-visible · disabled | The tree pattern: arrow keys move, Right opens, Left closes, Home and End jump (A11Y-K1, A11Y-P1) |
 | Navigation | Breadcrumb | trail · separators · current page | SM · MD · LG | default · hover · current · collapsed (overflow) | A `nav` with `aria-label`; the current item has `aria-current` (A11Y-N1) |
 | Navigation | Tabs | tab list · tabs · indicator · panels | SM · MD · LG | default · hover · selected · focus-visible · disabled | Arrow keys move between tabs; one selected (A11Y-K1, A11Y-P1) |
 | Navigation | Pagination | previous · pages · ellipsis · next · count | SM · MD · LG | default · hover · current · disabled | `aria-current` on the current page; previous and next are named (A11Y-N2) |
 | Surfaces | Card | container · media · header · body · footer actions | SM · MD · LG padding | default · hover (interactive) · selected · focus-visible · disabled · loading | One link or button per card; the whole card is not a click trap (A11Y-K1) |
+| Surfaces | Structured list | rows of label and value · optional row selection | compact · default | default · hover · selected | A description list or table, read in order (A11Y-P1) |
+| Surfaces | Selectable tile | card · selection mark · title · detail | SM · MD · LG | default · hover · selected · focus-visible · disabled | Works as a radio or checkbox; the selected tile is outlined and marked, not colour only (A11Y-C2, A11Y-P1) |
+| Surfaces | Code snippet | monospace block · copy button · expand | inline · single line · multi-line | default · copied · expanded | The copy button is named and says "Copied"; long lines scroll, never wrap code (A11Y-N2, A11Y-S1) |
 | Surfaces | List | container · items (leading visual · title · meta · trailing action) · dividers | SM · MD · LG row heights | default · hover · selected · focus-visible · disabled · dragging · drop target | Reordering has a keyboard and button alternative to dragging (A11Y-G1) |
 | Surfaces | Avatar | image or initials or icon · optional status dot · group stack | 24 · 32 · 40 · 48 · 64 · 96px | default · hover (clickable) · focus-visible | An image has alt text with the name; the status dot has text (A11Y-I1, A11Y-C2) |
 | Surfaces | Accordion | item · trigger (label · chevron) · panel | SM · MD · LG | collapsed · expanded · hover · focus-visible · disabled | The trigger is a button with `aria-expanded` (A11Y-P1) |
@@ -383,7 +395,7 @@ Every component's anatomy and states are core: Jupiter Admin Kit only supplies t
 
 Commerce parts (product price, product media, size and colour selector, store rating) are compositions of these components and belong to a brand's own patterns.
 
-## Patterns (core v1.2)
+## Patterns (core v1.3)
 Compositions of core components for recurring jobs. Each uses only contract tokens, so it renders in Jupiter Admin Kit and in any other brand. Jupiter Admin Kit's own signature patterns follow at the end.
 
 ### Navigation
@@ -478,7 +490,7 @@ Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obso
 
 
 ## Celestial core foundations (included)
-This brand sits on Celestial core v1.2. The shared rules are included here so this file works on its own.
+This brand sits on Celestial core v1.3. The shared rules are included here so this file works on its own.
 
 Shared by every Celestial design skill. Locked values live here once; a brand SKILL.md documents only its deltas and never restates core.
 
@@ -493,7 +505,7 @@ Base unit 4px. Scale: 0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160p
 | Desktop | 1024px | 12 | 24px | 32–40px |
 | Wide | 1440px | 12 | 32px | auto · max 1120 / 1200 / 1280px |
 
-What's new in v1.2 (additive — no v1.0 value changed): Component size ladder: SM / MD / LG / XL around the brand control height, plus selection, icon, avatar and overlay sizes; Opacity scale for scrims, tints and disabled states; Tonal step names 50–950 for colour ramps; Paragraph spacing; Borders drawn inside the element; Colour roles: info, link, visited link, scrim, inverse; States: selected, read-only, expanded, visited, dragging and drop target; Component specs for every core component, including date picker, rating, avatar, list, link and header; v1.2: AI interaction components for the HAI framework — AI label, mode indicator, decision card, activity and undo, standing rules, AI states and handover, receipt.
+What's new in v1.3 (additive — no v1.0 value changed): Component size ladder: SM / MD / LG / XL around the brand control height, plus selection, icon, avatar and overlay sizes; Opacity scale for scrims, tints and disabled states; Tonal step names 50–950 for colour ramps; Paragraph spacing; Borders drawn inside the element; Colour roles: info, link, visited link, scrim, inverse; States: selected, read-only, expanded, visited, dragging and drop target; Component specs for every core component, including date picker, rating, avatar, list, link and header; v1.2: AI interaction components for the HAI framework — AI label, mode indicator, decision card, activity and undo, standing rules, AI states and handover, receipt; v1.3: search, multiselect, tags, inline loading, toast notification, popover, progress indicator, side navigation, tree view, structured list, selectable tile and code snippet; checkbox ticks, indeterminate dashes and radio dots specified.
 
 ### Ladders (brands pick a step, never invent a value)
 - Control height: 32 / 36 / 40 / 44px — inputs, buttons and selects share one height per size.
@@ -591,7 +603,7 @@ A value outside its class is an override: allowed only with a written reason in 
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "$name": "Jupiter Admin Kit",
-  "core": "1.2",
+  "core": "1.3",
   "dials": {
     "density": "Compact",
     "shape": "Soft",

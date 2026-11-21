@@ -5,7 +5,7 @@ journey: customer
 persona: Student (20), deaf, getting home late
 domain: Ride-hailing
 technology: Native mobile app (iOS / Android)
-core: "1.2"
+core: "1.3"
 description: "Experience skill: Booking a ride and sharing the trip — the best-practice customer journey for a student (20), deaf, getting home late in Ride-hailing on Native mobile app (iOS / Android). Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -17,7 +17,7 @@ A rider books a car, sees the driver and fare before it arrives, and can share t
 
 **Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.2 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.3 components and patterns, and let the active design skill render them.
 
 ---
 

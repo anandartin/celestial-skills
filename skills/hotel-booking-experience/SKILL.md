@@ -5,7 +5,7 @@ journey: customer
 persona: Software tester (29), blind, travelling for a conference
 domain: Travel accommodation
 technology: Responsive web and mobile app
-core: "1.2"
+core: "1.3"
 description: "Experience skill: Searching, comparing and booking a hotel stay — the best-practice customer journey for a software tester (29), blind, travelling for a conference in Travel accommodation on Responsive web and mobile app. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -17,7 +17,7 @@ A traveller searches for a stay, compares options on the full price including ta
 
 **Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Assistive — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.2 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.3 components and patterns, and let the active design skill render them.
 
 ---
 

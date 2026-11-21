@@ -5,7 +5,7 @@ journey: user
 persona: Software engineer (31), connects tools for his team; keyboard-only user
 domain: Integrations and delegated access
 technology: B2B web app with redirect to the other tool's authorisation page
-core: "1.2"
+core: "1.3"
 description: "Experience skill: Connecting a third-party tool through an authorisation screen — the best-practice user journey for a software engineer (31), connects tools for his team; keyboard-only user in Integrations and delegated access on B2B web app with redirect to the other tool's authorisation page. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A work user connects another tool to their workspace, sees exactly what access i
 
 **Outcome** — At least 85% of started connections complete with a successful test sync, and fewer than 3% are disconnected within a week because of unexpected access.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.2 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.3 components and patterns, and let the active design skill render them.
 
 ---
 

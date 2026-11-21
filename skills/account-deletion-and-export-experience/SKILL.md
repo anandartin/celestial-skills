@@ -5,7 +5,7 @@ journey: customer
 persona: Night-shift nurse (61), leaving a service she no longer uses
 domain: Privacy rights
 technology: Web app settings and account area
-core: "1.2"
+core: "1.3"
 description: "Experience skill: Downloading your data and closing your account — the best-practice customer journey for a night-shift nurse (61), leaving a service she no longer uses in Privacy rights on Web app settings and account area. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A customer downloads a copy of their data in a readable format and closes their 
 
 **Outcome** — Every export and deletion request completes within the legal deadline (target 100%; any request past 80% of the deadline alerts the team), and 90% of people say they understood what would happen before confirming.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.2 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.3 components and patterns, and let the active design skill render them.
 
 ---
 
