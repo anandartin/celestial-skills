@@ -15,7 +15,7 @@ Let an agent draft and run refunds while a human stays in charge of anything irr
 
 **Outcome** — Refunds under threshold run automatically; those above are approved by a human in one decision with full context, and every action is traceable.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Autonomous.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Autonomous — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -262,6 +262,63 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Outcome unknown (timeout or no reply) — show 'Checking with the payment provider'; never retry blindly; reconcile by refund ID before any retry
 - Retry pending — visible state with the next attempt time and a way to cancel
 - Human intervention required — assign to the payments queue with the full trail; the customer is told who will reply and by when
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Refund request — customer, order, amount requested, reason, risk score and reason, status, received at · relates to Customer, Order, Decision, Ticket · personal data
+- Customer — name, customer tier, contact history · relates to Refund request, Order · personal data
+- Order — order number, items, amount paid, payment reference (masked), date · relates to Customer, Refund request, Payment · personal data
+- Ticket — label, owner, priority, suggested by AI agent or set by a person · relates to Refund request · personal data
+- Decision — outcome (approve, edit, decline), amount, drafted by, decided by, reasons, sources used, confidence, decided at · relates to Refund request, Refund run · personal data
+- Standing rule — amount cap, categories, expiry, set by, active · relates to Refund run
+- Refund run — steps and status, payment reference, started at, completed at, cancelled or reversed, retries · relates to Decision, Standing rule, Payment · personal data
+- Payment — amount, method (masked), provider reference, status · relates to Order, Refund run · personal data
+- Audit event — actor (named AI agent or person), action, inputs, reasoning, model and prompt version, approver, outcome, time · relates to Decision, Refund run, Standing rule · personal data
+
+### Systems it touches
+
+- Order system — reads orders, payment history, customer tier; writes refund noted on the order · when down: Show requests unranked with a banner saying ranking is paused; alert operations on-call after 2 retries; the lead can work the inbox by hand.
+- Payment provider — reads payment status, refund result; writes refund, reversal · when down: Abort before acting, tell the lead and keep the request; after 2 failed retries hand over to finance operations with the partial state.
+- Support ticketing system — reads refund requests, customer contacts; writes labels, owner, priority, ticket closure · when down: Keep decisions in the console; close tickets once it is back and show which are pending.
+- Refund policy store — reads refund rules, thresholds · when down: Don't draft decisions; the lead decides by hand with the policy document.
+- Notification service; writes customer updates on refunds and refusals · when down: Queue the message, show it as pending and tell the lead.
+- Audit log — reads actions for the report; writes every AI agent and person action · when down: Pause autonomous runs, since nothing may run without a trace; alert the compliance owner.
+- Reporting and export — reads audit log, decisions, payment confirmations; writes export file · when down: Say which period is incomplete; never present a partial export as complete.
+
+### Roles
+
+- Support lead — approve, edit or decline refunds within their limit, set, change or end standing rules, cancel or reverse refunds, export the report
+- Senior approver — decide refunds above the lead's limit, handle legal threats and complaints
+- Finance operations — take over failed or partial payments, reconcile refunds
+- Operations on-call — fix missing order data when alerted
+- Compliance owner or auditor — read the trace and report, respond to audit-trail gaps
+- Customer — receive the outcome and reasons, ask a person to review a refusal
+- AI refunds agent — rank requests by risk, suggest labels, owner and priority, draft decisions with reasons and sources, run refunds a person approved or that fall inside standing rules, highest mode: Autonomous, only inside standing rules; never refuses a refund itself
+
+### Default targets (the product confirms or replaces them)
+
+- Approval decision time: under 30 seconds median (range 20–60 seconds)
+- Approval view load: under 2 seconds (range 1–3 seconds)
+- Auto-resolved under threshold: 70% or more (range 50–85%)
+- Handover for money failures: immediate, after at most 2 retries (range immediate)
+- Trace completeness: 100% of actions (range 100%)
+- Console and agent availability: 99.9% (range 99.5–99.99%)
+- Audit record retention: the legal minimum for the jurisdiction (range set by financial and data protection law)
+
+### Required inputs and configuration
+
+- Auto-approve threshold and each approver's limit
+- Standing rules: amount cap, categories and expiry
+- Refund policy and eligibility rules
+- Category list and team rota
+- Senior approver, finance operations and compliance contacts
+- Customer notice wording for AI-prepared refusals and how to ask for review
+- Payment retry limit (default 2)
+- Audit record retention period
 
 ---
 

@@ -15,7 +15,7 @@ Incoming tickets are categorised and prioritised with AI suggestions, agents con
 
 **Outcome** — Urgent tickets reach the right team within 15 minutes, and AI suggestions are reviewed by an agent before any customer-facing action.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -263,6 +263,62 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Spike from an outage — group related tickets and post a status update with lead approval
 - AI confidently wrong on a category — agent correction logged and reviewed weekly
 - Abusive message — agent protection tools and escalation to lead
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Ticket — channel, subject and text, customer, arrived at, category, priority, status, language · relates to Customer, Suggestion, Routing, Reply · personal data
+- Customer — name, customer tier, past tickets · relates to Ticket · personal data
+- Suggestion — category, priority, team, confidence, words that drove it, possible duplicates · relates to Ticket, Correction
+- Correction — suggested value, confirmed value, corrected by, time · relates to Suggestion · personal data
+- Routing — team, reason, routed by, routed at, accepted at · relates to Ticket, Team
+- Team — name, skills, rota, queue length · relates to Routing · personal data
+- Reply — draft text, source article, edited text, sent by, sent at · relates to Ticket, Knowledge article · personal data
+- Knowledge article — title, content, owner, last reviewed · relates to Reply
+- Audit event — actor (AI agent or person), action, model version, confidence, outcome, time · relates to Suggestion, Routing, Reply · personal data
+
+### Systems it touches
+
+- Email and chat channels — reads incoming messages; writes replies sent by a support agent (person) only · when down: Tickets wait in the channel; show the delay and process them in arrival order when back.
+- Ticketing system — reads tickets, past tickets, customer tier; writes category, priority, routing, status · when down: Support agents can't work tickets; show a status notice and keep drafts locally.
+- AI classification service — reads suggestions, confidence · when down: Tickets arrive without suggestions, marked not triaged, in order of arrival; triage works by hand.
+- Knowledge base — reads articles · when down: No draft; the support agent writes the reply or uses saved replies.
+- Team rota and queue service — reads teams, skills, queue lengths · when down: Support agents route by hand; urgent tickets go to the team lead.
+- Reporting and dashboard — reads ticket events, overrides, timings · when down: Show the time of the last update; never show stale metrics as current.
+- Machine translation service — reads translations · when down: Route to a speaker of the language if available.
+
+### Roles
+
+- Support agent (person) — confirm or correct category and priority, route or keep tickets, edit and send replies, merge duplicates
+- Team lead — watch queue health and AI accuracy, take urgent tickets not accepted in 15 minutes, approve outage status updates, switch a category to manual triage
+- Specialist team — handle security, safety, legal, complaints and refund disputes
+- AI owner — review the triage model with the lead when override rates rise
+- Customer — send tickets, receive replies sent by a support agent
+- AI triage agent — suggest category, priority and team with confidence, flag duplicates and urgent signals, draft replies from a named article, highest mode: Advisory — never sends to customers
+
+### Default targets (the product confirms or replaces them)
+
+- AI suggestion available after arrival: within 3 seconds (range 1–5 seconds)
+- Urgent ticket to the right team: within 15 minutes, 95th percentile (range 10–30 minutes)
+- Unaccepted urgent ticket to the team lead: at 15 minutes (range 10–30 minutes)
+- First-time correct routing: 90% or more (range 85–95%)
+- AI override rate review trigger: above 25% for a category (range 15–35%)
+- Workspace availability: 99.9% (range 99.5–99.99%)
+- Ticket and audit record retention: per the organisation's policy and the legal minimum for the jurisdiction (range set by data protection law and policy)
+
+### Required inputs and configuration
+
+- Categories, priorities and what counts as urgent
+- Teams, skills and rota
+- Service-level targets per priority
+- Confidence threshold for showing two options (default 70%)
+- Override rate that triggers review
+- Topics that always go to a specialist (security, safety, legal)
+- Which personal data is masked in AI prompts
+- Ticket and audit record retention period
 
 ---
 

@@ -15,7 +15,7 @@ A candidate applies with their CV, answers job-related screening questions, asks
 
 **Outcome** — A candidate submits an application in under 15 minutes and receives a status update at every stage, with no application left without an outcome after 30 days.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -290,6 +290,52 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Role closes while candidate is mid-application — save their answers and explain
 - Candidate asks why they were rejected — route to a person with a response deadline
 - Screen reader user can't complete a third-party test — provide an alternative format
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Candidate — name, contact details, CV, work history, skills · relates to Application · personal data
+- Role — title, pay range, location, essential requirements, nice-to-have requirements, stages, closing date · relates to Application, Screening question
+- Application — reference, stage, submitted date, next update date, outcome, reasons, filled by AI assistant flags · relates to Candidate, Role, Screening answer, Adjustment request · personal data
+- Screening question — question, requirement it checks · relates to Role
+- Screening answer — answer text · relates to Application, Screening question · personal data
+- Adjustment request — what would help, stage, status · relates to Application · personal data
+- Equality monitoring response — optional answers · personal data
+
+### Systems it touches
+
+- Applicant tracking system — reads role, stage, outcome; writes application, withdrawal · when down: Answers are kept; sending waits and the candidate is told.
+- CV-parsing service — reads CV file; writes suggested fields · when down: The candidate types the fields; nothing is lost.
+- Assessment platform — reads assessment status; writes adjusted settings · when down: The recruitment team arranges an alternative format or date.
+- Equality monitoring store; writes optional monitoring answers · when down: Monitoring is skipped; the application is unaffected.
+- Notification service — reads stage changes; writes status emails · when down: Messages are queued and status stays current on sign-in.
+
+### Roles
+
+- Candidate — apply, accept or edit CV fields, answer questions, request adjustments, withdraw, ask for human review and feedback
+- Recruiter — manage applications, arrange adjustments, send updates, receive handovers
+- Hiring manager or panel — shortlist, interview, decide and confirm every rejection
+- AI assistant — explain the role and process, fill fields from the CV, marked until accepted, explain screening questions, explain status and outcomes, hand over to a person, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- AI assistant response time: under 3 seconds (range 1–5 seconds)
+- Status email after a stage change: within 1 hour (range 15 minutes–24 hours)
+- Outcome for every application: within 30 days (range 14–45 days)
+- Reply to 'why was I rejected?': within 10 working days (range the legal deadline for the jurisdiction or sooner)
+- Candidate data retention: the stated period, within the legal maximum for the jurisdiction (range set by law and the published policy)
+
+### Required inputs and configuration
+
+- Role details, pay and stages
+- Screening questions mapped to requirements, reviewed for bias
+- Whether any automated screening or ranking is used, and the human review route
+- Adjustment examples and the team that handles them
+- Retention policy for candidate data
+- Rejection and feedback wording
 
 ---
 

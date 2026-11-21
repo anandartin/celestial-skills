@@ -15,7 +15,7 @@ From product to paid in under a minute on a phone, with nothing re-typed and no 
 
 **Outcome** — A returning shopper completes payment in under 60 seconds without re-entering saved details or meeting a surprise cost.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -261,6 +261,58 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - 3-D Secure challenge — return to the same step with state intact
 - Promo code invalid — explain why (expired, minimum spend)
 - Address outside delivery area — say so before payment
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Shopper — name, email, saved addresses, saved size and preferences, guest or account · relates to Bag, Order, Saved payment method · personal data
+- Product — name, variant and size, price, stock, delivery estimate, returns terms · relates to Bag item
+- Bag — items, subtotal, delivery charge, tax, total, promo code, last updated · relates to Shopper, Bag item, Order · personal data
+- Bag item — product variant, quantity, price, added by (shopper or assistant), accepted · relates to Bag, Product
+- Saved payment method — provider token, type (card or wallet), last four digits, expiry · relates to Shopper, Payment · personal data
+- Order — order number, items, total, delivery address, delivery date, cancel window, status · relates to Shopper, Payment · personal data
+- Payment — amount, method, provider reference, status, authentication result · relates to Order · personal data
+- Audit event — actor (shopper, assistant, system), action, what the assistant suggested or added, what the shopper approved, time · relates to Bag, Order · personal data
+
+### Systems it touches
+
+- Product catalogue and search — reads products, prices, filters · when down: Show a clear error and let the shopper retry; keep the bag.
+- Inventory and delivery estimates — reads stock, delivery dates, delivery area · when down: Show the latest known date and say it isn't confirmed; check stock again before payment.
+- Order system — reads order history, order status; writes new order · when down: Don't take payment; keep the bag and say when to try again.
+- Payment provider — reads payment result, authentication challenge; writes payment request, saved payment token · when down: Don't submit; say so, keep the bag and never retry a payment silently.
+- Customer account — reads saved addresses, saved payment tokens, size and preferences; writes preferences · when down: Let the shopper check out as a guest with the fields autofilled.
+- Promotions service — reads promo code rules · when down: Say promo codes can't be checked right now; allow checkout without one.
+- Notification service; writes order confirmation · when down: Show the order on screen and say the email will follow.
+- Customer service chat — reads handover status; writes handover with bag and context · when down: Show other contact routes and opening hours.
+
+### Roles
+
+- Shopper — browse and filter, add, change or remove bag items, accept or dismiss suggestions, pay as a guest or with saved details, complete card checks, cancel within the cancel window
+- Customer service agent — receive handovers with the bag and context, help with payment problems and orders
+- AI shopping assistant — find products and explain why each matches, recommend with reasons, add items to the bag, marked until accepted, prepare checkout for review, highest mode: Advisory — never presses Pay or sees card details
+
+### Default targets (the product confirms or replaces them)
+
+- Time to pay (checkout start to payment confirmed): under 60 seconds (range 45–90 seconds)
+- Page or step response on a slow mobile connection: under 2 seconds (range 1–3 seconds)
+- Payment response: under 5 seconds, excluding card checks (range 3–8 seconds)
+- Bag kept across sessions: 30 days (range 7–90 days)
+- Checkout availability: 99.9% (range 99.5–99.99%)
+- Order and payment record retention: the legal minimum for the jurisdiction (range set by consumer and tax law)
+
+### Required inputs and configuration
+
+- Supported payment methods and wallets, by country
+- Delivery options, charges and delivery areas
+- Tax rules for the selling countries
+- Returns policy and cancel window
+- Promo code rules
+- Whether guest checkout and account creation after the order are offered
+- Customer service contact routes and hours
+- Bag and order record retention periods
 
 ---
 

@@ -15,7 +15,7 @@ A customer asks for help in their own words, gets a clear answer or action from 
 
 **Outcome** — At least 60% of chats resolve without a person, and every handoff reaches an agent with the full transcript and no repeated questions.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -289,6 +289,57 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Verification fails repeatedly — lock account actions and route to a person
 - No agents available — offer a call-back or email with a time commitment
 - Customer asks for legal or financial advice — explain the limit and signpost appropriate help
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Customer — name, registered contact, verification status, contact history, communication preferences · relates to Conversation, Case · personal data
+- Conversation — messages, started at, AI disclosure shown, kept for 24 hours across reloads · relates to Customer, Case, Handover · personal data
+- Bill — charges, dates, amounts, payments · relates to Customer, Account action · personal data
+- Account action — type (refund, plan change), amount, card (masked), timing, proposed by, confirmed by, status · relates to Case, Bill · personal data
+- Handover — goal in the customer's words, what was tried, what is done, emotional signals, compliance flags, summary as corrected by the customer, queue position · relates to Conversation, Case · personal data
+- Case — case reference, actions taken and by whom, status, resolved at · relates to Customer, Account action, Handover · personal data
+- Audit event — actor (AI assistant, specialist AI agent, person or customer), action, who proposed, who confirmed, time · relates to Account action, Case · personal data
+
+### Systems it touches
+
+- Help centre and service status — reads help articles, service status · when down: Answer from what the assistant can see and offer a person.
+- Identity verification service — reads verified or not; writes one-time code request · when down: Don't show account details; offer another method or a person.
+- Billing system — reads bills, payments, service events · when down: Say the bill can't be seen right now, when to try again, and offer a person.
+- Refund and account changes system — reads refund limits; writes refund request, plan change · when down: Don't submit; say so and offer a person.
+- Support console and queue — reads queue position, wait time; writes handover with context package · when down: Say no one is available and offer a call-back or email with a time.
+- Case management — reads past contacts; writes case record and reference · when down: Give the details in the chat and send the reference when it is back.
+- Email service; writes transcript to the customer · when down: Let the customer copy the transcript from the chat.
+
+### Roles
+
+- Customer — ask in their own words, verify their identity, confirm or decline an exact change, ask for a person at any time, correct the handover summary, dispute an outcome
+- Support agent (person) — take handovers with the full transcript and summary, decide refunds over the limit and complaints, make changes the assistant can't
+- Trained safety responder — take conversations where the customer is distressed or at risk
+- AI support assistant — answer from help articles, explain charges after verification, propose fixes for the customer to confirm, submit confirmed refunds within the limit, hand over with the context package, highest mode: Advisory — never sees passwords or codes
+
+### Default targets (the product confirms or replaces them)
+
+- Assistant reply time: under 3 seconds (range 2–5 seconds)
+- Handover wait to a person: about 4 minutes (range 2–10 minutes; offer a call-back beyond it)
+- Resolved without a person: 60% or more (range 40–75%)
+- Conversation kept across reloads: 24 hours (range 24 hours to 7 days)
+- Chat availability: 99.9% (range 99.5–99.99%)
+- Case and audit record retention: the legal minimum for the jurisdiction (range set by consumer and data protection law)
+
+### Required inputs and configuration
+
+- Refund limit the assistant may handle (journey default £50)
+- Which account actions the assistant may propose
+- Verification methods and the number of tries allowed
+- Support opening hours, queue wait target and call-back options
+- Topics routed elsewhere (legal, medical, financial advice) and where to
+- Safety and distress escalation route
+- Transcript storage notice and training consent rules
+- Case and transcript retention period
 
 ---
 

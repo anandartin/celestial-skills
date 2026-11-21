@@ -183,6 +183,46 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Payment already in progress on renewal day — cancel future renewals and explain any refund for today
 - Customer wants account and data deleted too — offer it as a separate, clear option
 
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Subscriber — name, email, where the plan was bought · relates to Subscription · personal data
+- Subscription — plan, renewal date, status, access end date, family members · relates to Subscriber, Cancellation · personal data
+- Cancellation — reference, date and time, access end date, refund amount, reason (optional), offer shown and declined · relates to Subscription · personal data
+- Refund — amount, rule applied, status, date · relates to Cancellation · personal data
+- Deletion request — requested date, scope, status · relates to Subscriber · personal data
+
+### Systems it touches
+
+- Billing service — reads subscription, refund terms; writes cancellation, refunds, stop on renewals · when down: The subscriber is told nothing will be charged while it is fixed; the request is recorded and confirmed by email when done.
+- Email service; writes cancellation confirmation · when down: The reference and end date show on screen and the email is retried.
+- App store billing — reads store subscription status · when down: The subscriber is told to cancel in the store and given the link.
+- AI assistant service — reads subscription, cancellation record; writes answers · when down: Cancel works fully by hand from settings.
+
+### Roles
+
+- Subscriber — cancel, decline any offer, give a reason or not, ask for data deletion, restart later, ask for a person
+- Support — see subscriptions and cancellations, complete a failed cancellation, refund under the terms
+- AI assistant — link straight to the cancel screen, answer facts about access, refund and data, works at most in Assistive mode
+
+### Default targets (the product confirms or replaces them)
+
+- Cancellation completion time: under 90 seconds (range no more steps than sign-up)
+- Page response time: 1 second (range 0.5–2 seconds)
+- Confirmation email sent: within 5 minutes (range immediately to 15 minutes)
+- Cancellation records: the legal minimum for the jurisdiction (range set by consumer and data protection law)
+
+### Required inputs and configuration
+
+- Refund and cooling-off terms
+- Optional retention offer, if any (shown at most once)
+- App store cancellation links, if sold through app stores
+- Data retention and deletion policy
+- Support contact route and hours
+
 ---
 
 ## Measures

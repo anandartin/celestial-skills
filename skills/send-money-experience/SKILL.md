@@ -15,7 +15,7 @@ A customer adds a new payee, sees whether the name matches the account, and gets
 
 **Outcome** — Fewer than 1 in 1,000 new-payee payments are reported as scams, while 90% of genuine first payments complete in under two minutes.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -267,6 +267,58 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Duplicate payment within minutes — ask 'Did you mean to pay this again?'
 - Name check service down — warn and allow a delay option
 - Payee account is joint — explain why the name may differ
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Customer — name, contact details, accessibility preferences, daily new-payee limit · relates to Payee, Payment · personal data
+- Payee — name on account, sort code, account number, date added, saved or one-off · relates to Customer, Name check, Payment · personal data
+- Name check — result (matches, nearly matches, doesn't match, unavailable), name the bank holds, checked at · relates to Payee, Payment · personal data
+- Payment — amount, currency, reference, purpose, fee, status (prepared, approved, held, sent, failed), sent at, expected arrival · relates to Customer, Payee, Name check, Scam warning, Fraud hold · personal data
+- Scam warning — purpose it matches, warning text, version, shown at · relates to Payment
+- Fraud hold — main reason in plain words, held at, expected hold length, reviewer, outcome · relates to Payment, Customer · personal data
+- Audit event — actor (customer, assistant, staff, system), action, what the assistant filled in, who approved, time, outcome · relates to Payment, Payee, Fraud hold · personal data
+
+### Systems it touches
+
+- Core banking ledger — reads balance, daily limits, saved payees, fee table; writes new payee, payment record · when down: Don't start the payment; say the service is unavailable, keep what was entered and offer support.
+- Payee name-check service — reads name match result for the account · when down: Say the check couldn't run, recommend not paying a new payee until it can, and offer to try again or wait.
+- Fraud and risk scoring service — reads risk score, hold decision; writes payment risk signals · when down: Don't send a new-payee payment without a risk check; keep the payment prepared and hand over to support.
+- Payment rail — reads payment status; writes outbound payment instruction · when down: Full task failure: never retry silently; tell the customer nothing was sent and hand over to support.
+- Authentication service — reads authentication result linked to payee and amount · when down: The payment can't be approved; keep it prepared and say when to try again.
+- Notification service; writes payment confirmation, receipt · when down: Show the confirmation and reference on screen and say the receipt will follow.
+- Support and fraud team queue — reads handover status; writes handover with context package · when down: Show the bank's phone number for support and fraud.
+
+### Roles
+
+- Customer (payer) — add a payee, choose the payment purpose, review, approve or cancel a payment, authenticate themselves, report a mistake or scam
+- Support agent — receive handovers with the context package, explain a hold or refusal, help the customer finish or stop a payment
+- Fraud analyst — review held payments, release or stop a held payment, contact the customer about a suspected scam
+- AI payments assistant — fill the payee form from the customer's request, marked until checked, read out the name-check result, prepare the payment for review, hand over to a person, highest mode: Advisory — never approves, authenticates or skips a warning
+
+### Default targets (the product confirms or replaces them)
+
+- Time to first payment to a new payee: under 2 minutes median (range 1–3 minutes)
+- Name-check result shown: within 3 seconds (range 2–5 seconds)
+- One-time code validity: at least 5 minutes, with resend (range 5–10 minutes)
+- Time on the warning step before any timeout: at least 20 minutes, or extendable (range 20 minutes or more)
+- Handover to the fraud team: immediate for suspected scams (range immediate to 5 minutes)
+- Payment service availability: 99.9% (range 99.5–99.99%)
+- Payment and audit record retention: the legal minimum for the jurisdiction (range set by financial regulation)
+
+### Required inputs and configuration
+
+- Daily new-payee and payment limits, and when they reset
+- Fee table for each payment type
+- Payment purposes and the reviewed scam warning for each
+- Typical arrival times by payment type
+- Fraud-hold review hours and expected hold length
+- Support and fraud team contact routes and hours
+- Reimbursement rules for scam victims, for the help route
+- Record retention period for payments and audit events
 
 ---
 

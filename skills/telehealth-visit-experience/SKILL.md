@@ -15,7 +15,7 @@ A patient checks their device, waits in a clear virtual waiting room, talks to a
 
 **Outcome** — A patient joins their video visit on time with working audio and video at least 95% of the time, and leaves with a written summary and next steps within one hour.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -256,6 +256,54 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Clinician's connection fails — patient is told within 60 seconds and offered a call-back
 - Someone else answers on the patient's device — clinician confirms identity before continuing
 - Interpreter needed — add a third participant with patient consent
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Patient — name, date of birth, contact details, caption preference, current location for the visit · relates to Appointment, Visit summary · personal data
+- Appointment — date and time, clinician, single-use join link, link expiry · relates to Patient, Pre-visit answers, Visit · personal data
+- Pre-visit answers — question, answer, urgent flag · relates to Appointment · personal data
+- Device check — camera, microphone, connection quality, fallback chosen · relates to Appointment
+- Visit — identity confirmed, location confirmed, recording consent, duration, mode (video, audio, phone) · relates to Appointment · personal data
+- Visit summary — plan, prescriptions, referrals, follow-up, signed by, signed date · relates to Visit, Patient · personal data
+
+### Systems it touches
+
+- Clinical appointment system — reads appointment, clinician, join link; writes pre-visit answers, waiting status · when down: The clinic calls the patient at the appointment time.
+- Video consultation service — reads device checks, connection status; writes call state · when down: The visit drops to audio-only, then to the clinician calling the patient's phone.
+- Electronic health record — reads signed visit summary; writes pre-visit answers, summary · when down: The summary is sent when the record is back; the patient is told it is delayed.
+- Live captioning service — reads call audio; writes machine-generated captions · when down: Text chat stays available and the clinician is told captions are down.
+- Notification service — reads queue and summary status; writes texts and app messages · when down: The waiting room shows status on screen and staff phone if needed.
+
+### Roles
+
+- Patient — answer pre-visit questions, grant device permissions, confirm identity and location, consent or refuse recording, read the summary
+- Clinician — run the consultation, confirm identity and location, edit and sign the summary, answer clinical questions
+- Clinic staff — manage the waiting room, respond to urgent alerts, rebook or call back
+- Interpreter — join the visit with the patient's consent
+- AI assistant — explain questions and set-up, run device checks and suggest fixes, show wait updates, explain the signed summary, hand over to a person, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- AI assistant response time: under 2 seconds (range 1–3 seconds)
+- Urgent symptom alert to staff: immediately (range no delay allowed)
+- Waiting-room update: at least every minute (range 30–60 seconds)
+- Patient told of a clinician connection failure: within 60 seconds (range 30–60 seconds)
+- Signed summary available: within 1 hour (range 1–24 hours)
+- Clinical record retention: the legal minimum for the jurisdiction (range set by law)
+
+### Required inputs and configuration
+
+- Pre-visit questions and urgent-symptom rules agreed by clinical safety
+- Emergency guidance for the patient's location
+- Clinician licensing locations
+- Phone fallback number per appointment
+- Caption and chat settings
+- Recording consent wording
+- Summary templates and sign-off rules
 
 ---
 

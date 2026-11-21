@@ -15,7 +15,7 @@ A shopper pays without creating an account, with an address lookup, clear totals
 
 **Outcome** — At least 75% of guests who start checkout complete payment, in under four minutes, with no account required.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Assistive.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Assistive — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -253,6 +253,49 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Address abroad or not in the lookup database — manual entry with country-appropriate fields
 - Guest email already has an account — allow guest checkout anyway; mention sign-in once, not as a block
 - Payment taken but confirmation page fails to load — email the receipt and show the order on reload
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Guest shopper — email, phone (only if the carrier needs it), marketing consent (separate, unticked by default) · relates to Order · personal data
+- Basket — lines, quantities, prices, expiry time · relates to Order
+- Address — delivery address, billing address or same-as-delivery, country · relates to Order · personal data
+- Order — order number, lines, fees, tax, total, delivery date, status, idempotency key · relates to Guest shopper, Address, Payment · personal data
+- Payment — amount, method type, payment token, authentication outcome, status · relates to Order · personal data
+- AI assistant conversation — questions asked, answers given, handover if any, time · relates to Order · personal data
+
+### Systems it touches
+
+- Payment provider (hosted fields) — reads authentication outcome, payment status; writes payment token, charge · when down: Pay is unavailable; the basket and details are kept, no charge is made, and the shopper is told plainly.
+- Address lookup — reads addresses by postcode · when down: Manual address entry is shown at once.
+- Order service — reads basket, order status; writes orders · when down: Checkout pauses before payment; if paid, the receipt is emailed and the order shown on reload.
+- Email service; writes receipts, order updates · when down: The order shows on screen; the receipt is retried and sent when the service is back.
+- AI assistant service — reads basket, policies, order; writes answers · when down: Checkout works unchanged; the assistant is simply not offered.
+
+### Roles
+
+- Guest shopper — check out without an account, enter contact, address and payment details, pay and authenticate, make an account afterwards, ask for a person
+- Customer service — see orders and payment status, fix delivery problems, cancel orders and refund
+- AI assistant — explain the order, fees, delivery and returns, show how to reach a person, works at most in Assistive mode
+
+### Default targets (the product confirms or replaces them)
+
+- Checkout step response time: 1 second (range 0.5–2 seconds)
+- Guest checkout completion time: under 3 minutes (range 2–4 minutes)
+- Basket hold during checkout: 30 minutes (range 30–60 minutes, with a warning before expiry)
+- Checkout availability: 99.95% (range 99.9–99.99%)
+- Order and payment records: the legal minimum for the jurisdiction (range set by tax and consumer law)
+
+### Required inputs and configuration
+
+- Payment provider with hosted card fields and bank authentication
+- Address lookup source and supported countries
+- Delivery options, fees and tax rules
+- Returns and cancellation policy text
+- Customer service contact route and hours
 
 ---
 

@@ -15,7 +15,7 @@ A trial user always knows when the trial ends, what they will pay and how to sto
 
 **Outcome** — Trial-to-paid conversion reaches 25% while chargebacks and “I didn’t mean to pay” refunds stay under 1% of conversions.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -264,6 +264,50 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - User signed up on one platform’s app store — explain where to cancel and link to it
 - Time zone change near the end date — charge date shown in the current local time
 - Minor or shared account detected — require the account holder to confirm the paid plan
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Person — name, email, time zone, account holder confirmation for shared or minor accounts · relates to Trial, Subscription · personal data
+- Trial — start date, end date, price after trial, status, cancelled date · relates to Person, Consent record, Reminder · personal data
+- Consent record — wording version, date and time, channel, amount and frequency agreed · relates to Trial · personal data
+- Reminder — trial, send date, channels, delivery status · relates to Trial · personal data
+- Subscription — plan, billing cycle, next charge date, next amount, payment token · relates to Person, Trial · personal data
+- Feature use — feature, first used, times used · relates to Person · personal data
+
+### Systems it touches
+
+- Billing service — reads trial, plans, subscription; writes conversion, charges, cancellations · when down: No conversion happens while it is down; the trial is not converted silently and the person is told.
+- Payment provider — reads card status, authentication outcome; writes payment token, charges · when down: The trial continues to its end date and the person can update the card later.
+- Notification service — reads channels; writes trial-ending reminders, receipts · when down: Reminders are retried and also shown in-app; no charge is taken unless the required reminder was sent.
+- AI assistant service — reads trial terms, feature use, plans; writes suggestions marked as made by the AI assistant · when down: The trial and plan choice work fully by hand.
+
+### Roles
+
+- Trial user — start a trial, give consent to charges, choose a plan, cancel the trial or plan, ask for a person
+- Account holder — confirm a paid plan for a shared or minor account
+- Billing support — see trials and charges, refund unintended charges, reactivate cancelled plans
+- AI assistant — explain trial terms and plans, show how to use features, suggest a plan with reasons, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Page response time: 1 second (range 0.5–2 seconds)
+- Reminder before first charge: 3 days (range the legal minimum for the jurisdiction or more)
+- Time to cancel a trial: under 1 minute (range no more steps than sign-up)
+- Billing availability: 99.9% (range 99.5–99.95%)
+- Consent records: the legal minimum for the jurisdiction (range set by consumer law)
+
+### Required inputs and configuration
+
+- Trial length and price after the trial
+- Plan catalogue with monthly and yearly prices
+- Reminder rules for each jurisdiction served
+- Consent wording for recurring charges
+- Payment provider with tokenised cards and bank authentication
+- App store cancellation links, if sold through app stores
 
 ---
 

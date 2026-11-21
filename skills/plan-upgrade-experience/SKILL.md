@@ -15,7 +15,7 @@ A subscriber changes plan and sees exactly what they will pay today, what change
 
 **Outcome** — At least 95% of plan changes complete without a billing support contact, and fewer than 2% are reversed within 7 days.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -266,6 +266,49 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Usage already above the lower plan’s limit — block the downgrade with what to reduce first
 - Tax rate or currency differs by business location — preview includes tax with the rate stated
 - Payment requires bank authentication — plan unchanged until it completes; return to the preview if abandoned
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Account — business name, billing contact, tax details, location · relates to Subscription, Seat · personal data
+- Plan — name, price, billing cycle, limits, features · relates to Subscription
+- Subscription — current plan, renewal date, status, pending change, undo deadline · relates to Account, Plan, Invoice
+- Seat — staff member, role, last active, access end date · relates to Account · personal data
+- Usage — measure, amount, period · relates to Account
+- Invoice — amount, credit applied, tax rate and amount, card ending, date · relates to Subscription · personal data
+
+### Systems it touches
+
+- Billing service — reads plans, subscription, proration rules; writes plan changes, invoices, credits · when down: No price is shown and nothing changes; the subscriber is told and can try again.
+- Payment provider — reads authentication outcome; writes charges, refunds · when down: The plan stays as it is and the subscriber is told no charge was made.
+- Usage service — reads usage by measure, staff activity · when down: Plans are shown without usage-based suggestions.
+- AI assistant service — reads usage, plans, price preview; writes suggestions marked as made by the AI assistant · when down: Plan changes work fully by hand.
+
+### Roles
+
+- Account owner — change plan, choose which seats stay, confirm and pay, undo within 24 hours, ask for a person
+- Staff member — use the product within their seat, see notice before their access ends
+- Billing support — see plans, invoices and charges, correct charges, issue credits and refunds
+- AI assistant — explain usage and prices, suggest a plan and seats with reasons, prepare a change for the owner to confirm, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Price preview response time: 2 seconds (range 1–3 seconds)
+- Plan change completion time: under 2 minutes (range 1–3 minutes)
+- Undo window: 24 hours with full credit (range 24–72 hours)
+- Billing availability: 99.9% (range 99.5–99.95%)
+- Invoice records: the legal minimum for the jurisdiction (range set by tax law)
+
+### Required inputs and configuration
+
+- Plan catalogue with prices, limits and billing cycles
+- Proration and credit rules, including annual-to-monthly changes
+- Tax rates and invoice requirements by business location
+- Payment provider with stored tokens and bank authentication
+- Billing support contact route and hours
 
 ---
 

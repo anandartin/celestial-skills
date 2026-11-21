@@ -15,7 +15,7 @@ A customer opening an account with a regulated service photographs an identity d
 
 **Outcome** — At least 80% of genuine customers are verified automatically within five minutes, every rejection offers a human route, and no biometric data is kept longer than stated.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Assistive.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Assistive — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -254,6 +254,58 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Facial difference, prosthetic or religious covering — offer an alternative check with a trained reviewer in private
 - Possible fraud or sanctions match — show a neutral pending message and escalate internally; do not disclose the reason
 - Person under the minimum age — stop and explain the age requirement plainly; delete the captured data
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Person — name, date of birth, nationality, contact preference (chat, email, text relay) · relates to Verification · personal data
+- Consent — biometric consent given, date, alternative chosen · relates to Verification · personal data
+- Identity document — type, issuing country, image, extracted name and date of birth, expiry · relates to Verification · personal data
+- Selfie and liveness capture — images, liveness result, face match result, delete by date · relates to Verification · personal data
+- Verification — outcome, reason category, automated or by a person, reviewer, date · relates to Person, Review case · personal data
+- Review case — reason, requested by, reviewer, outcome, due by · relates to Verification · personal data
+- Audit record — what happened, when, by whom or which system, data deleted on · relates to Verification · personal data
+
+### Systems it touches
+
+- Document verification service — reads document images; writes document result, extracted fields · when down: Offer upload for manual review and tell the person the review time.
+- Liveness and face-match service — reads selfie images, document photo; writes liveness and match results · when down: Offer the non-biometric or video-assisted route.
+- Fraud and sanctions screening — reads identity details; writes screening result · when down: Show a neutral pending message with a time; nothing is approved until screening completes.
+- Case management for manual review — reads checks and images; writes review outcomes · when down: Queue the case and keep the promised review time; tell the person if it slips.
+- Device handoff service; writes handoff codes · when down: Let the person continue on the device they are using with upload.
+- Notification service; writes outcome messages · when down: Show the outcome in the app; retry messages.
+
+### Roles
+
+- Person being verified — give or refuse biometric consent, capture their own document and selfie, choose a non-biometric route, ask for human review by chat, email or text relay
+- Trained reviewer — review rejections, low-confidence results and alternative checks, decide the outcome with a recorded reason
+- Financial crime analyst — review screening matches without telling the person the reason
+- Compliance officer — run and review bias tests each quarter, set accepted documents
+- Data protection officer — set retention and deletion, audit biometric deletion
+- AI assistant — explain the check and data use, help choose a document, explain status and outcomes, route to a person, works at most in Assistive mode; never sees images
+
+### Default targets (the product confirms or replaces them)
+
+- AI assistant reply time: Under 3 seconds (range 1–5 seconds)
+- Automated decision: Under 2 minutes (range Up to 5 minutes)
+- Manual review: 1 working day (range Same day to 2 working days)
+- Selfie and liveness image deletion: Within 30 days of the check (range Immediately to 30 days, as stated to the person)
+- Service availability: 99.9% (range 99.5–99.95%)
+- Verification result and audit record kept: The legal minimum for the jurisdiction (range Set by anti-money-laundering law)
+
+### Required inputs and configuration
+
+- Legal reason for the check, in plain words
+- Accepted documents and countries
+- Biometric consent wording and processor
+- Retention and deletion schedule
+- Non-biometric and in-person alternatives
+- Manual review time
+- Support routes (chat, email, text relay)
+- Bias test plan and pass-rate threshold
 
 ---
 

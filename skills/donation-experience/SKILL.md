@@ -15,7 +15,7 @@ A supporter chooses an amount, gives once or monthly, makes a tax declaration if
 
 **Outcome** — A supporter completes a donation in under 90 seconds, with eligible tax declarations captured correctly and monthly gifts cancellable in two steps.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -238,6 +238,48 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Duplicate payment by double-tap — idempotency prevents a second charge
 - Supporter asks for a refund of a mistaken gift — route to a person with a stated response time
 - Supporter is under 18 — explain they can give but cannot make a tax declaration
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Supporter — name, email, address (only for a declaration or post), age confirmation for declarations, marketing consent (separate, unticked) · relates to Gift, Tax declaration · personal data
+- Gift — amount, frequency (once or monthly), first payment date, next payment date, status, idempotency key · relates to Supporter, Payment, Tax declaration, Receipt · personal data
+- Tax declaration — wording version, date made, gifts covered, withdrawn date · relates to Supporter, Gift · personal data
+- Payment — amount, method type, payment token, outcome, date · relates to Gift · personal data
+- Receipt — gift, amount, date, declaration record, sent status · relates to Gift · personal data
+- Impact statement — amount, what it funds, approved date
+
+### Systems it touches
+
+- Payment provider (hosted fields and recurring payments) — reads payment outcome, card expiry; writes charges, recurring payment schedules · when down: Giving pauses with "No money was taken"; details are kept and the supporter can try again later.
+- Supporter records — reads supporter, gifts, declarations; writes gifts, declarations, consents · when down: No new gift is taken; manage changes are queued only if the next payment is safely stopped, otherwise the supporter is routed to a person.
+- Email service; writes receipts, card-expiry notices, cancellation confirmations · when down: Confirmation shows on screen and the email is retried.
+- AI assistant service — reads impact statements, declaration wording, the supporter's gifts; writes prepared changes marked as made by the AI assistant · when down: Giving and managing work fully by hand.
+
+### Roles
+
+- Supporter — choose amount and frequency, make or withdraw a tax declaration, pay, change or cancel a monthly gift, ask for a person
+- Supporter care — see gifts and declarations, refund mistaken gifts, change gifts on request
+- AI assistant — explain what amounts fund, explain the declaration rules, prepare a change or cancellation for the supporter to confirm, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Giving page response time: 1 second (range 0.5–2 seconds)
+- Time to give once: under 2 minutes (range 1–3 minutes)
+- Cancellation takes effect: before the next payment (range same day)
+- Response to a refund request: 2 working days (range 1–5 working days)
+- Gift and declaration records: the legal minimum for the jurisdiction (range set by tax and charity law)
+
+### Required inputs and configuration
+
+- Suggested amounts and approved impact statements
+- Minimum gift amount
+- Approved tax declaration wording and eligibility rules for the jurisdiction
+- Payment provider for one-off and recurring payments
+- Supporter care contact route and stated response time
 
 ---
 

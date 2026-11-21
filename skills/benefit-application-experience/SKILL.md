@@ -15,7 +15,7 @@ A resident checks they might be eligible, applies in short sections they can sav
 
 **Outcome** — An applicant completes and submits a benefit claim across one or more sessions with fewer than 10% of claims returned for missing evidence.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -277,6 +277,56 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Applicant can't get a document — explain alternatives and that they can still submit
 - Applying on behalf of someone — appointee route with authority evidence
 - Applicant in crisis (no money for food) — show urgent support routes on every page
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Applicant — name, contact details, chosen sign-in method, preferred reminder channel · relates to Application · personal data
+- Application — reference, status, saved until date, answers by topic, declaration made, submitted date · relates to Applicant, Evidence, Decision, Appointee · personal data
+- Household member — relationship, age band, income where needed · relates to Application · personal data
+- Evidence — document type, file, linked answer, check result from the AI assistant, kept or replaced by applicant · relates to Application · personal data
+- Decision — outcome, reasons, decision-maker, date, review deadline · relates to Application, Review request · personal data
+- Review request — reason, date, status · relates to Decision · personal data
+- Appointee — name, authority evidence · relates to Application · personal data
+
+### Systems it touches
+
+- Identity and sign-in service — reads sign-in result · when down: The eligibility checker still works; the applicant is told they can't save yet and offered the phone service.
+- Benefit case management system — reads application status, decision; writes submitted application, evidence links, change of circumstances · when down: Answers stay saved; submission waits and the applicant is told when to try again.
+- Document store — reads uploaded files; writes evidence files · when down: Uploads pause; the applicant can carry on answering and add documents later.
+- Document-check service — reads uploaded files; writes readability and type suggestions · when down: Files are accepted unchecked and an officer reviews them.
+- Notification service — reads status changes, expiry dates; writes reminders, decision notices · when down: Messages are queued; the reference and status stay available on sign-in.
+
+### Roles
+
+- Applicant — check eligibility, answer questions, upload evidence, make the declaration, ask for a review
+- Appointee — apply on behalf of someone with authority evidence
+- Decision-maker (trained officer) — decide the claim, give reasons, request more evidence
+- Advice line or assisted digital helper — help the applicant by phone or in person, receive handovers
+- AI assistant — explain questions and terms, check documents for readability and type, as suggestions, point out missing answers or evidence, explain decisions and review rights, hand over to a person, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- AI assistant response time: under 3 seconds (range 1–5 seconds)
+- Saved application kept: 28 days, reminder 3 days before deletion (range set by the service's published policy)
+- Idle session warning: at 25 minutes, with Extend (range 20–30 minutes)
+- Decision time: within 4 weeks (range set by the service standard)
+- Review or appeal deadline: the legal deadline for the jurisdiction (range set by law)
+- Claim record retention: the legal minimum for the jurisdiction (range set by law)
+
+### Required inputs and configuration
+
+- Eligibility checker questions and indication rules
+- Questions by topic with help text and why each is asked
+- Evidence list per answer and accepted alternatives
+- Declaration wording
+- Decision timescale and review and appeal routes
+- Urgent support routes
+- Phone and in-person help details
+- Save period and reminder channels
 
 ---
 

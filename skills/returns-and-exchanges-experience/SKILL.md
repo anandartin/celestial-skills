@@ -15,7 +15,7 @@ A customer returns or swaps an item in a few steps, picks an accessible drop-off
 
 **Outcome** — At least 85% of returns are started online without contacting support, and refunds are issued within 5 working days of receipt.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -268,6 +268,56 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Parcel lost on the way back — proof of drop-off from the QR scan is enough to refund
 - Partial return of a multi-buy offer — show how the refund amount was calculated
 - Customer has paid with two methods — split the refund and explain each amount
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Customer — name, email, delivery address, access needs (optional) · relates to Order, Return · personal data
+- Order — order number, order date, items, amount paid, payment methods · relates to Customer, Return · personal data
+- Return — items, reason (optional), refund or exchange, send-back method, return code, send-back deadline, stage, made with AI assistant (yes/no) · relates to Order, Inspection, Refund · personal data
+- Inspection — result, reason, photos, inspector, date · relates to Return, Appeal
+- Refund — amount, method (masked), split amounts, issued date, expected arrival · relates to Return · personal data
+- Appeal — reason, evidence, reviewer, outcome, date · relates to Inspection, Customer · personal data
+- Drop-off point — address, opening hours, step-free access, counter height, distance · relates to Return
+
+### Systems it touches
+
+- Order management system — reads orders, items, payment methods (masked); writes return started on order · when down: The customer can still enter email and order number; the return is saved and checked when the system is back.
+- Returns management service — reads return policy, return windows; writes returns, stages, appeals · when down: Say returns can't be started right now, give the time to try again, and keep the return deadline unchanged.
+- Inventory service — reads live stock by size · when down: Offer the refund or a back-in-stock alert; never promise an exchange.
+- Carrier and drop-off location service — reads locations, access data, collection slots; writes collection bookings, return codes · when down: Show a printable label route and a free collection request handled by customer service.
+- Payment service — reads refund status; writes refunds to the original method · when down: Refunds are queued, the customer is told the legal deadline still applies, and the returns team is alerted.
+- Email and notification service; writes codes, stage updates, refund notices · when down: Keep everything on screen and in the order page; resend when it is back.
+
+### Roles
+
+- Customer — start, change and cancel a return before it is sent, choose refund or exchange, appeal a failed check, ask for a person at any step
+- Customer service adviser — see the handover context package, start or fix a return for the customer, book a collection
+- Warehouse inspector — record inspection results with reasons, decide failed checks
+- Returns team lead — decide appeals and disputes, approve refunds outside policy, set returns policy within the law
+- AI assistant — find orders and pre-select items, marked as AI-chosen, suggest a size and send-back options, explain status and reasons, prepare an appeal the customer confirms, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- AI assistant reply time: Under 3 seconds (range 1–5 seconds)
+- Refund after the return is received: 5 working days (range 1 day up to the legal deadline (14 days in the UK and EU))
+- Appeal decision by a person: 2 working days (range 1–5 working days)
+- Returns service availability: 99.9% (range 99.5–99.95%)
+- Return and refund records kept: The legal minimum for the jurisdiction (range Set by consumer and tax law)
+
+### Required inputs and configuration
+
+- Returns policy and return windows by product type
+- Non-returnable rules with plain-language reasons
+- Who pays return costs, by method
+- Drop-off locations with access data
+- Collection service and costs
+- Refund timing and methods
+- Customer service contact routes
+- Appeal process and its time limit
 
 ---
 

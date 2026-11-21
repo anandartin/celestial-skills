@@ -15,7 +15,7 @@ A prospective tenant sees the criteria before applying, adds references and cons
 
 **Outcome** — An applicant sees every criterion before paying or sharing data and receives a decision with stated reasons within 5 working days.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -274,6 +274,53 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Applicant uses a housing voucher or benefit — treat as income where the law requires
 - Applicant disputes a credit report — pause decision and explain how to correct it
 - Home let to someone else mid-application — stop, refund any lawful fee, delete data on request
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Applicant — name, contact details, move date, income, income evidence · relates to Application, Reference · personal data
+- Home — address, rent, published criteria, fees and deposits, tie-break rule · relates to Application
+- Application — reference, household size, status, submitted date, decision date, filled by AI assistant flags · relates to Applicant, Home, Check consent, Decision · personal data
+- Reference — type, referee name, referee email, status, response · relates to Application · personal data
+- Check consent — check type, provider, consent given, date, withdrawn date · relates to Application · personal data
+- Decision — outcome, criterion not met, decided by, date, dispute route · relates to Application · personal data
+- Guarantor — name, contact details, income evidence · relates to Application · personal data
+
+### Systems it touches
+
+- Lettings application system — reads criteria, application status, decision; writes application, withdrawal · when down: The draft is kept; submission waits and the applicant is told.
+- Reference request service — reads reference status; writes reference requests, reminders · when down: Requests are queued and the decision date moves; the applicant is told.
+- Credit and identity check provider — reads check results; writes check requests after consent · when down: The decision waits; the applicant is told the new date.
+- Payment service — reads fee status; writes application fee, refunds · when down: No fee is taken and the application is not submitted until it is back.
+- Document store — reads income evidence; writes uploaded documents, scheduled deletion · when down: Uploads pause; other sections can be completed.
+
+### Roles
+
+- Applicant — view criteria, fill and accept details, add referees, give or withdraw consent, submit, withdraw and dispute
+- Letting decision-maker — apply the published criteria, decide applications, give reasons, review disputes
+- Referee or guarantor — respond to a reference request
+- AI assistant — explain criteria and fees, fill details from the applicant's documents, marked until accepted, suggest reference types, explain decisions and draft disputes for the applicant to send, hand over to a person, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- AI assistant response time: under 3 seconds (range 1–5 seconds)
+- Decision time: 5 working days (range 2–10 working days)
+- Reference reminder: one reminder after 3 working days (range 2–5 working days)
+- Document deletion after an unsuccessful decision: 6 months (range the legal maximum for the jurisdiction or less)
+- Application fee and holding deposit: the legal limit for the jurisdiction (range set by law)
+
+### Required inputs and configuration
+
+- Published screening criteria per home
+- Fees, deposits and local legal limits
+- Check providers and what each shows
+- Tie-break rule
+- Adverse action notice and dispute route
+- Accepted income evidence including benefits where the law requires
+- Retention and deletion schedule
 
 ---
 

@@ -15,7 +15,7 @@ A user asks an AI assistant for a first draft, checks and edits it with sources 
 
 **Outcome** — Users send AI-assisted drafts that they have reviewed, with zero messages sent without an explicit human action.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -251,6 +251,59 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Prompt asks for content against policy — decline briefly and say what the assistant can do
 - Assistant switched off by admin — editor works normally with a short notice
 - Draft could contain another customer's data — prevented and tested, not assumed: retrieval enforces account and tenant permissions; caches and generated output are isolation-tested; a suspected disclosure blocks the draft, alerts security and escalates to a person
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- User — name, role, workspace, permissions, preferred tone and length · relates to Draft, Workspace · personal data
+- Workspace — assistant on or off, permitted sources, admin · relates to User
+- Prompt — request text, type, length, tone, created at · relates to Draft · personal data
+- Draft — text, status (generating, incomplete, ready, edited, sent), AI-made parts, user edits, word count · relates to Prompt, Source link, Message · personal data
+- Source link — statement, source record and field, verified or unsupported · relates to Draft, Account record · personal data
+- Account record — customer name, contacts, figures, renewal date · relates to Source link · personal data
+- Message — recipients, attachments, sent at, sent by · relates to Draft · personal data
+- Activity event — actor (user or assistant), action, model and prompt version, sources used, time · relates to Draft, Message · personal data
+
+### Systems it touches
+
+- Customer account records — reads permitted account fields · when down: Draft without figures and say so.
+- Template library — reads approved templates · when down: Draft from the request alone and say templates are unavailable.
+- Language model service — reads generated text · when down: Keep the prompt; after 2 failures show the error plainly and offer the template library.
+- Editor and email — reads draft in the editor; writes sent message (user action only) · when down: The assistant can't help without the editor; the user writes and sends as normal.
+- Workspace admin settings — reads assistant on or off, permitted sources · when down: Treat the assistant as off; the editor works normally with a short notice.
+- Activity log; writes drafts, suggestions and sends · when down: Don't generate drafts until logging is back.
+
+### Roles
+
+- Writer (user) — ask for a draft, stop generation, check sources, edit, accept or reject suggestions, send from their own editor, report a bad draft
+- Workspace admin — switch the assistant off for the workspace, set which sources it may use
+- Content owner — review reported drafts with the prompt and sources
+- Security team — respond to suspected cross-customer disclosure
+- Recipient — receive messages the writer sent
+- AI writing assistant — draft from permitted sources, mark statements with and without sources, suggest rewrites beside the original, highest mode: Advisory — takes no part in sending
+
+### Default targets (the product confirms or replaces them)
+
+- First words of the draft shown: within 2 seconds (range 1–3 seconds)
+- Full draft: within 15 seconds (range 10–20 seconds)
+- Stop takes effect: within 1 second (range under 1 second)
+- Reviewed before send: 100% of AI-assisted sends (range 100%)
+- Assistant availability: 99.5% (range 99–99.9%)
+- Activity record retention: per the workspace's policy (range set by the organisation's records policy)
+
+### Required inputs and configuration
+
+- Permitted sources and fields per role
+- Approved templates
+- Whether the assistant is on, per workspace
+- Content policy for what the assistant declines
+- Rules for prices or commitments that block sending until confirmed
+- Consent and lawful basis for using customer data, and whether it is used for training
+- Content owner and security contacts
+- Activity record retention period
 
 ---
 

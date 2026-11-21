@@ -15,7 +15,7 @@ An employee submits an expense with a receipt, their manager approves it, and fi
 
 **Outcome** — Valid expenses are paid within five working days of submission, with fewer than 5% sent back for missing information.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -264,6 +264,56 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Foreign currency — use the rate on the receipt date and show it
 - Lost receipt — allow a signed declaration within policy limits
 - Bank details changed shortly before payout — hold payment and verify with the employee
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Employee — name, employee number, grade, cost centre, manager, bank details (masked) · relates to Claim · personal data
+- Claim — amount, currency, date, merchant, category, business purpose, tax amount, status, fields read by AI agent, fields changed by claimant · relates to Employee, Receipt, Decision, Payment batch · personal data
+- Receipt — image, read values, read confidence, upload date · relates to Claim · personal data
+- Expense policy — category, limit, grade, receipt threshold, effective date · relates to Claim
+- Decision — decision, reason, decided by, prepared by, date, flags shown · relates to Claim · personal data
+- Payment batch — claims, totals by currency, totals by cost centre, confirmed by, payment date · relates to Claim
+
+### Systems it touches
+
+- Expense management system — reads claims, policies; writes claims, decisions, flags · when down: Capture works offline and syncs later; approvals wait and the claimant sees the delay.
+- Accounts payable or payroll system — reads payment status, masked bank details; writes scheduled payments · when down: The batch is held and the finance officer is told; no partial batch is sent without review.
+- HR directory — reads manager, delegates, leave, grade · when down: Route to the last known approver and let finance reassign by hand.
+- Exchange rate service — reads rate for the receipt date · when down: Hold foreign-currency claims and show why; let the claimant enter the rate from their card statement for finance to check.
+- Document storage — reads receipt images; writes receipt images · when down: Keep images on the device until upload succeeds.
+
+### Roles
+
+- Claimant — submit, edit and withdraw their own claims, confirm or correct AI-read values, ask for a reminder or a person
+- Approver — approve, send back or reject with a reason, name a delegate during leave, never approve their own claim
+- Delegate approver — decide claims within the approver's limits while named
+- Finance officer — review and confirm payment batches, hold or remove claims, verify changed bank details
+- Finance administrator — set policy limits and approval limits, review AI flag accuracy
+- Auditor — read every claim, decision and audit record
+- AI agent — read receipts, marked as AI-read, suggest categories, flag duplicates and policy exceptions with reasons, summarise claims for approvers, prepare payment batches for review, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Receipt read time: Under 5 seconds (range 2–10 seconds)
+- Approver decision: 2 working days (range 1–3 working days, then the delegate)
+- Submission to payment: 5 working days (range 3–10 working days)
+- Service availability: 99.5% (range 99–99.9%)
+- Receipt and claim records kept: The legal minimum for the jurisdiction (range Set by tax law)
+
+### Required inputs and configuration
+
+- Expense policy: categories, limits and receipt threshold
+- Approval limits by role and delegate rules
+- Cost centres
+- Reclaimable tax rules
+- Payment run schedule
+- Accounts payable or payroll connection
+- Exchange rate source
+- Finance helpdesk contact
 
 ---
 

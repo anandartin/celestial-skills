@@ -15,7 +15,7 @@ A patient picks the repeat medicines they need, sees what needs a review, and ch
 
 **Outcome** — A patient requests a repeat prescription in under two minutes and knows when and where it will be ready, with fewer than 5% of requests needing a follow-up call.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -252,6 +252,53 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Delivery missed for a controlled item — return to pharmacy and notify with collection steps
 - Proxy's consent has lapsed — block ordering and explain how to renew
 - Patient says they have run out — show urgent supply guidance
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Patient — name, contact details, delivery address, preferred pharmacy, notification preferences · relates to Repeat medicine, Refill request, Proxy · personal data
+- Repeat medicine — name and strength as printed, dose, last ordered, review due date, controlled flag · relates to Patient, Refill request · personal data
+- Refill request — reference, items, pickup or delivery, ready date, status, prepared by AI assistant flag, confirmed by · relates to Patient, Repeat medicine, Pharmacy · personal data
+- Proxy — name, relationship, consent recorded date, consent expiry · relates to Patient · personal data
+- Pharmacy — name, address, opening hours, delivery areas · relates to Refill request
+- Review request — medicine, prescriber, status, added days · relates to Repeat medicine · personal data
+
+### Systems it touches
+
+- Prescriber clinical record system — reads authorised repeat list, review dates, approval status; writes repeat requests, review requests · when down: The request is held and not promised a date; the patient is told and given the pharmacy's number.
+- Pharmacy dispensing system — reads stock, ready status; writes dispensing requests · when down: No ready date is promised; the request is queued and the pharmacy calls when ready.
+- Delivery service — reads delivery areas and slots; writes delivery bookings · when down: Pickup is offered instead with its ready date.
+- Notification service — reads status changes; writes texts and app messages without medicine names · when down: Status stays current in the app and the pharmacy phones if a delay affects supply.
+- Consent and proxy register — reads proxy roles, consent status · when down: Proxies cannot order until it is back; the patient can still order for themselves.
+
+### Roles
+
+- Patient — choose medicines from their repeat list, choose pickup or delivery, confirm, change or cancel a request
+- Registered proxy — order for the patient while consent is recorded
+- Prescriber — approve repeats, carry out medication reviews, change the repeat list
+- Pharmacist and pharmacy team — dispense, check identity for controlled medicines, answer clinical questions about supply, receive handovers
+- AI assistant — read the repeat list aloud, explain reviews, dates and options, recommend pickup or delivery with reasons, prepare the request for the patient to confirm, hand over to a person, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- AI assistant response time: under 3 seconds (range 1–5 seconds)
+- Handover when the patient has run out: immediately, to a pharmacist in opening hours or the urgent supply route outside them (range no delay allowed)
+- Status message after a change: within 1 hour (range 15 minutes–4 hours)
+- Ready by the promised date: 95% of requests (range 90–99%)
+- Prescription and dispensing record retention: the legal minimum for the jurisdiction (range set by law)
+
+### Required inputs and configuration
+
+- Authorised repeat list per patient from the prescriber's record
+- Ordering window and review rules
+- Controlled-medicine identity and signature rules
+- Pharmacy hours, stock feed and delivery areas
+- Urgent supply guidance and out-of-hours contacts
+- Proxy and consent rules
+- Notification templates with no medicine names
 
 ---
 

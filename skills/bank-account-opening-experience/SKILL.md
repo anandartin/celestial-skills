@@ -15,7 +15,7 @@ A new customer opens a current account on their phone, proves who they are once,
 
 **Outcome** — At least 75% of applicants who start get a working account number the same day, with every identity check explained before it happens.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -268,6 +268,60 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Identity fraud match — refer quietly without exposing the reason, and give a contact route
 - Applicant under 18 — route to the youth account journey before collecting data
 - App closed mid-capture — resume at the same step
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Applicant — name, date of birth, address history (3 years), email, phone, nationality where needed · relates to Application · personal data
+- Application — status, saved until, fields filled by AI assistant, fields confirmed by applicant, overdraft chosen · relates to Applicant, Identity check, Consent, Decision · personal data
+- Identity check — document type, result, method (live, upload, assisted), date · relates to Application · personal data
+- Credit search — type (soft or hard), told before running, date, result · relates to Application · personal data
+- Consent — what was agreed, terms version, date, marketing choice · relates to Application · personal data
+- Decision — outcome, reason category, automated or by a person, review requested, reply by date · relates to Application, Account · personal data
+- Account — sort code, account number, card dispatch date · relates to Applicant · personal data
+
+### Systems it touches
+
+- Identity verification service; writes identity check results · when down: Offer the assisted video check, branch or post route; save the application for 30 days.
+- Credit reference service — reads credit file (soft search); writes search footprint · when down: Save the application and tell the applicant when the check will run; never run a different search type.
+- Fraud and sanctions screening — reads applicant details; writes screening result · when down: Refer the application with a neutral message and a reply date; the account is not opened until screening completes.
+- Core banking system — reads product rules; writes accounts, decisions · when down: Tell the applicant the account will be opened later and message them.
+- Address lookup service — reads addresses · when down: Manual address entry.
+- Document and terms service — reads key terms, full terms · when down: Block acceptance and offer a retry.
+- Messaging service; writes outcome and referral messages · when down: Show the outcome in the app and retry messages.
+
+### Roles
+
+- Applicant — apply, save and return within 30 days, confirm or correct AI-filled details, capture their own ID and face, accept terms, ask for a person or a review
+- Onboarding operations reviewer — review referrals and automated outcomes, run the assisted video check, open or decline accounts with a recorded reason
+- Financial crime analyst — review fraud and sanctions matches, decide referrals without revealing the reason
+- Branch adviser — complete the application in person or by post
+- Compliance owner — set checks, accepted documents and retention, review AI assistant logs
+- AI assistant — explain the process and checks, fill form fields from what the applicant says, marked as AI-filled, answer questions about terms, explain outcomes and routes, works at most in Advisory mode; never decides
+
+### Default targets (the product confirms or replaces them)
+
+- AI assistant reply time: Under 3 seconds (range 1–5 seconds)
+- Automated identity check: Under 1 minute (range Up to 5 minutes)
+- Referral reply: 2 working days (range 1–5 working days, always with a stated date)
+- Application saved: 30 days (range 14–90 days)
+- Service availability: 99.9% (range 99.5–99.95%)
+- Customer due diligence records kept: The legal minimum for the jurisdiction (range Set by anti-money-laundering law)
+
+### Required inputs and configuration
+
+- Accepted identity and address documents
+- Eligibility rules (age, residency)
+- Credit search type and wording
+- Key terms and full terms
+- Overdraft offer rules
+- Referral reply times
+- Branch and post route details
+- Support contact routes
+- Data retention schedule
 
 ---
 

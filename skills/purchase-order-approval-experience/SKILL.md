@@ -15,7 +15,7 @@ A requester asks to buy something, the system checks budget, and the right appro
 
 **Outcome** — Requests within budget are approved and turned into purchase orders within three working days, with no orders issued above approval limits.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -265,6 +265,56 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Budget changes between approval steps — re-check and notify current approver
 - Supplier not on approved list — route to supplier onboarding first
 - Price changes after approval beyond tolerance — re-approval required
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Requisition — items, quantities, amount, cost centre, category, supplier, needed by, fields filled by AI agent, status · relates to Quote, Approval, Purchase order
+- Requester — name, role, cost centres · relates to Requisition · personal data
+- Quote — supplier, amount, valid until, file · relates to Requisition
+- Cost centre budget — total, reserved, spent, available, budget holder · relates to Requisition
+- Approval — approver, role, order in chain, decision, reason, conflict declared, prepared by, date · relates to Requisition · personal data
+- Purchase order — number, supplier, items, amount, delivery, sent by, sent date, supplier accepted · relates to Requisition, Supplier
+- Supplier — name, approved status, contact, terms · relates to Purchase order, Quote
+
+### Systems it touches
+
+- Finance system — reads budgets, reserved amounts; writes budget reservations on approval, releases on cancel · when down: Requests can still be submitted; the budget holder checks budget before approving.
+- Procurement system — reads catalogue, past requests, approval chain rules; writes requisitions, approvals, purchase orders · when down: Drafts are kept on the device; approvals and orders wait and people are told.
+- Supplier master list — reads approved suppliers, supplier details · when down: Only previously used approved suppliers can be chosen; new ones go to procurement.
+- People directory — reads roles, delegates, leave · when down: Use the last known chain and let procurement reassign.
+- Email and notification service; writes approval requests, order sent notices · when down: Show pending items in the app inbox; resend when it is back.
+
+### Roles
+
+- Requester — create, edit and cancel requests, accept or change AI-filled fields, answer approvers' questions
+- Budget holder — approve or reject requests for their cost centre with a reason, ask a question, declare a conflict
+- Procurement officer — approve as procurement, check and send purchase orders, investigate split-order flags, onboard suppliers
+- Procurement administrator — set approval chains and thresholds, review AI flag accuracy
+- Auditor — read every request, decision and order
+- AI agent — fill requests from past ones and descriptions, marked as AI-filled, explain budget and chain, summarise requests and flag split orders and conflicts, draft purchase orders for procurement to send, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- AI agent reply time: Under 3 seconds (range 1–5 seconds)
+- Approval per step: 1 working day (range Half a day to 2 working days)
+- Request to purchase order: 3 working days (range 1–5 working days for in-budget requests)
+- Service availability: 99.5% (range 99–99.9%)
+- Procurement records kept: The legal minimum for the jurisdiction (range Set by tax, company and public procurement law)
+
+### Required inputs and configuration
+
+- Approval chain rules by amount, category and cost centre
+- Tender threshold and number of quotes needed
+- Price change tolerance after approval
+- Approved supplier list
+- Budget source and refresh rate
+- Delegate rules for leave
+- Purchase order terms
+- Procurement contact
 
 ---
 

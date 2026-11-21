@@ -196,6 +196,53 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Person signs in during the grace period — ask whether to cancel the closure, never assume
 - Export larger than storage on their device — split into parts and say the size up front
 
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Account holder — name, contact methods, sign-in methods · relates to Export request, Closure request · personal data
+- Data category — name, size, export format, retained by law, retention reason, retention period · relates to Export request, Closure request · personal data
+- Export request — reference, categories, status, parts, expiry date, requested date · relates to Account holder, Data category · personal data
+- Closure request — reference, requested date, grace period end, status, cancelled date, deletion completed date · relates to Account holder, Subscription · personal data
+- Subscription — plan, status, refund amount · relates to Closure request · personal data
+- Shared content — item, other members, new owner · relates to Closure request · personal data
+- AI assistant memory — conversation history, saved preferences · relates to Account holder, Export request, Closure request · personal data
+
+### Systems it touches
+
+- Identity and sign-in service — reads re-authentication result · when down: Downloads and closure wait; the person is told and the legal clock is still tracked.
+- Data export service — reads all data categories; writes archive parts · when down: The request is queued and retried; the person is emailed when it is ready.
+- Deletion service — reads closure requests, legal holds; writes deletions across live data and backups · when down: The closure date is kept and deletion runs when it is back, inside the legal deadline.
+- Billing system — reads subscription, balance; writes cancellation, refund · when down: Closure is not confirmed until the subscription and refund are shown exactly.
+- Notification service — reads request status; writes confirmation email, final deletion notice, alerts to all contact methods · when down: Messages are queued; the reference shows on screen.
+
+### Roles
+
+- Account holder — request an export, download after signing in, close the account, cancel closure during the grace period
+- Privacy team — review requests flagged as possible account takeover, handle legal holds and disputes, receive handovers
+- AI assistant — explain export and closure, prepare the export request for the person to confirm, explain what is kept and why, hand over to a person, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- AI assistant response time: under 3 seconds (range 1–5 seconds)
+- Export and deletion completed: within the legal deadline for the jurisdiction, alert at 80% of it (range set by law)
+- Export ready: within a few hours (range 1–48 hours)
+- Download link valid: 7 days (range 3–14 days)
+- Grace period before deletion: 14 days (range 7–30 days)
+- Retained records: the legal minimum for the jurisdiction, then deleted (range set by law)
+
+### Required inputs and configuration
+
+- Data categories and export formats
+- Retained record types with legal reasons and periods
+- Grace period length
+- Subscription cancellation and refund rules
+- Legal deadline for rights requests in the jurisdiction
+- Account-takeover signals and the review route
+- Privacy team contact
+
 ---
 
 ## Measures

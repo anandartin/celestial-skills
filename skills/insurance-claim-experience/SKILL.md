@@ -15,7 +15,7 @@ A policyholder reports what happened, adds photos, and always knows where the cl
 
 **Outcome** — At least 80% of straightforward claims are submitted in one sitting in under 15 minutes, and claimants receive a status update at every stage change.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -268,6 +268,58 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Injury involved — route to a phone call with a person
 - Photos lost in the incident — accept descriptions and receipts instead
 - Customer disputes the decision — show the complaint and ombudsman route
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Policyholder — name, contact details, contact address during the claim, preferred channel, access needs (with consent) · relates to Policy, Claim · personal data
+- Policy — policy number, cover by incident type, excess, policy period · relates to Policyholder, Claim · personal data
+- Claim — claim reference, incident type, incident date, description, stage, handler, decision, decision reasons, filled by AI assistant flags · relates to Policy, Damaged item, Evidence, Information request · personal data
+- Damaged item — name, estimated value, age, value source (claimant or AI assistant), accepted by claimant · relates to Claim, Evidence · personal data
+- Evidence — file, type (photo, receipt, description), linked item, upload status, retention date · relates to Claim, Damaged item · personal data
+- Information request — what is needed, date sent, due date, status · relates to Claim
+- Assessor visit — date and time window, access arrangements, chosen by claimant · relates to Claim · personal data
+- Complaint — reason, date raised, status, ombudsman referral rights · relates to Claim · personal data
+
+### Systems it touches
+
+- Policy administration system — reads policy, cover, excess, policy period · when down: The claimant can still describe the incident; cover and excess show as 'not available yet' and the claim cannot be sent until they load.
+- Claims management system — reads claim stage, handler, requests, decision; writes new claim, items, replies to requests · when down: The draft is saved on the device and in the draft store for 30 days; nothing is sent, and the claimant is told and offered a person.
+- Document and image store — reads uploaded files; writes photos, receipts · when down: Uploads pause and resume automatically; the claimant can carry on with other sections.
+- Image-reading service — reads photos; writes suggested item matches · when down: The claimant matches photos to items by hand; nothing else is affected.
+- Scheduling system for assessors — reads available visit slots; writes chosen visit, access arrangements · when down: The handler arranges the visit by message or phone at a time the claimant chooses.
+- Notification service — reads stage changes; writes messages to the claimant · when down: Updates are queued and the status page stays current; the claimant is never left without a status.
+
+### Roles
+
+- Claimant — start, save and send a claim, accept or change anything the AI assistant filled, make the declaration, choose visit times, complain and ask for human review
+- Claims handler — review and decide claims, request information, arrange assessor visits, give decision reasons
+- Fraud investigator — review claims flagged by fraud signals, ask for more information
+- Complaints team — handle complaints and reviews, explain the ombudsman route
+- AI assistant — explain cover, excess and status, suggest incident details, item values and photo matches, marked until accepted, draft replies for the claimant to send, hand over to a person, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- AI assistant response time: under 3 seconds (range 1–5 seconds)
+- Handover to a person when asked: immediately, picked up within 5 minutes in opening hours (range 2–15 minutes)
+- Status message after a stage change: within 1 hour (range 15 minutes–4 hours)
+- Claim draft kept: 30 days (range 14–60 days)
+- Complaint response: the regulatory deadline for the jurisdiction (range set by the regulator)
+- Claim record and evidence retention: the legal minimum for the jurisdiction (range set by law and the insurer's published schedule)
+
+### Required inputs and configuration
+
+- Incident types and the cover and excess rules for each
+- Policy lookup by policy number or postcode
+- Claim stages and the service standard for each
+- Evidence types accepted per incident type
+- Complaints route and ombudsman details
+- Retention schedule for photos and documents
+- Opening hours and channels for reaching a person
+- Fraud-signal routing to investigators
 
 ---
 

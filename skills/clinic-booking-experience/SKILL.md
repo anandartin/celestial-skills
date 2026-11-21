@@ -15,7 +15,7 @@ An older patient or their carer books the right appointment on a phone, with lar
 
 **Outcome** — A patient or carer books the right appointment in under three minutes, understands every choice, and receives a reminder they can act on.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -260,6 +260,57 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Slot taken while booking — offer the nearest alternatives immediately
 - Carer without consent recorded — explain how to add it
 - Offline — queue the request and confirm when sent
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Patient — name, date of birth, contact details, contact preferences, accessibility needs · relates to Appointment, Carer link · personal data
+- Carer link — carer, patient, consent recorded, consent date, scope · relates to Patient · personal data
+- Appointment type — plain-language name, duration, who can see the patient, what to bring · relates to Slot
+- Clinic — name, address, travel information, phone number, opening hours · relates to Slot
+- Slot — date and time, clinic, clinician, appointment type, available · relates to Clinic, Appointment
+- Appointment — patient, booked by (patient or carer), slot, status (booked, changed, cancelled, attended), booked at · relates to Patient, Slot, Reminder · personal data
+- Reminder — appointment, channel, sent at, delivered, response (confirm, change, cancel) · relates to Appointment · personal data
+- Audit event — actor (patient, carer, assistant, staff, system), action, what the assistant filled in, who confirmed, time · relates to Appointment, Carer link · personal data
+
+### Systems it touches
+
+- Clinic scheduling system — reads appointment types, slots, clinics; writes booking, change, cancellation · when down: Don't book; say so and show the clinic's phone number.
+- Patient record (contact details only) — reads name, contact details, carer consent; writes updated contact details · when down: Let the person type their details and ask them to check; don't guess.
+- Notification service; writes confirmation, reminders · when down: Fall back to a text message; if that fails, show the booking in the app.
+- Device calendar; writes calendar entry · when down: Show the booking details to copy by hand.
+- Clinic phone line and reception — reads handover status; writes call-back request with context package · when down: Show urgent-care signposting and the clinic's opening hours.
+
+### Roles
+
+- Patient — find, book, change and cancel their appointments, confirm their details, respond to reminders
+- Carer — book and manage appointments for someone with recorded consent, confirm who the booking is for
+- Receptionist — take handovers by phone with the context package, book or change on the patient's behalf, record carer consent
+- AI booking assistant — suggest an appointment type from a short description, recommend slots with reasons, pre-fill details, marked until confirmed, read back the booking for confirmation, highest mode: Advisory — no clinical advice; never fills consent or identity answers
+
+### Default targets (the product confirms or replaces them)
+
+- Time to book: under 3 minutes median for people aged 65 and over (range 2–5 minutes)
+- Slot list response: under 2 seconds (range 1–3 seconds)
+- Session timeout: none under 20 minutes without a warning (range 20 minutes or more)
+- Reminder sent: the day before the appointment (range 1–3 days before)
+- Handover for urgent or clinical questions: immediate (range immediate)
+- Booking service availability: 99.5% (range 99–99.9%)
+- Booking and consent record retention: the legal minimum for the jurisdiction (range set by health records law)
+
+### Required inputs and configuration
+
+- Appointment types in plain words, with durations
+- Clinics, addresses, travel information and opening hours
+- Urgent-symptoms routing and the services to signpost
+- How carer consent is recorded and checked
+- Reminder timing and channels
+- Change and cancellation rules
+- Clinic phone numbers for handover
+- Record retention period for bookings and consent
 
 ---
 

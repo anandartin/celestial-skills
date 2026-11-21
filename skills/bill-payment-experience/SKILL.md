@@ -15,7 +15,7 @@ A customer sets up a regular bill payment, sees what will leave their account an
 
 **Outcome** — At least 85% of recurring bills set up are paid on time for six months, with fewer than 2% of customers charged a missed-payment fee.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -265,6 +265,52 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Biller changes amount without notice — flag and link to dispute
 - Due date falls on a bank holiday — move and explain
 - Customer changes bank — explain how to move the bill
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Customer — name, contact details, payday pattern (optional), notification preferences · relates to Bill, Payment permission · personal data
+- Biller — name, category, customer reference format, collection rules · relates to Bill
+- Bill — biller, customer reference, amount type (fixed or varies), amount, frequency, next payment date, status · relates to Customer, Biller, Payment permission, Reminder, Collection · personal data
+- Payment permission — payer account, date given, amount rules, status, cancelled date · relates to Bill, Customer · personal data
+- Reminder — bill, lead time, channel, low-balance alert on or off · relates to Bill · personal data
+- Collection — bill, amount, date, outcome, dispute status · relates to Bill · personal data
+- AI assistant action — step, what was suggested or filled, accepted, changed or rejected by the person, time · relates to Bill, Customer · personal data
+
+### Systems it touches
+
+- Payments service — reads balance, collection history, permission status; writes payment permissions, collections, skips and date moves · when down: Nothing new is set up or changed; drafts are kept and the person is told plainly and offered a retry or support.
+- Biller directory — reads biller names, categories, reference formats, collection rules · when down: Manual entry of the biller's details stays available.
+- Notification service — reads permissions, channels; writes reminders, low-balance alerts, amount-change notices · when down: Reminders fall back to email and an in-app banner; failed sends are retried before the collection date.
+- Bank-holiday calendar — reads non-working days · when down: Dates are shown with a note that they may move; the payments service has the final date.
+- AI assistant service — reads recent payments, draft bill; writes suggestions marked as made by the AI assistant · when down: The journey works fully by hand; the assistant panel says it is unavailable.
+
+### Roles
+
+- Customer — set up, change, skip and cancel bills, give and withdraw payment permission, choose reminders, dispute a collection, ask for a person
+- Payments support — see bills and collections, investigate failed or disputed collections, raise refunds under scheme rules
+- Fraud team — review unrecognised payees, hold or release a collection with reasons
+- AI assistant — suggest billers, amounts and dates, fill fields marked as filled by the AI assistant, flag amount rises and shortfalls, prepare changes for the person to confirm, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Bills overview load time: 2 seconds (range 1–3 seconds)
+- Reminder sent before collection: 3 days (range 1–7 days, chosen by the person)
+- Service availability: 99.9% (range 99.5–99.95%)
+- Set-up completion time: under 3 minutes (range 2–5 minutes)
+- Payment permission and collection records: the legal minimum for the jurisdiction (range set by scheme rules and law)
+
+### Required inputs and configuration
+
+- Biller directory source and categories
+- Payment scheme rules for permissions, advance notice and disputes
+- Bank-holiday calendar for the market
+- Notification channels available (push, email, text)
+- Amount-rise threshold for flags (default 10%)
+- Support and fraud contact routes and hours
 
 ---
 

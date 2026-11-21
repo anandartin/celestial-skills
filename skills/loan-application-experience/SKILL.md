@@ -15,7 +15,7 @@ A customer checks their chances of approval without affecting their credit score
 
 **Outcome** — At least 80% of full applications are approved because the soft check filtered out unsuitable ones, and every applicant sees the total amount repayable before agreeing.
 
-**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
@@ -267,6 +267,59 @@ Acceptance criteria from the HAI skill (`hai-experience`):
 - Rate on full application differs from the eligibility result — explain and allow walking away
 - Customer withdraws within 14 days — show the amount to repay and the date
 - Identity mismatch between application and bank statements — refer to a person
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Applicant — name, date of birth, address, employment type, contact details · relates to Application · personal data
+- Quote — amount, term, APR, monthly payment, total repayable, held until · relates to Application · personal data
+- Eligibility check — soft search date, likelihood band, main reasons · relates to Application · personal data
+- Income and outgoings — monthly income (average if variable), outgoings by category, prepared by AI assistant, corrected by applicant · relates to Application · personal data
+- Application — status, hard search consent, documents, joint applicant · relates to Applicant, Credit decision, Agreement · personal data
+- Credit decision — outcome, main reasons, automated or by a person, review requested, reviewer · relates to Application · personal data
+- Agreement — terms, signed date, withdrawal deadline, payout date · relates to Application · personal data
+
+### Systems it touches
+
+- Credit reference service — reads credit file (soft and hard search); writes search footprint · when down: Save the application and say when the check can run; never switch search type.
+- Credit decision and affordability engine — reads application, credit file, income and outgoings; writes decisions, reason codes · when down: Save the application and refer it to a credit specialist with a reply date.
+- Open banking connection — reads transactions, with the applicant's consent · when down: Offer statement upload instead.
+- Statement reading service — reads uploaded statements; writes categorised summary for review · when down: Let the applicant enter income and outgoings by hand.
+- Lending system — reads products, pricing; writes agreements, loan accounts · when down: Hold the quote and tell the applicant when to come back.
+- E-signature service — reads agreement; writes signed agreement · when down: Block signing; the quote stays held.
+- Payments system; writes loan payout · when down: Tell the applicant the new payout date and alert the lending team.
+
+### Roles
+
+- Applicant — check eligibility, confirm or correct AI-prepared figures, consent to the hard search, connect their bank or upload statements, sign or walk away, withdraw within 14 days, ask for a human review
+- Credit specialist — review automated decisions and referrals, decide with recorded reasons, support applicants in financial difficulty
+- Lending support adviser — answer questions, receive handovers, arrange support
+- Credit risk and compliance owner — set decision rules and affordability policy, monitor AI accuracy and fairness, keep the conformity records for high-risk AI
+- AI assistant — explain costs and terms, fill form fields from what the applicant says, marked as AI-filled, prepare an income and outgoings summary for review, explain results and reasons, works at most in Advisory mode; never decides credit
+
+### Default targets (the product confirms or replaces them)
+
+- AI assistant reply time: Under 3 seconds (range 1–5 seconds)
+- Eligibility result: Under 1 minute (range Up to 5 minutes)
+- Human review of a decision: 2 working days (range 1–5 working days)
+- Quote held: 30 days (range At least 30 days)
+- Service availability: 99.9% (range 99.5–99.95%)
+- Credit decision and agreement records kept: The legal minimum for the jurisdiction (range Set by consumer credit and AI law)
+
+### Required inputs and configuration
+
+- Loan products, amount and term limits
+- Pricing and representative APR
+- Eligibility and affordability rules
+- Soft and hard search wording
+- Decline reason wording
+- Free debt-advice routes
+- Withdrawal process
+- Financial difficulty support process
+- Human review process and time
 
 ---
 
