@@ -15,6 +15,8 @@ A patient picks the repeat medicines they need, sees what needs a review, and ch
 
 **Outcome** — A patient requests a repeat prescription in under two minutes and knows when and where it will be ready, with fewer than 5% of requests needing a follow-up call.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -99,6 +101,19 @@ Inputs: Touch, Screen reader, Voice dictation
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Explain "review" and how long it adds in one plain sentence, and avoid clinical terms.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: Selected items include one past its review date, too early to order, or discontinued.
+  - Agent goal: Make sure the patient knows what can be issued now and what needs the prescriber, before they send.
+  - Agent actions: Explains in words what a review means, who does it and how long it adds, and why an item can't be ordered yet; it never says whether a medicine is safe or needed.
+  - Agent tone: Plain and unhurried: 'Your prescriber will review this.'
+  - Agent type: Vertical pharmacy assistant; prescriber system behind it.
+  - Multi-agent handoff: Prescriber system → status shown → AI assistant explains.
+  - Goal failure response: Data unavailable (approval status not loading): say the status is unknown and don't promise a date. Constraint violation (asked whether to skip the review): say only the prescriber can decide.
+  - Failure handover trigger: A discontinued medicine, a clinical question, or a worried patient: the prescriber or pharmacist immediately, with the handover context package.
+  - Data needs: Review dates, prescriber approval status, ordering windows.
+  - Agent memory: Short-term.
+  - Regulatory classification: Health data; clinical decisions stay with the prescriber; no medical advice from the AI assistant.
 
 ### 3. Pickup or delivery
 
@@ -111,6 +126,19 @@ Inputs: Touch, Screen reader, Voice dictation
   - Errors (A11Y-E1): A postcode error is written in text beside the field and linked to it, with the postcode kept and a pharmacy offered; ID needs for controlled items are shown before choosing.
   - Time limits (A11Y-W1): No time limit; the person can take as long as they need.
   - Language (A11Y-L1): Give the ready date with the weekday in full, and say what ID or signature a controlled item needs.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The items are confirmed and the patient chooses how to get them.
+  - Agent goal: Help the patient choose the option that gets medicines to them before they run out.
+  - Agent actions: Recommends pickup or delivery with the ready date for each and the reason (for example, the bus times or delivery is earlier); the patient chooses. For controlled medicines it explains the ID or signature needed.
+  - Agent tone: Practical and patient.
+  - Agent type: Vertical pharmacy assistant; orchestrated with stock and delivery checks.
+  - Multi-agent handoff: AI assistant → stock check → delivery check → options shown to the patient.
+  - Goal failure response: Data unavailable (stock check down): don't promise a date; say so and offer pickup with a call when ready. Constraint violation (no delivery to the postcode): say so and offer a pharmacy. Low confidence on a ready date: show it as estimated.
+  - Failure handover trigger: No option arrives before the patient runs out: the pharmacist immediately, with the handover context package.
+  - Data needs: Stock, pharmacy hours, delivery areas and dates, the patient's address.
+  - Agent memory: Procedural: the patient's preferred option, which they can view and change.
+  - Regulatory classification: Health data; delivery labels and texts show no medicine names.
 
 ### 4. Confirm
 
@@ -122,6 +150,19 @@ Inputs: Touch, Screen reader, Voice dictation
   - Errors (A11Y-E1): Change or Cancel shows a confirm step and can be undone until the medicines are dispensed.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say "text" rather than "SMS", and note that texts never include medicine names.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The patient has chosen an option and the AI assistant has prepared the request.
+  - Agent goal: Send exactly the request the patient chose.
+  - Agent actions: Restates items, option and ready date in large text, with anything it prepared marked as prepared by the AI assistant; the patient confirms before it is sent. Says how to change or cancel until it is dispensed; a proxy's consent is checked by the system, not the AI assistant.
+  - Agent tone: Clear and calm.
+  - Agent type: Vertical pharmacy assistant; pharmacy dispensing system.
+  - Multi-agent handoff: AI assistant prepares → the patient confirms → prescriber and pharmacy systems receive the request.
+  - Goal failure response: Full task failure (dispensing system down): don't send, keep the request, say so and give the pharmacy's number. Constraint violation (proxy consent lapsed): block it and explain how to renew. Partial completion: say which items were sent and which were not.
+  - Failure handover trigger: Sending fails twice: the pharmacy team immediately, with the handover context package, because the patient may run out.
+  - Data needs: Selected items, option, ready date, proxy consent status.
+  - Agent memory: Episodic: the request joins the patient's order history.
+  - Regulatory classification: Health data; prescription request; audit record of what the AI assistant prepared and what the patient confirmed.
 
 ### 5. Ready
 
@@ -134,6 +175,19 @@ Inputs: Touch, Screen reader, Voice dictation
   - Errors (A11Y-E1): A stock problem is explained in text beside the item with its new date, and the rest of the order is kept.
   - Time limits (A11Y-W1): Collection is until a stated time; a reminder is sent well before it ends, and the pharmacy can hold it later on request.
   - Language (A11Y-L1): State the closing time in full, such as "6 pm", and explain delay dates in plain words.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The medicines are ready, delayed or out for delivery.
+  - Agent goal: Make sure the patient gets their medicines and knows what to bring.
+  - Agent actions: Tells the patient the place, hours and what to bring, or the delivery window; explains any delayed item with its new date and keeps the rest of the order. Texts carry no medicine names.
+  - Agent tone: Reassuring and precise.
+  - Agent type: Vertical pharmacy assistant; notification service.
+  - Multi-agent handoff: Pharmacy system → notification service → AI assistant when the patient replies.
+  - Goal failure response: Partial completion (one item out of stock): say which and when it will arrive. Data unavailable: give the pharmacy's number. Missed delivery of a controlled medicine: explain collection steps.
+  - Failure handover trigger: The patient will run out before the new date, or asks for a person: the pharmacist immediately, with the handover context package.
+  - Data needs: Ready status, pharmacy hours, delivery status.
+  - Agent memory: Short-term.
+  - Regulatory classification: Health data; controlled medicines need identity checks or signatures by the patient with staff.
 
 ---
 
@@ -181,9 +235,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Dates in words: “Thursday 16 October”, not “16/10”
 - Say who acts next: “Your prescriber will review this”
 
-## AI interactions
+## Agent and system (HAI)
 
-- No AI in choosing or approving medicines because errors carry clinical risk; ordering is a deterministic list from the prescriber's record
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is an AI assistant, that it can read the repeat list and explain the steps, and that it never chooses, recommends or approves medicines
+- Only the patient (or a registered proxy with recorded consent) selects medicines from the authorised repeat list; anything clinical goes to the pharmacist or prescriber at once
+- Nothing is ordered until the patient sees the exact items, option and ready date and confirms; they can change or cancel until it is dispensed
+- A patient who says they have run out, or reports a symptom, is given urgent supply or clinical guidance and a route to a person immediately; the AI assistant gives no medical advice
+- No medicine names appear in texts or on delivery labels, and identity checks and signatures for controlled medicines are done by the patient with staff
 
 ## Edge cases
 

@@ -15,6 +15,8 @@ A customer checks their chances of approval without affecting their credit score
 
 **Outcome** — At least 80% of full applications are approved because the soft check filtered out unsuitable ones, and every applicant sees the total amount repayable before agreeing.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Keyboard, Touch, File upload (bank statements)
   - Errors (A11Y-E1): An out-of-range amount shows the minimum and maximum in text beside the field and keeps the entry.
   - Time limits (A11Y-W1): No time limit; the quote is held for 30 days.
   - Language (A11Y-L1): Write amounts in full as 'six thousand pounds' and explain 'total amount payable' in plain words.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The applicant opens the calculator or asks the AI assistant about borrowing.
+  - Agent goal: Help the applicant see the true cost of different amounts and terms.
+  - Agent actions: Says it is an AI assistant that can explain costs and help with the application, and that it does not make credit decisions. Answers questions such as "what if I pay over 3 years?" with monthly payment, total repayable and representative APR together. Never suggests borrowing more.
+  - Agent tone: Plain and numbers-first; no jargon.
+  - Agent type: Vertical lending assistant; single.
+  - Multi-agent handoff: AI assistant reads the pricing service.
+  - Goal failure response: Constraint violation (amount out of range): give the minimum and maximum. Ambiguous input ("a bit more"): ask for the amount.
+  - Failure handover trigger: The applicant mentions money worries or asks for a person: the lending support team with the handover context package.
+  - Data needs: Loan products, representative APR, term limits.
+  - Agent memory: Short-term: the amount and term.
+  - Regulatory classification: Consumer credit advertising and cost disclosure; minimal AI risk at this step.
 
 ### 2. Check eligibility
 
@@ -99,6 +114,19 @@ Inputs: Keyboard, Touch, File upload (bank statements)
   - Errors (A11Y-E1): Errors are text beside each field and in a summary with links; focus moves to the summary and answers stay.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say 'a soft check, which does not affect your credit score' in plain words.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The applicant starts the eligibility form.
+  - Agent goal: Help the applicant give accurate details for the soft check.
+  - Agent actions: Helps state variable income as an average, filled from what the applicant says and marked as filled by the AI for them to confirm. Says before the check that it is a soft search that won't affect their credit score and that an automated system will give an indication. The applicant presses Check.
+  - Agent tone: Reassuring and plain.
+  - Agent type: Vertical lending assistant; single.
+  - Multi-agent handoff: AI assistant prepares the form, then the eligibility engine and soft credit search run after the applicant presses Check.
+  - Goal failure response: Ambiguous input (income varies a lot): ask for the last 12 months' average. Data unavailable (credit reference service down): say the check can't run now and save the answers.
+  - Failure handover trigger: The applicant asks for a person: the lending support team with the handover context package.
+  - Data needs: Basic details, stated income and outgoings.
+  - Agent memory: Short-term: the form, saved.
+  - Regulatory classification: Creditworthiness assessment is high-risk under the EU AI Act; the applicant is told before an automated check runs; data protection.
 
 ### 3. Your result
 
@@ -111,6 +139,19 @@ Inputs: Keyboard, Touch, File upload (bank statements)
   - Errors (A11Y-E1): If not eligible, the reason sits in text with free debt-advice routes.
   - Time limits (A11Y-W1): The quote is held for 30 days; the date is written in full.
   - Language (A11Y-L1): Spell out 'annual percentage rate' on first use and avoid colour-only likely or unlikely.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The eligibility result is returned.
+  - Agent goal: Help the applicant understand the result and their options.
+  - Agent actions: Explains the likelihood band and personal APR in words. If unlikely, gives the main reasons from the decision engine, never invented ones, and free debt-advice routes. Says a person can review the result.
+  - Agent tone: Respectful and specific; no pressure.
+  - Agent type: Vertical lending assistant; single.
+  - Multi-agent handoff: AI assistant reads the result and reason codes from the eligibility engine.
+  - Goal failure response: Low confidence explaining a reason: quote the reason as given and offer a person. Goal drift (applicant wants to borrow less, assistant keeps the original amount): re-run the calculator with the new amount when asked.
+  - Failure handover trigger: The applicant disputes the result, shows signs of financial difficulty or asks for a review: a credit specialist immediately with the handover context package.
+  - Data needs: Result, likelihood band, APR, main reasons.
+  - Agent memory: Episodic: the result and quote, held for 30 days.
+  - Regulatory classification: High-risk creditworthiness assessment: main reasons given; human review available; automated-decision safeguards.
 
 ### 4. Full application
 
@@ -123,6 +164,19 @@ Inputs: Keyboard, Touch, File upload (bank statements)
   - Errors (A11Y-E1): An upload failure says the file type and size limits next to the control, linked to it, and other answers stay; consent is not pre-ticked.
   - Time limits (A11Y-W1): No time limit; answers are saved.
   - Language (A11Y-L1): Say what 'a full credit search' means and that it shows on the credit file.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The applicant continues to the full application.
+  - Agent goal: Get an accurate picture of income and outgoings without retyping statements.
+  - Agent actions: If the applicant uploads statements or connects their bank themselves, the AI assistant sorts income and outgoings into a summary marked as prepared by the AI; the applicant reviews and corrects every line before it is used. Says the full search will show on the credit file and that an automated assessment, checked by people, will follow. The applicant ticks the unticked consent themselves and submits.
+  - Agent tone: Careful and plain.
+  - Agent type: Vertical lending assistant; orchestrated with the statement-reading service.
+  - Multi-agent handoff: Statement reader categorises; AI assistant presents the summary; after the applicant confirms and submits, the decision engine and hard search run.
+  - Goal failure response: Data unavailable (upload fails): say the file type and size limits and keep the answers. Low confidence on a transaction: leave it uncategorised and ask. Constraint violation (identity mismatch with statements): stop and refer to a person.
+  - Failure handover trigger: Identity mismatch, joint applicant not yet consenting, or the applicant asks: a credit specialist immediately with the handover context package, because credit and identity are involved.
+  - Data needs: Bank statements or open banking data, income and outgoings summary, consent record.
+  - Agent memory: Short-term: the application. No statement data is kept beyond the stated retention.
+  - Regulatory classification: High-risk creditworthiness assessment under the EU AI Act; open banking consent by the applicant; data protection (minimisation).
 
 ### 5. Agree and sign
 
@@ -135,6 +189,19 @@ Inputs: Keyboard, Touch, File upload (bank statements)
   - Errors (A11Y-E1): Signing is a distinct action after reviewing the terms; a downloadable copy is given and withdrawal is possible until Saturday 8 November.
   - Time limits (A11Y-W1): Withdrawal is possible until Saturday 8 November, stated in full on the page and in the email.
   - Language (A11Y-L1): Give the amount and dates in full: £6,000 by Wednesday 29 October.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The offer and agreement are ready, or the applicant is declined.
+  - Agent goal: Help the applicant understand exactly what they are signing, or why not.
+  - Agent actions: Answers questions about the agreement and points to the clause; the official key terms are always shown in full. Explains the 14-day withdrawal right and how to use it. Never urges signing now. The applicant signs themselves. If declined or the rate changed, gives the main reasons and how to ask a person to review.
+  - Agent tone: Calm and unhurried.
+  - Agent type: Vertical lending assistant; single.
+  - Multi-agent handoff: AI assistant reads the agreement from the lending system; the e-signature service runs when the applicant signs.
+  - Goal failure response: Data unavailable (agreement fails to load): block signing and retry. Constraint violation (rate differs from the eligibility result): explain and let the applicant walk away. Partial completion (signed but payout not scheduled): show it is signed and when the money will arrive.
+  - Failure handover trigger: A decline, a changed rate the applicant disputes, payout failure, or the applicant asks: a credit specialist immediately with the handover context package.
+  - Data needs: Final offer, agreement, total repayable, withdrawal date, decision reasons.
+  - Agent memory: Episodic: the agreement and dates, for later questions.
+  - Regulatory classification: Credit agreement with legal effect: pre-contract information, right to withdraw, high-risk creditworthiness decision with human review and main reasons.
 
 ---
 
@@ -182,10 +249,16 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Say 'won't affect your credit score' instead of 'soft footprint'
 - Declines are respectful and specific: 'Your outgoings are high compared with your income'
 
-## AI interactions
+## Agent and system (HAI)
 
-- AI reads uploaded bank statements to categorise income and outgoings; the customer reviews and corrects the summary before it is used
-- Final credit decisions are explainable, and the customer can ask for a human review
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is AI before helping, and every figure or category it filled (such as income from bank statements) is marked as filled by the AI until the applicant confirms it
+- The applicant is told before each automated check or credit decision, whether a search is soft or hard, and gives the hard-search consent themselves
+- The AI assistant never decides credit; a declined or changed offer gives the main reasons, free debt-advice routes and a way to ask a person to review it
+- Total repayable is shown wherever a monthly payment is, and the AI assistant never pushes more borrowing, urgency or same-session signing
+- Signing, open banking connection, sign-in and codes are done by the applicant; the AI assistant never sees credentials or codes
+- Signs of financial difficulty lead to support from a person, never an upsell
 
 ## Edge cases
 

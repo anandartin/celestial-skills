@@ -15,6 +15,8 @@ A prospective tenant sees the criteria before applying, adds references and cons
 
 **Outcome** — An applicant sees every criterion before paying or sharing data and receives a decision with stated reasons within 5 working days.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -86,6 +88,19 @@ Inputs: Touch, Camera for document photos, Keyboard
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the rule in plain words, such as "3,000 pounds a month", and explain "guarantor" in one sentence.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The applicant opens a home's criteria or asks the AI assistant whether they qualify.
+  - Agent goal: Help the applicant understand every criterion and cost before sharing data or paying.
+  - Agent actions: Says it is an AI assistant that can explain criteria and help fill in the form, and that a person decides. Explains each criterion and fee as published and works out the income amount if asked, saying it is an indication only; it names lawful alternatives such as a guarantor.
+  - Agent tone: Factual and even-handed.
+  - Agent type: Vertical lettings assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input: ask what the applicant wants to check. Constraint violation (asked about the other applicants or how to get ahead): say the same rules apply to everyone.
+  - Failure handover trigger: The applicant thinks a criterion is unlawful or asks for a person: the letting team, with the handover context package.
+  - Data needs: Published criteria, fees and deposits, tie-break rule.
+  - Agent memory: Short-term.
+  - Regulatory classification: Housing; AI interaction disclosed; no screening; fair housing and equality law apply.
 
 ### 2. Your details
 
@@ -98,6 +113,19 @@ Inputs: Touch, Camera for document photos, Keyboard
   - Errors (A11Y-E1): "Enter a date after today" is written in text beside the date field and linked to it, listed in a summary at the top; what was typed is kept.
   - Time limits (A11Y-W1): No time limit; progress is saved between visits.
   - Language (A11Y-L1): Ask for the date in a clear format, such as "day, month, year", and explain accepted income evidence in plain words.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The applicant starts the form or reuses details from an earlier application.
+  - Agent goal: Collect only what the criteria use, without retyping.
+  - Agent actions: Fills household, income and move date from the applicant's saved details or offer letter, each marked as filled by the AI assistant until accepted; the applicant checks and changes each. It never asks about family plans, religion, nationality or other protected characteristics.
+  - Agent tone: Brisk and respectful.
+  - Agent type: Vertical lettings assistant; document-reading service behind it.
+  - Multi-agent handoff: AI assistant → document-reading service → suggested fields shown to the applicant.
+  - Goal failure response: Low confidence reading an income document: leave the field empty and ask. Constraint violation (a field the criteria don't use): don't collect it. Goal drift (filled the wrong move date): follow what the applicant typed.
+  - Failure handover trigger: The applicant disputes how income is counted, for example a housing benefit, or asks for a person: the letting team, with the handover context package.
+  - Data needs: Applicant's saved details, income evidence, criteria fields.
+  - Agent memory: Episodic: saved details reused across applications only with the applicant's choice, viewable and deletable.
+  - Regulatory classification: Housing; personal and financial data; collect only what the criteria use; no protected characteristics.
 
 ### 3. References
 
@@ -110,6 +138,19 @@ Inputs: Touch, Camera for document photos, Keyboard
   - Errors (A11Y-E1): A missing email is written in text beside the field and linked to it; typed details are kept. The empty state suggests an employer or guarantor.
   - Time limits (A11Y-W1): Reference links are single-use and expire; the date is stated and the person is told at least 20 seconds, or a day, before, with a resend button.
   - Language (A11Y-L1): Say "reference" with an example, and describe each status in plain words alongside its icon.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The applicant adds references.
+  - Agent goal: Get suitable referees added and responding.
+  - Agent actions: Suggests reference types that fit (an employer or guarantor if there's no previous landlord); the applicant picks each referee and confirms before any request is sent. Shows each reference's status and drafts one reminder for the applicant to send.
+  - Agent tone: Encouraging and practical.
+  - Agent type: Vertical lettings assistant; reference service.
+  - Multi-agent handoff: AI assistant → the applicant confirms → reference service sends a secure single-use link.
+  - Goal failure response: Data unavailable (referee email bounced): say so and ask for another address. Partial completion (one reference back): show which are done. A referee never replies after one reminder: suggest swapping the referee.
+  - Failure handover trigger: References block the decision past the stated date: the letting team, with the handover context package.
+  - Data needs: Referee names and emails, reference status.
+  - Agent memory: Short-term: this application's references.
+  - Regulatory classification: Housing; referees' personal data used only for this reference.
 
 ### 4. Checks consent
 
@@ -121,6 +162,19 @@ Inputs: Touch, Camera for document photos, Keyboard
   - Errors (A11Y-E1): Missing consent is named in text beside the checkbox and linked to it; other answers are kept, and consent can be withdrawn later.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say what each check shows in plain words, and avoid the term "soft search" without explanation.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The applicant reaches the checks consent step.
+  - Agent goal: Make sure the applicant understands each check before they choose.
+  - Agent actions: Explains who runs each check and what it shows; the applicant ticks each consent themselves, and the AI assistant steps back and never ticks, records or sees identity documents for the checks. Says consent can be withdrawn later.
+  - Agent tone: Neutral and clear; no pressure.
+  - Agent type: Vertical lettings assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Constraint violation (asked to consent for them): say only the applicant can. Ambiguous input: explain the check again with an example.
+  - Failure handover trigger: The applicant is unsure about a check or asks for a person: the letting team, with the handover context package.
+  - Data needs: Check names, providers and what each shows.
+  - Agent memory: Short-term.
+  - Regulatory classification: Explicit consent required before credit, identity or reference checks; data protection law applies.
 
 ### 5. Submit
 
@@ -132,6 +186,19 @@ Inputs: Touch, Camera for document photos, Keyboard
   - Errors (A11Y-E1): Submit shows a review of details, fee and consent first; Withdraw shows a confirm step and says what is deleted.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): State the decision date and fee in full, and explain how to withdraw in a short sentence.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: All sections are done and the applicant moves to submit.
+  - Agent goal: Send exactly the application the applicant intends, with the timeline clear.
+  - Agent actions: Shows details, fee, references pending, consents and decision date, highlighting anything still marked as filled by the AI assistant; the applicant submits themselves. Says a person applies the published criteria, any fee is paid by the applicant, and how to withdraw.
+  - Agent tone: Plain and steady.
+  - Agent type: Vertical lettings assistant; lettings application system.
+  - Multi-agent handoff: AI assistant prepares the summary → the applicant submits → lettings application system starts the checks.
+  - Goal failure response: Constraint violation (unaccepted fields): ask the applicant to accept or change them. Full task failure (system down): don't submit, keep the draft, say so. Constraint violation (home let to someone else): stop, explain any refund, delete data on request.
+  - Failure handover trigger: Submit fails twice or a fee problem occurs: the letting team immediately, with the handover context package, because money is involved.
+  - Data needs: Application, fee, consents, decision date.
+  - Agent memory: Episodic: the application joins the applicant's history.
+  - Regulatory classification: Tenancy decision is a significant decision: the applicant is told before any automated check affects it; a person decides; audit record kept.
 
 ### 6. Decision
 
@@ -190,9 +257,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Give money as amounts: “Holding deposit: £230, returned if…”
 - Decisions are factual and respectful: “The income criterion wasn't met” not “You failed”
 
-## AI interactions
+## Agent and system (HAI)
 
-- No AI in screening or decisions because tenancy decisions must be explainable and free from proxy discrimination; a person applies the published criteria
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is an AI assistant, that it can explain criteria and help fill in the form, and that it takes no part in screening or deciding
+- A person applies the published criteria and decides every application; AI screening of tenants is high-risk under the EU AI Act and is not used for the decision
+- Anything the AI assistant fills in is marked until the applicant accepts it, and it never asks about protected characteristics
+- Consent to each check is given by the applicant themselves; nothing is submitted until they see the exact details, fee and consents and confirm
+- A decline names the criterion not met, how to see or dispute any report, and how to ask a person to review it; withdrawal is one confirmed action
 
 ## Edge cases
 

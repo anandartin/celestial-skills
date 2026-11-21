@@ -15,6 +15,8 @@ A new customer opens a current account on their phone, proves who they are once,
 
 **Outcome** — At least 75% of applicants who start get a working account number the same day, with every identity check explained before it happens.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Touch, Camera (document and face capture), Screen reader
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Use short sentences and say 'photo ID' with examples; give the time needed as 'about 10 minutes'.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The applicant opens the application or asks the AI assistant what they need.
+  - Agent goal: Make sure the applicant knows what is needed before typing anything.
+  - Agent actions: Says it is an AI assistant that can explain the process, help fill the form and answer questions, and that it does not make the decision. Checks which of the applicant's own documents count, such as a tenancy agreement, and shows the branch and post route if they have no photo ID. Says up front which automated checks will run and why.
+  - Agent tone: Short sentences; warm and practical.
+  - Agent type: Vertical banking onboarding assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input ("I've got a letter from the council"): ask what kind of letter and say whether it counts. Constraint violation (applicant under 18): stop before collecting data and point to the youth account route.
+  - Failure handover trigger: The applicant asks for a person: onboarding support immediately with the handover context package.
+  - Data needs: Accepted document list, eligibility rules, check descriptions.
+  - Agent memory: Short-term only; nothing is kept before the applicant starts.
+  - Regulatory classification: Minimal risk under the EU AI Act; AI interaction disclosed; no personal data collected at this step.
 
 ### 2. Your details
 
@@ -99,6 +114,19 @@ Inputs: Touch, Camera (document and face capture), Screen reader
   - Errors (A11Y-E1): Errors name the field and the fix in text beside it, are listed in a summary at the top with links, and everything typed is kept.
   - Time limits (A11Y-W1): Application is saved for 30 days and there is no time limit on typing.
   - Language (A11Y-L1): Explain 'address history' in plain words and write dates in full, not as numbers alone.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The applicant reaches the details form and asks for help, for example with address history.
+  - Agent goal: Help the applicant give complete, correct details once.
+  - Agent actions: Explains why each item is asked for. Can fill address rows from what the applicant types and the address lookup, marked as filled by the AI; the applicant confirms or edits each one. Never guesses a date of birth or name. Saves progress so the applicant can leave and come back.
+  - Agent tone: Patient and plain; one question at a time.
+  - Agent type: Vertical banking onboarding assistant; single.
+  - Multi-agent handoff: AI assistant uses the address lookup service.
+  - Goal failure response: Ambiguous input (gaps in address history): ask about the missing months. Data unavailable (address lookup down): offer manual entry and say why. Constraint violation (asks for data the checks don't need): don't ask; data minimisation.
+  - Failure handover trigger: The applicant is stuck or asks for a person: onboarding support with the handover context package and the saved application.
+  - Data needs: Name, date of birth, address history, contact details.
+  - Agent memory: Short-term: the form. Episodic: the saved application for 30 days.
+  - Regulatory classification: Data protection (minimisation, purpose stated); identity data for anti-money-laundering checks.
 
 ### 3. Prove it's you
 
@@ -112,6 +140,19 @@ Inputs: Touch, Camera (document and face capture), Screen reader
   - Errors (A11Y-E1): After three failed captures the upload and assisted video check are offered beside the message; earlier details stay saved and are never asked for again.
   - Time limits (A11Y-W1): No time limit on capture; the check usually takes under a minute, with a text status and the option to leave and return.
   - Language (A11Y-L1): Keep camera instructions to one short sentence each and avoid terms like 'liveness'; say 'a quick face check'.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The applicant reaches the ID and face check.
+  - Agent goal: Get the applicant through capture without the AI handling their documents.
+  - Agent actions: Steps back: the applicant captures their ID and face themselves, and the AI assistant never sees the images. If asked, it explains what the check is for and how to get a clear photo, and offers upload or an assisted video check after failed attempts.
+  - Agent tone: Calm and encouraging; never blames the applicant.
+  - Agent type: Vertical banking onboarding assistant; single. The identity service behind it is separate.
+  - Multi-agent handoff: None for the AI assistant; the identity service runs the check.
+  - Goal failure response: Full task failure (capture fails three times): offer upload or the assisted video check. Data unavailable (identity service slow): say it usually takes under a minute and the applicant can leave and be messaged.
+  - Failure handover trigger: Name on ID differs from the form, a capture route fails, or the applicant asks: onboarding support immediately with the handover context package, because identity is involved.
+  - Data needs: Check status only; no images reach the AI assistant.
+  - Agent memory: None beyond the session.
+  - Regulatory classification: Identity checks under anti-money-laundering rules; biometric data is special-category data handled only by the identity service with explicit consent.
 
 ### 4. Check and agree
 
@@ -124,6 +165,19 @@ Inputs: Touch, Camera (document and face capture), Screen reader
   - Errors (A11Y-E1): If the terms fail to load, a retry button sits beside the message and the accept control stays off; a review of details precedes agreeing and everything entered is kept.
   - Time limits (A11Y-W1): No time limit while reviewing; the application stays saved for 30 days.
   - Language (A11Y-L1): Summarise each term in plain language first; keep text-to-speech friendly by expanding abbreviations such as 'APR'.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The applicant reaches the review and terms.
+  - Agent goal: Help the applicant check their details and understand what they are agreeing to.
+  - Agent actions: Shows details for checking, with any name or date of birth read from the ID marked as read by the AI for the applicant to confirm. Answers questions about the terms in plain words and points to the exact clause; the official key terms are always shown in full. Keeps the overdraft off unless the applicant chooses it. The applicant ticks agreement and presses Accept themselves.
+  - Agent tone: Clear and neutral; never persuasive.
+  - Agent type: Vertical banking onboarding assistant; single.
+  - Multi-agent handoff: AI assistant reads the terms service and the confirmed details.
+  - Goal failure response: Data unavailable (terms fail to load): block acceptance and offer a retry. Low confidence answering a terms question: say so and quote the clause. Goal drift (asked about fees, answers about features): re-answer the question asked.
+  - Failure handover trigger: The applicant disputes a term or asks for a person: onboarding support with the handover context package.
+  - Data needs: Confirmed details, key terms, full terms, overdraft offer.
+  - Agent memory: Short-term: the application.
+  - Regulatory classification: Consumer banking pre-contract information; consent given by the applicant; credit search type stated before it runs.
 
 ### 5. Decision
 
@@ -137,6 +191,19 @@ Inputs: Touch, Camera (document and face capture), Screen reader
   - Errors (A11Y-E1): A referred outcome explains what is needed in text, with a reply date; nothing needs to be re-entered.
   - Time limits (A11Y-W1): Final checks need no waiting on the page; the person can close it and will be messaged.
   - Language (A11Y-L1): Write the card date in full, such as Thursday 30 October, and the reply date, Monday 27 October.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: A decision or referral is returned.
+  - Agent goal: Make the outcome and next steps unmistakable.
+  - Agent actions: Explains the outcome: account number and card date when open; when referred, what is being checked and by when. Gives the main reason when the law allows, a contact route and how to ask a person to review an automated outcome. Never reveals a fraud or sanctions match.
+  - Agent tone: Reassuring and exact; calm if referred.
+  - Agent type: Vertical banking onboarding assistant; single.
+  - Multi-agent handoff: AI assistant reads the decision from core banking.
+  - Goal failure response: Data unavailable (decision still running): say the applicant can close the app and will be messaged. Constraint violation (asked why a fraud referral happened): give a neutral next step only.
+  - Failure handover trigger: A referral, a refusal, a request for review, or the applicant asks: onboarding operations or financial crime staff immediately with the handover context package.
+  - Data needs: Decision, referral reason category, account number, card dispatch date.
+  - Agent memory: Episodic: the outcome, for later questions.
+  - Regulatory classification: Account opening decision with legal effect: automated-decision safeguards (notice, main reasons, human review); anti-money-laundering tipping-off rules.
 
 ---
 
@@ -184,10 +251,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Error copy names the fix: 'Your passport photo is blurred — try again in brighter light'
 - Dates in full: 'Thursday 30 October', never '30/10'
 
-## AI interactions
+## Agent and system (HAI)
 
-- AI-assisted document reading pre-fills name and date of birth; the customer confirms each field and can edit it
-- No AI decides to decline: any automated refer or fail outcome is reviewable by a person on request
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is AI and what it can do before the application starts, and every detail it filled is marked as filled by the AI until the applicant confirms it
+- Identity documents, the face check, consent to terms and any sign-in or code are done by the applicant alone; the AI assistant never sees images, codes or passwords
+- The applicant is told before any automated check or decision runs, including whether a credit search is soft or hard
+- The AI assistant never declines or refers an application; a refused or referred applicant gets the main reason (unless the law forbids it), a reply date and a way to ask a person to review it
+- A failed check always offers another route (upload, assisted video check, branch or post), and asking for a person works on every step with the handover context package
 
 ## Edge cases
 

@@ -15,6 +15,8 @@ A trial user always knows when the trial ends, what they will pay and how to sto
 
 **Outcome** — Trial-to-paid conversion reaches 25% while chargebacks and “I didn’t mean to pay” refunds stay under 1% of conversions.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Mouse and keyboard, Touch, Notification actions
   - Errors (A11Y-E1): If the bank needs to confirm the card, the message sits next to the card field in text and says no charge today; the card details stay.
   - Time limits (A11Y-W1): No time limit on this step; the cancel-by date, 8 November, is written in full.
   - Language (A11Y-L1): State the price and the cancel date in full, and avoid 'auto-renews' in favour of 'then we charge £12 a month'.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The person opens the AI assistant on the trial sign-up page.
+  - Agent goal: Make the terms clear before the trial starts.
+  - Agent actions: Says it is an AI assistant that can explain the trial, plans and features, and that it cannot start the trial or enter card details. States the trial length, the price after it, the first charge date and how to cancel, matching the terms word for word. The person ticks the recurring-charge consent and enters their card themselves.
+  - Agent tone: Friendly and direct; short sentences.
+  - Agent type: Vertical subscription assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input ("is it really free?"): give the charge date and amount plainly. Data unavailable (terms not loading): say so and don't guess the dates.
+  - Failure handover trigger: The person asks for a person → billing support, with the handover context package.
+  - Data needs: Trial terms, prices, cancellation route.
+  - Agent memory: Short-term only.
+  - Regulatory classification: Consumer and automatic-renewal law: consent recorded separately by the person; AI interaction disclosed.
 
 ### 2. Trial status
 
@@ -99,6 +114,19 @@ Inputs: Mouse and keyboard, Touch, Notification actions
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): The trial end is a date, not a live countdown; the date is written in full and reminders are sent before it.
   - Language (A11Y-L1): Give days left and the charge date in full; the empty state gives two plain steps.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The person asks how to use a feature, or opens the trial banner.
+  - Agent goal: Help the person try what matters before deciding.
+  - Agent actions: Shows how to use features the person hasn't tried yet, in short steps, and restates days left and the first charge date when asked. A Manage trial link is in every answer about the trial.
+  - Agent tone: Encouraging and brief; one thing at a time.
+  - Agent type: Vertical product assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input ("how do I get my files out?"): ask which format, or show the export steps. Data unavailable (feature help not loading): link to the help page.
+  - Failure handover trigger: The person asks for a person → support, with the handover context package.
+  - Data needs: Trial end date, features used, help content.
+  - Agent memory: Episodic: features used during the trial, shown to the person on request.
+  - Regulatory classification: Minimal risk; feature-use data visible and deletable.
 
 ### 3. Reminder
 
@@ -110,6 +138,19 @@ Inputs: Mouse and keyboard, Touch, Notification actions
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): The reminder arrives at least 3 days before the charge; a calendar file is offered, and the person can change reminder timing.
   - Language (A11Y-L1): Say 'we'll charge £12 on 8 November' in full, never 'ends soon'.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The person opens the trial-ending reminder and asks the AI assistant a question.
+  - Agent goal: Help the person act on the reminder, whatever they choose.
+  - Agent actions: Answers questions about the charge date and amount and points to Keep my plan, Change plan and Cancel trial equally. It does not send, time or change the reminder, and it never argues against cancelling.
+  - Agent tone: Like a helpful friend; no pressure.
+  - Agent type: Vertical subscription assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input ("stop it"): ask whether they mean cancel the trial, and link straight to Cancel trial. Data unavailable (trial status not loading): say so and show the cancel link anyway.
+  - Failure handover trigger: The person asks for a person → billing support, with the handover context package.
+  - Data needs: Trial end date, first charge amount, card status.
+  - Agent memory: Short-term only.
+  - Regulatory classification: Reminder timing and content are legal duties outside the assistant; card expiry is warned by the product, never converted silently on a backup card.
 
 ### 4. Choose plan
 
@@ -122,6 +163,19 @@ Inputs: Mouse and keyboard, Touch, Notification actions
   - Errors (A11Y-E1): Payment failure is text above the form, says the trial continues until 8 November, and keeps the plan and card details; a review step shows the price before paying.
   - Time limits (A11Y-W1): No time limit to choose; the trial runs to 8 November.
   - Language (A11Y-L1): Show 'Yearly £120, which is £10 a month billed once' in full and avoid 'save 17%' alone.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The person opens Choose plan, or asks which plan fits.
+  - Agent goal: Suggest the cheapest plan that covers what the person used.
+  - Agent actions: Suggests a plan from the features used during the trial and shows which features led to it, marked as a suggestion from the AI assistant. Shows the total charged for each cycle, not only the monthly figure. The person picks, sees the exact first charge and date, and confirms and does any bank check themselves; the AI assistant never sees card details or codes.
+  - Agent tone: Honest; points out the cheaper option.
+  - Agent type: Vertical subscription assistant; billing service behind it.
+  - Multi-agent handoff: AI assistant suggests → billing service after the person confirms.
+  - Goal failure response: Low confidence (little use during the trial): say so and show the plans without a suggestion. Goal drift (suggests yearly when the person asked for cheapest per month): re-align and explain. Full task failure (payment fails): say the trial continues to its end date and how to update the card.
+  - Failure handover trigger: A charge problem or the person asks → billing support immediately, with the handover context package, because money is involved.
+  - Data needs: Features used, plan catalogue, prices per cycle.
+  - Agent memory: Episodic: features used in the trial.
+  - Regulatory classification: Payments: bank authentication by the person; suggestion shown with its reasons.
 
 ### 5. Paid
 
@@ -133,6 +187,19 @@ Inputs: Mouse and keyboard, Touch, Notification actions
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the next charge date in full and say where to cancel.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The plan is active and the person opens the AI assistant.
+  - Agent goal: Confirm the plan and how to manage it.
+  - Agent actions: Confirms the plan, the next charge and date from the billing system, says nothing about their work has changed, and links to manage or cancel in Settings.
+  - Agent tone: Reassuring and short.
+  - Agent type: Vertical subscription assistant; single.
+  - Multi-agent handoff: AI assistant → billing service (read only).
+  - Goal failure response: Partial completion (paid, receipt not sent): show the plan and next charge on screen and say the receipt will follow.
+  - Failure handover trigger: The person says they didn't mean to pay, or asks → billing support immediately, with the handover context package.
+  - Data needs: Plan, next charge, receipt status.
+  - Agent memory: Episodic: the conversion joins billing history.
+  - Regulatory classification: Minimal risk; consent and receipt records kept for the legal period.
 
 ---
 
@@ -180,10 +247,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Reminders in one short line before any detail: “Your trial ends in 3 days.”
 - No guilt copy on cancel: “Trial cancelled. You can keep using it until 8 November.”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: recommend a plan based on features used during the trial, showing which features drove the suggestion; the user picks
-- No AI in deciding when to charge or which reminders to send because those are legal obligations
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is AI, and states the trial end date, the first charge and how to cancel exactly as the terms do
+- The AI assistant takes no part in when the person is charged or which reminders are sent; those are fixed by the product's rules
+- Consent to the recurring charge, card entry and bank checks are done by the person; the AI assistant never sees them
+- Any plan the AI assistant suggests shows the features used that led to it; the person picks, and nothing is charged before they confirm
+- Cancelling the trial is one step from any assistant answer, and a charge problem goes to billing support straight away with the handover context package
 
 ## Edge cases
 

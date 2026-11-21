@@ -15,6 +15,8 @@ A policyholder reports what happened, adds photos, and always knows where the cl
 
 **Outcome** — At least 80% of straightforward claims are submitted in one sitting in under 15 minutes, and claimants receive a status update at every stage change.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Touch, Camera and photo library, Voice control
   - Errors (A11Y-E1): If no policy is found, the message sits by the policy field and asks for the number or postcode; answers stay.
   - Time limits (A11Y-W1): No time limit; the draft is saved for 30 days.
   - Language (A11Y-L1): Use everyday incident names and write the date in full, such as 14 October.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The claimant opens a new claim or tells the AI assistant what happened in their own words.
+  - Agent goal: Record the right incident type and date, and show cover and excess before any effort is spent.
+  - Agent actions: Says it is an AI assistant that can fill in the claim from what they say and draft descriptions, and that a person is available any time. Suggests the incident type and date from their words, marked as filled by the AI assistant, and shows the cover and excess from the policy; the claimant confirms or changes each.
+  - Agent tone: Kind once, then practical: 'Sorry this has happened. Here's what we need.'
+  - Agent type: Vertical claims assistant; single.
+  - Multi-agent handoff: AI assistant reads the policy from the policy system; nothing is written until the claimant confirms.
+  - Goal failure response: Ambiguous input (two possible causes, or no date): ask one short question. Data unavailable (policy not found): ask for the policy number or postcode and say why. Constraint violation (incident outside the policy period): say so plainly before more detail is collected.
+  - Failure handover trigger: Injury mentioned, emergency support needed, or the claimant asks for a person: the claims team immediately by phone or message, with the handover context package.
+  - Data needs: Policy, cover and excess for the incident type, the claimant's own description.
+  - Agent memory: Short-term: this claim draft. Episodic: the access needs the claimant has already given, reused with consent.
+  - Regulatory classification: Insurance; AI interaction disclosed in the first message; personal data under data protection law; access needs are shared only with consent.
 
 ### 2. Tell us more
 
@@ -99,6 +114,19 @@ Inputs: Touch, Camera and photo library, Voice control
   - Errors (A11Y-E1): Errors say which field is missing and why, with a link in a summary; the description is never cleared.
   - Time limits (A11Y-W1): No time limit; the draft is saved for 30 days.
   - Language (A11Y-L1): Ask 'Which items were damaged?' in plain words and avoid 'loss adjuster' or 'peril'.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The incident type is confirmed and the claimant describes the damage.
+  - Agent goal: Capture the damaged items and a clear description without asking anything twice.
+  - Agent actions: Drafts the damage description and an item list with suggested values and ages from what the claimant said, each marked as filled by the AI assistant; the claimant edits, accepts or removes each item. Never clears the claimant's own text.
+  - Agent tone: Patient and plain; one question at a time; no claims jargon.
+  - Agent type: Vertical claims assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Low confidence on a value: say it is a rough guess and leave the field for the claimant. Goal drift (draft adds items they did not mention): remove them and follow the claimant's list. Ambiguous input: ask which item they mean.
+  - Failure handover trigger: The claimant disagrees with suggested values twice or asks for a person: the claims handler, with the handover context package.
+  - Data needs: Item categories, typical replacement values, the claimant's words.
+  - Agent memory: Short-term: the item list for this claim.
+  - Regulatory classification: Insurance; suggested values are advice only and labelled; the claimant's account stays their own.
 
 ### 3. Add photos
 
@@ -112,6 +140,19 @@ Inputs: Touch, Camera and photo library, Voice control
   - Errors (A11Y-E1): A paused upload is stated in text beside the list and resumes on its own; photos already added stay.
   - Time limits (A11Y-W1): No time limit; uploads resume after connection loss.
   - Language (A11Y-L1): Say '3 of 5 photos' in full and give the size limit in megabytes.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The claimant adds photos, or reaches the photo step with items still lacking evidence.
+  - Agent goal: Match evidence to each damaged item and keep uploads going in the background.
+  - Agent actions: Suggests which item each photo shows and lists items still without a photo, marked as filled by the AI assistant; the claimant confirms each match. If photos were lost in the incident it explains that receipts or descriptions are accepted.
+  - Agent tone: Reassuring and brief: progress in plain numbers.
+  - Agent type: Vertical claims assistant with an image-reading service behind it; orchestrated.
+  - Multi-agent handoff: AI assistant → image-reading service → suggested matches shown to the claimant.
+  - Goal failure response: Data unavailable (upload paused offline): say uploads will resume and keep every photo already added. Low confidence on a match: leave it unmatched and ask. Partial completion (some photos uploaded): show which are done and carry on.
+  - Failure handover trigger: Uploads fail after two retries, or the claimant cannot provide evidence: the claims handler, with the handover context package including what is already uploaded.
+  - Data needs: Photos, item list, upload status.
+  - Agent memory: Short-term: photo-to-item matches for this claim.
+  - Regulatory classification: Photos are personal data; state who sees them and how long they are kept; image reading only for this claim.
 
 ### 4. Check and send
 
@@ -123,6 +164,19 @@ Inputs: Touch, Camera and photo library, Voice control
   - Errors (A11Y-E1): Sending a claim is checked in a review step first, and the person can correct details afterwards by contacting the team.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the contact date in full, Tuesday 28 October, and spell out the claim reference.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: All sections are complete and the claimant moves to review.
+  - Agent goal: Make the claim exact and understood before it is sent.
+  - Agent actions: Shows the full claim, cover and excess as an exact summary and highlights anything still marked as filled by the AI assistant and not yet accepted; the claimant makes the declaration and sends it themselves, with the AI assistant stepping back. Says a named person will handle and decide the claim, and how to correct details after sending.
+  - Agent tone: Clear, calm and precise.
+  - Agent type: Vertical claims assistant; claims system behind it.
+  - Multi-agent handoff: AI assistant prepares the summary → the claimant confirms → claims system records the claim and assigns a handler.
+  - Goal failure response: Constraint violation (unaccepted AI-filled fields): stop and ask the claimant to accept or change them first. Full task failure (claims system down): do not send, keep the draft, say so and offer a person. Partial completion (sent, handler not yet assigned): show the claim reference and when a name will follow.
+  - Failure handover trigger: Sending fails twice, or the claimant is unsure about the declaration: the claims team immediately, with the handover context package.
+  - Data needs: Complete claim draft, policy, excess, claimant contact details.
+  - Agent memory: Episodic: the sent claim joins the claimant's history.
+  - Regulatory classification: Insurance claim submission; a person decides, never an automated system alone; the declaration is made by the claimant; audit record of what the AI assistant filled and what the claimant accepted.
 
 ### 5. Claim status
 
@@ -136,6 +190,19 @@ Inputs: Touch, Camera and photo library, Voice control
   - Errors (A11Y-E1): The declined message gives reasons in text with the complaints route; uploads for the extra item keep their files.
   - Time limits (A11Y-W1): No time limit to respond; the request shows the date it was sent.
   - Language (A11Y-L1): Explain claim terms in plain words and give the complaints route as plain steps.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The claim changes stage, a request for information arrives, or the claimant asks where things stand.
+  - Agent goal: Keep the claimant informed and help them answer requests without chasing.
+  - Agent actions: Explains each stage and request in plain words and drafts replies or visit preferences, marked as filled by the AI assistant, that the claimant edits and sends. Offers assessor times that fit the claimant's access needs and they choose; on a decline it gives the handler's reasons, the complaints route, the ombudsman and how to ask a person to review.
+  - Agent tone: Steady and specific: what changed and what's next.
+  - Agent type: Vertical claims assistant; single.
+  - Multi-agent handoff: Claims system → notification service → AI assistant when the claimant replies.
+  - Goal failure response: Data unavailable (status not loading): say so and give the handler's contact. Ambiguous input: ask what the claimant wants to do. Constraint violation (asked to change the decision): say only a person can and offer review.
+  - Failure handover trigger: A decline is disputed, a complaint is made, the claimant is distressed or asks for a person: the named handler or complaints team immediately, with the handover context package.
+  - Data needs: Claim stage, requests, handler name, decision reasons, visit slots.
+  - Agent memory: Episodic: claim history and access needs, viewable and deletable by the claimant.
+  - Regulatory classification: Significant decision about the claimant: notice before any automated step, reasons after, human review on request; complaints and ombudsman rights stated.
 
 ---
 
@@ -183,10 +250,16 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Say 'excess' with the amount and an explanation the first time: '£250 excess — the part you pay'
 - Status messages say what changed and what's next: 'Your assessor is booked for Friday 31 October, 10:00–12:00'
 
-## AI interactions
+## Agent and system (HAI)
 
-- AI can suggest item values and draft the damage description from photos; the claimant edits and confirms, and suggestions are labelled
-- Fraud signals route to a human investigator; no automatic declines
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The first message says it is an AI assistant, what it can fill in and draft, and that a person on the claims team is available any time
+- Every answer, value or description the AI assistant fills in is marked as filled by the AI assistant until the claimant accepts or changes it
+- Nothing is sent until the claimant has seen the exact claim, including cover and excess, and confirmed it; the declaration is made by the claimant
+- A person decides every claim; the AI assistant never declines, and fraud signals go to a human investigator
+- Before any automated step affects the claim the claimant is told; a decline gives the main reasons, the complaints route and the ombudsman, and a way to ask a person to review it
+- Injury, distress or a request for a person goes to the claims team immediately, with the handover context package so nothing is asked twice
 
 ## Edge cases
 

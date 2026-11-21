@@ -168,9 +168,12 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Offers stated neutrally: “Prefer to pause for up to 3 months?” with “No thanks” beside it
 - No guilt or loss-framing language in any cancel step
 
-## AI interactions
+## Agent and system (HAI)
 
-- No AI in this journey because cancellation must be predictable and auditable; a support assistant may link straight to the cancel screen but never argue against cancelling
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- No AI assistant takes part in cancelling: the journey stays predictable and auditable
+- An AI support assistant elsewhere in the product may only link straight to the cancel screen and never argues against cancelling
 
 ## Edge cases
 

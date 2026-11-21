@@ -15,6 +15,8 @@ A subscriber changes plan and sees exactly what they will pay today, what change
 
 **Outcome** — At least 95% of plan changes complete without a billing support contact, and fewer than 2% are reversed within 7 days.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -86,6 +88,19 @@ Inputs: Touch, Mouse and keyboard, Browser translation
   - Errors (A11Y-E1): No input on this step; a failed usage load is named in text with Try again.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write 'staff seats' and 'renews on 1 November' in short sentences, and spell out the currency.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The subscriber opens the plan page and asks the AI assistant about usage or limits.
+  - Agent goal: Explain where the account stands against its limits.
+  - Agent actions: Says it is an AI assistant that can explain plans and prices and suggest a plan, but the subscriber decides. Explains usage against each limit in numbers, in short sentences that translate well.
+  - Agent tone: Plain and short; no idioms.
+  - Agent type: Vertical billing assistant; single.
+  - Multi-agent handoff: AI assistant → account usage service (read only).
+  - Goal failure response: Data unavailable (usage still loading): give the plan name and renewal date and say usage will follow. Ambiguous input ("why am I blocked?"): ask which feature, or show the limit reached.
+  - Failure handover trigger: The subscriber asks for a person → billing support, with the handover context package.
+  - Data needs: Current plan, limits, usage, renewal date.
+  - Agent memory: Short-term only.
+  - Regulatory classification: Minimal risk; AI interaction disclosed.
 
 ### 2. Compare
 
@@ -97,6 +112,19 @@ Inputs: Touch, Mouse and keyboard, Browser translation
   - Errors (A11Y-E1): No input beyond choosing; if no plan is chosen, a message beside the button says so, and nothing changes.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Show only the differences, and write prices as '£29 a month' in full.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The subscriber opens Compare, or asks which plan fits.
+  - Agent goal: Suggest the plan that fits real usage.
+  - Agent actions: Suggests a plan from the last three months of usage and shows the numbers behind it, marked as a suggestion from the AI assistant. Shows only the differences that matter to this account; the subscriber picks any plan, including the current one.
+  - Agent tone: Honest; says when a cheaper plan would do.
+  - Agent type: Vertical billing assistant; single.
+  - Multi-agent handoff: AI assistant → usage service → plan catalogue.
+  - Goal failure response: Low confidence (less than three months of usage, or a seasonal spike): say so and show two options with their reasons. Goal drift (suggests more than the subscriber asked for): re-align to the stated need, such as "five seats".
+  - Failure handover trigger: The subscriber asks for a person → billing support, with the handover context package.
+  - Data needs: Three months of usage, plan catalogue and prices.
+  - Agent memory: Episodic: usage history. Procedural: seasonal pattern, only if the subscriber agrees it is kept.
+  - Regulatory classification: Minimal risk; recommendation shown with its reasons.
 
 ### 3. Preview cost
 
@@ -110,6 +138,19 @@ Inputs: Touch, Mouse and keyboard, Browser translation
   - Errors (A11Y-E1): A failed price calculation says nothing has changed and offers Try again; the plan choice is kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Explain the credit for unused days in one sentence, and write amounts and dates in full.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The billing system returns the price preview.
+  - Agent goal: Make today's charge and future bills clear.
+  - Agent actions: Explains each line of the billing system's preview, including the credit for unused days, in one or two plain sentences. It never calculates or rounds its own figure.
+  - Agent tone: Precise and patient.
+  - Agent type: Vertical billing assistant; billing service behind it.
+  - Multi-agent handoff: Billing service calculates → AI assistant explains.
+  - Goal failure response: Data unavailable (price can't be calculated): say nothing has changed and offer to try again. Constraint violation (tax details missing for a business invoice): say what is needed before continuing.
+  - Failure handover trigger: The preview looks wrong to the subscriber, or they ask → billing support immediately, with the handover context package, because money is involved.
+  - Data needs: Price preview, credit, tax rate, billing cycle.
+  - Agent memory: Short-term: the chosen plan.
+  - Regulatory classification: Consumer and tax rules: the charge and next amount are shown before confirming.
 
 ### 4. Downgrade check
 
@@ -122,6 +163,19 @@ Inputs: Touch, Mouse and keyboard, Browser translation
   - Errors (A11Y-E1): 'Choose 3 staff before continuing' is named beside the list, linked from a summary, and the choices made stay.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say who loses access and on what date, and write that data is kept and returns on upgrade.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The subscriber chooses a lower plan.
+  - Agent goal: Make clear what will be limited and help choose what to keep.
+  - Agent actions: Names what is limited and from which date, and says data is kept and returns on upgrade. If asked, suggests which staff seats to keep based on recent activity, marked as a suggestion from the AI assistant; the subscriber chooses every seat and nothing is removed before they confirm.
+  - Agent tone: Reassuring and exact.
+  - Agent type: Vertical billing assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Constraint violation (usage already above the lower plan's limit): say what to reduce first; never remove anything itself. Ambiguous input ("keep the main ones"): ask which staff. Low confidence on seat activity: say so and leave the choice blank.
+  - Failure handover trigger: The subscriber asks for a person → billing support, with the handover context package.
+  - Data needs: Seats, staff activity, lower plan limits.
+  - Agent memory: Short-term: the seat choice.
+  - Regulatory classification: Affects other people's access; staff activity used only to suggest, and the subscriber decides.
 
 ### 5. Confirm
 
@@ -134,6 +188,19 @@ Inputs: Touch, Mouse and keyboard, Browser translation
   - Errors (A11Y-E1): A review of amount, card and next bill comes before paying; a declined card message keeps the old plan, and undo is available for 24 hours with full credit.
   - Time limits (A11Y-W1): No time limit; the undo window of 24 hours is stated in text on the page.
   - Language (A11Y-L1): Write the amount, card ending and next bill date in full, and say 'undo for 24 hours' plainly.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The subscriber reaches Confirm.
+  - Agent goal: Change the plan once, for the right amount.
+  - Agent actions: Shows the new plan, today's charge, the card ending, and the next bill exactly, and marks what the AI assistant prepared. The subscriber confirms and does any bank check themselves; the AI assistant steps back and never sees card details or codes. The receipt shows the 24-hour undo with full credit.
+  - Agent tone: Calm and precise.
+  - Agent type: Vertical billing assistant; billing and payment services behind it.
+  - Multi-agent handoff: AI assistant prepares → billing service → payment provider after the subscriber confirms.
+  - Goal failure response: Full task failure (card declined): say the plan is unchanged and how to update the card. Partial completion (charged, plan not switched): say what happened at once and hand over. Never retry a charge silently.
+  - Failure handover trigger: Any charge problem, a doubled charge, or the subscriber asks → billing support immediately, with the handover context package.
+  - Data needs: Chosen plan, price preview, stored payment token.
+  - Agent memory: Episodic: the change joins billing history.
+  - Regulatory classification: Payments: bank authentication by the subscriber; audit log of what the AI assistant prepared and what the subscriber confirmed.
 
 ---
 
@@ -182,9 +249,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Short sentences under 20 words for translation
 - Downgrade copy names consequences: “3 staff lose access on 1 November. Their bookings stay.”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: suggest a plan from the last 3 months of usage, showing the usage numbers behind the suggestion; the subscriber chooses
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is AI and shows the usage numbers behind any plan it suggests; the subscriber chooses
+- Every price the AI assistant explains comes from the billing system; it never works out its own figure
+- No plan change and no removal of staff access happens until the subscriber sees today's charge, the next bill and what changes, and confirms
+- The subscriber does any bank check themselves; the AI assistant never sees card details or codes
+- A failed or doubled charge goes to billing support straight away with the handover context package, and the 24-hour undo is always shown
 
 ## Edge cases
 

@@ -15,6 +15,8 @@ An employee submits an expense with a receipt, their manager approves it, and fi
 
 **Outcome** — Valid expenses are paid within five working days of submission, with fewer than 5% sent back for missing information.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Camera, Touch, Keyboard, Email forwarding of receipts
   - Errors (A11Y-E1): If the receipt cannot be read, the message sits next to the form and offers manual entry or retake; any typed details stay.
   - Time limits (A11Y-W1): No time limit; capture works offline and syncs later.
   - Language (A11Y-L1): Write amounts and dates in full, such as £42.80 on 14 October, and say 'read' not 'scanned by AI'.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The claimant photographs, uploads or forwards a receipt.
+  - Agent goal: Turn the receipt into correct claim details in under a minute.
+  - Agent actions: Says once that an AI agent reads receipts and that the claimant checks every value. Reads amount, date, merchant, currency and tax, and marks each as read by the AI with low-confidence fields highlighted in text, not colour alone. The claimant confirms or edits each field.
+  - Agent tone: Brief and matter-of-fact: "We read £42.80 on 14 October — is that right?"
+  - Agent type: Vertical expenses AI agent; single.
+  - Multi-agent handoff: Capture runs on the device or offline; the AI agent reads the image when it syncs.
+  - Goal failure response: Low confidence (faded receipt): leave the field empty and ask the claimant to type it rather than guess. Data unavailable (offline): save the photo and read it when back online, saying so. Ambiguous input (two totals on one receipt): show both and ask which.
+  - Failure handover trigger: Reading fails twice: manual entry, with the photo kept. The claimant asks for help: the finance helpdesk with the handover context package.
+  - Data needs: Receipt image, exchange rate for the receipt date, tax rules.
+  - Agent memory: Short-term: this receipt. Procedural: the claimant's usual merchants and categories, viewable and deletable.
+  - Regulatory classification: Minimal risk under the EU AI Act; AI-read values identified (transparency); receipts kept for the legally required period.
 
 ### 2. Submit
 
@@ -99,6 +114,19 @@ Inputs: Camera, Touch, Keyboard, Email forwarding of receipts
   - Errors (A11Y-E1): Errors such as 'Add a business purpose' sit next to the field with a link in a summary; the typed values stay.
   - Time limits (A11Y-W1): No time limit; the draft is kept.
   - Language (A11Y-L1): Say 'meal limit of £30' in full and explain why a reason is needed.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: Receipt details are confirmed and the claimant adds purpose and category.
+  - Agent goal: Help the claimant send a claim that passes first time.
+  - Agent actions: Suggests a category from the merchant, marked as suggested by the AI; shows the policy limit before submission and asks for a reason if it is over. Flags a possible duplicate before sending. Never writes the business purpose for the claimant. The claimant presses Submit after seeing the summary.
+  - Agent tone: Helpful and specific; names the fix.
+  - Agent type: Vertical expenses AI agent; checks against the policy service.
+  - Multi-agent handoff: AI agent suggests the category, then the policy service checks limits and duplicates.
+  - Goal failure response: Constraint violation (over the meal limit): say the limit and ask for a reason; don't block a valid claim. Low confidence on a duplicate: show both receipts and let the claimant decide. Data unavailable (policy service down): let them submit and say the approver will check limits.
+  - Failure handover trigger: The claimant disputes a policy rule or asks for a person: the finance helpdesk with the handover context package.
+  - Data needs: Policy limits by category and grade, previous claims, cost centres.
+  - Agent memory: Short-term: the draft claim, saved automatically.
+  - Regulatory classification: Minimal risk; separation of duties enforced by the system, not the AI agent.
 
 ### 3. Approve
 
@@ -111,6 +139,19 @@ Inputs: Camera, Touch, Keyboard, Email forwarding of receipts
   - Errors (A11Y-E1): Approving moves money, so a short confirm step or undo follows each decision, and a rejection asks for a reason that is kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Name the claimant and write the amount in full; say 'Reject' rather than 'Decline with prejudice'.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: A claim reaches the approver's inbox.
+  - Agent goal: Give the approver what they need to decide in one screen.
+  - Agent actions: Shows a short summary labelled as written by the AI agent: policy checks passed or flagged, possible duplicates and history, each with its evidence. The approver approves, sends back with a fix, or rejects with a reason; nothing is decided for them. Approve offers a short undo.
+  - Agent tone: Neutral and factual; never recommends approval as a default.
+  - Agent type: Vertical expenses AI agent; single.
+  - Multi-agent handoff: AI agent summarises; the decision goes back to the workflow service.
+  - Goal failure response: Low confidence flag: say it is unsure and why. Data unavailable (history missing): say what could not be checked. Goal drift (summary hides a policy exception): exceptions always appear first, whatever the summary says.
+  - Failure handover trigger: The approver is away beyond 3 working days: route to the named delegate and tell the claimant (a workflow rule). A suspected fraud flag: finance compliance immediately with the handover context package. Nobody approves their own claim.
+  - Data needs: Claim, receipt image, policy checks, claimant history, approval limits by role.
+  - Agent memory: Short-term: the claim being reviewed. Episodic: earlier claims from this claimant.
+  - Regulatory classification: Minimal risk for expense checks. It would become high-risk employment use if flags were used to judge staff, so flags are not shared with performance processes. Decisions logged with who, when and why.
 
 ### 4. Pay
 
@@ -122,6 +163,19 @@ Inputs: Camera, Touch, Keyboard, Email forwarding of receipts
   - Errors (A11Y-E1): Flagged claims are marked with an icon and the word 'Flagged'; scheduling payment needs a review step before it is confirmed.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the total in pounds and pence and say 'flagged for review' in plain words.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: Approved claims are ready for the payment run.
+  - Agent goal: Help finance pay the right people the right amounts, once.
+  - Agent actions: Prepares the batch with totals by currency and cost centre and flags duplicates, policy exceptions and recent bank-detail changes, each with a reason. The finance officer reviews, removes or holds items, then confirms the exact batch. The AI agent never sees full bank details and never schedules payment.
+  - Agent tone: Precise and status-like.
+  - Agent type: Vertical expenses AI agent; works with the accounts payable or payroll system.
+  - Multi-agent handoff: AI agent prepares the batch, then the finance officer confirms, then the payment system schedules it.
+  - Goal failure response: Partial completion (batch exported but two claims rejected by payroll): show which, keep them unpaid and flagged. Data unavailable (exchange rates missing): hold the foreign-currency claims and say why. Constraint violation (bank details changed recently): hold that payment until the employee is verified.
+  - Failure handover trigger: Any payment failure or suspected fraud: the finance lead immediately with the handover context package, because money is involved.
+  - Data needs: Approved claims, masked bank details, exchange rates, cost centre codes.
+  - Agent memory: Short-term: the batch.
+  - Regulatory classification: Payments to employees: a person confirms every batch; audit trail of who prepared and who approved; bank details masked (data protection).
 
 ### 5. Track
 
@@ -133,6 +187,19 @@ Inputs: Camera, Touch, Keyboard, Email forwarding of receipts
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the payment date in full with the weekday.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: Anyone asks about a claim, or its status changes.
+  - Agent goal: Make status and payment date clear to everyone involved.
+  - Agent actions: Answers "where is my claim?" with the stage, who it is waiting on, and the expected payment date. Uses the same status words for every role. Can send a polite reminder to the approver only when the claimant asks and confirms it.
+  - Agent tone: Reassuring and plain.
+  - Agent type: Vertical expenses AI agent; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Data unavailable (payroll date not known yet): say it will be shown once scheduled. Ambiguous input (several open claims): list them and ask which.
+  - Failure handover trigger: Payment is late past its date, or the claimant asks for a person: the finance helpdesk with the handover context package.
+  - Data needs: Claim stages, approver, payment schedule.
+  - Agent memory: Episodic: the claimant's open claims.
+  - Regulatory classification: Minimal risk; status visible only to the claimant, approvers and finance.
 
 ---
 
@@ -180,10 +247,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Use money formats with currency: “£42.80”, never bare numbers
 - Status words match across roles: submitted, approved, sent back, paid
 
-## AI interactions
+## Agent and system (HAI)
 
-- Reads receipt fields with confidence scores; the claimant confirms every value
-- Flags possible duplicates and policy exceptions for the approver; the approver decides
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- Every value the AI agent reads from a receipt is marked as read by the AI and confirmed or corrected by the claimant before the claim is sent
+- No claim is approved, rejected, sent back or paid by the AI agent; the approver and finance officer decide, and the AI agent never approves on its reading alone
+- Every flag (possible duplicate, over the limit, unusual rate) shows its reason and evidence, and can be dismissed by the person with a note
+- Scheduling payment shows the exact batch and totals and needs the finance officer's confirmation; a change to bank details holds payment until the employee is verified
+- Every action records who prepared it (AI agent or person) and who decided it, and any person can ask for a person to look at it
 
 ## Edge cases
 

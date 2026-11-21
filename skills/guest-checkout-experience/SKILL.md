@@ -15,6 +15,8 @@ A shopper pays without creating an account, with an address lookup, clear totals
 
 **Outcome** — At least 75% of guests who start checkout complete payment, in under four minutes, with no account required.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Assistive.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Keyboard, Screen reader, Browser autofill, Digital wallet
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit; the basket is kept for at least 30 minutes and the person is warned before it expires.
   - Language (A11Y-L1): Say “guest” and “account” plainly, and explain that an account is optional and offered after the order.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The shopper opens the AI assistant at the start of checkout.
+  - Agent goal: Explain the choices so guest checkout feels safe.
+  - Agent actions: Says it is an AI assistant that can answer questions about the order, delivery and returns, but cannot fill in personal or payment details. If asked, explains that guest checkout is equal to signing in and an account can be made after the order; it never handles sign-in or passwords.
+  - Agent tone: Friendly and brief.
+  - Agent type: Vertical shopping assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input ("do I need an account?"): answer no plainly and point to Continue as guest. Data unavailable (help content not loading): say so and link to the delivery and returns pages.
+  - Failure handover trigger: The shopper asks for a person → customer service chat immediately, with the handover context package.
+  - Data needs: Delivery and returns policy, basket summary.
+  - Agent memory: Short-term only; nothing kept for a guest after the session.
+  - Regulatory classification: Minimal risk; AI interaction disclosed when the assistant opens.
 
 ### 2. Contact
 
@@ -124,6 +139,19 @@ Inputs: Keyboard, Screen reader, Browser autofill, Digital wallet
   - Errors (A11Y-E1): The price-change message is text next to the changed line, with the new total and a way to accept or edit; this review is the check before any payment is taken.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write every price in full with the pound sign, itemise fees in words, and say what changed and by how much.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The shopper asks about a line, fee or price change on the review screen.
+  - Agent goal: Help the shopper understand the order before paying.
+  - Agent actions: Explains each line, fee and tax using the figures on screen, and explains a price change with the old and new amounts. It cannot change the basket; it points to the Edit link instead.
+  - Agent tone: Clear and exact; prices written in full.
+  - Agent type: Vertical shopping assistant; single.
+  - Multi-agent handoff: AI assistant → basket and pricing service (read only).
+  - Goal failure response: Data unavailable (pricing can't be read): say so and point to the on-screen total. Goal drift (the shopper asks to apply a discount): explain where codes are entered and that it can't apply them. Low confidence on a delivery date: say it isn't sure and show the latest date the system gives.
+  - Failure handover trigger: The shopper disputes a price or asks for a person → customer service immediately, with the handover context package.
+  - Data needs: Basket lines, prices, fees, tax, delivery estimate.
+  - Agent memory: Short-term: the basket.
+  - Regulatory classification: Consumer protection: the total shown before payment is authoritative; the assistant quotes it, never its own sum.
 
 ### 5. Pay
 
@@ -148,6 +176,19 @@ Inputs: Keyboard, Screen reader, Browser autofill, Digital wallet
   - Errors (A11Y-E1): The optional account setup is a separate form with its own errors beside fields; nothing is required, and the details already given are kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Show the order number, delivery date and address in full text, and offer an account as optional and after the order.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The order is confirmed and the shopper opens the AI assistant.
+  - Agent goal: Answer what happens next.
+  - Agent actions: Answers questions about the delivery date, the cancel and returns window and the receipt, using the order record. Mentions the optional account only if asked, and shows how to reach a person or report a problem.
+  - Agent tone: Reassuring and plain.
+  - Agent type: Vertical shopping assistant; single.
+  - Multi-agent handoff: AI assistant → order service (read only).
+  - Goal failure response: Partial completion (paid, but the confirmation didn't load): show the order from the order service and say the receipt email will follow. Data unavailable (order not found yet): say so, never guess, and offer a person.
+  - Failure handover trigger: Payment taken with no order shown, a payment problem, or the shopper asks → customer service immediately, with the handover context package, because money is involved.
+  - Data needs: Order number, delivery date and address, receipt status.
+  - Agent memory: Short-term; nothing kept after the session unless the shopper makes an account.
+  - Regulatory classification: Minimal risk; order record kept for the legal period.
 
 ---
 
@@ -195,9 +236,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Field hints in plain words: “We’ll only call if there’s a delivery problem”
 - Confirmation leads with the result: “Order confirmed” before any upsell
 
-## AI interactions
+## Agent and system (HAI)
 
-- No AI in payment or address steps because errors here cost money and trust; standard validation and lookup only
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is AI when first opened and that it can explain the order but cannot fill in contact, address or payment details
+- The AI assistant takes no part in contact, address or payment steps; the shopper types those and does bank checks themselves
+- Every price the AI assistant quotes matches the order total on screen; when they differ, the on-screen total wins and the assistant says so
+- The shopper is never pushed to sign in or create an account; the account offer stays optional
+- Payment problems and a request for a person go to customer service straight away with the handover context package
 
 ## Edge cases
 

@@ -15,6 +15,8 @@ A requester asks to buy something, the system checks budget, and the right appro
 
 **Outcome** — Requests within budget are approved and turned into purchase orders within three working days, with no orders issued above approval limits.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Keyboard, Pointer, File upload, Touch
   - Errors (A11Y-E1): The quote error is named beside the quote upload, listed in a summary at the top with links, and every entry stays.
   - Time limits (A11Y-W1): The session warns at least 2 minutes before it ends and can be extended; progress is autosaved.
   - Language (A11Y-L1): Use 'quote' with a one-line explanation and write amounts such as £10,000 in full.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The requester describes what they need or asks the AI agent to reuse a past request.
+  - Agent goal: Get a complete request with the least typing.
+  - Agent actions: Says it is an AI agent that can fill the request from a past one or a description, for the requester to check. Fills items, category and supplier and marks each as filled by the AI. Reminds the requester when quotes are needed and why. Autosaves; the requester submits.
+  - Agent tone: Clear, with one next step at a time.
+  - Agent type: Vertical procurement AI agent; single.
+  - Multi-agent handoff: AI agent reads past requests and the catalogue, then the supplier list.
+  - Goal failure response: Ambiguous input ("the usual rotor"): show the two matching past items and ask. Constraint violation (supplier not approved): say so and offer supplier onboarding. Data unavailable (catalogue down): let the requester type the item and say why.
+  - Failure handover trigger: The requester asks for a person, or the supplier rule blocks the request: procurement with the handover context package.
+  - Data needs: Past requests, catalogue, approved supplier list, tender thresholds.
+  - Agent memory: Short-term: the draft. Episodic: the requester's past requests.
+  - Regulatory classification: Minimal risk under the EU AI Act; AI-filled fields identified (transparency).
 
 ### 2. Check budget
 
@@ -99,6 +114,19 @@ Inputs: Keyboard, Pointer, File upload, Touch
   - Errors (A11Y-E1): Missing budget figures are named in text, with a note that submitting is allowed; the request stays as entered.
   - Time limits (A11Y-W1): The session warns at least 2 minutes before it ends and can be extended.
   - Language (A11Y-L1): Write each figure with its label, and explain 'reserved' as 'already set aside'.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: Request amount and cost centre are known.
+  - Agent goal: Explain whether the budget covers it before the request goes in.
+  - Agent actions: Explains the available, reserved and this-request figures in plain words when asked. If over budget, lists the options the system allows. Never changes or reserves budget.
+  - Agent tone: Plain and concrete.
+  - Agent type: Vertical procurement AI agent; single.
+  - Multi-agent handoff: AI agent reads the finance system.
+  - Goal failure response: Data unavailable (budget figures down): say the figures can't be shown, that the requester can still submit, and the budget holder will check.
+  - Failure handover trigger: The requester disputes the budget figure: the budget holder or finance with the handover context package.
+  - Data needs: Live budget by cost centre, reserved amounts.
+  - Agent memory: Short-term.
+  - Regulatory classification: Minimal risk; budget data shown only to people allowed to see that cost centre.
 
 ### 3. See chain
 
@@ -110,6 +138,19 @@ Inputs: Keyboard, Pointer, File upload, Touch
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Give each approver's role and why they are needed in one sentence.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The approval chain is worked out for the request.
+  - Agent goal: Help the requester understand who approves and how long it may take.
+  - Agent actions: Explains in one sentence why each approver is needed and the expected time per step, when asked. The chain is set by the system's rules; the AI agent cannot skip, reorder or add approvers.
+  - Agent tone: Calm and clear.
+  - Agent type: Vertical procurement AI agent; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Data unavailable (approver's leave unknown): say so and name the delegate if one is set.
+  - Failure handover trigger: The chain can't be worked out (no approver for that cost centre): procurement admin with the handover context package.
+  - Data needs: Approval chain rules, approvers, delegates, leave.
+  - Agent memory: Short-term.
+  - Regulatory classification: Minimal risk; the approval chain is a control set by people.
 
 ### 4. Approve
 
@@ -122,6 +163,19 @@ Inputs: Keyboard, Pointer, File upload, Touch
   - Errors (A11Y-E1): Approval commits money, so the full request is shown first and Reject asks for a reason, kept if the person goes back; a decision can be changed before the order is issued.
   - Time limits (A11Y-W1): The session warns at least 2 minutes before it ends and can be extended.
   - Language (A11Y-L1): Say 'approve' and 'reject' plainly and keep amounts in full.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: A request reaches an approver.
+  - Agent goal: Help each approver decide well and quickly.
+  - Agent actions: Shows a summary labelled as written by the AI agent: request, quotes compared, budget, prior decisions. Flags possible split orders, price changes and declared conflicts, each with evidence. Can draft a question to the requester that the approver edits and sends. The approver approves, rejects with a reason or asks a question.
+  - Agent tone: Neutral; never nudges to approve.
+  - Agent type: Vertical procurement AI agent; single.
+  - Multi-agent handoff: AI agent summarises; the decision goes back to the workflow service.
+  - Goal failure response: Low confidence on a split-order flag: say it is a possible match and show the related requests. Data unavailable (budget changed between steps): re-check and tell the approver before they decide. Goal drift (summary skips a quote): show all quotes, always.
+  - Failure handover trigger: A suspected split order or conflict: procurement immediately with the handover context package. The approver is absent past the expected time: the named delegate, and the requester is told.
+  - Data needs: Request, quotes, budget, prior decisions, related requests.
+  - Agent memory: Short-term: the request. Episodic: earlier requests from the same requester and cost centre.
+  - Regulatory classification: Spending commitment: people decide; separation of duties; full audit trail.
 
 ### 5. Issue PO
 
@@ -133,6 +187,19 @@ Inputs: Keyboard, Pointer, File upload, Touch
   - Errors (A11Y-E1): Issuing the order is a commitment, so a review of supplier, amount and delivery comes first, and it can be cancelled until the supplier accepts.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Explain 'PO' as 'purchase order' at first use, and write the delivery date in full.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: All approvals are complete.
+  - Agent goal: Get the right purchase order to the right supplier.
+  - Agent actions: Drafts the purchase order from the approved request, marked as drafted by the AI agent. Procurement checks supplier, items, amount and delivery and presses Send. Tells the requester when it is sent and how to track it.
+  - Agent tone: Precise and short.
+  - Agent type: Vertical procurement AI agent; works with the procurement system.
+  - Multi-agent handoff: AI agent drafts, procurement confirms, the procurement system sends to the supplier.
+  - Goal failure response: Constraint violation (price above tolerance since approval): stop and send back for re-approval. Partial completion (sent but the requester was not notified): show it as sent and retry the notice. Data unavailable (supplier address missing): ask procurement.
+  - Failure handover trigger: Sending fails after 2 retries, or the supplier rejects the order: procurement immediately with the handover context package.
+  - Data needs: Approved request, supplier master data, delivery address, purchase order terms.
+  - Agent memory: Short-term: the draft order.
+  - Regulatory classification: Commercial commitment: a person sends it; can be cancelled until the supplier accepts; record kept for audit.
 
 ---
 
@@ -181,9 +248,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Approvers named by person and role: “Grace (budget holder)”
 - Rejection reasons are written for the requester, not the system
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: suggest category and supplier from the description, which the requester confirms; flag possible split orders to procurement; approvals are always human
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- Anything the AI agent filled in a request (category, supplier, items from a past request) is marked as filled by the AI until the requester accepts it
+- The AI agent never approves, rejects, skips or reorders the approval chain; approvals are always made by people in the order the system sets
+- Possible split orders, conflicts and missing quotes are flagged with their evidence to the right person, never hidden or decided by the AI agent
+- A purchase order is sent only after procurement sees the exact supplier, items, amount and delivery and confirms; it can be cancelled until the supplier accepts
+- Every action records who prepared it (AI agent or person) and who approved it, and a person can be reached from every step
 
 ## Edge cases
 

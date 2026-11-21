@@ -15,6 +15,8 @@ A customer sets up a regular bill payment, sees what will leave their account an
 
 **Outcome** — At least 85% of recurring bills set up are paid on time for six months, with fewer than 2% of customers charged a missed-payment fee.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -86,6 +88,19 @@ Inputs: Touch, Push notifications, Keyboard
   - Errors (A11Y-E1): No match is explained next to the search box with a link to manual entry; the typed search text stays.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Use 'biller' with a short explanation once, and avoid abbreviations in category names.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The person opens Add a bill, or past payments show a regular payee with no bill set up.
+  - Agent goal: Help the person pick the right biller quickly.
+  - Agent actions: Says it is an AI assistant that can suggest bills from past payments and fill in details for the person to check. Shows suggested billers with the payments behind each one; nothing is set up until the person picks one, and they can search or add a biller by hand.
+  - Agent tone: Brief and plain; easy to read when tired.
+  - Agent type: Vertical bill-payments assistant; single.
+  - Multi-agent handoff: AI assistant → biller directory search.
+  - Goal failure response: Ambiguous input (two billers with similar names): show both with their details and ask which. Data unavailable (payments or directory not loading): say so and offer search and manual entry. Low confidence on a suggested bill: label it a guess and show the payments it is based on.
+  - Failure handover trigger: The person asks for a person → customer support immediately, with the handover context package. A regular payee the person doesn't recognise → the fraud team, with the context package.
+  - Data needs: Biller directory and the person's recent outgoing payments.
+  - Agent memory: Short-term: the chosen biller. Episodic: past payments, used only to suggest.
+  - Regulatory classification: Minimal risk; financial data; AI interaction disclosed and suggestions marked as made by the AI assistant.
 
 ### 2. Set schedule
 
@@ -98,6 +113,19 @@ Inputs: Touch, Push notifications, Keyboard
   - Errors (A11Y-E1): An unavailable date is named beside the date field with the reason and the next date offered as a button; entered values stay.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write dates in full, such as Monday 3 November, and explain 'moves to Monday' as a bank-holiday or weekend rule in one sentence.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: A biller is chosen.
+  - Agent goal: Get the amount, frequency and date right and lined up with payday.
+  - Agent actions: Fills the amount and frequency from past payments and suggests a date a few days after the usual payday; each value is marked as filled by the AI assistant until accepted. Shows the next three payment dates and explains any weekend or bank-holiday move in one sentence.
+  - Agent tone: Calm and exact; dates written in full.
+  - Agent type: Vertical bill-payments assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input (payday moves month to month): ask which payday to plan around, or let the person pick the date. Constraint violation (the biller only collects on set dates): say why and offer the nearest allowed date. Goal drift (a date before payday when the person asked for after): re-align and show why.
+  - Failure handover trigger: The person asks for a person → customer support immediately, with the handover context package.
+  - Data needs: Past payments to this biller, the person's payday pattern if shared, biller collection rules, bank-holiday calendar.
+  - Agent memory: Short-term: the draft schedule. Procedural: preferred payment day, kept only if the person agrees; they can view, change or delete it.
+  - Regulatory classification: Minimal risk; a draft commits nothing.
 
 ### 3. Reminders
 
@@ -110,6 +138,19 @@ Inputs: Touch, Push notifications, Keyboard
   - Errors (A11Y-E1): If notifications are off, the message beside the chips names it and offers email or SMS; any choice made stays.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say 'reminder' and 'low-balance alert' plainly, and give the amount threshold in pounds, not as a symbol alone.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The schedule is set.
+  - Agent goal: Make sure the reminder arrives early enough to act.
+  - Agent actions: Suggests a reminder lead time, marked as a suggestion; leaves the low-balance alert off unless the person switches it on. If notifications are off, it says so and offers email or text instead.
+  - Agent tone: Helpful and short.
+  - Agent type: Vertical bill-payments assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Data unavailable (notification settings can't be read): say a push reminder may not arrive and offer email. Constraint violation (the reminder would land after the collection): say so and suggest an earlier one.
+  - Failure handover trigger: The person asks for a person → customer support, with the handover context package.
+  - Data needs: Notification permissions, contact channels, collection date.
+  - Agent memory: Short-term. Procedural: reminder preference, only if the person saves it.
+  - Regulatory classification: Minimal risk; reminders carry no marketing.
 
 ### 4. Confirm
 
@@ -121,6 +162,19 @@ Inputs: Touch, Push notifications, Keyboard
   - Errors (A11Y-E1): This step moves money, so the summary is shown before confirming, Edit and Cancel are on the same screen, and nothing the person entered is lost on editing.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Keep amounts in full as £925.00 and dates as Monday 3 November; explain 'authority' as 'permission to take the payment'.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The person reaches the summary.
+  - Agent goal: Make the payment permission unmistakable before it is given.
+  - Agent actions: Shows the exact payee, amount or amount rule, frequency and first date, and marks every value the AI assistant filled. The person gives the payment permission and does any security check or one-time code themselves; the AI assistant steps back and never sees or enters them. Edit and Cancel sit on the same screen, and the bill can be cancelled at any time afterwards.
+  - Agent tone: Plain and unhurried.
+  - Agent type: Vertical bill-payments assistant; payments service behind it.
+  - Multi-agent handoff: AI assistant prepares → payments service records the permission after the person confirms.
+  - Goal failure response: Constraint violation (this account can't hold the permission): say why and offer another way to pay. Partial completion (permission recorded, reminder not saved): show what is done and retry the reminder. Full task failure (payments service down): say nothing was set up, keep the draft, don't retry silently, hand over.
+  - Failure handover trigger: Set-up fails or the person asks → payments support immediately, with the handover context package, because money is involved.
+  - Data needs: Draft schedule, payer account, permission rules.
+  - Agent memory: Short-term: the draft from earlier steps.
+  - Regulatory classification: Payments: explicit payer permission recorded with date and amount rules; authentication by the person; audit log of what the AI assistant prepared and what the person approved.
 
 ### 5. Bills overview
 
@@ -135,6 +189,19 @@ Inputs: Touch, Push notifications, Keyboard
   - Errors (A11Y-E1): A load failure is named in text with a Retry button and never shows a zero total; skip or cancel asks for a check or offers undo.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the total with its label and currency in full and use 'payday' with the date it refers to.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The person opens the overview, a bill rises more than 10%, or the balance looks short before a collection.
+  - Agent goal: Show what is due and flag problems early enough to act.
+  - Agent actions: Shows the total due before payday from the payments service, never its own estimate. Flags a rise above 10% with old and new amounts and a dispute link, and warns of a likely shortfall the day before with a move-date option. Prepares pay now, skip, move or cancel only when asked; the person confirms each, and cancelling is never discouraged.
+  - Agent tone: Matter-of-fact; warnings serious but not alarming.
+  - Agent type: Vertical bill-payments assistant; single.
+  - Multi-agent handoff: AI assistant → payments service for balances and collections.
+  - Goal failure response: Data unavailable (bills won't load): say so with Retry and never show a zero total. Low confidence on a shortfall: say it is an estimate and why. Full task failure (a collection fails or a change won't apply): say what happened and the main reason, then hand over.
+  - Failure handover trigger: A failed, held or disputed collection → payments support immediately, with the handover context package; the person asks for a person → immediately, no retry.
+  - Data needs: Scheduled bills, collection history, balance, biller amount notices.
+  - Agent memory: Episodic: bill and collection history. Procedural: saved reminder preferences.
+  - Regulatory classification: Payments; flags are decision support only; a held or skipped collection states its reason and a route to a person.
 
 ---
 
@@ -182,10 +249,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Use 'Cancel this bill' not 'Revoke mandate'
 - Tell people what we did: 'We moved this to Monday because Sunday is not a banking day'
 
-## AI interactions
+## Agent and system (HAI)
 
-- Detects likely recurring bills from past transactions and suggests setting them up; nothing is created until the customer confirms
-- Flags a bill amount that has risen more than 10% so the customer can check it
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is AI before it suggests a bill, and every value it fills stays marked as filled by the AI assistant until the person accepts it
+- No bill, payment permission, date change, skip or cancellation is made without the person seeing the exact details and confirming; the person gives the permission and does any security check themselves
+- A bill that rises more than 10% and a likely shortfall are flagged before the collection date, never after
+- Cancelling a bill is as easy as setting it up, and the AI assistant never argues against it
+- A failed, held or disputed collection goes to a person straight away with the handover context package, with the main reason given; asking for a person works at every step
 
 ## Edge cases
 

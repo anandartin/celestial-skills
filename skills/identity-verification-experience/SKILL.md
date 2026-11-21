@@ -15,6 +15,8 @@ A customer opening an account with a regulated service photographs an identity d
 
 **Outcome** — At least 80% of genuine customers are verified automatically within five minutes, every rejection offers a human route, and no biometric data is kept longer than stated.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Assistive.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -86,6 +88,19 @@ Inputs: Rear and front camera, Touch, File upload as fallback
   - Errors (A11Y-E1): If consent is missing, the message is text beside the checkbox and linked to it; nothing else is lost.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say "biometric" once with its meaning, and state the 30-day deletion in full words.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The person reaches the identity check or asks why it is needed.
+  - Agent goal: Help the person understand why the check is needed and how their data is used.
+  - Agent actions: Says it is an AI assistant that can explain the check, and that it does not see documents or selfies. Answers questions about purpose, who checks the data, retention and the 30-day selfie deletion, in text. Shows the non-camera alternative. The person ticks consent themselves; the AI assistant never ticks it.
+  - Agent tone: Plain, honest and calm.
+  - Agent type: Vertical identity-check assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input ("is this safe?"): answer what is kept, by whom and for how long. Constraint violation (asked to skip the check): explain it is required by law and offer the alternative route.
+  - Failure handover trigger: The person declines biometric consent or asks for a person: the manual review route or support by chat, email or text relay, with the handover context package.
+  - Data needs: Purpose statement, data retention schedule, processor names held by the product, alternative routes.
+  - Agent memory: Short-term only.
+  - Regulatory classification: Data protection: explicit consent for special-category biometric data; AI interaction disclosed.
 
 ### 2. Document
 
@@ -99,6 +114,19 @@ Inputs: Rear and front camera, Touch, File upload as fallback
   - Errors (A11Y-E1): A failed photo is explained in text beside the preview, such as glare, and Retake keeps the same document type chosen.
   - Time limits (A11Y-W1): No time limit to start; if auto-capture waits, it tells the person and the shutter button stays available.
   - Language (A11Y-L1): Name the document and the photo page in plain words and avoid terms such as "MRZ".
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The person asks which document to use or capture keeps failing.
+  - Agent goal: Help the person choose a valid document and get past capture problems.
+  - Agent actions: Answers which documents are accepted, including documents from abroad and non-Latin scripts. Offers upload or a manual review route after failed attempts. The person photographs the document themselves; the AI assistant never sees the image.
+  - Agent tone: Encouraging; one short instruction at a time.
+  - Agent type: Vertical identity-check assistant; single.
+  - Multi-agent handoff: None for the AI assistant; the document service checks the image.
+  - Goal failure response: Data unavailable (document type not supported): route to manual review with upload, not a dead end. Ambiguous input (name differs after marriage): ask for the name on the document and accept a supporting document.
+  - Failure handover trigger: Capture fails three times, or the person asks: support by chat, email or text relay with the handover context package, immediately because identity is involved.
+  - Data needs: Accepted document list, capture status only.
+  - Agent memory: Short-term.
+  - Regulatory classification: Anti-money-laundering identity checks; no document images reach the AI assistant.
 
 ### 3. Selfie
 
@@ -123,6 +151,19 @@ Inputs: Rear and front camera, Touch, File upload as fallback
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): The check usually takes under 2 minutes; the person can leave and is notified, so nothing times out.
   - Language (A11Y-L1): Say "usually under 2 minutes" in words, and say how they will be notified.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The check is running, or the person asks how long it will take.
+  - Agent goal: Set a clear expectation while the person waits.
+  - Agent actions: Says it usually takes under 2 minutes, that they can close the app, and how they will be told. Answers questions in text.
+  - Agent tone: Calm and brief.
+  - Agent type: Vertical identity-check assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Data unavailable (the check is slower than usual): say so, give a new time and confirm they will be notified.
+  - Failure handover trigger: The check passes its time limit: manual review, and the person is told the new time.
+  - Data needs: Check status.
+  - Agent memory: Short-term.
+  - Regulatory classification: Minimal risk for status information.
 
 ### 5. Outcome
 
@@ -135,6 +176,19 @@ Inputs: Rear and front camera, Touch, File upload as fallback
   - Errors (A11Y-E1): A failed check gives a plain reason category in text, with Retry and Review by chat or email; the earlier uploads are kept.
   - Time limits (A11Y-W1): The specialist review takes up to 1 working day; the person is told and notified, with no action needed.
   - Language (A11Y-L1): Give the reason in a plain category and say "1 working day" in full.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The result is returned.
+  - Agent goal: Make the result and next step clear, with a human route.
+  - Agent actions: On success, takes the person straight to the account. Otherwise gives the plain reason category, a retry and a review by a person by chat or email, with the review time. Never reveals screening details.
+  - Agent tone: Respectful and neutral; never blames.
+  - Agent type: Vertical identity-check assistant; single.
+  - Multi-agent handoff: AI assistant reads the outcome from the verification service.
+  - Goal failure response: Constraint violation (asked why a fraud or sanctions hold happened): give a neutral next step only. Low confidence result from the check: it has already gone to a trained reviewer; say so and give the time.
+  - Failure handover trigger: Rejection, low confidence, facial difference or religious covering, or the person asks: a trained reviewer immediately with the handover context package.
+  - Data needs: Outcome, reason category, review time.
+  - Agent memory: Episodic: the outcome, for follow-up questions.
+  - Regulatory classification: The check itself is one-to-one biometric verification, which the EU AI Act excludes from high-risk biometric identification. It is still a decision with legal effect: automated-decision safeguards (human review) and anti-money-laundering tipping-off rules apply.
 
 ---
 
@@ -182,10 +236,16 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Retry guidance is specific: “Too much glare — tilt the passport slightly”
 - Neutral outcome wording: “We need to check a few more details” rather than “Failed”
 
-## AI interactions
+## Agent and system (HAI)
 
-- AI performs document and liveness checks; any rejection or low-confidence result goes to a trained reviewer, and the customer can request human review
-- Bias testing across skin tones, ages, disabilities and document types before launch and every quarter, with results reviewed by compliance
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is AI, and that it does not see documents or selfies, before the person starts
+- Consent to biometric processing is given by the person alone, with a non-biometric alternative shown before the camera opens
+- Document and selfie capture are done by the person; the AI assistant takes no part and never receives the images
+- Every automated rejection or low-confidence result is reviewed by a trained person, and the person can ask for human review by chat, email or text relay
+- Outcomes are neutral: the AI assistant never reveals a fraud or sanctions match, and gives a reason category and a next step
+- All AI assistant help is in text, never audio only
 
 ## Edge cases
 

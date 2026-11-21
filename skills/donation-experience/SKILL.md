@@ -15,6 +15,8 @@ A supporter chooses an amount, gives once or monthly, makes a tax declaration if
 
 **Outcome** — A supporter completes a donation in under 90 seconds, with eligible tax declarations captured correctly and monthly gifts cancellable in two steps.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -134,6 +136,19 @@ Inputs: Voice control, Keyboard, Touch, Screen reader
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Thank in specifics, with the amount in full, and avoid superlatives and exclamation marks.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The gift is received and the supporter opens the AI assistant.
+  - Agent goal: Confirm what happened and what the gift does.
+  - Agent actions: Confirms the amount, frequency and next payment date from the gift record, explains where the receipt is, and links to Manage your gift. It does not ask for another gift.
+  - Agent tone: Grateful and specific; no superlatives.
+  - Agent type: Vertical charity assistant; single.
+  - Multi-agent handoff: AI assistant → gift record (read only).
+  - Goal failure response: Partial completion (gift taken, receipt not sent): show the gift details and say the receipt will follow. Data unavailable (gift not found yet): say so, never guess, and offer a person.
+  - Failure handover trigger: The supporter says the gift was a mistake or asks for a refund → supporter care immediately, with the handover context package, because money is involved.
+  - Data needs: Gift amount, frequency, dates, receipt status.
+  - Agent memory: Episodic: the gift joins the supporter's history.
+  - Regulatory classification: Minimal risk; gift and declaration records kept for the legal period.
 
 ### 6. Manage
 
@@ -146,6 +161,19 @@ Inputs: Voice control, Keyboard, Touch, Screen reader
   - Errors (A11Y-E1): Cancelling needs an explicit confirm step that restates “no more payments after today”; changes can be reversed by setting up the gift again, and field errors sit beside the field with values kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the cancellation date in full and say what stops, using the words “no more payments”.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The supporter asks to change or stop a monthly gift.
+  - Agent goal: Make the change exactly as asked, with no obstruction.
+  - Agent actions: Goes straight to the change or cancel screen and prepares the change, marked as filled by the AI assistant. The supporter sees the exact new amount or date, or "no more payments after today", and confirms it themselves; it never argues against cancelling, and a gift can be set up again at any time.
+  - Agent tone: Respectful and brief.
+  - Agent type: Vertical charity assistant; single.
+  - Multi-agent handoff: AI assistant prepares → payments service after the supporter confirms.
+  - Goal failure response: Ambiguous input ("lower it"): ask the new amount. Full task failure (the change won't save): say nothing changed, give the date of the next payment, and hand over. Partial completion (cancelled, email not sent): show the cancellation on screen and retry the email.
+  - Failure handover trigger: A change or cancellation fails, a payment is disputed, or the supporter asks for a person → a person in supporter care immediately, with the handover context package.
+  - Data needs: Monthly gift, next payment date, payment method on file (token only).
+  - Agent memory: Short-term: the requested change.
+  - Regulatory classification: Payments; cancellation must take effect before the next payment; audit log of what the assistant prepared and what the supporter confirmed.
 
 ---
 
@@ -193,9 +221,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Plain declaration: “You must pay at least as much tax as the charity will claim”
 - Warm and brief thanks with the supporter's name and amount
 
-## AI interactions
+## Agent and system (HAI)
 
-- No AI in the giving flow because amounts, declarations and consents must be the supporter's own explicit choices
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is AI when first opened and that the amount, the tax declaration and every consent are the supporter's own choice
+- The AI assistant never suggests a bigger gift, pre-selects an amount or frequency, or ticks the declaration or marketing boxes
+- Payment is done by the supporter in the hosted payment fields; the AI assistant takes no part and never sees card details
+- Any change or cancellation of a monthly gift is shown exactly and confirmed by the supporter, and cancelling is never discouraged
+- A mistaken gift, a refund request or a request for a person goes to supporter care straight away with the handover context package
 
 ## Edge cases
 

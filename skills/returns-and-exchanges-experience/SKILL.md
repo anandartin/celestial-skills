@@ -15,6 +15,8 @@ A customer returns or swaps an item in a few steps, picks an accessible drop-off
 
 **Outcome** — At least 85% of returns are started online without contacting support, and refunds are issued within 5 working days of receipt.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Touch, Keyboard, Switch access, Camera for photos of faults
   - Errors (A11Y-E1): An order not found, or an item past its window, is named beside the field with what can still be done; the order number stays.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write return deadlines in full, such as 12 October, and explain 'non-returnable' with the reason.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The customer asks the AI assistant to start a return, for example "send back the jacket from last week".
+  - Agent goal: Find the right order and items without the customer hunting for an order number.
+  - Agent actions: Says it is an AI assistant that can find orders, explain the return rules and set up a return the customer confirms. Finds the order, ticks the items it thinks are meant and marks them as selected by the AI; the customer confirms or changes the selection. Shows each item's return deadline and explains non-returnable items with the reason.
+  - Agent tone: Friendly and brief; plain words.
+  - Agent type: Vertical retail returns assistant; single.
+  - Multi-agent handoff: AI assistant looks up the order in the order system, then the returns policy service.
+  - Goal failure response: Ambiguous input (two recent jackets): show both with dates and ask which. Data unavailable (order not found): say so plainly and offer lookup by email and order number. Constraint violation (past the return window): say the date it ended and offer the faulty-item route; never hide it.
+  - Failure handover trigger: The customer asks for a person, or the order still can't be found after 2 tries: customer service, immediately for a request, with the handover context package.
+  - Data needs: Order lines, purchase dates, return deadlines, returns policy, non-returnable rules.
+  - Agent memory: Short-term: the request and selected items. Episodic: past orders, shown only after the customer is signed in or has matched email and order number.
+  - Regulatory classification: Minimal risk under the EU AI Act; AI interaction disclosed; personal data used only to find the order (data protection).
 
 ### 2. Reason
 
@@ -99,6 +114,19 @@ Inputs: Touch, Keyboard, Switch access, Camera for photos of faults
   - Errors (A11Y-E1): Out of stock is named beside the size with a refund or alert offered; reasons and choices stay.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say 'refund' and 'swap' plainly and write the size as 'size 14'.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: Items are chosen and the customer is asked for a reason and refund or exchange.
+  - Agent goal: Help the customer choose between a refund and an exchange that will actually fit.
+  - Agent actions: Asks for a reason only as an option, never required for change of mind. If the customer says it is too small, suggests a size from the reason and past orders, with live stock, marked as a suggestion from the AI. Shows refund and exchange side by side with equal weight; the customer picks.
+  - Agent tone: Neutral and helpful; never salesy.
+  - Agent type: Vertical retail returns assistant; single.
+  - Multi-agent handoff: AI assistant checks the inventory service for the suggested size.
+  - Goal failure response: Data unavailable (stock service down): say stock can't be checked now, offer the refund or a back-in-stock alert. Low confidence on size: show two sizes with reasons and let the customer choose. Goal drift (steering to exchange when the customer said refund): keep to what they asked.
+  - Failure handover trigger: The customer reports a fault, damage or a safety issue: the returns team with the handover context package, because faulty-goods rights apply. A request for a person goes through immediately.
+  - Data needs: Reason list, size history, live stock by size.
+  - Agent memory: Short-term: reason and choice. Procedural: preferred sizes, if the customer allows it to be kept.
+  - Regulatory classification: Minimal risk; consumer law on refunds and faulty goods; suggestions disclosed as AI-made.
 
 ### 3. Send back
 
@@ -111,6 +139,19 @@ Inputs: Touch, Keyboard, Switch access, Camera for photos of faults
   - Errors (A11Y-E1): The empty result names the filter and offers free collection; nothing entered is lost.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Describe access in words, such as 'no steps at the entrance', and give distance in miles.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The customer reaches the send-back step.
+  - Agent goal: Find a send-back option the customer can actually use.
+  - Agent actions: Asks about access needs only if the customer raises them or uses the filter. Lists step-free drop-off points and home collection, with access details, opening hours, distance and any cost, ranked and marked as suggested by the AI. Booking a collection is shown in full and confirmed by the customer.
+  - Agent tone: Practical and respectful.
+  - Agent type: Vertical retail returns assistant; single.
+  - Multi-agent handoff: AI assistant queries the carrier and drop-off location service, then the collection booking service after the customer confirms.
+  - Goal failure response: Data unavailable (no access data for a point): say access is unknown rather than guessing. Ambiguous input (no location given): ask for a postcode. Partial completion (collection slot not confirmed by the carrier): show it as not booked yet and retry, never as booked.
+  - Failure handover trigger: Collection booking fails after 2 retries, or the customer asks for a person: customer service with the handover context package and the options already shown.
+  - Data needs: Drop-off locations with step-free access data, opening hours, collection slots and costs.
+  - Agent memory: Short-term: location and chosen method. Episodic: the customer's saved address, if signed in.
+  - Regulatory classification: Minimal risk; access needs are sensitive personal data and are used only for this return, not stored unless the customer asks.
 
 ### 4. Label
 
@@ -122,6 +163,19 @@ Inputs: Touch, Keyboard, Switch access, Camera for photos of faults
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit; the send-back deadline is shown as a full date.
   - Language (A11Y-L1): Write the code number in text for manual entry and state the deadline as a full date.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The return is confirmed and the code is created.
+  - Agent goal: Make sure the customer can use the code and knows the deadline.
+  - Agent actions: Answers questions about the code if asked, resends it by email on request, and states the send-back deadline as a full date. The customer can cancel the return from here until it is sent.
+  - Agent tone: Clear and short.
+  - Agent type: Vertical retail returns assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Partial completion (code shown but email not sent): say the email failed, keep the code on screen and offer to resend. Data unavailable (code service down): say so and offer a printable label when it returns.
+  - Failure handover trigger: The code can't be created after 2 retries, or the customer asks for a person: customer service, with the handover context package.
+  - Data needs: Return code, label, send-back deadline, customer email.
+  - Agent memory: Short-term: the return reference.
+  - Regulatory classification: Minimal risk; email address used only to send the code.
 
 ### 5. Refund
 
@@ -135,6 +189,19 @@ Inputs: Touch, Keyboard, Switch access, Camera for photos of faults
   - Errors (A11Y-E1): A failed check explains why in text, and the appeal can be started with the details kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write 'allow 3 to 5 working days' and give the amount and card ending together.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The customer asks where their refund is, or the return changes stage.
+  - Agent goal: Tell the customer exactly where the return is and when the money arrives.
+  - Agent actions: Answers with the stage, refund amount, method and expected date in one line; explains split refunds and multi-buy calculations. Never sees or asks for card details; refunds go to the original payment method. If a check failed, gives the reason the inspector recorded and starts an appeal the customer confirms.
+  - Agent tone: Reassuring and exact; calm if the customer is worried.
+  - Agent type: Vertical retail returns assistant; single.
+  - Multi-agent handoff: AI assistant reads the returns service and payment service status; an appeal goes to a person.
+  - Goal failure response: Data unavailable (status not updated): say when it was last updated and the deadline the law sets. Constraint violation (customer asks the AI to approve a rejected item): explain that a person decides and offer the appeal. Partial completion (part of the return failed checks): show what was refunded and what was not, and why.
+  - Failure handover trigger: Any refund failure, a refund past its promised date, a parcel lost on the way back, a dispute or an appeal: the returns team immediately with the handover context package, because money is involved. A request for a person goes through at once.
+  - Data needs: Return stages, inspection result, refund amount, payment method (masked), refund date.
+  - Agent memory: Episodic: the return and its history, for later questions.
+  - Regulatory classification: Refunds are money: the AI assistant only informs; any rejection or photo-based fault decision is reviewed by a person (automated-decision safeguards); consumer law refund deadlines apply.
 
 ---
 
@@ -183,10 +250,16 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Deadlines in words: “Send it back by Sunday 9 November”
 - Rejected returns explain the reason and the next step, never just “Return declined”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: suggest the right size for an exchange from the reason given and past orders, shown as a suggestion the customer confirms
-- Photo check of a reported fault may speed approval, but a person reviews any rejection
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is AI before it does anything, and every item, reason or option it picked is marked as chosen by the AI until the customer accepts it
+- The AI assistant offers an exchange only when the new size is in stock, and never pushes an exchange or store credit over a refund
+- Nothing is booked or confirmed until the customer has seen the exact items, send-back method, any cost and the refund amount; they can change or cancel it before collection
+- A rejected return or failed check is decided by a person; the customer gets the main reason and can appeal to a person
+- Statutory rights, such as the cooling-off period and faulty-goods rights, are stated as they are; the AI assistant never narrows them
+- Asking for a person works on every step and passes the handover context package, so nothing is asked twice
 
 ## Edge cases
 

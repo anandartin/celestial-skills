@@ -15,6 +15,8 @@ A resident checks they might be eligible, applies in short sections they can sav
 
 **Outcome** — An applicant completes and submits a benefit claim across one or more sessions with fewer than 10% of claims returned for missing evidence.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Touch, Camera for document photos, Screen reader, Keyboard
   - Errors (A11Y-E1): If an answer is missing, the error is written beside the question, linked to it, and earlier answers are kept; no account is needed.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Keep sentences short, say about 30 minutes in full, and say “may be able to get”, never “will get”.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The resident opens the eligibility checker or asks the AI assistant whether it is worth applying.
+  - Agent goal: Help the resident understand the questions so the checker's indication is accurate.
+  - Agent actions: Says it is an AI assistant that can explain questions and words like 'household' and 'capital', and that it does not decide who gets the benefit. Explains questions when asked; the resident answers, and the checker result always says 'you may be able to get'.
+  - Agent tone: Plain, short sentences at reading age 9; non-judgemental.
+  - Agent type: Vertical public-service assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input (unsure what counts as income): explain with an example and let them answer. Constraint violation (asked 'will I get it?'): say only an officer decides and the checker is an indication.
+  - Failure handover trigger: The resident is in crisis or asks for a person: urgent support routes and the phone or in-person service immediately, with the handover context package.
+  - Data needs: Checker questions, help text, urgent support routes.
+  - Agent memory: Short-term only; nothing kept before sign-in.
+  - Regulatory classification: Public service; minimal risk for explaining questions; AI interaction disclosed; no automated eligibility decision.
 
 ### 2. Sign in
 
@@ -111,6 +126,19 @@ Inputs: Touch, Camera for document photos, Screen reader, Keyboard
   - Errors (A11Y-E1): An amount error such as “Enter an amount in pounds, for example 120.50” sits beside the field, is linked to it, listed in a summary, and the typed value is kept.
   - Time limits (A11Y-W1): Session warning appears at 25 minutes idle, at least 20 seconds before it ends, and one key press extends it; answers are autosaved.
   - Language (A11Y-L1): Explain terms such as “household” in place with help text, keep sentences short, and write amounts with the pound sign in full.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The applicant reaches a question, or asks what a word or question means.
+  - Agent goal: Help the applicant answer accurately in short sessions without fear of mistakes.
+  - Agent actions: Explains each question and why it is asked in plain words, and reminds them answers save as they go; the applicant gives every answer and the AI assistant never fills in money, household or health answers. If circumstances change it explains how to edit earlier answers.
+  - Agent tone: Calm and reassuring; one idea at a time.
+  - Agent type: Vertical public-service assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input: ask what the applicant means and give an example. Constraint violation (asked to choose an answer for them): explain the term but leave the answer to them. Data unavailable (help text not loading): say so and offer the phone line.
+  - Failure handover trigger: The applicant is unsure after two explanations, applies for someone else, or asks for a person: the advice line or an assisted digital service, with the handover context package.
+  - Data needs: Questions, help text, the applicant's saved answers.
+  - Agent memory: Short-term: the current section. Episodic: saved answers for up to 28 days, then deleted.
+  - Regulatory classification: Public service; special-category data may be involved (health, household); collect only what the decision uses; data protection rights apply.
 
 ### 4. Evidence
 
@@ -124,6 +152,19 @@ Inputs: Touch, Camera for document photos, Screen reader, Keyboard
   - Errors (A11Y-E1): A hard-to-read photo is flagged in text beside that file, linked from the summary, with a Replace button; the other uploaded files stay.
   - Time limits (A11Y-W1): Session warning at 25 minutes idle, at least 20 seconds before it ends, with an Extend button; uploads continue and work is never lost.
   - Language (A11Y-L1): List the exact documents that fit, such as “a payslip from the last 2 months”, and avoid terms like “proof of income” without explaining them.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The applicant uploads or photographs a document.
+  - Agent goal: Make sure each document is readable and is the right type before the claim is sent.
+  - Agent actions: Checks each file for blur and type and suggests which answer it supports, marked as a check by the AI assistant; the applicant decides whether to keep, replace or move it. If a document can't be got it explains the alternatives and that they can still submit.
+  - Agent tone: Encouraging and specific: 'This photo is hard to read. Try again in good light.'
+  - Agent type: Vertical document-check assistant; single.
+  - Multi-agent handoff: AI assistant → document-check service → suggestion shown to the applicant.
+  - Goal failure response: Low confidence on the document type: say it isn't sure and let the applicant choose. Data unavailable (check service down): accept the upload unchecked and say an officer will look at it. Partial completion: show which files are uploaded and which are still needed.
+  - Failure handover trigger: Uploads fail after two retries or the applicant cannot get a required document: the advice line, with the handover context package.
+  - Data needs: Uploaded files, the evidence list for the applicant's answers.
+  - Agent memory: Short-term: the files in this session.
+  - Regulatory classification: Public service; identity and financial documents are personal data; the check is about completeness only and never feeds the decision.
 
 ### 5. Check answers
 
@@ -135,6 +176,19 @@ Inputs: Touch, Camera for document photos, Screen reader, Keyboard
   - Errors (A11Y-E1): If the declaration box is unticked, the error is written beside it and linked from a summary; nothing is lost, and every answer can be corrected through its Change link before submitting.
   - Time limits (A11Y-W1): Session warning at 25 minutes idle, at least 20 seconds before it ends, with an Extend button; no answer is lost.
   - Language (A11Y-L1): State the consequences of a false declaration in plain words and avoid legal phrasing.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The applicant opens Check answers.
+  - Agent goal: Help the applicant check everything before they declare.
+  - Agent actions: Reads back the answers and points out any missing answer or evidence, explaining the declaration and what happens if circumstances change; the applicant ticks the declaration and submits themselves, with the AI assistant stepping back.
+  - Agent tone: Neutral and steady; no fraud language.
+  - Agent type: Vertical public-service assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Partial completion (evidence missing): list exactly what is missing and say they can still send. Constraint violation (asked to tick the declaration): say only the applicant can make it.
+  - Failure handover trigger: The applicant is worried about the declaration or asks for a person: the advice line immediately, with the handover context package.
+  - Data needs: All answers, the evidence list, the declaration wording.
+  - Agent memory: Short-term: the review.
+  - Regulatory classification: Public service; the declaration is a legal statement made by the applicant; automation only checks completeness.
 
 ### 6. Submitted
 
@@ -146,6 +200,19 @@ Inputs: Touch, Camera for document photos, Screen reader, Keyboard
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the reference number and “within 4 weeks” in full, and say what may happen next in short sentences.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The claim is submitted, or the applicant later asks about it.
+  - Agent goal: Make sure the applicant knows the claim is in, who decides and what happens next.
+  - Agent actions: Gives the reference, the decision timescale and that a trained officer decides; explains how to report a change of circumstances. When a decision arrives it explains the reasons in the letter and how to ask for a mandatory review or appeal, with the deadline.
+  - Agent tone: Warm and factual.
+  - Agent type: Vertical public-service assistant; single.
+  - Multi-agent handoff: Case management system → notification service → AI assistant when the applicant asks.
+  - Goal failure response: Data unavailable (status not loading): say so and give the reference and phone line. Constraint violation (asked to change the decision): say only an officer can and explain review.
+  - Failure handover trigger: The applicant disagrees with a decision or asks for a person: a decision-maker or the advice line, with the handover context package.
+  - Data needs: Claim reference, status, decision letter and reasons.
+  - Agent memory: Episodic: the claim and its status, viewable by the applicant.
+  - Regulatory classification: Significant decision about the applicant: made by an accountable officer, reasons given, review and appeal rights stated.
 
 ---
 
@@ -193,10 +260,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Neutral, non-judgemental tone: “If your situation changes, tell us” rather than warnings
 - Numbers and dates in a standard format with examples: “For example, 27 3 2026”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: check uploaded documents for blur and correct type before submission, with the applicant deciding whether to keep them
-- No AI in eligibility decisions because benefit decisions must be made and explained by an accountable officer
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is an AI assistant, that it can explain questions and check documents, and that it never decides eligibility or the claim
+- The applicant answers every question and makes the declaration themselves; sign-in codes are entered by the applicant and never seen by the AI assistant
+- Document checks are suggestions marked as from the AI assistant; the applicant decides whether to keep or replace each file
+- The claim is decided by a trained officer; the applicant is told before any automated check is applied, gets the main reasons with the decision, and can ask for a mandatory review
+- Urgent support routes and a way to reach a person by phone or in person are visible at every step, and a request for a person is handed over immediately
 
 ## Edge cases
 

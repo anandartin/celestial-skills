@@ -15,6 +15,8 @@ A patient checks their device, waits in a clear virtual waiting room, talks to a
 
 **Outcome** — A patient joins their video visit on time with working audio and video at least 95% of the time, and leaves with a written summary and next steps within one hour.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -88,6 +90,19 @@ Inputs: Camera and microphone, Touch and keyboard, Text chat during the call, Sc
   - Errors (A11Y-E1): The question needing attention is named in text beside it with why, linked from a summary; all answers are kept.
   - Time limits (A11Y-W1): No time limit; answers are saved so the form can be finished later.
   - Language (A11Y-L1): Ask in plain words, such as 'Is anything worse?', and explain why each question is asked.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The patient opens the pre-visit questions before the day.
+  - Agent goal: Help the patient answer the clinician's questions and spot anything urgent.
+  - Agent actions: Says it is an AI assistant that can explain the questions and help with set-up, and that it can't give medical advice. Explains questions when asked; the patient answers every one, and any urgent-symptom answer shows emergency guidance at once.
+  - Agent tone: Calm and plain; explains why before asking.
+  - Agent type: Vertical telehealth assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input (unclear whether something is worse): ask the patient to describe it in their own words for the clinician. Constraint violation (asks what a symptom means): say it can't advise and that the clinician will see the answer.
+  - Failure handover trigger: Urgent symptoms, or the patient asks for a person: emergency guidance and the clinical team immediately, with the handover context package.
+  - Data needs: Pre-visit questions, urgent-symptom rules, appointment details.
+  - Agent memory: Short-term: answers until submitted to the clinical record.
+  - Regulatory classification: Health data, special-category under data protection law; AI interaction disclosed; no clinical advice.
 
 ### 2. Device test
 
@@ -101,6 +116,19 @@ Inputs: Camera and microphone, Touch and keyboard, Text chat during the call, Sc
   - Errors (A11Y-E1): The blocked microphone is named in text with steps for the browser; audio-only and phone fallback are offered and settings are kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Give the reason for each permission in one sentence and avoid terms such as 'bandwidth'.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The patient opens the device test.
+  - Agent goal: Get camera, microphone and connection working before the clinician's time starts.
+  - Agent actions: Explains why each permission is needed; the patient grants access in the browser themselves. Runs the checks and suggests fixes step by step, and recommends audio-only or the phone fallback if a check still fails; the patient chooses.
+  - Agent tone: Patient and practical; never blames the patient.
+  - Agent type: Vertical telehealth assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Constraint violation (microphone blocked): give browser steps; never try to change settings itself. Data unavailable (connection too weak): recommend audio-only. Full task failure: offer the phone fallback.
+  - Failure handover trigger: Checks fail after two tries or the patient is stuck: the clinic's support line, with the handover context package, so the clinician can call instead.
+  - Data needs: Device check results, connection quality.
+  - Agent memory: Short-term: this device's results.
+  - Regulatory classification: Minimal risk for device checks; permissions are granted by the patient.
 
 ### 3. Waiting room
 
@@ -113,6 +141,19 @@ Inputs: Camera and microphone, Touch and keyboard, Text chat during the call, Sc
   - Errors (A11Y-E1): No input beyond choosing to stay or be texted; the choice is kept and can be changed.
   - Time limits (A11Y-W1): The wait time updates every minute; a message warns before the room closes, at least 20 seconds ahead, and the person can stay or be texted.
   - Language (A11Y-L1): Say 'about 8 minutes late' and write times in full; explain the text option in one line.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The patient enters the waiting room.
+  - Agent goal: Make sure the patient knows they are in the queue and how long the wait is.
+  - Agent actions: Shows the expected wait and updates it at least every minute, and offers a text when the clinician is ready; the patient chooses to stay or be texted. If the patient types an urgent symptom in chat it shows emergency guidance and alerts staff.
+  - Agent tone: Reassuring and brief.
+  - Agent type: Vertical telehealth assistant; waiting-room service behind it.
+  - Multi-agent handoff: Waiting-room service → AI assistant → notification service if the patient chose a text.
+  - Goal failure response: Data unavailable (queue status lost): say so and confirm the patient is still in the queue with staff. Ambiguous input in chat: ask one question or pass it to staff.
+  - Failure handover trigger: Urgent symptoms, a wait past the clinic's limit, or the patient asks for a person: staff immediately, with the handover context package.
+  - Data needs: Queue position, clinician status, patient's text preference.
+  - Agent memory: Short-term.
+  - Regulatory classification: Health context; urgent symptoms alert a person at once.
 
 ### 4. Visit
 
@@ -137,6 +178,19 @@ Inputs: Camera and microphone, Touch and keyboard, Text chat during the call, Sc
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the plan in plain language, explain medicine names, and give dates in full.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The clinician has signed the visit summary, or the patient asks about next steps.
+  - Agent goal: Help the patient understand the written plan and what happens next.
+  - Agent actions: Explains the signed summary in plain words, where each prescription or referral is and how to book a follow-up; it works only from what the clinician signed and nothing unsigned reaches the patient. Clinical questions go to the clinician.
+  - Agent tone: Clear and warm.
+  - Agent type: Vertical telehealth assistant; a separate clinician-side drafting tool prepares summaries for the clinician to edit and sign.
+  - Multi-agent handoff: Clinician-side drafting tool → clinician edits and signs → AI assistant explains the signed summary to the patient.
+  - Goal failure response: Data unavailable (summary not signed yet): say it isn't ready and that the patient will be told when it is. Constraint violation (asks whether to change a dose): say it can't advise and offer to message the clinician.
+  - Failure handover trigger: A clinical question, a worsening symptom or the patient asks for a person: the clinician or clinical team immediately, with the handover context package; urgent symptoms get emergency guidance first.
+  - Data needs: Signed visit summary, prescription and referral status, follow-up slots.
+  - Agent memory: Episodic: the visit joins the patient's history, viewable by them.
+  - Regulatory classification: Health data; clinical content comes only from the signed summary; no medical advice.
 
 ---
 
@@ -185,10 +239,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Explain why before asking: “We need your camera so the clinician can see your skin”
 - Never blame the patient for technical problems: “The connection dropped” not “You lost connection”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: draft the visit summary from the clinician's notes for the clinician to edit and sign; nothing reaches the patient unsigned
-- Live captions are machine-generated and labelled as such, with a way to flag errors
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is an AI assistant, that it helps with set-up, waiting and the written plan, and that it never gives medical advice
+- Any urgent symptom in a pre-visit answer or the waiting-room chat shows emergency guidance and alerts staff immediately
+- The patient grants camera and microphone access, confirms identity and location, and gives any consent to record themselves; the AI assistant never does these for them
+- The AI assistant takes no part in the consultation; captions are labelled as machine-generated and can be flagged
+- After the visit the AI assistant explains only the clinician-signed summary; clinical questions go to the clinician, and a request for a person is handed over immediately
 
 ## Edge cases
 
