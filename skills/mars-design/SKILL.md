@@ -1,6 +1,6 @@
 ---
 name: mars-design
-core: "1.2"
+core: "1.3"
 dials: { density: comfortable, shape: sharp, depth: flat, contrast: quiet }
 accent-scope: primary action and stat numbers
 icons: phosphor
@@ -131,7 +131,7 @@ Mars's display face is **IBM Plex Serif**; the sans is **Inter** and the mono is
 
 ## Shape and density — dials on the core ladders
 
-Everything structural follows **Celestial core v1.2** (*Celestial core foundations* below): the 4px spacing scale, the 12-column grid and breakpoints, control and radius ladders, elevation levels, motion durations, accessibility minimums, component anatomy and states. This file never restates core; it records only where Mars sits on each ladder.
+Everything structural follows **Celestial core v1.3** (*Celestial core foundations* below): the 4px spacing scale, the 12-column grid and breakpoints, control and radius ladders, elevation levels, motion durations, accessibility minimums, component anatomy and states. This file never restates core; it records only where Mars sits on each ladder.
 
 | Dial | Mars | Sets |
 |---|---|---|
@@ -215,7 +215,7 @@ Mars extends core with four patterns, each built from contract tokens only (see 
 
 ## Interaction states and accessibility
 
-Anatomy and states are locked by Celestial core v1.2; this brand supplies only the values. Every component specifies default, hover, focus-visible, active, disabled and loading; fields add error and success.
+Anatomy and states are locked by Celestial core v1.3; this brand supplies only the values. Every component specifies default, hover, focus-visible, active, disabled and loading; fields add error and success.
 
 | State | Primary button | Secondary / ghost | Field |
 |---|---|---|---|
