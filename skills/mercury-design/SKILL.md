@@ -453,6 +453,114 @@ Compositions of core components for recurring jobs. Each uses only contract toke
 - **Agent card** — Summarise one agent at a glance Anatomy: Name and status badge → one-line job description → runs today and success rate → open button. Tokens: surface-card, status-success, elevation-raised.
 
 
+## Templates (core v1.4)
+
+Ready-made compositions of the components and patterns above, drawn in Mercury's tokens. Build any page, screen, journey or document from the recipe that fits; swap the copy and data, keep the order, and take every value from the tokens. Every screen also needs its empty, loading and error states from *Patterns*. When this file comes as a download, the starter code and documents sit beside it in `templates/`.
+
+### Marketing pages
+Mercury's default landing layout is **Product-led**; the other two suit other briefs. Sections run top to bottom in this order.
+
+**Product-led (default)**
+1. A minimal top bar (lowercase lockup, one ink button, a menu button on phones)
+2. Hero: a headline and lead, centred, with two buttons
+3. A large product frame on a photo: the app shell with its side navigation and working screen (the dashboard of the first app area where the brand has them)
+4. A row of customer names
+5. A prompt card: a question and an example request in a pill input
+6. A four-up grid: an illustration icon, a title and a line each
+7. Alternating sections: a headline, a paragraph and a link beside a product frame
+8. A closing call to action with two buttons
+9. A footer of seven link columns under the logo
+
+**Feature landing**
+1. Top bar on the band surface (logo, four links, sign-in and the primary button)
+2. Hero: an announcement badge, one headline, a lead paragraph, the primary and a secondary button, a trust line
+3. Features: an eyebrow, an H2 and four numbered cards in a row
+4. How it works: three steps beside a product picture in a card
+5. A full-width customer quote with name and role
+6. A band of four big numbers with labels
+7. A row of customer names
+8. Spotlight: tabs over three cards that show the product (people, money, messages)
+9. What is included: a checklist grid and a money-back badge
+10. One pricing card: plan name, price, what it includes and the button
+11. FAQ: topic chips over an accordion with the first answer open
+12. A closing card: "Still have questions?" and a contact button
+13. Footer: logo and tagline, then link columns
+
+**Editorial**
+1. A slim top bar (logo, links, sign-in, ink button)
+2. Hero: a large display headline and lede on the left, one big result figure with a mono label on the right
+3. A hairline rule, an H2 and four numbered steps (01 / CONNECT …)
+4. A band with three big numbers (the middle one may take the secondary brand colour) and a pull quote
+5. Numbered argument sections: a mono label, an H3, body copy, a list of uses, and a media panel
+6. A trust section: certificates and a row of customer names
+7. A centred closing headline with the primary and secondary buttons
+8. A footer of five link columns under the logo
+
+### Application screens
+**Shell.** A fixed top bar (menu button on small screens, logo, search, notifications, avatar); a side navigation with icons, grouped destinations, counts and the current page marked; a scrolling main area at the `wrap` width with a page header (greeting or title, a short line, a date-range button). Below 1024px the side navigation becomes a drawer behind the menu button.
+
+**Dashboard (the default screen).** A main card with four KPIs and an area chart (this year against last); three cards in a row (a big number with a split bar, leads by day, today's tasks with checkboxes); two cards (a line chart, a donut with legend); two more (a stacked bar, a report card with sparklines and Export); then a data table with search, actions, filters, row selection, status dots, ratings and pagination. Charts use the primary, then the secondary or declared data colours.
+
+**Screen kinds.** Each app area is built from these:
+- **Dashboard**: page title and date range; a row of KPI tiles (label, value, change badge); a main chart card; two or three supporting cards (chart, list, tasks); a data table.
+- **List**: title with count and the primary action; search, filter chips and a filter button; a table with checkbox column, status badges, row actions and pagination; empty, loading and no-results states.
+- **Detail**: breadcrumb; title with status badge and actions; summary fields in a structured list; tabs (details, activity, files); an activity timeline; a side card with key facts.
+- **Form**: title and helper text; labelled fields in groups with helper and error text; one primary and one secondary button at the foot; inline validation and a success toast.
+- **Kanban**: columns by status with counts; cards with title, owner avatar and tags; an add button per column; drag handles with a keyboard alternative.
+- **Calendar**: month or week grid with today marked; events as coloured chips (colour is never the only cue); a side list of upcoming items; previous, next and today controls.
+- **Inbox**: a three-pane layout: folders, a message list with unread dots and badges, and the open thread with a reply box.
+- **Todo**: tasks with checkboxes, tags, due dates and priority; filter tabs (all, today, upcoming, done); an add-task field.
+- **Auth**: a centred card on the band surface: logo, title, fields, the primary button, a secondary link; errors written in words beside the field.
+- **Error**: a centred status code, a plain-language headline and explanation, and buttons to go back or home.
+
+### Journeys
+Whole flows composed from the components in order. Each step names the screen and the core parts it uses.
+
+**User journey**
+1. **Discover**: Landing page with one headline and one primary action (marketing hero)
+2. **Sign up**: Auth card: email, password, one social option (auth card)
+3. **Onboard**: Welcome choice → 4-step checklist (onboarding)
+4. **First task**: The core screen with a guided empty state (dashboard · empty state)
+5. **Success**: Toast + next-step suggestion (feedback)
+
+**Customer journey**
+1. **Browse**: Product grid with filters (list + filters)
+2. **Product**: Detail with gallery, price and add to cart (detail)
+3. **Cart**: Line items, totals, promo field (table + totals)
+4. **Checkout**: Address and payment in one column (form)
+5. **Confirmed**: Order number, status badge, what happens next (confirmation)
+
+**Workflow journey**
+1. **Inbox**: New item arrives with a needs-attention badge (inbox)
+2. **Triage**: Assign, label, set priority (form + chips)
+3. **Approve**: AI-drafted action with an approval step (AI approval)
+4. **Run**: Progress with live status (progress)
+5. **Report**: Outcome logged, exportable (table + export)
+
+### Screens: starter code
+The same tokens as code for each platform.
+
+- **Web**: A starter you can drop into any web project: `tokens.css` carries every colour, font, radius and shadow as CSS variables plus base components; `index.html` is a minimal page wired to it; `tailwind.config.js` maps the same tokens for Tailwind. Files: `templates/screens/web/tokens.css`, `templates/screens/web/index.html`, `templates/screens/web/tailwind.config.js`.
+
+- **Mobile web**: Mobile-first responsive web: the same `tokens.css`, plus a one-column page with a sticky header, full-width primary action, safe-area padding and a bottom tab bar that grows to two columns at 720px. Files: `templates/screens/mobile/tokens.css`, `templates/screens/mobile/mobile.html`.
+
+- **iOS**: SwiftUI: `Theme.swift` exposes the palette and semantic roles as `Color` extensions, the type roles as `Font` helpers, the radii, and a `PrimaryButtonStyle`; `ContentView.swift` shows a NavigationStack + List + TabView screen using them. Add the font files to the target and Info.plist. Files: `templates/screens/ios/MercuryTheme.swift`, `templates/screens/ios/ContentView.swift`.
+
+- **Android**: Jetpack Compose / Material 3: `Color.kt` holds the palette, `Theme.kt` maps it to a `lightColorScheme`, typography and shapes, and `HomeScreen.kt` is a Scaffold with a top app bar, extended FAB and navigation bar. Register the fonts under `res/font`. Files: `templates/screens/android/Color.kt`, `templates/screens/android/Theme.kt`, `templates/screens/android/HomeScreen.kt`.
+
+### Documents
+Print and digital documents as token-driven HTML. The site's Templates tab also builds each one as a real .docx or .pptx.
+
+- **Article** (Web, Print · A4): Long-form article: eyebrow, balanced headline, dek, byline, drop cap, pull-quote, stat callout and a data table at a 65ch measure. The print variant is A4 with two columns and `@page` margins; the .docx keeps the same hierarchy in Word styles. Files: `templates/documents/article-digital.html`, `templates/documents/article-print.html`.
+
+- **Whitepaper** (Print · A4, Print · US Letter): Whitepaper: accent-banded cover with a hero stat, contents with dot leaders, running heads and folios, two-column body, key-finding callouts and a results table. A4 or US Letter; the .docx carries headers, footers and page numbers. Files: `templates/documents/whitepaper-a4.html`, `templates/documents/whitepaper-letter.html`.
+
+- **Presentation** (16:9): 16:9 deck, seven slide types: title, section divider, statement with one accent phrase, bullets on hairlines, before/after two-column, data table, and an accent closing slide. The .pptx is built with the same tokens and fonts. Files: `templates/documents/presentation-16x9.html`.
+
+- **Poster** (Print · A3, Social · 1080×1350): One big typographic statement in the display face with the last word in the accent, an accent edge band, and the brand lockup at the foot. A3 portrait for print, 1080×1350 for social; the .pptx is a single custom-size slide you can export to PDF or PNG. Files: `templates/documents/poster-a3.html`, `templates/documents/poster-1080x1350.html`.
+
+- **Banner** (Digital ad sizes, Print · roll-up 850×2000): Digital ad set (728×90 leaderboard, 300×250 rectangle, 1080×1080 square, 1200×628 landscape) or an 850×2000 mm roll-up, each with logo, headline and button from the tokens. The .pptx has one custom-size slide per format. Files: `templates/documents/banners-digital.html`, `templates/documents/banners-print.html`.
+
 ## Accessibility (core v1.0, WCAG 2.2 AA)
 Every Mercury screen, document and graphic must meet Celestial's accessibility core; this file is checked against it, your product still needs testing. Automated result for this palette: **Palette passes automated WCAG 2.2 AA checks**. Automated checks cover only part of WCAG 2.2 AA; keyboard, screen-reader and 200% zoom checks still need a person.
 

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fbfbfc">
+<title>Mercury — mobile</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Mobile-first: one column, 16px gutters, sticky header, bottom tab bar in the safe area */
+  body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+  header { position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 16px; background: var(--surface); border-bottom: 1px solid var(--line); }
+  main { padding: 16px; display: grid; gap: 12px; }
+  .hero h1 { font-size: 32px; margin-bottom: 8px; }
+  .hero p { margin-bottom: 14px; }
+  .btn { width: 100%; justify-content: center; height: 48px; }
+  .tabbar { position: fixed; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(4,1fr); height: calc(56px + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); background: var(--surface); border-top: 1px solid var(--line); }
+  .tabbar a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11px; color: var(--muted); text-decoration: none; }
+  .tabbar a[aria-current] { color: var(--accent-text); }
+  @media (min-width: 720px) { main { grid-template-columns: 1fr 1fr; max-width: 960px; margin: 0 auto; } .hero { grid-column: 1 / -1; } .btn { width: auto; } }
+</style>
+</head>
+<body>
+  <header><span class="d-logo" style="display:inline-flex;align-items:center;gap:8px;font:600 16px/1 var(--font-display);letter-spacing:-.01em;color:inherit;vertical-align:middle"><svg class="d-mark"  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="22" height="22" style="display:block;flex:none"><circle cx="12" cy="12" r="12" fill="#2547d0"/></svg><span>Mercury</span></span><span style="display:flex;gap:8px;align-items:center"><a class="btn" style="width:auto;height:36px" href="#">Build an agent</a><button aria-label="Open menu" style="width:36px;height:36px;border:1px solid var(--line);border-radius:var(--radius);background:transparent;color:inherit">☰</button></span></header>
+  <main>
+    <section class="hero"><span class="eyebrow">Agents</span><h1>Agents you can watch and approve.</h1><p>Set up an agent, see every step it takes, and approve anything that matters before it happens.</p><a class="btn" href="#">Build an agent</a></section>
+    <div class="card"><h3>Feature one</h3><p>Describe the benefit in one plain sentence.</p></div>
+    <div class="card"><h3>Feature two</h3><p>Describe the benefit in one plain sentence.</p></div>
+  </main>
+  <nav class="tabbar"><a aria-current="page">Home</a><a>Search</a><a>Inbox</a><a>Profile</a></nav>
+</body>
+</html>

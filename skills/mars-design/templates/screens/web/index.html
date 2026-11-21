@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mars — starter</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script> <!-- Phosphor Icons, MIT: <i class="ph ph-check"></i> -->
+<style>
+  .wrap { max-width:1180px; margin:0 auto; padding:0 32px; }
+  nav { display:flex; align-items:center; justify-content:space-between; height:64px; position:relative; }
+  nav .links { display:flex; gap:24px; font-size:14px; }
+  nav .links a { color:inherit; text-decoration:none; }
+  nav .act { display:flex; align-items:center; gap:8px; }
+  .burger { display:none; width:40px; height:40px; border:1px solid var(--line); border-radius:var(--radius); background:transparent; place-items:center; cursor:pointer; color:inherit; }
+  @media (max-width:1023px) {
+    nav .links { display:none; position:absolute; top:100%; left:-32px; right:-32px; flex-direction:column; gap:0; background:var(--surface); border-bottom:1px solid var(--line); z-index:10; }
+    nav .links a { padding:14px 32px; border-top:1px solid var(--line); }
+    nav.open .links { display:flex; }
+    .burger { display:inline-grid; }
+  }
+  .hero { background:var(--band); padding:72px 0; text-align:center; }
+  .hero h1 { font-size:clamp(36px,5vw,64px); max-width:16ch; margin:16px auto; }
+  .hero p { font-size:18px; max-width:52ch; margin:0 auto 24px; }
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; padding:48px 0; }
+  @media (max-width:800px) { .grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+  <div class="wrap"><nav><strong>Mars</strong><div class="links"><a href="#">Product</a><a href="#">Pricing</a><a href="#">Customers</a><a href="#">Docs</a></div><div class="act"><a class="btn" href="#">Try Mars</a><button class="burger" aria-label="Open menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">☰</button></div></nav></div>
+  <section class="hero"><div class="wrap">
+    <span class="eyebrow">01 / SUPPORT</span>
+    <h1>Support that answers, not deflects.</h1>
+    <p>Mars reads the whole thread, checks the account and replies with the specific answer — four in five conversations close without a hand-off.</p>
+    <a class="btn" href="#">Try Mars</a> <a class="btn secondary" href="#">Learn more</a>
+  </div></section>
+  <div class="wrap"><div class="grid">
+    <div class="card"><h3>Feature one</h3><p>Describe the benefit in one plain sentence.</p></div>
+    <div class="card"><h3>Feature two</h3><p>Describe the benefit in one plain sentence.</p></div>
+    <div class="card"><h3>Feature three</h3><p>Describe the benefit in one plain sentence.</p></div>
+  </div></div>
+</body>
+</html>

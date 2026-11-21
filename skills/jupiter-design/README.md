@@ -6,6 +6,25 @@ A Celestial design skill — how the brand looks, on web, in decks, documents an
 - `SKILL.md`
 - `tokens.json`
 - `assets/logo.svg`
+- `templates/screens/web/tokens.css`
+- `templates/screens/web/index.html`
+- `templates/screens/web/tailwind.config.js`
+- `templates/screens/mobile/tokens.css`
+- `templates/screens/mobile/mobile.html`
+- `templates/screens/ios/JupiterAdminKitTheme.swift`
+- `templates/screens/ios/ContentView.swift`
+- `templates/screens/android/Color.kt`
+- `templates/screens/android/Theme.kt`
+- `templates/screens/android/HomeScreen.kt`
+- `templates/documents/article-digital.html`
+- `templates/documents/article-print.html`
+- `templates/documents/whitepaper-a4.html`
+- `templates/documents/whitepaper-letter.html`
+- `templates/documents/presentation-16x9.html`
+- `templates/documents/poster-a3.html`
+- `templates/documents/poster-1080x1350.html`
+- `templates/documents/banners-digital.html`
+- `templates/documents/banners-print.html`
 - `README.md`
 
 ## Use it
