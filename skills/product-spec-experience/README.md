@@ -7,6 +7,7 @@ A Celestial experience skill — the best-practice journey.
 - `references/product-template.md`
 - `references/interview.md`
 - `references/merging-journeys.md`
+- `references/example-refund-desk.md`
 - `README.md`
 
 ## Use it
