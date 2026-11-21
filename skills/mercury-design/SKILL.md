@@ -119,7 +119,7 @@ Load from Google Fonts: `https://fonts.googleapis.com/css2?family=Manrope&family
 
 ## Shape and density — dials on the core ladders
 
-Everything structural follows **Celestial core v1.0** (*Celestial core foundations* below): the 4px spacing scale, the 12-column grid and breakpoints, control and radius ladders, elevation levels, motion durations, accessibility minimums, component anatomy and states. This file never restates core; it records only where Mercury sits on each ladder.
+Everything structural follows **Celestial core v1.1** (*Celestial core foundations* below): the 4px spacing scale, the 12-column grid and breakpoints, control and radius ladders, elevation levels, motion durations, accessibility minimums, component anatomy and states. This file never restates core; it records only where Mercury sits on each ladder.
 
 | Dial | Mercury | Sets |
 |---|---|---|
