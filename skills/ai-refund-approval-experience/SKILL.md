@@ -90,7 +90,7 @@ Inputs: Keyboard shortcuts, Mouse, Natural-language instructions
   - Agent mode: Advisory
   - Trigger / cue: New refund requests arrive, or the agent finishes a draft or a run.
   - Agent goal: Put the riskiest decisions in front of the lead first.
-  - Agent actions: Ranks requests by risk and shows the reason for each rank; every item the agent drafted or ran is labelled as made by the agent.
+  - Agent actions: Ranks requests by risk and shows the reason for each rank; every item the AI agent drafted or ran is labelled "AI agent" (not just "agent", which in a support team can mean a person).
   - Agent tone: Neutral and factual.
   - Agent type: Vertical refunds agent; orchestrated.
   - Multi-agent handoff: Intake agent → risk-scoring specialist → orchestrator builds the inbox.
@@ -139,7 +139,7 @@ Inputs: Keyboard shortcuts, Mouse, Natural-language instructions
   - Agent mode: Advisory
   - Trigger / cue: A request is above the auto-approve threshold or outside the lead's standing rules.
   - Agent goal: Help the lead make one well-informed decision.
-  - Agent actions: Drafts the decision with amount, customer, the sources it used (order, payment, policy), its reasons and confidence; the lead approves, edits or declines — nothing is refunded or refused without them. A refusal tells the customer the main reasons and how to ask a person to review it.
+  - Agent actions: Drafts the decision, labelled as drafted by the AI agent, with amount, customer, the sources it used (order, payment, policy), its reasons and confidence; the lead approves, edits or declines — nothing is refunded or refused without them. A refusal tells the customer that an AI agent prepared it, the main reasons and how to ask a person to review it.
   - Agent tone: Plain and neutral; never persuasive.
   - Agent type: Vertical refunds agent; orchestrated with a policy-check verifier.
   - Multi-agent handoff: Refunds agent drafts → policy verifier checks → draft shown to the lead.
@@ -164,7 +164,7 @@ Inputs: Keyboard shortcuts, Mouse, Natural-language instructions
   - Agent mode: Autonomous
   - Trigger / cue: The lead approved a refund, or a request falls inside the standing rules the lead set (amount cap, categories, expiry).
   - Agent goal: Carry out approved and in-scope refunds reliably.
-  - Agent actions: Runs the refund steps and shows progress; the lead can cancel before the payment step and reverse it after; the customer is told when it is done; anything outside the standing rules goes back to Approve.
+  - Agent actions: Runs the refund steps and shows progress; the lead can cancel before the payment step and reverse it after; the customer is told when it is done and that an AI agent processed it; the lead can end or change the standing rules in one step; anything outside the standing rules goes back to Approve.
   - Agent tone: Status-like and precise.
   - Agent type: Orchestrated: orchestrator, payments specialist, verifier, notification agent.
   - Multi-agent handoff: Orchestrator → payments specialist → verifier checks the amount against the approval → notification agent.
@@ -247,10 +247,10 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 
 Acceptance criteria from the HAI skill (`hai-experience`):
 
-- Every draft, label and action the agent makes is marked as made by the agent
+- Every draft, label and action the AI agent makes is labelled as made by an AI agent, so nobody mistakes it for a person
 - No refund is refused, and none above the standing rules is paid, without a person's decision
 - A refused customer is told the main reasons and can ask a person to review the decision
-- Autonomous refunds stay inside the lead's standing rules and can be cancelled before payment and reversed after
+- Autonomous refunds stay inside the lead's standing rules, which show their cap, categories and expiry and can be ended in one step; refunds can be cancelled before payment and reversed after
 - Every handover carries the handover context package; money failures go to a person immediately
 
 ## Edge cases
