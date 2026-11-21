@@ -9,7 +9,8 @@ Ask one question at a time. Each comes with a recommended default the user can a
 | 3 | Which design skill and engineering skill? | The ones already in the repository, or the closest match | Skills |
 | 4 | What outcome would prove it worked, by when? | The chosen journeys' main measures, three months after launch | Outcome, measures |
 | 5 | What's in the first release, and what waits? | The first journey end to end; the rest later | Release scope |
-| 6 | Who uses it, and which AI agents act in it? | The journeys' personas, plus each agent step's agent | Users and roles |
+| 6 | Does the product have an AI assistant or agent? If yes, which roles does it play? | Ask — never assume. "No" means AI: none, no HAI matrix, and journeys built without their HAI blocks | Users and roles, HAI matrix |
+| 6b | Who uses it? | The journeys' personas | Users and roles |
 | 7 | Where does it operate, and in which languages? | One jurisdiction, one language — ask which | Jurisdictions |
 | 8 | Does it handle money, health data, credit, employment or other regulated decisions? | Inferred from the journeys — confirm | Regulation, HAI risk |
 | 9 | Which existing systems must it connect to? | The journeys' generic systems, named — ask for each | Integrations |

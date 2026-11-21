@@ -59,6 +59,8 @@ Full detail: `docs/product/integrations.md`.
 | PRD-5 | Accessibility | WCAG 2.2 AA (Celestial accessibility core) | Core |
 
 ## 9. Agents and systems (HAI)
+**AI in this product:** <yes — list the AI assistants and agents | none>. If none, write "AI: none — journeys are built without their HAI blocks" and leave the table out.
+
 Every agent step's System layer for this product. Full matrix: `docs/product/hai-matrix.md`.
 | Journey · step | Mode | Data freshness & SLA | Infrastructure | Protocol | Memory | Sovereignty boundary | Regulatory classification |
 |---|---|---|---|---|---|---|---|
@@ -94,3 +96,5 @@ this product uses, the data model, integrations and targets (PRD- IDs). Agent st
 (`hai-experience`) and the matrix in `docs/product/hai-matrix.md`. Trace PRD- IDs into specs, tasks, tests
 and pull requests. Don't change library skills — record differences as overrides in PRODUCT.md.
 ```
+
+For a product with no AI, replace the HAI sentence with: "This product has no AI assistant or agent: ignore every 'Agent and system (HAI)' block in the journeys."

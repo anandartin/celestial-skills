@@ -23,10 +23,11 @@ Celestial skills are reusable on purpose: a journey says how *any* refund approv
 1. **Pick the skills.** Ask which journeys (experience skills) the product includes, which design skill gives the look and which engineering skill gives the stack. Record each by name and version. Suggest journeys from the library when the user describes the product in their own words.
 2. **Interview, one question at a time.** Ask only what changes the spec, each with a recommended default the user can accept: purpose and the outcome that proves it worked; users and roles; first release versus later; jurisdictions and languages; regulated data or decisions. Stop when every section can be filled — don't ask what a journey already answers. See [references/interview.md](references/interview.md).
 3. **Merge what the journeys declare.** Combine each journey's data needs, systems, roles, default targets and required inputs into one model. Where two journeys disagree (two meanings of "order", two retention periods), ask the user once and record the decision.
-4. **Fill the HAI matrix.** For every agent step, keep the journey's Agent layer and add this product's System layer cells: data freshness and SLA, infrastructure, protocol, memory, sovereignty boundary and regulatory classification. Apply the HAI skill (`hai-experience`): no step above its stage's ceiling, Autonomous only where the System layer supports it, money, health and legal failures go to a person. Write it to `docs/product/hai-matrix.md`.
-5. **Write `PRODUCT.md`** from [references/product-template.md](references/product-template.md). Give every target and product-level acceptance criterion an ID (`PRD-1`, `PRD-2`…) so engineering can trace it. Put long sections in `docs/product/` (`data-model.md`, `integrations.md`, `hai-matrix.md`).
-6. **Point agents at it.** Add a short block to the project's `AGENTS.md` and/or `CLAUDE.md` (create them if missing) so every agent loads the spec first — see the template's last section.
-7. **Hand over.** Stop at *what, why, for whom and to which targets*. The technical spec, architecture and task plan belong to the engineering skill — hand over to `spec-driven-development` (engineering practice), which traces the `PRD-` IDs into requirements, tasks, tests and pull requests.
+4. **Ask once: does the product have an AI assistant or agent?** If **no**, record "AI: none" in `PRODUCT.md`, skip the HAI matrix and the AI roles, build every journey from its *Without AI guidance* version (or ignore every "Agent and system (HAI)" block), and say so in the agent pointer. If **yes**, continue with the next step.
+5. **Fill the HAI matrix.** For every agent step, keep the journey's Agent layer and add this product's System layer cells: data freshness and SLA, infrastructure, protocol, memory, sovereignty boundary and regulatory classification. Apply the HAI skill (`hai-experience`): no step above its stage's ceiling, Autonomous only where the System layer supports it, money, health and legal failures go to a person. Write it to `docs/product/hai-matrix.md`.
+6. **Write `PRODUCT.md`** from [references/product-template.md](references/product-template.md). Give every target and product-level acceptance criterion an ID (`PRD-1`, `PRD-2`…) so engineering can trace it. Put long sections in `docs/product/` (`data-model.md`, `integrations.md`, `hai-matrix.md`).
+7. **Point agents at it.** Add a short block to the project's `AGENTS.md` and/or `CLAUDE.md` (create them if missing) so every agent loads the spec first — see the template's last section.
+8. **Hand over.** Stop at *what, why, for whom and to which targets*. The technical spec, architecture and task plan belong to the engineering skill — hand over to `spec-driven-development` (engineering practice), which traces the `PRD-` IDs into requirements, tasks, tests and pull requests.
 
 ## Rules
 
@@ -128,6 +129,8 @@ Full detail: `docs/product/integrations.md`.
 | PRD-5 | Accessibility | WCAG 2.2 AA (Celestial accessibility core) | Core |
 
 ## 9. Agents and systems (HAI)
+**AI in this product:** <yes — list the AI assistants and agents | none>. If none, write "AI: none — journeys are built without their HAI blocks" and leave the table out.
+
 Every agent step's System layer for this product. Full matrix: `docs/product/hai-matrix.md`.
 | Journey · step | Mode | Data freshness & SLA | Infrastructure | Protocol | Memory | Sovereignty boundary | Regulatory classification |
 |---|---|---|---|---|---|---|---|
@@ -164,6 +167,8 @@ this product uses, the data model, integrations and targets (PRD- IDs). Agent st
 and pull requests. Don't change library skills — record differences as overrides in PRODUCT.md.
 ```
 
+For a product with no AI, replace the HAI sentence with: "This product has no AI assistant or agent: ignore every 'Agent and system (HAI)' block in the journeys."
+
 ### references/interview.md
 
 ### Interview
@@ -177,7 +182,8 @@ Ask one question at a time. Each comes with a recommended default the user can a
 | 3 | Which design skill and engineering skill? | The ones already in the repository, or the closest match | Skills |
 | 4 | What outcome would prove it worked, by when? | The chosen journeys' main measures, three months after launch | Outcome, measures |
 | 5 | What's in the first release, and what waits? | The first journey end to end; the rest later | Release scope |
-| 6 | Who uses it, and which AI agents act in it? | The journeys' personas, plus each agent step's agent | Users and roles |
+| 6 | Does the product have an AI assistant or agent? If yes, which roles does it play? | Ask — never assume. "No" means AI: none, no HAI matrix, and journeys built without their HAI blocks | Users and roles, HAI matrix |
+| 6b | Who uses it? | The journeys' personas | Users and roles |
 | 7 | Where does it operate, and in which languages? | One jurisdiction, one language — ask which | Jurisdictions |
 | 8 | Does it handle money, health data, credit, employment or other regulated decisions? | Inferred from the journeys — confirm | Regulation, HAI risk |
 | 9 | Which existing systems must it connect to? | The journeys' generic systems, named — ask for each | Integrations |
