@@ -5,7 +5,7 @@ journey: customer
 persona: Customer (23), student, autistic
 domain: Customer support · conversational AI
 technology: Web and in-app chat widget
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Getting help from an AI support assistant with handoff to a person — the best-practice customer journey for a customer (23), student, autistic in Customer support · conversational AI on Web and in-app chat widget. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -17,7 +17,7 @@ A customer asks for help in their own words, gets a clear answer or action from 
 
 **Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

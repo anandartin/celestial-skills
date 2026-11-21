@@ -5,7 +5,7 @@ journey: customer
 persona: Guest shopper (29), buying a gift
 domain: Payments and e-commerce
 technology: Responsive web
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Checking out as a guest on the web with address lookup and secure payment — the best-practice customer journey for a guest shopper (29), buying a gift in Payments and e-commerce on Responsive web. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A shopper pays without creating an account, with an address lookup, clear totals
 
 **Outcome** — At least 75% of guests who start checkout complete payment, in under four minutes, with no account required.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

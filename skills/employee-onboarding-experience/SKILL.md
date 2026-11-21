@@ -5,7 +5,7 @@ journey: workflow
 persona: New starter (24); HR partner Joanne; manager Ade; IT technician Sven
 domain: HR · onboarding
 technology: Web app for staff; mobile-friendly portal for the starter
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Getting a new starter ready for day one across HR, manager and IT — the best-practice workflow for a new starter (24); hr partner joanne; manager ade; it technician sven in HR · onboarding on Web app for staff; mobile-friendly portal for the starter. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ HR, the hiring manager and IT each complete their part of getting a new starter 
 
 **Outcome** — Every new starter has signed paperwork, a working laptop and accounts, and a day-one plan before they arrive.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

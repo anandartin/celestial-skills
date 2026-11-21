@@ -5,7 +5,7 @@ journey: customer
 persona: Patient (72), rural, lives alone
 domain: Healthcare · pharmacy
 technology: Responsive web and native app
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Requesting a repeat prescription with pickup or delivery — the best-practice customer journey for a patient (72), rural, lives alone in Healthcare · pharmacy on Responsive web and native app. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A patient picks the repeat medicines they need, sees what needs a review, and ch
 
 **Outcome** — A patient requests a repeat prescription in under two minutes and knows when and where it will be ready, with fewer than 5% of requests needing a follow-up call.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

@@ -5,7 +5,7 @@ journey: workflow
 persona: Lab manager (47); budget holder Grace; procurement officer Yusuf
 domain: Finance · procurement
 technology: Web app with email and mobile approval
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Requesting a purchase with budget checks and approvals — the best-practice workflow for a lab manager (47); budget holder grace; procurement officer yusuf in Finance · procurement on Web app with email and mobile approval. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A requester asks to buy something, the system checks budget, and the right appro
 
 **Outcome** — Requests within budget are approved and turned into purchase orders within three working days, with no orders issued above approval limits.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

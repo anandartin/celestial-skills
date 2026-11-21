@@ -5,7 +5,7 @@ journey: customer
 persona: Customer (72), waiting for a medical supplies parcel
 domain: Retail logistics
 technology: Responsive web tracking page plus SMS and email
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Following an order from dispatch to delivery, including delays — the best-practice customer journey for a customer (72), waiting for a medical supplies parcel in Retail logistics on Responsive web tracking page plus SMS and email. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A customer always knows where their parcel is, when it will arrive and what to d
 
 **Outcome** — At least 90% of customers can state their delivery date from one screen, and “where is my order” contacts fall by 40%.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

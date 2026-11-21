@@ -5,7 +5,7 @@ journey: user
 persona: Small-business owner (34), setting up a tool for her bakery's staff
 domain: B2B onboarding
 technology: B2B web app, desktop and tablet
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Setting up a new business workspace to first value — the best-practice user journey for a small-business owner (34), setting up a tool for her bakery's staff in B2B onboarding on B2B web app, desktop and tablet. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ The first person in a new business workspace names it, brings in one real piece 
 
 **Outcome** — At least 60% of new workspaces reach the first-value event (one real item shared with one colleague) within 24 hours of creation.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

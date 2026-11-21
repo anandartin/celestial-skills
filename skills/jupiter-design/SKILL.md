@@ -337,7 +337,45 @@ Use this mark as-is: don't redraw, recolour (except to one solid colour on dark 
 - JetBrains Mono
 
 
-## Patterns (core v1.0)
+## Components (core v1.1)
+Every component's anatomy and states are core: Jupiter Admin Kit only supplies the token values. Control sizes for Jupiter Admin Kit: SM 28px · MD 36px · LG 44px · XL 56px; anything under 44px keeps a 44px hit area on touch. Borders are drawn inside. Disabled is 0.45 opacity with `aria-disabled`.
+
+| Group | Component | Anatomy | Sizes | States | Keyboard and accessibility |
+|---|---|---|---|---|---|
+| Actions | Button | container · label · leading or trailing icon · loading indicator | SM · MD · LG · XL; hug or fill width | default · hover · active · focus-visible · disabled · loading · selected (toggle buttons) | A native button; Enter and Space; `aria-busy` while loading, `aria-pressed` for toggles (A11Y-K1, A11Y-P1) |
+| Actions | Icon button | container · one icon | SM · MD · LG | as button | An accessible name from `aria-label`; 44px hit area on touch (A11Y-T1) |
+| Actions | Button group | container · segments | one height for all segments | default · hover · selected · focus-visible · disabled | Arrow keys move between segments; one selected (A11Y-K1) |
+| Actions | Dropdown menu | trigger · menu · items · dividers | SM · MD · LG | closed · open · item hover · item focus · item disabled | Escape closes and returns focus; arrow keys move; type-ahead (A11Y-K1, A11Y-O1) |
+| Forms | Input | label · field · leading icon · trailing action · helper or error text | SM · MD · LG | default · hover · focus-visible · disabled · read-only · error · success | A visible label tied to the field; errors in text and announced; typed value kept (A11Y-N2, A11Y-E1, A11Y-S1) |
+| Forms | Textarea | label · field · counter · helper or error text | SM · MD · LG (rows grow) | as input | Counter changes announced politely (A11Y-S1) |
+| Forms | Select | label · trigger · value · chevron · option list | SM · MD · LG | as input, plus open | Native select first; a custom one follows the listbox pattern (A11Y-P1) |
+| Forms | Date picker | label · input with calendar button · calendar panel (month nav, weekday row, day grid) · helper text | SM · MD · LG | default · focus-visible · open · day hover · today · selected · range · disabled day · error | Dates can always be typed; the grid moves with arrow keys, Page Up/Down for months; the format is shown (A11Y-K1, A11Y-G1, A11Y-N2) |
+| Forms | File upload | drop zone · browse button · constraints text · file list with progress | SM · MD · LG | default · drag over · uploading · success · error | A real file button beside the drop zone; progress and errors announced (A11Y-G1, A11Y-S1) |
+| Forms | Range | label · track · fill · thumb · value | one size | default · hover · focus-visible · active · disabled | Arrow keys step; the value is shown in text (A11Y-K1) |
+| Selection | Checkbox | box · check or dash · label · helper text | 16 · 20 · 24px | unchecked · checked · indeterminate · hover · focus-visible · disabled · error | The label is clickable; a group has a legend (A11Y-P1) |
+| Selection | Radio | circle · dot · label · helper text | 16 · 20 · 24px | unselected · selected · hover · focus-visible · disabled · error | Arrow keys move within the group; one selected (A11Y-K1) |
+| Selection | Switch | track · thumb · label | 16 · 20 · 24px | off · on · hover · focus-visible · disabled | Takes effect at once; `role="switch"` with `aria-checked` (A11Y-U1) |
+| Selection | Rating | stars (or other marks) · value · count | 12 · 16 · 20 · 24px marks | display · hover preview · selected · focus-visible · disabled · read-only | The value is in text ("4.5 out of 5, 128 reviews"); input ratings are radio groups (A11Y-C2, A11Y-I1) |
+| Feedback | Alert | container · icon · title · text · action · close | one size | info · success · warning · error | Status in text and icon, not colour alone; important alerts announced (A11Y-C2, A11Y-S1) |
+| Feedback | Badge | container · label · optional dot or icon | SM · MD · LG | neutral · brand · secondary · success · warning · error | Text always says the status (A11Y-C2) |
+| Feedback | Progress and loading | bar · spinner · skeleton · toast | one size each | determinate · indeterminate · complete | `role="progressbar"` with a name; loading regions marked busy (A11Y-S1, A11Y-M1) |
+| Feedback | Tooltip | trigger · bubble | one size | hidden · shown | Shown on hover and focus, dismissable with Escape, never the only place information lives (A11Y-O1) |
+| Navigation | Header and navigation menu | bar · logo · destinations · search · account | SM · MD · LG bar heights | default · hover · current · focus-visible · open (mobile menu) | A `nav` landmark; the current page has `aria-current`; a skip link comes first (A11Y-N1, A11Y-H1) |
+| Navigation | Link | text · optional icon | inherits the text size | default · hover · focus-visible · visited · disabled | Underlined in body text; says where it goes (A11Y-N2, A11Y-C2) |
+| Navigation | Breadcrumb | trail · separators · current page | SM · MD · LG | default · hover · current · collapsed (overflow) | A `nav` with `aria-label`; the current item has `aria-current` (A11Y-N1) |
+| Navigation | Tabs | tab list · tabs · indicator · panels | SM · MD · LG | default · hover · selected · focus-visible · disabled | Arrow keys move between tabs; one selected (A11Y-K1, A11Y-P1) |
+| Navigation | Pagination | previous · pages · ellipsis · next · count | SM · MD · LG | default · hover · current · disabled | `aria-current` on the current page; previous and next are named (A11Y-N2) |
+| Surfaces | Card | container · media · header · body · footer actions | SM · MD · LG padding | default · hover (interactive) · selected · focus-visible · disabled · loading | One link or button per card; the whole card is not a click trap (A11Y-K1) |
+| Surfaces | List | container · items (leading visual · title · meta · trailing action) · dividers | SM · MD · LG row heights | default · hover · selected · focus-visible · disabled · dragging · drop target | Reordering has a keyboard and button alternative to dragging (A11Y-G1) |
+| Surfaces | Avatar | image or initials or icon · optional status dot · group stack | 24 · 32 · 40 · 48 · 64 · 96px | default · hover (clickable) · focus-visible | An image has alt text with the name; the status dot has text (A11Y-I1, A11Y-C2) |
+| Surfaces | Accordion | item · trigger (label · chevron) · panel | SM · MD · LG | collapsed · expanded · hover · focus-visible · disabled | The trigger is a button with `aria-expanded` (A11Y-P1) |
+| Surfaces | Table | header · rows · cells · sort · selection · row actions | compact · default · comfortable | default · hover · selected · sorted · loading · empty | Real table markup; sort order announced (A11Y-P1, A11Y-S1) |
+| Overlays | Modal | scrim · dialog · title · body · actions · close | 320 · 480 · 600 · 800 · 1024px or full screen | closed · opening · open · closing | Focus moves in and is kept inside; Escape closes and returns focus (A11Y-K1, A11Y-O1) |
+| Overlays | Drawer | scrim · panel · header · body · footer | 280 · 400 · 600 · 800px or full | closed · opening · open · closing | As modal; it slides in from the edge (motion respects reduced-motion) (A11Y-M1) |
+
+Commerce parts (product price, product media, size and colour selector, store rating) are compositions of these components and belong to a brand's own patterns.
+
+## Patterns (core v1.1)
 Compositions of core components for recurring jobs. Each uses only contract tokens, so it renders in Jupiter Admin Kit and in any other brand. Jupiter Admin Kit's own signature patterns follow at the end.
 
 ### Navigation
@@ -432,7 +470,7 @@ Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obso
 
 
 ## Celestial core foundations (included)
-This brand sits on Celestial core v1.0. The shared rules are included here so this file works on its own.
+This brand sits on Celestial core v1.1. The shared rules are included here so this file works on its own.
 
 Shared by every Celestial design skill. Locked values live here once; a brand SKILL.md documents only its deltas and never restates core.
 
@@ -447,11 +485,24 @@ Base unit 4px. Scale: 0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160p
 | Desktop | 1024px | 12 | 24px | 32–40px |
 | Wide | 1440px | 12 | 32px | auto · max 1120 / 1200 / 1280px |
 
+What's new in v1.1 (additive — no v1.0 value changed): Component size ladder: SM / MD / LG / XL around the brand control height, plus selection, icon, avatar and overlay sizes; Opacity scale for scrims, tints and disabled states; Tonal step names 50–950 for colour ramps; Paragraph spacing; Borders drawn inside the element; Colour roles: info, link, visited link, scrim, inverse; States: selected, read-only, expanded, visited, dragging and drop target; Component specs for every core component, including date picker, rating, avatar, list, link and header.
+
 ### Ladders (brands pick a step, never invent a value)
 - Control height: 32 / 36 / 40 / 44px — inputs, buttons and selects share one height per size.
 - Control radius: 2 / 4 / 6 / 8 / full. Card radius: 8 / 12 / 14 / 16 / 24px. Rule: card radius ≥ control radius; nested radius = outer radius − padding.
 - Type scale ratio: 1.2 / 1.25 / 1.333 from a 16px base (14px in dense apps): caption, body, body-lg, h6 → h1. Line height 1.4–1.5 body, 1.0–1.2 display.
-- Density: Compact / Default / Comfortable. Border width: 0.5 / 1 / 1.5px.
+- Density: Compact / Default / Comfortable. Border width: 0.5 / 1 / 1.5px, drawn inside the element so a border never changes its size.
+
+### Component sizes
+- Controls (buttons, inputs, selects, tabs, menus): SM = control height − 8px · MD = the control height · LG = + 8px · XL = 56px for touch-first and hero actions. Anything under 44px keeps a 44px hit area on touch screens.
+- Checkbox, radio and switch: 16 / 20 / 24px. Icons: 12 / 16 / 20 / 24 / 32 / 48px. Avatars: 24 / 32 / 40 / 48 / 64 / 96px.
+- Modal widths: 320 / 480 / 600 / 800 / 1024px or full screen. Drawer widths: 280 / 400 / 600 / 800px or full.
+
+### Opacity, tones and paragraphs
+- Opacity: hairline 0.04 · subtle 0.08 · soft 0.12 · muted 0.16 · strong 0.24 · bold 0.32 · scrim 0.48 · heavy 0.64 · dense 0.8. Scrims use 0.48 on light themes and 0.64 on dark; disabled controls use 0.45.
+- Tonal steps: every colour ramp is named 50–950 (50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950); 500 is the base tone.
+- Paragraph spacing: tight 4px · compact 8px · default 12px · reading 16px · long-form 24px. Body copy uses default; long reading uses reading.
+- Smallest text is 12px; body text is 16px on mobile.
 
 ### Elevation
 - Level 0 · flat — page
@@ -477,8 +528,11 @@ Respects prefers-reduced-motion. Brands choose the easing curve only.
 ### Brand colours
 Every brand declares two brand colours. The **primary** (the accent) carries the primary action, outline buttons, the logo and the key figure. The **secondary** balances it: the secondary button, secondary badges, the second data series and secondary highlights, about one part to four. A brand with no secondary of its own takes the primary's complement, made legible at 4.5:1. Never give the two equal weight side by side.
 
+### Colour roles (added in v1.1)
+Besides surfaces, ink, the two brand colours and status, every brand fills: **info** (informational state, 4.5:1), **link** and **visited link**, **scrim** behind modals and drawers, and an **inverse** surface and ink for tooltips and toasts. Without values of its own a brand gets them from its tokens.
+
 ### Component states
-Every component specifies: default, hover, focus-visible, active, disabled, loading, error (inputs), success (inputs). Core defines which token each state reads; brands only supply the token values.
+Every component specifies the states that apply to it: default, hover, focus-visible, active, disabled, loading, error (inputs), success (inputs), selected, read-only (inputs), expanded / open, visited (links), dragging / drop target. One name for each: *default* (not enabled), *active* (not pressed). Core defines which token each state reads; brands only supply the token values.
 
 ### Button types and states
 Five types — primary, secondary, dark, outline and ghost — share one state model, each from its own colour: hover one step deeper, active one step further with a 1px nudge (outline and ghost tint their own colour instead), focus-visible a 2px ring offset 2px, disabled 45% opacity with `aria-disabled`, loading keeps the label with `aria-busy`. Labels stay at 4.5:1 in every state. A brand whose secondary button is an outline says so (`secondaryButton: outline`); its secondary colour then becomes an accent button.
@@ -498,6 +552,9 @@ base 0 · sticky 100 · dropdown 200 · overlay 300 · modal 400 · toast 500
 | Contrast minimums (4.5:1 text, 3:1 UI) | Locked | Core | Nothing |
 | Focus ring presence and offset | Locked | Core | Colour only |
 | Component anatomy and states | Locked | Core | Nothing |
+| Component size ladder (SM / MD / LG / XL; selection 16 / 20 / 24px) | Locked | Core | Nothing — follows the control height |
+| Opacity scale and tonal step names | Locked | Core | Nothing |
+| Borders drawn inside the element | Locked | Core | Nothing |
 | Button state model (every type: hover, active, focus, disabled, loading) | Locked | Core | Colours only |
 | Two brand colours (primary + secondary; outline buttons take the primary) | Locked | Core | The two values |
 | Logo legibility (3:1 on every background; dark-background version) | Locked | Core | Logo files and colours |
@@ -526,7 +583,7 @@ A value outside its class is an override: allowed only with a written reason in 
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "$name": "Jupiter Admin Kit",
-  "core": "1.0",
+  "core": "1.1",
   "dials": {
     "density": "Compact",
     "shape": "Soft",
@@ -642,6 +699,174 @@ A value outside its class is an override: allowed only with a written reason in 
     "error": {
       "$type": "color",
       "$value": "#b42318"
+    },
+    "info": {
+      "$type": "color",
+      "$value": "#2f62d0"
+    }
+  },
+  "link": {
+    "default": {
+      "$type": "color",
+      "$value": "#507992"
+    },
+    "visited": {
+      "$type": "color",
+      "$value": "#a8562f"
+    }
+  },
+  "overlay": {
+    "scrim": {
+      "$type": "color",
+      "$value": "rgba(28,40,48,0.48)"
+    }
+  },
+  "inverse": {
+    "surface": {
+      "$type": "color",
+      "$value": "#1c2830"
+    },
+    "ink": {
+      "$type": "color",
+      "$value": "#ffffff"
+    }
+  },
+  "size": {
+    "control-sm": {
+      "$type": "dimension",
+      "$value": "28px"
+    },
+    "control-md": {
+      "$type": "dimension",
+      "$value": "36px"
+    },
+    "control-lg": {
+      "$type": "dimension",
+      "$value": "44px"
+    },
+    "control-xl": {
+      "$type": "dimension",
+      "$value": "56px"
+    },
+    "selection-sm": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "selection-md": {
+      "$type": "dimension",
+      "$value": "20px"
+    },
+    "selection-lg": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "icon-12": {
+      "$type": "dimension",
+      "$value": "12px"
+    },
+    "icon-16": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "icon-20": {
+      "$type": "dimension",
+      "$value": "20px"
+    },
+    "icon-24": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "icon-32": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "icon-48": {
+      "$type": "dimension",
+      "$value": "48px"
+    },
+    "avatar-24": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "avatar-32": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "avatar-40": {
+      "$type": "dimension",
+      "$value": "40px"
+    },
+    "avatar-48": {
+      "$type": "dimension",
+      "$value": "48px"
+    },
+    "avatar-64": {
+      "$type": "dimension",
+      "$value": "64px"
+    },
+    "avatar-96": {
+      "$type": "dimension",
+      "$value": "96px"
+    }
+  },
+  "opacity": {
+    "hairline": {
+      "$type": "number",
+      "$value": 0.04
+    },
+    "subtle": {
+      "$type": "number",
+      "$value": 0.08
+    },
+    "soft": {
+      "$type": "number",
+      "$value": 0.12
+    },
+    "muted": {
+      "$type": "number",
+      "$value": 0.16
+    },
+    "strong": {
+      "$type": "number",
+      "$value": 0.24
+    },
+    "bold": {
+      "$type": "number",
+      "$value": 0.32
+    },
+    "scrim": {
+      "$type": "number",
+      "$value": 0.48
+    },
+    "heavy": {
+      "$type": "number",
+      "$value": 0.64
+    },
+    "dense": {
+      "$type": "number",
+      "$value": 0.8
+    }
+  },
+  "paragraph": {
+    "tight": {
+      "$type": "dimension",
+      "$value": "4px"
+    },
+    "compact": {
+      "$type": "dimension",
+      "$value": "8px"
+    },
+    "default": {
+      "$type": "dimension",
+      "$value": "12px"
+    },
+    "reading": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "long-form": {
+      "$type": "dimension",
+      "$value": "24px"
     }
   },
   "font": {

@@ -5,7 +5,7 @@ journey: customer
 persona: Mother (35) flying with a toddler and her father
 domain: Air travel
 technology: Native mobile app with mobile web fallback
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Checking in for a flight on a phone — the best-practice customer journey for a mother (35) flying with a toddler and her father in Air travel on Native mobile app with mobile web fallback. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A passenger checks in on their phone, chooses or keeps a seat, and gets a boardi
 
 **Outcome** — At least 85% of eligible passengers check in on mobile in under three minutes, and 99% of mobile boarding passes scan first time.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

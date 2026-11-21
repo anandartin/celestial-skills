@@ -5,7 +5,7 @@ journey: customer
 persona: Patient (67) or carer
 domain: Healthcare
 technology: Native mobile app (iOS / Android)
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Booking a clinic appointment — the best-practice customer journey for a patient (67) or carer in Healthcare on Native mobile app (iOS / Android). Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ An older patient or their carer books the right appointment on a phone, with lar
 
 **Outcome** — A patient or carer books the right appointment in under three minutes, understands every choice, and receives a reminder they can act on.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

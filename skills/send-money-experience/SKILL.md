@@ -5,7 +5,7 @@ journey: customer
 persona: Retired teacher (72), pays a tradesperson
 domain: Payments
 technology: Native mobile app with tablet layout
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Paying someone new from a banking app — the best-practice customer journey for a retired teacher (72), pays a tradesperson in Payments on Native mobile app with tablet layout. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A customer adds a new payee, sees whether the name matches the account, and gets
 
 **Outcome** — Fewer than 1 in 1,000 new-payee payments are reported as scams, while 90% of genuine first payments complete in under two minutes.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

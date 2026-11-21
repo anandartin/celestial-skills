@@ -5,7 +5,7 @@ journey: workflow
 persona: Warehouse supervisor (58); manager Clare; HR administrator Tess
 domain: HR · time off
 technology: Mobile app and shared kiosk; web for managers and HR
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Requesting time off with balances, team cover and approval — the best-practice workflow for a warehouse supervisor (58); manager clare; hr administrator tess in HR · time off on Mobile app and shared kiosk; web for managers and HR. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ An employee checks their balance and team cover, requests time off, and their ma
 
 **Outcome** — Employees submit leave requests in under a minute and get a decision within two working days, with balances always correct.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

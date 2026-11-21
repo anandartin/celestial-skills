@@ -5,7 +5,7 @@ journey: user
 persona: Operations coordinator (36)
 domain: Data operations · import
 technology: Desktop web app
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Importing a spreadsheet of records with column mapping — the best-practice user journey for a operations coordinator (36) in Data operations · import on Desktop web app. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A user uploads a spreadsheet, maps columns to fields, fixes errors in place, and
 
 **Outcome** — A user imports a 5,000-row spreadsheet with all valid rows written and every error explained, in under 10 minutes and with no silent data loss.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

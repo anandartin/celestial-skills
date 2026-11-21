@@ -5,7 +5,7 @@ journey: customer
 persona: Student (20), deaf, getting home late
 domain: Ride-hailing
 technology: Native mobile app (iOS / Android)
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Booking a ride and sharing the trip — the best-practice customer journey for a student (20), deaf, getting home late in Ride-hailing on Native mobile app (iOS / Android). Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A rider books a car, sees the driver and fare before it arrives, and can share t
 
 **Outcome** — At least 95% of riders confirm the car matches the app before getting in, and the safety tools are reachable in one tap on every trip screen.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

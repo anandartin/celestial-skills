@@ -5,7 +5,7 @@ journey: customer
 persona: Freelance illustrator (26), trialling a design tool
 domain: Subscriptions
 technology: Web app with email and push notifications
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Converting from a free trial to a paid plan without surprises — the best-practice customer journey for a freelance illustrator (26), trialling a design tool in Subscriptions on Web app with email and push notifications. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A trial user always knows when the trial ends, what they will pay and how to sto
 
 **Outcome** — Trial-to-paid conversion reaches 25% while chargebacks and “I didn’t mean to pay” refunds stay under 1% of conversions.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

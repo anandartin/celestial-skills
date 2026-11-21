@@ -5,7 +5,7 @@ journey: customer
 persona: Delivery driver (40), shift worker on a basic phone plan
 domain: Communications and consent
 technology: Mobile app with matching web settings
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Choosing which alerts arrive where, with quiet hours — the best-practice customer journey for a delivery driver (40), shift worker on a basic phone plan in Communications and consent on Mobile app with matching web settings. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A customer decides which alerts they get by email, push or text, sets quiet hour
 
 **Outcome** — At least 70% of people who open notification settings leave with a saved change, and opt-outs from all notifications fall by 30% versus a single on/off switch.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

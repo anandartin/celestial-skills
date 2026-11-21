@@ -5,7 +5,7 @@ journey: user
 persona: Operations lead (45), admin for a 40-person team
 domain: Workspace administration
 technology: B2B web app, desktop first
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Inviting colleagues to a workspace and assigning roles — the best-practice user journey for a operations lead (45), admin for a 40-person team in Workspace administration on B2B web app, desktop first. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A workspace admin invites colleagues by email or in bulk, gives each the least a
 
 **Outcome** — Admins invite a team of ten in under five minutes, at least 85% of invites are accepted within seven days, and fewer than 5% of members need a role change in their first month.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

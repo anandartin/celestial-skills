@@ -5,7 +5,7 @@ journey: user
 persona: Design lead (36), reviews three teams' work
 domain: Workplace software · collaboration
 technology: Web app with mobile notifications
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Reviewing work together with comments and mentions — the best-practice user journey for a design lead (36), reviews three teams' work in Workplace software · collaboration on Web app with mobile notifications. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A reviewer leaves comments anchored to the work, mentions the right people, and 
 
 **Outcome** — Every review comment reaches the right person and is resolved or answered within the agreed review window.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

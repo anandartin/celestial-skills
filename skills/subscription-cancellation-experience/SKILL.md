@@ -5,7 +5,7 @@ journey: customer
 persona: Subscriber (58), cutting household costs
 domain: Subscriptions
 technology: Web and mobile app
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Cancelling a subscription in as few steps as signing up — the best-practice customer journey for a subscriber (58), cutting household costs in Subscriptions on Web and mobile app. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A subscriber finds cancel where they expect it, sees what happens to their acces
 
 **Outcome** — Cancellation takes no more steps than sign-up, completes in under 90 seconds, and generates no support contacts to finish it.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

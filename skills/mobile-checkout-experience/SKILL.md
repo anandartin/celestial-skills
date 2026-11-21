@@ -5,7 +5,7 @@ journey: customer
 persona: Returning shopper
 domain: Retail ecommerce
 technology: Mobile web (390–430px)
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Mobile checkout for a returning shopper — the best-practice customer journey for a returning shopper in Retail ecommerce on Mobile web (390–430px). Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ From product to paid in under a minute on a phone, with nothing re-typed and no 
 
 **Outcome** — A returning shopper completes payment in under 60 seconds without re-entering saved details or meeting a surprise cost.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

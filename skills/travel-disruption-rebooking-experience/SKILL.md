@@ -5,7 +5,7 @@ journey: customer
 persona: Care worker (52), travelling to a family funeral
 domain: Passenger transport
 technology: Native mobile app and SMS
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Rebooking after a cancelled train or flight — the best-practice customer journey for a care worker (52), travelling to a family funeral in Passenger transport on Native mobile app and SMS. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A traveller whose train or flight is cancelled sees their options straight away,
 
 **Outcome** — At least 80% of disrupted travellers rebook or request a refund in the app within 15 minutes of the cancellation notice, and every one is told their compensation rights.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

@@ -5,7 +5,7 @@ journey: customer
 persona: Owner of a two-person bakery (47), on a booking software plan
 domain: Subscriptions and billing
 technology: Web app, tablet and desktop
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Upgrading or downgrading a subscription plan with prorated pricing — the best-practice customer journey for a owner of a two-person bakery (47), on a booking software plan in Subscriptions and billing on Web app, tablet and desktop. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A subscriber changes plan and sees exactly what they will pay today, what change
 
 **Outcome** — At least 95% of plan changes complete without a billing support contact, and fewer than 2% are reversed within 7 days.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

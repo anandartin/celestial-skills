@@ -5,7 +5,7 @@ journey: customer
 persona: Music fan (31), buying two tickets for a concert
 domain: Live events ticketing
 technology: Responsive web and mobile app
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Buying tickets for an event with seat choice and fair queueing — the best-practice customer journey for a music fan (31), buying two tickets for a concert in Live events ticketing on Responsive web and mobile app. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A fan joins a fair queue, picks seats on an accessible map with full prices show
 
 **Outcome** — At least 85% of fans who reach seat selection complete purchase within the hold time, and the all-in price never rises after seats are chosen.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

@@ -5,7 +5,7 @@ journey: user
 persona: Customer success manager (52)
 domain: Workplace software · generative AI
 technology: Web app (side panel in an editor)
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Drafting content with an AI assistant and reviewing it before sending — the best-practice user journey for a customer success manager (52) in Workplace software · generative AI on Web app (side panel in an editor). Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -17,7 +17,7 @@ A user asks an AI assistant for a first draft, checks and edits it with sources 
 
 **Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

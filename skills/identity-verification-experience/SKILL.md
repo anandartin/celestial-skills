@@ -5,7 +5,7 @@ journey: customer
 persona: Graduate (26), opening an account with a new savings provider; deaf
 domain: Regulated identity checks (KYC / AML)
 technology: Mobile app and mobile web, with a desktop-to-phone handoff
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Verifying identity with a document and selfie for a regulated service — the best-practice customer journey for a graduate (26), opening an account with a new savings provider; deaf in Regulated identity checks (KYC / AML) on Mobile app and mobile web, with a desktop-to-phone handoff. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A customer opening an account with a regulated service photographs an identity d
 
 **Outcome** — At least 80% of genuine customers are verified automatically within five minutes, every rejection offers a human route, and no biometric data is kept longer than stated.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

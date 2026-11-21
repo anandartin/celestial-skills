@@ -5,7 +5,7 @@ journey: customer
 persona: Parent (36), ordering dinner for a family of four
 domain: Food delivery
 technology: Native mobile app (iOS / Android) and web
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Ordering a meal for delivery with dietary and allergen needs — the best-practice customer journey for a parent (36), ordering dinner for a family of four in Food delivery on Native mobile app (iOS / Android) and web. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A parent orders dinner for the family, filters reliably by allergens, and gets f
 
 **Outcome** — Every dish shown under an allergen filter has declared allergen data, and at least 80% of orders arrive within the quoted window.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

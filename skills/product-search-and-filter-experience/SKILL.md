@@ -5,7 +5,7 @@ journey: customer
 persona: Shopper (34), buying a replacement kettle
 domain: Retail e-commerce
 technology: Responsive web, mobile first
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Finding a product in a large catalogue with search and filters — the best-practice customer journey for a shopper (34), buying a replacement kettle in Retail e-commerce on Responsive web, mobile first. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A shopper narrows thousands of products to a short list they trust, using forgiv
 
 **Outcome** — A shopper reaches a product page that matches their need in under two minutes, with fewer than 10% of searches ending on zero results.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

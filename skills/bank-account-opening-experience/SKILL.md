@@ -5,7 +5,7 @@ journey: customer
 persona: New customer (24), first full-time job
 domain: Retail banking
 technology: Mobile web and native app (iOS / Android)
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Opening a current account online for a new customer — the best-practice customer journey for a new customer (24), first full-time job in Retail banking on Mobile web and native app (iOS / Android). Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A new customer opens a current account on their phone, proves who they are once,
 
 **Outcome** — At least 75% of applicants who start get a working account number the same day, with every identity check explained before it happens.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

@@ -5,7 +5,7 @@ journey: customer
 persona: Prospective tenant (26), relocating for work
 domain: Housing · lettings
 technology: Responsive web
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Applying to rent a home with fair, published criteria — the best-practice customer journey for a prospective tenant (26), relocating for work in Housing · lettings on Responsive web. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A prospective tenant sees the criteria before applying, adds references and cons
 
 **Outcome** — An applicant sees every criterion before paying or sharing data and receives a decision with stated reasons within 5 working days.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

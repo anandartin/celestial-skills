@@ -5,7 +5,7 @@ journey: customer
 persona: Warehouse supervisor (54), resets on a work break
 domain: Account recovery
 technology: Responsive web, often reached from the sign-in screen
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Resetting a forgotten password safely — the best-practice customer journey for a warehouse supervisor (54), resets on a work break in Account recovery on Responsive web, often reached from the sign-in screen. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A customer who has forgotten their password proves control of their email, sets 
 
 **Outcome** — At least 85% of reset requests end in a successful sign-in within ten minutes, with no account-existence leaks and every reset notified.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

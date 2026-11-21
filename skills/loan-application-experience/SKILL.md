@@ -5,7 +5,7 @@ journey: customer
 persona: Delivery driver (41), self-employed
 domain: Consumer credit
 technology: Responsive web, desktop and mobile
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Applying for a personal loan with an eligibility check first — the best-practice customer journey for a delivery driver (41), self-employed in Consumer credit on Responsive web, desktop and mobile. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A customer checks their chances of approval without affecting their credit score
 
 **Outcome** — At least 80% of full applications are approved because the soft check filtered out unsuitable ones, and every applicant sees the total amount repayable before agreeing.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

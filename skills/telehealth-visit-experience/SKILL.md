@@ -5,7 +5,7 @@ journey: customer
 persona: Patient (34), hard of hearing
 domain: Healthcare · telehealth
 technology: Mobile and desktop web (no install), with native app optional
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Joining a video consultation as a patient — the best-practice customer journey for a patient (34), hard of hearing in Healthcare · telehealth on Mobile and desktop web (no install), with native app optional. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A patient checks their device, waits in a clear virtual waiting room, talks to a
 
 **Outcome** — A patient joins their video visit on time with working audio and video at least 95% of the time, and leaves with a written summary and next steps within one hour.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

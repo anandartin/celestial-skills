@@ -5,7 +5,7 @@ journey: user
 persona: Finance lead (58)
 domain: Business intelligence · reporting
 technology: Desktop web app
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Building and sharing a report from a dashboard — the best-practice user journey for a finance lead (58) in Business intelligence · reporting on Desktop web app. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ An analyst turns a dashboard view into a report with clear filters, shares it wi
 
 **Outcome** — A user builds and shares a filtered report in under 5 minutes, and every recipient sees only data they are allowed to see, with the filters stated on the report.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

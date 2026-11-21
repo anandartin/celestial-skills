@@ -5,7 +5,7 @@ journey: user
 persona: Operations admin
 domain: B2B SaaS
 technology: Web app (desktop first)
-core: "1.0"
+core: "1.1"
 description: "Experience skill: First-run onboarding for an operations admin — the best-practice user journey for a operations admin in B2B SaaS on Web app (desktop first). Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ Take a busy admin from sign-up to their first real result in one sitting — no 
 
 **Outcome** — An admin reaches a first meaningful result with their own data in one sitting and knows the single next step.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

@@ -5,7 +5,7 @@ journey: user
 persona: Project coordinator (29) at a small charity
 domain: Workplace software · documents and access control
 technology: Web app and mobile app
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Uploading a file and sharing it with the right access — the best-practice user journey for a project coordinator (29) at a small charity in Workplace software · documents and access control on Web app and mobile app. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A user uploads a file, chooses exactly who can view or edit it, and can see and 
 
 **Outcome** — A user shares a file with the intended people at the intended access level on the first try, with zero accidental public links.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

@@ -5,7 +5,7 @@ journey: workflow
 persona: Field engineer (33); manager Omar; finance officer Lin
 domain: Finance · expenses
 technology: Mobile app for claimants and approvers; web for finance
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Submitting an expense with a receipt for approval and payout — the best-practice workflow for a field engineer (33); manager omar; finance officer lin in Finance · expenses on Mobile app for claimants and approvers; web for finance. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ An employee submits an expense with a receipt, their manager approves it, and fi
 
 **Outcome** — Valid expenses are paid within five working days of submission, with fewer than 5% sent back for missing information.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

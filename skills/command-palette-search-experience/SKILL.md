@@ -5,7 +5,7 @@ journey: user
 persona: Operations lead (41), heavy keyboard user
 domain: Workplace software · navigation
 technology: Web app (desktop browser), also usable on tablet with a keyboard
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Finding anything in a product with search and a command palette — the best-practice user journey for a operations lead (41), heavy keyboard user in Workplace software · navigation on Web app (desktop browser), also usable on tablet with a keyboard. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A busy product user jumps to any record, page or action from one keyboard shortc
 
 **Outcome** — A user reaches the record or action they want in under five seconds from anywhere in the product, without touching the mouse.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

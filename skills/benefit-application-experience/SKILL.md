@@ -5,7 +5,7 @@ journey: customer
 persona: Applicant (29), single parent
 domain: Public services · benefits
 technology: Responsive web, mobile first
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Applying for a government benefit online — the best-practice customer journey for a applicant (29), single parent in Public services · benefits on Responsive web, mobile first. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A resident checks they might be eligible, applies in short sections they can sav
 
 **Outcome** — An applicant completes and submits a benefit claim across one or more sessions with fewer than 10% of claims returned for missing evidence.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

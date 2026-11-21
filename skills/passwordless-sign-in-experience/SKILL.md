@@ -5,7 +5,7 @@ journey: customer
 persona: Retired teacher (72), signs in on a tablet and a laptop
 domain: Authentication
 technology: Web app on desktop, tablet and phone
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Signing in with a passkey or one-time link, with a fallback — the best-practice customer journey for a retired teacher (72), signs in on a tablet and a laptop in Authentication on Web app on desktop, tablet and phone. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A returning customer signs in with a passkey on their device or a one-time email
 
 **Outcome** — At least 90% of sign-in attempts succeed on the first method chosen, and nobody is left without a working way back in.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

@@ -5,7 +5,7 @@ journey: customer
 persona: Software tester (29), blind, travelling for a conference
 domain: Travel accommodation
 technology: Responsive web and mobile app
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Searching, comparing and booking a hotel stay — the best-practice customer journey for a software tester (29), blind, travelling for a conference in Travel accommodation on Responsive web and mobile app. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A traveller searches for a stay, compares options on the full price including ta
 
 **Outcome** — The price on the results list matches the price paid in at least 99% of bookings, and 70% of searchers who pick a room complete booking.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 

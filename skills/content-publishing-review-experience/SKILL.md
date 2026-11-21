@@ -5,7 +5,7 @@ journey: workflow
 persona: Content writer (38); editor Marcus; legal reviewer Aisha; brand reviewer Ben
 domain: Marketing · editorial governance
 technology: Web app (content management)
-core: "1.0"
+core: "1.1"
 description: "Experience skill: Drafting, reviewing and scheduling a publication — the best-practice workflow for a content writer (38); editor marcus; legal reviewer aisha; brand reviewer ben in Marketing · editorial governance on Web app (content management). Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A writer drafts a piece, legal and brand reviewers check it in parallel, and an 
 
 **Outcome** — Every published piece has all required approvals recorded, and approved pieces go live at the scheduled time with no unreviewed edits.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.0 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
 
