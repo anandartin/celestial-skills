@@ -15,6 +15,8 @@ A customer adds a new payee, sees whether the name matches the account, and gets
 
 **Outcome** — Fewer than 1 in 1,000 new-payee payments are reported as scams, while 90% of genuine first payments complete in under two minutes.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Touch, Biometrics or passcode, Screen reader
   - Errors (A11Y-E1): The sort code message sits under the field, linked to it, says 'Sort code must be 6 numbers' and keeps what was typed.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say 'sort code' and '6 numbers' in full, and avoid abbreviations like 'ID'.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The person asks the assistant to pay someone new, e.g. "pay Dave the roofer £340".
+  - Agent goal: Set up the new payee correctly from what the person said.
+  - Agent actions: Says it is an AI assistant, fills the payee form from the request and marks every field it filled; the person checks and corrects each field before continuing.
+  - Agent tone: Calm and plain; no jargon.
+  - Agent type: Vertical payments assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input (two possible Daves, no account number): ask one clear question. Data unavailable (saved payees not loading): let the person type the details themselves and say why.
+  - Failure handover trigger: The person asks for help or a person → bank support with the context package, immediately.
+  - Data needs: Saved payees, the request text.
+  - Agent memory: Short-term: the request. Episodic: saved payees.
+  - Regulatory classification: Payments; AI interaction disclosed; the assistant has no access to credentials.
 
 ### 2. Name check
 
@@ -100,6 +115,19 @@ Inputs: Touch, Biometrics or passcode, Screen reader
   - Errors (A11Y-E1): If the name check is unavailable, the risk is explained next to the result and the person can wait or continue; typed details stay.
   - Time limits (A11Y-W1): No time limit; the check can be retried.
   - Language (A11Y-L1): Explain 'name check' in one line and tell the person to use a number they already have.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: Payee details are entered.
+  - Agent goal: Make sure the money goes to the right account.
+  - Agent actions: Reads out the name-check result in plain words; on a mismatch it recommends stopping and checking with the person using a number they already have; it never overrides or hides the check.
+  - Agent tone: Serious but not alarming.
+  - Agent type: Vertical payments assistant; payee-check service behind it.
+  - Multi-agent handoff: Assistant → payee-check service → result shown to the person.
+  - Goal failure response: Name-check service unavailable: say the check couldn't run, recommend not paying a new payee until it can, offer to try again. Low confidence on a close match: show the name the bank holds and let the person decide.
+  - Failure handover trigger: The person is unsure or worried about fraud → the bank's fraud team immediately, with the context package.
+  - Data needs: Payee name and account details, name-check result.
+  - Agent memory: Short-term.
+  - Regulatory classification: Payments: payee-name check required; fraud-prevention duties.
 
 ### 3. Why you're paying
 
@@ -112,6 +140,19 @@ Inputs: Touch, Biometrics or passcode, Screen reader
   - Errors (A11Y-E1): If no purpose is chosen, the general warning appears in text; the choice stays.
   - Time limits (A11Y-W1): No time limit; the warning step gives at least 20 minutes or an option to extend.
   - Language (A11Y-L1): Say 'move money to keep it safe' in plain words and avoid 'authorised push payment'.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The person is asked why they are paying.
+  - Agent goal: Show the scam warning that fits the purpose.
+  - Agent actions: Explains the purposes if asked; the person picks the purpose; the matching scam warning is always shown in full and the assistant never skips or softens it; a route to a person is shown.
+  - Agent tone: Caring and direct.
+  - Agent type: Vertical payments assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous answer ("it's for a friend" with signs of coaching): show the safe-account warning and offer a person.
+  - Failure handover trigger: Signs of a scam or the person says someone told them to move money → the fraud team immediately; no retry.
+  - Data needs: Payment purposes, scam warning library.
+  - Agent memory: Short-term.
+  - Regulatory classification: Fraud-prevention duties; vulnerable-customer care.
 
 ### 4. Amount and confirm
 
@@ -124,6 +165,19 @@ Inputs: Touch, Biometrics or passcode, Screen reader
   - Errors (A11Y-E1): The limit message sits by the amount with the limit and reset time; the amount stays. This step is a review before sending, and Cancel is separate.
   - Time limits (A11Y-W1): The code is valid at least 5 minutes, warned at least 20 seconds before it ends, with a Resend button.
   - Language (A11Y-L1): Write the amount as '£350.00' and the limit in full.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: Purpose chosen; the assistant has prepared the payment.
+  - Agent goal: Make the payment unmistakable before the person approves it.
+  - Agent actions: Shows payee, name-check result, amount, fee and reference in large text; marks what it filled in; the person taps Approve and authenticates themselves while the assistant steps back; they can cancel at any point before approving.
+  - Agent tone: Calm, plain, unhurried.
+  - Agent type: Vertical payments assistant; orchestrated with a fraud-check service.
+  - Multi-agent handoff: Assistant prepares → fraud-check service → payment rail after the person approves.
+  - Goal failure response: Over the daily limit: say the limit and when it resets, keep the amount. Fraud hold: say the payment is held, the main reason in plain words, what happens next and how to reach a person. Payment rail down: full task failure — don't retry silently; hand over.
+  - Failure handover trigger: Fraud hold, rail failure or the person asks → bank support or the fraud team immediately with the context package, because money is involved.
+  - Data needs: Payee, name-check result, balance, daily limit, fee table.
+  - Agent memory: Short-term: payee and amount from earlier steps.
+  - Regulatory classification: Payments: strong customer authentication by the person; a payment hold is a significant decision — reasons and a human route required; audit log of who prepared and who approved.
 
 ### 5. Sent
 
@@ -136,6 +190,19 @@ Inputs: Touch, Biometrics or passcode, Screen reader
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the amount in pounds and pence and say 'arrive within 2 hours'.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The payment has been sent.
+  - Agent goal: Confirm what happened and what comes next.
+  - Agent actions: Confirms the amount, payee and time; says the assistant prepared the payment and the person approved it; says when it should arrive and how to report a problem.
+  - Agent tone: Reassuring and precise.
+  - Agent type: Vertical payments assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Partial completion (sent but receipt not generated): say the payment went and the receipt will follow; show the reference.
+  - Failure handover trigger: The person reports a mistake or a scam → the fraud team immediately.
+  - Data needs: Payment confirmation, reference.
+  - Agent memory: Episodic: the payment joins history.
+  - Regulatory classification: Record of a payment the assistant prepared; kept for the retention period.
 
 ---
 
@@ -183,10 +250,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Name results in plain words: 'Matches', 'Nearly matches', 'Doesn't match'
 - Amounts always with currency and pence: '£350.00'
 
-## AI interactions
+## Agent and system (HAI)
 
-- Risk scoring flags unusual payments for a pause and a call; a person reviews held payments and the customer is told how long the hold lasts
-- No AI-written warning copy at run time because scam messaging must be reviewed and consistent
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The assistant says it is AI before it fills anything in, and what it filled is marked until the person checks it
+- Money moves only after the person reviews the exact payment and approves it; they authenticate themselves and the assistant never sees codes
+- A payment hold or refusal tells the person the main reason in plain words, what happens next, and how to reach a person
+- Scam warnings are never skipped or softened by the assistant
+- The receipt says what the assistant prepared and what the person approved, and how to report a problem
 
 ## Edge cases
 

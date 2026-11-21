@@ -15,6 +15,8 @@ An older patient or their carer books the right appointment on a phone, with lar
 
 **Outcome** — A patient or carer books the right appointment in under three minutes, understands every choice, and receives a reminder they can act on.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -86,6 +88,19 @@ Inputs: Touch, Voice dictation, Screen reader
   - Errors (A11Y-E1): A filter that returns nothing is explained in text beside it, with the earliest date and a call-back offered; chosen filters are kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Use everyday words such as "a check-up" instead of clinical codes, and keep the urgent-symptoms wording the same on every screen.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The patient or carer opens the app and says what they need.
+  - Agent goal: Find the right kind of appointment.
+  - Agent actions: Says it is an AI booking assistant and what it can do; asks only what it needs to suggest the right kind of appointment; a button to phone the clinic is always visible.
+  - Agent tone: Warm, slow, plain words; one question at a time.
+  - Agent type: Vertical booking assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input: ask one simple question. Constraint violation (asks for medical advice): say it can't give medical advice and offer the clinic's number.
+  - Failure handover trigger: Anything urgent or clinical, or the person asks → the clinic's phone line immediately, with the context package for the receptionist.
+  - Data needs: Appointment types, clinic list.
+  - Agent memory: Short-term.
+  - Regulatory classification: Health context: no clinical advice; AI interaction disclosed.
 
 ### 2. Choose a time
 
@@ -97,6 +112,19 @@ Inputs: Touch, Voice dictation, Screen reader
   - Errors (A11Y-E1): If a slot is taken, the message names it beside the list and offers the nearest times; the person's filters are kept.
   - Time limits (A11Y-W1): No time limit. The slot is not held until confirmed, and the screen says so.
   - Language (A11Y-L1): Write dates in full with the weekday, use 12-hour times with am or pm, and describe travel in minutes.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The kind of appointment is known.
+  - Agent goal: Offer a time that fits the person's transport.
+  - Agent actions: Recommends slots with the reason (earliest, matches transport) and the person chooses; no pressure or countdowns.
+  - Agent tone: Patient.
+  - Agent type: Vertical booking assistant; single.
+  - Multi-agent handoff: Assistant → scheduling system.
+  - Goal failure response: Data unavailable (no slots loading): say so and offer the phone line. Low confidence about travel time: say so and show the address.
+  - Failure handover trigger: No suitable slot or the person is stuck → receptionist by phone.
+  - Data needs: Slots, clinic addresses.
+  - Agent memory: Procedural: preferred clinic and times.
+  - Regulatory classification: Minimal risk.
 
 ### 3. Your details
 
@@ -109,6 +137,19 @@ Inputs: Touch, Voice dictation, Screen reader
   - Errors (A11Y-E1): Each error is written in plain words beside the field and linked to it, listed in a summary at the top, and nothing typed is ever cleared.
   - Time limits (A11Y-W1): No time limit; progress is kept if the app is closed.
   - Language (A11Y-L1): Ask for things in plain words, say why each detail is needed, and avoid terms such as "registrant".
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: A slot is chosen.
+  - Agent goal: Confirm who the appointment is for and how to reach them.
+  - Agent actions: Pre-fills details marked as filled by the assistant; the person confirms each; for a carer it asks and confirms who the booking is for. Consent and identity answers are given by the person; the assistant never fills them in.
+  - Agent tone: Respectful; doesn't assume.
+  - Agent type: Vertical booking assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Details don't match the record: ask the person to check rather than guessing.
+  - Failure handover trigger: The person can't confirm identity or details → receptionist.
+  - Data needs: Patient record (contact details only).
+  - Agent memory: Short-term.
+  - Regulatory classification: Health data: minimum necessary; data protection applies.
 
 ### 4. Confirm
 
@@ -120,6 +161,19 @@ Inputs: Touch, Voice dictation, Screen reader
   - Errors (A11Y-E1): Cancel opens a confirm step that restates the appointment and offers undo; Change keeps the existing booking until a new one is confirmed.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Keep the date, time, place and clinician as short labelled lines in full words, not abbreviations.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: Details are confirmed.
+  - Agent goal: Book the exact appointment the person chose.
+  - Agent actions: Reads back who, what, where and when; the person confirms before it is booked; the confirmation says how to change or cancel.
+  - Agent tone: Clear and calm.
+  - Agent type: Vertical booking assistant; scheduling system.
+  - Multi-agent handoff: Assistant → scheduling system after the person confirms.
+  - Goal failure response: Slot taken in the meantime: say so and offer the next slots. Booking system down: don't book, say so, offer the phone line.
+  - Failure handover trigger: Booking fails twice → receptionist with the context package.
+  - Data needs: Slot, patient contact details.
+  - Agent memory: Episodic: the booking joins history.
+  - Regulatory classification: Health service booking; record kept.
 
 ### 5. Reminder
 
@@ -131,6 +185,19 @@ Inputs: Touch, Voice dictation, Screen reader
   - Errors (A11Y-E1): Cancel asks for a confirm step first, and if the change fails the original appointment is kept and the reason given beside the action.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say "what to bring" as a plain list, and give directions as short steps rather than a map alone.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The day before the appointment.
+  - Agent goal: Help the person attend or change in time.
+  - Agent actions: The reminder names the assistant; rescheduling is offered but never done without the person's confirmation; the phone line is easy to find.
+  - Agent tone: Gentle reminder.
+  - Agent type: Vertical booking assistant; notification service.
+  - Multi-agent handoff: Notification service → assistant if the person replies.
+  - Goal failure response: Reminder not delivered: fall back to a text message.
+  - Failure handover trigger: The person says they're unwell or confused → the clinic by phone.
+  - Data needs: Appointment, contact preferences.
+  - Agent memory: Short-term.
+  - Regulatory classification: Health context; vulnerable users.
 
 ---
 
@@ -178,9 +245,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Avoid jargon: “blood test” not “phlebotomy”
 - Reassure without promising clinical outcomes
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: suggest the right appointment type from a short description, always with a “talk to someone” route and never for urgent symptoms
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The assistant says it is AI and what it can do, and a way to phone the clinic is always visible
+- Details the assistant filled are marked until the person confirms them; for a carer it confirms who the booking is for
+- Nothing is booked or changed without the person confirming the exact appointment
+- No pressure or countdowns; the person can stop and continue later
+- Anything clinical or urgent goes to a person immediately
 
 ## Edge cases
 

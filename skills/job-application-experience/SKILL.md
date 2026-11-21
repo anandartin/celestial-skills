@@ -15,6 +15,8 @@ A candidate applies with their CV, answers job-related screening questions, asks
 
 **Outcome** — A candidate submits an application in under 15 minutes and receives a status update at every stage, with no application left without an outcome after 30 days.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Keyboard, Screen reader, File upload, Touch
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the pay as £28,000 to £32,000 a year and explain each stage in a short sentence.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The candidate opens the role or asks the AI assistant about it.
+  - Agent goal: Help the candidate understand the job, pay and process before applying.
+  - Agent actions: Says it is an AI assistant that can read their CV into the form and explain the process, and that people make every hiring decision. Explains essential and nice-to-have requirements, pay, stages and timeline; says whether any automated screening is used and how to ask for human review.
+  - Agent tone: Direct and respectful; no insider terms.
+  - Agent type: Vertical recruitment assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input: ask what the candidate wants to know. Constraint violation (asked whether they'll get the job): say a person decides and point to the requirements.
+  - Failure handover trigger: The candidate asks for a person or about adjustments before applying: the recruitment team, with the handover context package.
+  - Data needs: Job description, pay range, stages, timeline.
+  - Agent memory: Short-term.
+  - Regulatory classification: Employment; AI interaction disclosed; minimal risk for explaining the role.
 
 ### 2. Your CV
 
@@ -100,6 +115,19 @@ Inputs: Keyboard, Screen reader, File upload, Touch
   - Errors (A11Y-E1): The unreadable file is named beside the upload with allowed types; nothing is submitted unseen, and fields already corrected stay.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say 'CV' with 'work history' in full and name accepted formats as PDF or Word document.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The candidate uploads a CV.
+  - Agent goal: Fill the application from the CV accurately so nothing is retyped.
+  - Agent actions: Reads the CV into work history and skills, every field marked as filled by the AI assistant until the candidate accepts or edits it; the candidate reviews each field. It never extracts or keeps age, graduation year or other protected characteristics.
+  - Agent tone: Brief and checkable: 'Check this is right.'
+  - Agent type: Vertical recruitment assistant; CV-parsing service behind it.
+  - Multi-agent handoff: AI assistant → CV-parsing service → filled fields shown to the candidate.
+  - Goal failure response: Data unavailable (file can't be read): say which types work and keep any fields already corrected. Low confidence on a date or title: leave it blank and ask. Goal drift (merged two jobs): show both and let the candidate split them.
+  - Failure handover trigger: Parsing fails twice: let the candidate type the fields and offer the recruitment team, with the handover context package.
+  - Data needs: CV file, parsed fields.
+  - Agent memory: Short-term: the parsed CV for this application; reused later only if the candidate chooses.
+  - Regulatory classification: Employment; personal data; data minimisation; protected characteristics not extracted.
 
 ### 3. Questions
 
@@ -111,6 +139,19 @@ Inputs: Keyboard, Screen reader, File upload, Touch
   - Errors (A11Y-E1): A missing required answer is named beside the question and listed in a summary with links; typed answers are kept and never cut off.
   - Time limits (A11Y-W1): No time limit; any timed assessment can be extended.
   - Language (A11Y-L1): Ask one clear question at a time and avoid jargon such as 'competency' without an example.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The candidate reaches a screening question.
+  - Agent goal: Help the candidate understand what each question checks so they can answer well.
+  - Agent actions: Explains which requirement each question checks and can point to relevant parts of their CV; the candidate writes every answer, and the AI assistant does not write or change answers.
+  - Agent tone: Encouraging and plain.
+  - Agent type: Vertical recruitment assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input: explain the question with an everyday example. Constraint violation (asked to write the answer): explain it can help them plan but the answer must be theirs. Data unavailable: say the help isn't loading and keep their answers.
+  - Failure handover trigger: A question seems unrelated to the job or discriminatory, or the candidate asks for a person: the recruitment team, with the handover context package.
+  - Data needs: Screening questions and the requirement each checks.
+  - Agent memory: Short-term.
+  - Regulatory classification: Employment; screening questions must relate to the job; no protected characteristics.
 
 ### 4. Adjustments
 
@@ -122,6 +163,19 @@ Inputs: Keyboard, Screen reader, File upload, Touch
   - Errors (A11Y-E1): No error is possible for skipped input; entered requests are kept and can be edited before submitting.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Frame adjustments as normal, give examples in everyday words, and say who will read the answer.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The candidate reaches the adjustments step or mentions a need.
+  - Agent goal: Make asking for adjustments easy and normal.
+  - Agent actions: Explains that adjustments never affect the decision and gives examples such as extra time or written questions; the candidate writes any request, which goes to a person in the recruitment team. The AI assistant never infers a disability and keeps the request apart from screening.
+  - Agent tone: Warm and matter-of-fact.
+  - Agent type: Vertical recruitment assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Ambiguous input: ask what would help. Constraint violation (a third-party test can't be adjusted): say a person will arrange an alternative format.
+  - Failure handover trigger: Any adjustment request, or the candidate asks for a person: the recruitment team, with the handover context package, without sharing it with the hiring panel's screening.
+  - Data needs: Adjustment request.
+  - Agent memory: Short-term; the request is stored by the recruitment team, not in the AI assistant's memory.
+  - Regulatory classification: Health information is special-category data; kept separate from screening; equality law applies.
 
 ### 5. Submit
 
@@ -133,6 +187,19 @@ Inputs: Keyboard, Screen reader, File upload, Touch
   - Errors (A11Y-E1): The summary is shown for checking before sending, with Edit links; a failed send names the problem and keeps every answer.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the update date in full, such as Friday 7 November, and say what happens next in one sentence.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The candidate moves to submit.
+  - Agent goal: Send exactly the application the candidate intends.
+  - Agent actions: Shows the full application with edit links and highlights anything still marked as filled by the AI assistant; the candidate sends it themselves. Says what happens next and by when, whether any automated step is used, that a person decides, and how to withdraw.
+  - Agent tone: Clear and calm.
+  - Agent type: Vertical recruitment assistant; applicant tracking system.
+  - Multi-agent handoff: AI assistant prepares the summary → the candidate sends → applicant tracking system records it.
+  - Goal failure response: Constraint violation (unaccepted fields): ask the candidate to accept or change them. Full task failure (system down): don't send, keep every answer, say so. Constraint violation (duplicate application): show the existing one.
+  - Failure handover trigger: Sending fails twice or the role closes mid-application: the recruitment team, with the handover context package.
+  - Data needs: Complete application.
+  - Agent memory: Episodic: the application joins the candidate's history.
+  - Regulatory classification: Employment; EU AI Act high-risk if AI screens or ranks; notice before any automated step; audit record of what the AI assistant filled.
 
 ### 6. Status
 
@@ -145,6 +212,19 @@ Inputs: Keyboard, Screen reader, File upload, Touch
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write each stage change in plain words with a date, and keep rejections clear and kind.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The application changes stage, or the candidate asks about it.
+  - Agent goal: Keep the candidate informed until there is an outcome.
+  - Agent actions: Explains each stage with a date and what comes next; on a rejection, which a person has confirmed, it gives the main reasons or feedback provided and how to ask a person to review any automated part.
+  - Agent tone: Kind and direct.
+  - Agent type: Vertical recruitment assistant; single.
+  - Multi-agent handoff: Applicant tracking system → notification service → AI assistant when the candidate asks.
+  - Goal failure response: Data unavailable (status not loading): say so and give the expected update date. Constraint violation (asked why they were rejected beyond the given reasons): route to a person with a response deadline.
+  - Failure handover trigger: The candidate asks why they were rejected, disputes an outcome, or asks for a person: the recruitment team with a response deadline, with the handover context package.
+  - Data needs: Stage, dates, outcome, reasons or feedback.
+  - Agent memory: Episodic: the application history, viewable and deletable by the candidate under the retention policy.
+  - Regulatory classification: Employment decision is significant: human decision, reasons, human review of any automated decision (data protection automated-decision rights).
 
 ---
 
@@ -193,10 +273,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Rejection copy is direct and respectful: “We won't be taking your application further this time”
 - Avoid insider terms: “first interview” not “phone screen with TA”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: parse the CV into fields for the candidate to check and edit
-- Any ranking help for recruiters is advisory, explained to candidates, and every rejection is confirmed by a person
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is an AI assistant, that it can read the CV into the form and explain the process, and that a person makes every hiring decision
+- CV fields the AI assistant fills are marked until the candidate accepts or changes them; nothing is submitted unseen
+- AI in screening or ranking candidates is high-risk under the EU AI Act: candidates are told before any automated step, a person confirms every rejection, and the candidate can ask for human review
+- Adjustment requests go to a person, never affect the decision, and the AI assistant never infers disability or other protected characteristics
+- Every stage change reaches the candidate with a date, and a request for feedback or a person is handed over immediately
 
 ## Edge cases
 

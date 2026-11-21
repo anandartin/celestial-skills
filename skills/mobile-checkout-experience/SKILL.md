@@ -15,6 +15,8 @@ From product to paid in under a minute on a phone, with nothing re-typed and no 
 
 **Outcome** — A returning shopper completes payment in under 60 seconds without re-entering saved details or meeting a surprise cost.
 
+**Agent and system (HAI).** Agent steps follow the HAI skill (`hai-experience`), Human-Centred Agentic Intelligence: each one below records its agent mode, trigger, goal, actions, failure response and handover; no step runs above Advisory.
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -85,6 +87,19 @@ Inputs: Touch, Autofill, Wallet pay (Apple Pay / Google Pay)
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Keep filter names plain and the count in full; “No matches” explains what to remove in one tap.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The shopper asks the assistant, e.g. "reorder my running socks in size 9".
+  - Agent goal: Find what the shopper asked for.
+  - Agent actions: Says it is an AI shopping assistant, finds matching items and shows why each matches (size, past order, price); the shopper can dismiss any suggestion or browse by hand.
+  - Agent tone: Friendly and brief.
+  - Agent type: Vertical shopping assistant; single.
+  - Multi-agent handoff: Assistant → product search.
+  - Goal failure response: Ambiguous input (several running socks): show the top matches and ask which. Data unavailable (order history not loading): search by the words given and say so.
+  - Failure handover trigger: The shopper asks for a person → customer service chat with the context package.
+  - Data needs: Catalogue, order history, saved size.
+  - Agent memory: Procedural: preferred size and brands.
+  - Regulatory classification: Minimal risk; AI interaction disclosed.
 
 ### 2. Product
 
@@ -97,6 +112,19 @@ Inputs: Touch, Autofill, Wallet pay (Apple Pay / Google Pay)
   - Errors (A11Y-E1): The out-of-stock message is text beside the size choice, linked to it, with a Notify me option; the size choice is kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the delivery day and price in full, such as “$222 including delivery”, and say Add to bag, not “Add”.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The shopper opens a suggested product.
+  - Agent goal: Help them decide with the facts that matter.
+  - Agent actions: Recommends with reasons and states price, delivery date and returns plainly; says when it is recommending a pricier option and why.
+  - Agent tone: Honest; no pressure.
+  - Agent type: Vertical shopping assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Low confidence on stock or delivery date: say it isn't sure and show the latest known date. Goal drift (suggests a different size): flag the size difference.
+  - Failure handover trigger: Repeated mismatches → the shopper browses unassisted; a person is available on request.
+  - Data needs: Product, stock, delivery estimates, returns policy.
+  - Agent memory: Short-term.
+  - Regulatory classification: Consumer protection: clear prices and terms.
 
 ### 3. Bag
 
@@ -108,6 +136,19 @@ Inputs: Touch, Autofill, Wallet pay (Apple Pay / Google Pay)
   - Errors (A11Y-E1): A quantity error is text beside the control and kept at the last valid number; items can be removed and added back, so the person can check the bag before paying.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write the total with delivery and tax in full, and avoid abbreviations like “qty”.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The assistant adds items to the bag.
+  - Agent goal: Get the bag right before paying.
+  - Agent actions: Marks items it added; the shopper can remove or change any; the full total including delivery is always shown.
+  - Agent tone: Clear.
+  - Agent type: Vertical shopping assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Item out of stock after adding: say so and offer the closest match for the shopper to choose.
+  - Failure handover trigger: The shopper asks for a person → customer service with the bag contents.
+  - Data needs: Bag, prices, delivery charges.
+  - Agent memory: Short-term: the bag.
+  - Regulatory classification: Consumer protection: total price shown before payment.
 
 ### 4. Checkout
 
@@ -121,6 +162,19 @@ Inputs: Touch, Autofill, Wallet pay (Apple Pay / Google Pay)
   - Errors (A11Y-E1): Errors appear in text beside each field with the fix, linked by aria-describedby and listed in a summary, and every field keeps what was typed; the pay button states the amount so it is checked before confirming.
   - Time limits (A11Y-W1): No time limit; state is kept locally, so a slow connection does not lose entries.
   - Language (A11Y-L1): Label each field in plain words, and write the amount on the button, such as “Pay $222”.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The shopper chooses to check out.
+  - Agent goal: Pay once, for the right order.
+  - Agent actions: Shows items, total, delivery address and payment method before Pay; the shopper presses Pay and completes any card check themselves; they can stop or take over by hand at any point.
+  - Agent tone: Calm and precise.
+  - Agent type: Vertical shopping assistant; payment service behind it.
+  - Multi-agent handoff: Assistant prepares → payment service after the shopper presses Pay.
+  - Goal failure response: Before acting (payment service down): don't submit, say so, keep the bag. Card declined: say so without blame and let the shopper choose another method. Never retry a payment silently.
+  - Failure handover trigger: Payment fails twice or the shopper asks → customer service immediately with the context package, because money is involved.
+  - Data needs: Bag, saved address, saved payment method (token only).
+  - Agent memory: Short-term.
+  - Regulatory classification: Payments: strong customer authentication by the shopper; the assistant never sees card details.
 
 ### 5. Confirmed
 
@@ -132,6 +186,19 @@ Inputs: Touch, Autofill, Wallet pay (Apple Pay / Google Pay)
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Give the order number, delivery date and tracking steps in short sentences, and offer an account only after the order.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The order is placed.
+  - Agent goal: Confirm it worked and what happens next.
+  - Agent actions: Confirms the order number, what the assistant did and what the shopper approved, the delivery date, the cancel window and how to reach a person.
+  - Agent tone: Reassuring.
+  - Agent type: Vertical shopping assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Partial completion (paid, confirmation email failed): show the order on screen and say the email will follow.
+  - Failure handover trigger: The shopper reports a problem → customer service.
+  - Data needs: Order, delivery estimate.
+  - Agent memory: Episodic: the order joins history.
+  - Regulatory classification: Minimal risk; order record kept.
 
 ---
 
@@ -179,9 +246,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Buttons say what happens: “Pay $222”
 - Delivery as a date, not a range of days
 
-## AI interactions
+## Agent and system (HAI)
 
-- Size suggestion based on past orders, shown with its reason and easy to ignore
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The assistant says it is AI and explains why each suggestion matches
+- Items the assistant added are marked until the shopper accepts them
+- Nothing is ordered or paid without the shopper pressing Pay after seeing the exact order; card checks are done by the shopper
+- The shopper can stop the assistant or take over by hand at any point
+- The confirmation says what the assistant did, the cancel window and how to reach a person
 
 ## Edge cases
 

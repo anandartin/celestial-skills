@@ -95,7 +95,7 @@ Inputs: Keyboard, Screen reader, Pointer
   - Agent goal: Suggest category, priority and team quickly.
   - Agent actions: Shows suggestions with confidence on each ticket, labelled as AI suggestions, and flags possible duplicates.
   - Agent tone: Compact.
-  - Agent type: Vertical triage agent; orchestrated with a duplicate-detection specialist.
+  - Agent type: Vertical triage AI agent; orchestrated with a duplicate-detection specialist.
   - Multi-agent handoff: Intake → classifier → duplicate detector → suggestions shown.
   - Goal failure response: Low confidence (below 70%): show the top two categories. Data unavailable: the ticket arrives without suggestions, marked not triaged.
   - Failure handover trigger: Outage language with low confidence → the team lead immediately.
@@ -120,7 +120,7 @@ Inputs: Keyboard, Screen reader, Pointer
   - Agent goal: Confirm or correct the suggestion fast.
   - Agent actions: The support agent confirms or corrects category and priority in one action; corrections are logged to calibrate the model.
   - Agent tone: Neutral.
-  - Agent type: Vertical triage agent; single.
+  - Agent type: Vertical triage AI agent; single.
   - Multi-agent handoff: None at this step.
   - Goal failure response: Rejected twice in a day for one category: that category falls back to manual triage and the lead is told.
   - Failure handover trigger: Repeated corrections → the team lead reviews with the AI owner.
@@ -145,7 +145,7 @@ Inputs: Keyboard, Screen reader, Pointer
   - Agent actions: Suggests a team with its queue length; the support agent routes or keeps the ticket.
   - Agent tone: Brief.
   - Agent type: Vertical routing specialist.
-  - Multi-agent handoff: Triage agent → routing specialist → queue.
+  - Multi-agent handoff: Triage AI agent → routing specialist → queue.
   - Goal failure response: Target queue unavailable: suggest the next team and say why.
   - Failure handover trigger: An urgent ticket not accepted within 15 minutes → the team lead.
   - Data needs: Team rota, queue lengths, skills.
@@ -192,7 +192,7 @@ Inputs: Keyboard, Screen reader, Pointer
   - Agent goal: Show queue health and AI accuracy.
   - Agent actions: Shows urgent-within-15-minutes rate, AI override rate and spikes, and flags spikes to the lead.
   - Agent tone: Factual.
-  - Agent type: Generalist reporting agent.
+  - Agent type: Generalist reporting AI agent.
   - Multi-agent handoff: None at this step.
   - Goal failure response: Stale metrics: show the time of the last update.
   - Failure handover trigger: Override rate above the threshold → the lead reviews the triage model with the AI owner.

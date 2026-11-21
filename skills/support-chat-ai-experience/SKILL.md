@@ -194,8 +194,8 @@ Inputs: Keyboard, Touch, Screen reader, Voice dictation
   - Agent goal: Reach a person without repeating anything.
   - Agent actions: Announces the transfer and the wait time, shows the summary it is passing on and lets the customer correct it; the customer can keep reading answers while waiting.
   - Agent tone: Warm and clear about what happens next.
-  - Agent type: Human liaison agent.
-  - Multi-agent handoff: Assistant → human liaison agent builds the context package → support agent.
+  - Agent type: Human liaison AI agent.
+  - Multi-agent handoff: Assistant → human liaison AI agent builds the context package → support agent.
   - Goal failure response: No person available within the SLA: say so and offer a callback.
   - Failure handover trigger: This is the handover: the person receives the goal in the customer's words, what was tried, what is done, emotional signals and compliance flags.
   - Data needs: Conversation, account summary, queue status.

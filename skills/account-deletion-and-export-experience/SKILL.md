@@ -181,9 +181,12 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Name retained data precisely: “We keep invoices for 6 years because tax law requires it”
 - Avoid euphemisms: say “delete” and “close”, not “deactivate” unless it is reversible
 
-## AI interactions
+## Agent and system (HAI)
 
-- No AI in this journey because privacy-rights requests must be handled consistently and auditable; a person reviews any request flagged as possible account takeover
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- No AI assistant takes part: privacy-rights requests are handled consistently and every step is audited
+- A person reviews any request flagged as a possible account takeover
 
 ## Edge cases
 

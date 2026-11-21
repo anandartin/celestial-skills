@@ -88,17 +88,17 @@ Inputs: Keyboard shortcuts, Mouse, Natural-language instructions
   - Language (A11Y-L1): Write risk levels as words such as high, medium and low, and explain "needs a human" in plain terms.
 - **Agent and system (HAI):**
   - Agent mode: Advisory
-  - Trigger / cue: New refund requests arrive, or the agent finishes a draft or a run.
+  - Trigger / cue: New refund requests arrive, or the AI agent finishes a draft or a run.
   - Agent goal: Put the riskiest decisions in front of the lead first.
   - Agent actions: Ranks requests by risk and shows the reason for each rank; every item the AI agent drafted or ran is labelled "AI agent" (not just "agent", which in a support team can mean a person).
   - Agent tone: Neutral and factual.
-  - Agent type: Vertical refunds agent; orchestrated.
-  - Multi-agent handoff: Intake agent → risk-scoring specialist → orchestrator builds the inbox.
+  - Agent type: Vertical refunds AI agent; orchestrated.
+  - Multi-agent handoff: Intake AI agent → risk-scoring specialist → orchestrator builds the inbox.
   - Goal failure response: Data unavailable (order system down): show requests unranked with a banner saying ranking is paused and why — never hide a request. Low confidence on a risk score: mark it unsure and rank it higher.
   - Failure handover trigger: Order data still missing after 2 retries → operations on-call is alerted with the affected requests; the lead can always work the inbox by hand.
   - Data needs: Refund requests, order and payment history, customer tier, refund policy.
   - Agent memory: Short-term: the current queue. Episodic: the lead's past decisions, to calibrate ranking.
-  - Regulatory classification: Minimal risk for ranking; agent-made items are identified (transparency).
+  - Regulatory classification: Minimal risk for ranking; AI-made items are identified (transparency).
 
 ### 2. Triage
 
@@ -141,8 +141,8 @@ Inputs: Keyboard shortcuts, Mouse, Natural-language instructions
   - Agent goal: Help the lead make one well-informed decision.
   - Agent actions: Drafts the decision, labelled as drafted by the AI agent, with amount, customer, the sources it used (order, payment, policy), its reasons and confidence; the lead approves, edits or declines — nothing is refunded or refused without them. A refusal tells the customer that an AI agent prepared it, the main reasons and how to ask a person to review it.
   - Agent tone: Plain and neutral; never persuasive.
-  - Agent type: Vertical refunds agent; orchestrated with a policy-check verifier.
-  - Multi-agent handoff: Refunds agent drafts → policy verifier checks → draft shown to the lead.
+  - Agent type: Vertical refunds AI agent; orchestrated with a policy-check verifier.
+  - Multi-agent handoff: Refunds AI agent drafts → policy verifier checks → draft shown to the lead.
   - Goal failure response: Low confidence: say so and list what would change the answer. Constraint violation (breaches policy): explain the rule and offer escalation. Goal drift (draft misses a stated customer need): the lead re-asks with the missing context.
   - Failure handover trigger: Severity: refunds above the lead's limit, legal threats and complaints go to a senior approver immediately with the handover context package; a customer who disputes a refusal reaches a person, with no retry.
   - Data needs: Order, payment, refund policy, customer history.
@@ -166,13 +166,13 @@ Inputs: Keyboard shortcuts, Mouse, Natural-language instructions
   - Agent goal: Carry out approved and in-scope refunds reliably.
   - Agent actions: Runs the refund steps and shows progress; the lead can cancel before the payment step and reverse it after; the customer is told when it is done and that an AI agent processed it; the lead can end or change the standing rules in one step; anything outside the standing rules goes back to Approve.
   - Agent tone: Status-like and precise.
-  - Agent type: Orchestrated: orchestrator, payments specialist, verifier, notification agent.
-  - Multi-agent handoff: Orchestrator → payments specialist → verifier checks the amount against the approval → notification agent.
+  - Agent type: Orchestrated: orchestrator, payments specialist, verifier, notification AI agent.
+  - Multi-agent handoff: Orchestrator → payments specialist → verifier checks the amount against the approval → notification AI agent.
   - Goal failure response: Before acting (payment provider unreachable): abort, tell the lead, keep the request. Mid-action (refund issued, ticket not closed): stop, show what is done, offer undo. After (wrong amount): tell the lead at once and offer reversal. Any failure drops this request to Advisory.
   - Failure handover trigger: Payment failure after 2 retries, or 2 agents in the pipeline failing → finance operations immediately with the partial state; money is involved, so no further retries.
   - Data needs: Approved decision, standing rules, payment provider status.
   - Agent memory: Short-term: the run state.
-  - Regulatory classification: Financial transaction: a per-agent audit trail, idempotent payment calls and fresh data at run time.
+  - Regulatory classification: Financial transaction: an audit trail for each AI agent, idempotent payment calls and fresh data at run time.
 
 ### 5. Report
 
@@ -187,10 +187,10 @@ Inputs: Keyboard shortcuts, Mouse, Natural-language instructions
 - **Agent and system (HAI):**
   - Agent mode: Assistive
   - Trigger / cue: The lead or an auditor opens the report.
-  - Agent goal: Make every agent and human action traceable.
-  - Agent actions: Lists every action with who prepared it (agent or person), who approved it, when, the model and prompt version and the outcome; exports CSV.
+  - Agent goal: Make every AI agent and human action traceable.
+  - Agent actions: Lists every action with who prepared it (AI agent or person), who approved it, when, the model and prompt version and the outcome; exports CSV.
   - Agent tone: Factual.
-  - Agent type: Generalist reporting agent; single.
+  - Agent type: Generalist reporting AI agent; single.
   - Multi-agent handoff: None at this step.
   - Goal failure response: Data unavailable: say which period is incomplete and why; never present a partial export as complete.
   - Failure handover trigger: A gap in the audit trail → the compliance owner is alerted.
