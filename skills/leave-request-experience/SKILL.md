@@ -15,6 +15,8 @@ An employee checks their balance and team cover, requests time off, and their ma
 
 **Outcome** — Employees submit leave requests in under a minute and get a decision within two working days, with balances always correct.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -98,6 +100,19 @@ Inputs: Touch, Keyboard, Screen reader
   - Errors (A11Y-E1): A date error is written in text beside the field, such as "End date is before start date", and linked to it; typed dates are kept.
   - Time limits (A11Y-W1): On a shared kiosk, a warning appears at least 20 seconds before the idle end, with a Continue button.
   - Language (A11Y-L1): Write dates in full with the weekday, and show cover as a count, such as "2 of 8", not initials.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The employee picks a week or asks when cover is clear.
+  - Agent goal: Help the employee find weeks with clear cover before they ask.
+  - Agent actions: Says it is an AI agent that can only suggest weeks with clear cover, and that the manager decides every request. Suggests up to three weeks, marked as suggested by the AI agent, each with the cover count ('1 of 8 off') and the days it would use; the employee picks the dates.
+  - Agent tone: Plain words and short sentences; in the chosen language where available.
+  - Agent type: Vertical HR workflow AI agent; single.
+  - Multi-agent handoff: Rota system gives cover counts, then the AI agent suggests, then the employee picks dates.
+  - Goal failure response: Data unavailable (rota not published that far ahead): say so and show the dates without cover. Ambiguous input ('sometime in spring'): ask for a month. Constraint violation (statutory leave such as parental leave): suggest nothing and say cover is not a reason to refuse. Goal drift (a suggestion exceeds the balance): always show days left.
+  - Failure handover trigger: The balance looks wrong or the employee asks for a person: the HR administrator, with the handover context package.
+  - Data needs: Team cover counts by shift, public holidays, the employee's balance; no names or reasons.
+  - Agent memory: Short-term; nothing kept or shown after a kiosk session ends.
+  - Regulatory classification: Employment; the AI agent does not make or influence decisions about people, which would be high-risk under the EU AI Act; colleagues' leave appears only as counts (data protection).
 
 ### 3. Request
 
@@ -179,9 +194,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Decline copy is respectful and specific: “Declined — 3 people already off that week. 17–21 Nov looks clear.”
 - Dates always include the weekday: “Mon 10 November”
 
-## AI interactions
+## Agent and system (HAI)
 
-- No AI in approvals because leave decisions affect rights and must be made and explained by a manager; optional suggestion of clear weeks based on team cover only
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI agent only suggests weeks with clear team cover; it says it is an AI agent and that the manager decides every request, and each suggestion is marked as suggested by the AI agent
+- There is no AI in approvals: the AI agent never approves, declines, ranks requests or recommends a decision, and the manager makes and explains every decision
+- Suggestions use team cover counts only; the AI agent never sees colleagues' names, leave reasons or sickness or family details
+- The AI agent is never used to evaluate employees, and for statutory leave it suggests nothing, because cover cannot be a reason to refuse
+- The employee sends a request only after seeing days used and days left, and can cancel or change it later with a confirm step
 
 ## Edge cases
 
@@ -190,6 +211,56 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Request spans a public holiday — exclude it from days used and say so
 - Manager away — request routes to deputy after 2 working days
 - Shared kiosk left logged in — auto sign-out and clear screen
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Employee — name, contract type, shift pattern, language preference, manager · relates to Leave balance, Leave request · personal data
+- Leave balance — allowance, used, carry-over, expiry date, unit (days or hours) · relates to Employee · personal data
+- Leave request — leave type, dates, half days, days used, reason (optional, restricted), status · relates to Employee, Decision · personal data
+- Decision — approved or declined, reason, suggested alternative, decided by, date · relates to Leave request · personal data
+- Team cover — shift, date, people off (count only), team size · relates to Leave request
+- Public holiday — date, location · relates to Leave request
+
+### Systems it touches
+
+- Leave management system — reads balances, requests; writes requests, decisions, balances · when down: Requests are saved and sent when it is back; the employee is told.
+- Rota system — reads shifts, cover counts; writes approved leave · when down: Show dates without cover and say so; no suggestions.
+- Payroll — reads paid leave · when down: Balances show the last reconciled date.
+- Calendar; writes approved leave · when down: Name the failure in text with a retry; the leave is kept.
+- Notification service — reads decisions; writes messages to employee and manager · when down: Decisions stay visible on sign-in; reminders resume later.
+- Shared kiosk — reads session · when down: Use the phone or ask a manager; no personal data is left on screen.
+
+### Roles
+
+- Employee — see their balance, request, change or cancel leave, ask for a person
+- Manager — approve or decline with a reason, suggest alternative dates, see team cover but not others' reasons
+- Deputy manager — decide requests after 2 working days when the manager is away
+- HR administrator — correct balances, handle disputes, set leave rules, receive handovers
+- AI agent — suggest weeks with clear cover from counts only, marked as suggested, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Time to request: Under 1 minute median on mobile (range 30 seconds–2 minutes)
+- Decision time: 2 working days median (range 1–2 working days, then the deputy)
+- Balance queries to HR: 50% fewer (range 30–60% fewer)
+- Requests completed on the kiosk: 90% of those started (range 85–100%)
+- Kiosk idle sign-out: 2 minutes, warned 20 seconds before (range 1–3 minutes)
+- Leave records kept: The legal minimum for the jurisdiction (range Set by employment law)
+
+### Required inputs and configuration
+
+- Contract and statutory leave entitlements, including pro rata rules
+- Carry-over and expiry rules
+- Statutory leave types and their notice rules
+- Shift patterns and team sizes
+- Public holidays by location
+- Deputy routing rules
+- Interface translations
+- Whether cover suggestions are switched on
 
 ---
 

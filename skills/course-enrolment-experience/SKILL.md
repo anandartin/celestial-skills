@@ -15,6 +15,8 @@ A learner compares courses, sees the total cost and time commitment, pays, and s
 
 **Outcome** — A learner who starts enrolment pays and opens the first lesson in one session, with at least 70% completing the first lesson within 48 hours.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -88,6 +90,19 @@ Inputs: Touch, Keyboard, Screen reader
   - Errors (A11Y-E1): If no course matches, the text names the filter causing it and offers a button to remove it; selected filters are kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Show hours, weeks and total price in full, such as "4 hours a week for 6 weeks, 180 pounds", and explain level names.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The learner states a goal and weekly hours, or asks for suggestions.
+  - Agent goal: Suggest courses that honestly fit the learner's goal and time.
+  - Agent actions: Says once that it is an optional AI assistant that suggests courses and writes lesson recaps, and that the learner chooses. Shows suggestions labelled as suggested by the AI assistant, each with why: weekly hours, total price and level; the learner can remove the goal and see the plain filtered list.
+  - Agent tone: Honest and practical: 'This fits about 4 hours a week.'
+  - Agent type: Vertical learning AI assistant; single.
+  - Multi-agent handoff: AI assistant, then catalogue search.
+  - Goal failure response: Ambiguous input (goal too broad): ask one question. Goal drift (suggests a course over the time budget): re-rank to the stated hours. Data unavailable (catalogue slow): fall back to filters and say so. Low confidence: show fewer suggestions, each with its reason.
+  - Failure handover trigger: The learner asks for a person or about funding or eligibility: learner support, with the handover context package.
+  - Data needs: Course catalogue (hours, price, level, outcomes); the learner's stated goal and hours.
+  - Agent memory: Short-term: the goal for this session; kept only if the learner saves it, viewable and deletable.
+  - Regulatory classification: Minimal risk under the EU AI Act for suggestions; it never decides admission or access, which would be high-risk education use; consumer protection: total price shown.
 
 ### 2. Course
 
@@ -99,6 +114,19 @@ Inputs: Touch, Keyboard, Screen reader
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Describe the syllabus and weekly workload in plain words, and avoid course jargon in the outcomes.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The learner opens a course the AI assistant suggested.
+  - Agent goal: Show why this course was suggested so the learner can judge the fit.
+  - Agent actions: Shows the reasons it was suggested against the learner's stated goal and hours, marked as from the AI assistant. The syllabus, workload, price and refund terms come from the course page itself, not the AI.
+  - Agent tone: Plain and honest.
+  - Agent type: Vertical learning AI assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Data unavailable: hide the reasons and keep the course page. Constraint violation (asked to enrol or pay): point to the Enrol button; the learner does that.
+  - Failure handover trigger: The learner asks for a person: learner support, with the handover context package.
+  - Data needs: Course details, the learner's stated goal and hours.
+  - Agent memory: Short-term.
+  - Regulatory classification: Minimal risk; consumer information is published content, not AI-written.
 
 ### 3. Account
 
@@ -147,6 +175,19 @@ Inputs: Touch, Keyboard, Screen reader
   - Errors (A11Y-E1): If the lesson fails to load, a text message with a retry button appears beside the player and progress already saved is kept.
   - Time limits (A11Y-W1): No time limit; progress saves automatically and resumes where the person left off.
   - Language (A11Y-L1): Keep progress wording simple, such as "Lesson 1 of 24 complete", and write the transcript in plain sentences.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The learner finishes a lesson and asks for a recap.
+  - Agent goal: Give a short recap that helps the learner remember the lesson.
+  - Agent actions: Writes a recap from the lesson transcript only, labelled as AI-written and shown beside the transcript. It never marks, grades or assesses the learner; progress is saved by the player, not the AI.
+  - Agent tone: Encouraging but not hyped.
+  - Agent type: Vertical learning AI assistant; single.
+  - Multi-agent handoff: Video player supplies the transcript, then the AI assistant writes the recap.
+  - Goal failure response: Data unavailable (no transcript): no recap, and say so; the lesson and transcript stay. Low confidence (a technical term may be wrong): leave it out and point to the transcript. Post-check (learner reports an error): hide the recap and log it for the course team.
+  - Failure handover trigger: The learner reports a wrong recap or asks for a person: the course team, with the handover context package.
+  - Data needs: Lesson transcript.
+  - Agent memory: Short-term: this lesson; a recap is kept only if the learner saves it.
+  - Regulatory classification: Minimal risk; using AI to assess learners would be high-risk under the EU AI Act, so recaps are never used for assessment; AI-written content labelled.
 
 ---
 
@@ -194,10 +235,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Money in full: “£180 total, including certificate”
 - Encouraging but not hyped: “You've completed your first lesson” not “Amazing!!”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: recommend courses from a stated goal and weekly time, showing why each was suggested and letting the learner remove the goal
-- Optional: lesson recap generated from the transcript, labelled as AI-written
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant is optional; it says it is an AI assistant that can suggest courses and write lesson recaps, and the learner can do the whole journey without it
+- Each suggested course is labelled as suggested by the AI assistant with why it fits the stated goal and weekly hours, and the learner can remove the goal and see the plain list
+- There is no AI in sign-in, payment or enrolment: sign-in codes and card details are the learner's own, and the AI assistant never enrols anyone or takes payment
+- The learner pays only after seeing the total including tax, certificate and materials, the refund terms, and a separate agreement if starting ends the cooling-off period
+- Lesson recaps are made only from the transcript, labelled as AI-written, and never used to mark, grade or decide access; a request for a person or a refund goes to a person
 
 ## Edge cases
 
@@ -206,6 +252,58 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Course is full — offer waitlist with expected date
 - Learner is under 18 — guardian consent step before payment
 - Learner loses connection mid-lesson — resume from the last saved point
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Learner — name, email, age band only where the guardian rule applies, learning goal, weekly hours · relates to Enrolment, Lesson progress · personal data
+- Guardian consent — guardian name, consent time · relates to Learner · personal data
+- Course — title, weekly hours, weeks, level, total price, certificate fee, syllabus, outcomes · relates to Enrolment, Lesson
+- Enrolment — status, date, cooling-off agreement, suggested by AI assistant · relates to Learner, Course, Payment · personal data
+- Payment — total, tax, status, card token · relates to Enrolment · personal data
+- Lesson — title, length, captions, transcript, download · relates to Course
+- Lesson progress — lessons complete, last position · relates to Learner, Lesson · personal data
+- Recap — text, AI-written label, lesson, saved by learner · relates to Lesson, Learner · personal data
+
+### Systems it touches
+
+- Course catalogue — reads courses, hours, prices · when down: Show cached course pages; suggestions are off.
+- Sign-in service — reads account; writes account, passkey or emailed code · when down: Keep the chosen course and ask the learner to try again shortly.
+- Hosted payment page — reads payment result; writes card token, payment · when down: Say no money was taken and keep the basket.
+- Enrolment system — reads enrolment status; writes enrolments · when down: If payment succeeded, enrol automatically or refund within 24 hours and tell the learner.
+- Video player and content delivery — reads lessons, captions, transcripts; writes progress · when down: Offer the transcript and downloaded lessons; progress resumes later.
+- Email service; writes receipt with refund terms · when down: Show the receipt in the account and resend later.
+
+### Roles
+
+- Learner — browse, compare and enrol, pay, agree or not to start during the cooling-off period, remove their goal, save or delete recaps, ask for a refund
+- Guardian — consent for a learner under 18
+- Learner support — handle refunds and enrolment problems, receive handovers
+- Course team — publish course details and transcripts, review reported recaps
+- AI assistant — suggest courses with reasons, labelled, show why a course was suggested, write lesson recaps labelled as AI-written, hand over to a person, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Course page to paid: 40% (range 30–50%)
+- First lesson started the same day: 85% of paid learners (range 75–95%)
+- First lesson completed: 70% within 48 hours of payment (range 60–85%)
+- Refund requests citing surprise cost or workload: Under 2% (range 0–3%)
+- Payment taken but enrolment failed: Enrolled or refunded within 24 hours (range Same day)
+- Cooling-off period: 14 days (range The legal minimum for the jurisdiction or longer)
+- Payment and enrolment records kept: The legal minimum for the jurisdiction (range Set by consumer and tax law)
+
+### Required inputs and configuration
+
+- Course catalogue with honest weekly hours
+- Total price parts: tax, certificate, materials
+- Cooling-off and refund policy
+- Age rule and guardian consent process
+- Captions and transcripts for every lesson
+- Whether course suggestions and recaps are switched on
+- Learner support contact
 
 ---
 

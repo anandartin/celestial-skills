@@ -15,6 +15,8 @@ The first person in a new business workspace names it, brings in one real piece 
 
 **Outcome** — At least 60% of new workspaces reach the first-value event (one real item shared with one colleague) within 24 hours of creation.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -98,6 +100,19 @@ Inputs: Keyboard and mouse, CSV or spreadsheet upload, Paste
   - Errors (A11Y-E1): The error “Row 14 has no date” is text beside that row, linked from a summary with Skip and Fix options; the file and mapping are kept, and nothing is imported until the preview is confirmed.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Name the row and what is missing in plain words, and explain “map columns” in one line.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The person uploads a spreadsheet, or chooses to start from a template.
+  - Agent goal: Get the person's real rota into the workspace correctly first time.
+  - Agent actions: Says it is an AI assistant that proposes column matches and suggests a template, and that nothing is imported or created until the person confirms. Shows each proposed match, marked as proposed by the AI assistant and naming the source column, beside a preview of the first rows; the person confirms or corrects, then presses Import, and a suggested template is used only on a click.
+  - Agent tone: Short, literal sentences: 'Column C looks like the shift start. Is that right?'
+  - Agent type: Vertical setup AI assistant; single.
+  - Multi-agent handoff: File reader, then the AI assistant proposes the mapping, then the person confirms, then the import service commits.
+  - Goal failure response: Low confidence (a column could be a date or a shift): leave it unmatched and ask. Ambiguous input (several tabs): ask which tab. Partial completion (row 14 has no date): name the row and offer Skip or Fix. Data unavailable (mapping service down): the person matches columns by hand.
+  - Failure handover trigger: Import fails twice or the person asks for a person: customer support, with the handover context package; the file is shared only with the person's permission.
+  - Data needs: Uploaded file (up to 5,000 rows), field list, stated purpose, templates.
+  - Agent memory: Short-term: this file and mapping, saved with the setup state; the file can be deleted in one step.
+  - Regulatory classification: Staff names and shifts are personal data, processed in the workspace's data region; minimal risk under the EU AI Act; AI-proposed matches identified.
 
 ### 3. First result
 
@@ -179,10 +194,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Explain why you're asking: “We use your opening hours to stop shifts being booked when you're closed”
 - Name the next action as a verb: “Share with a manager”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: map spreadsheet columns to fields automatically; the person sees the proposed mapping and confirms or corrects it before import
-- Optional: suggest a template from the stated purpose; never auto-create content without a click
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant only proposes column matches and suggests a template; it says it is an AI assistant and that nothing is imported or created until the person confirms
+- Each proposed column match is marked as proposed by the AI assistant beside a preview of the first rows; the person confirms or corrects it, and nothing is imported until they press Import
+- A suggested template shows why it fits the stated purpose and creates content only on the person's click; sample content is labelled and removed in one action
+- The AI assistant never creates the workspace, invites anyone, handles sign-in or asks for card details
+- The uploaded file is processed in the workspace's data region and can be deleted in one step; a request for a person goes to support with the handover context package
 
 ## Edge cases
 
@@ -190,6 +210,54 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Person creates a second workspace by mistake — detect same email domain and offer to join the existing one
 - Trial ends mid-setup — keep the data read-only for 30 days and say so
 - Owner leaves before inviting anyone — remind once by email after 2 days, then stop
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Workspace — name, address, purpose, data region, trial end date · relates to Member, Import, Checklist item
+- Member — name, email, role · relates to Workspace, Invite · personal data
+- Import — file, tab, column mapping, matches proposed by AI assistant, confirmed by, rows imported, rows skipped · relates to Workspace · personal data
+- Rota — shifts, staff names, sites, dates · relates to Workspace, Import · personal data
+- Template — name, purpose, sample content label · relates to Workspace
+- Invite — email, role, what they will see, sent by, status · relates to Workspace, Member · personal data
+- Checklist item — task, reason, done, dismissed · relates to Workspace
+
+### Systems it touches
+
+- Workspace service — reads workspace settings; writes workspace, setup state · when down: Setup state is saved; the person can return later.
+- File import service — reads uploaded file; writes imported items · when down: Keep the file and mapping; import when it is back.
+- Column-matching service — reads column headers, sample rows; writes proposed matches · when down: The person matches columns by hand.
+- Template library — reads templates · when down: Offer import or a blank start.
+- Email service; writes invites, one reminder · when down: Show the invite link to copy and send.
+
+### Roles
+
+- Workspace owner — create and name the workspace, import data and confirm the mapping, choose a template, invite colleagues, delete imported files
+- Invited colleague — see and use the shared item, join the workspace
+- Customer support — help with imports and setup, receive handovers
+- AI assistant — propose column matches, marked until confirmed, suggest a template with a reason, hand over to a person, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Workspaces reaching first value: 60% within 24 hours (range 50–75%)
+- Time to first value: Under 15 minutes median (range 10–30 minutes)
+- Imports committed without error after preview: 90% (range 85–98%)
+- Rows per import: Up to 5,000 (range 1,000–5,000)
+- Data kept read-only after the trial ends: 30 days (range 14–90 days)
+- Reminder if no one is invited: Once, after 2 days (range 1–3 days, then stop)
+
+### Required inputs and configuration
+
+- Purpose options and the templates each one suggests
+- Field list for column matching
+- Workspace data region
+- Trial length and what happens at the end
+- What an invited colleague will see
+- Whether column matching and template suggestions are switched on
+- Support contact
 
 ---
 

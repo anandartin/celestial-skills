@@ -15,6 +15,8 @@ A passenger checks in on their phone, chooses or keeps a seat, and gets a boardi
 
 **Outcome** — At least 85% of eligible passengers check in on mobile in under three minutes, and 99% of mobile boarding passes scan first time.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Assistive — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -88,6 +90,19 @@ Inputs: Touch, Camera (passport scan), Wallet passes
   - Errors (A11Y-E1): Booking not found is named beside the reference field with the cause, and the reference and last name stay as typed.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say 'booking reference' plainly and write the check-in opening as Tuesday 11 November at 07:15.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The passenger opens check-in or asks the AI assistant about their trip.
+  - Agent goal: Help the passenger find the booking and know who is being checked in.
+  - Agent actions: Says once that it is an AI assistant that can explain check-in, document rules and boarding passes, and that the passenger makes every choice. Explains when check-in opens in local time and how an infant on lap is linked to an adult; the passenger types the booking reference and ticks the passengers themselves.
+  - Agent tone: Brief and calm, one point at a time for one-handed use.
+  - Agent type: Vertical travel AI assistant; single.
+  - Multi-agent handoff: None at this step; the reservation system finds the trip.
+  - Goal failure response: Ambiguous input (several bookings): list them by date and route and ask which. Data unavailable (reservation system slow): say so and keep the reference as typed. Constraint violation (check-in not open yet): give the exact opening time and offer a reminder.
+  - Failure handover trigger: Booking not found after two tries, a name that differs from the booking, or the passenger asks for a person: airline customer service immediately, with the handover context package.
+  - Data needs: Booking, passenger list, infant links, check-in opening time.
+  - Agent memory: Short-term: this booking for this session.
+  - Regulatory classification: Minimal risk under the EU AI Act; AI interaction disclosed; booking details are personal data under data protection law.
 
 ### 2. Travel documents
 
@@ -100,6 +115,19 @@ Inputs: Touch, Camera (passport scan), Wallet passes
   - Errors (A11Y-E1): The expiry problem is named beside the date field, linked from a summary, and the details typed or scanned stay; no scan is required.
   - Time limits (A11Y-W1): No time limit on document entry.
   - Language (A11Y-L1): Say 'passport photo page' and 'expiry date' in full, and give the return date alongside the expiry date.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The passenger reaches travel documents or asks what each passenger needs.
+  - Agent goal: Help each passenger get their document details right first time, without the AI assistant handling them.
+  - Agent actions: Explains which document each passenger needs and the destination's entry rules from the official source, with the return date beside any expiry rule. The scan or typed entry happens in the device's document reader, which the AI assistant cannot see; the passenger checks and confirms each passenger's details.
+  - Agent tone: Precise and reassuring; plain words such as 'passport photo page'.
+  - Agent type: Vertical travel AI assistant; reads the entry-rules service.
+  - Multi-agent handoff: None; the document reader sends details straight to the check-in system.
+  - Goal failure response: Constraint violation (asked to read or fill in a passport): say the passenger enters it and point to scan or typing. Data unavailable (entry rules not loading): say so and link the official source. Low confidence (unusual visa or nationality case): don't guess; say airline staff will check it.
+  - Failure handover trigger: A passport that expires too soon, a document the desk must check, or a name mismatch: airline staff with the handover context package, which holds no document data.
+  - Data needs: Destination entry rules and return date; no passport data.
+  - Agent memory: Short-term; the AI assistant keeps no document details.
+  - Regulatory classification: Entry rules are legal requirements, so the AI assistant only explains them and never decides whether someone can travel; passport data is personal data handled outside the AI.
 
 ### 3. Seats
 
@@ -125,6 +153,19 @@ Inputs: Touch, Camera (passport scan), Wallet passes
   - Errors (A11Y-E1): The missing confirmation is named next to the checkbox, and the person can read how to travel with these items or call; nothing else is lost.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Name each banned item in everyday words, and avoid terms such as 'dangerous goods' without a short explanation.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The passenger reaches the safety declaration or asks whether they can carry an item.
+  - Agent goal: Help the passenger understand the banned items so they can declare honestly.
+  - Agent actions: Answers 'can I carry this?' only from the carrier's published list, quoting it, and explains how to travel with restricted items. It never ticks the declaration or tells the passenger what to declare; the passenger confirms it themselves.
+  - Agent tone: Direct and calm: 'You can't carry these in any bag.'
+  - Agent type: Vertical travel AI assistant; single.
+  - Multi-agent handoff: None at this step.
+  - Goal failure response: Low confidence (item not on the list, such as a medical device): say it can't confirm and give the airline contact. Ambiguous input: ask what the item is, or show the list with pictures. Constraint violation (asked to tick the box): explain the declaration is the passenger's own.
+  - Failure handover trigger: The passenger is carrying a restricted item, has a medical device, or asks for a person: airline staff immediately, with the handover context package.
+  - Data needs: The carrier's published restricted items list.
+  - Agent memory: Short-term.
+  - Regulatory classification: Aviation safety rules; the declaration is a legal statement made by the passenger; minimal risk for the explanation.
 
 ### 5. Boarding passes
 
@@ -138,6 +179,19 @@ Inputs: Touch, Camera (passport scan), Wallet passes
   - Errors (A11Y-E1): A failed wallet add is named in text with the saved-offline message; the passes remain available and nothing is lost.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Write times as '40 minutes before departure' and give the departure time in full.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: Passes are about to be issued, or the passenger asks about the gate, assistance or passes.
+  - Agent goal: Make sure every passenger has a pass that works offline and the assistance booking is confirmed.
+  - Agent actions: Before issue, the check-in screen shows the exact passengers, seats, assistance and departure time, and the passenger presses Check in; the AI assistant cannot. Afterwards it explains when the gate opens, where passes are saved offline, that assistance is confirmed on the right pass, and how to change a seat or cancel check-in before the cut-off.
+  - Agent tone: Reassuring and short.
+  - Agent type: Vertical travel AI assistant; reads the check-in and assistance systems.
+  - Multi-agent handoff: Check-in system issues passes, the wallet service saves them, and the AI assistant answers questions.
+  - Goal failure response: Partial completion (wallet add failed): say passes are saved in the app and offline, and offer a retry. Data unavailable (flight changed during check-in): show the new time before passes are issued. Low confidence about assistance status: say it can't confirm and hand over.
+  - Failure handover trigger: Assistance not confirmed, a flight change that breaks a connection, or the passenger asks for a person: airline staff immediately, with the handover context package including the assistance request.
+  - Data needs: Boarding passes, gate times, flight status, assistance booking.
+  - Agent memory: Episodic: this trip until it ends, viewable and deletable.
+  - Regulatory classification: Passenger rights rules for reduced-mobility assistance; the assistance need is health-related personal data shared only with the assistance provider.
 
 ---
 
@@ -186,10 +240,16 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Upsell copy says what it costs and is easy to skip: 'Extra legroom, £18 — skip'
 - Safety copy is direct: 'You can't carry these in any bag'
 
-## AI interactions
+## Agent and system (HAI)
 
-- Passport scan reads the machine-readable zone and pre-fills fields; the passenger confirms each passenger's details
-- No AI for seat allocation messaging because group seating rules must be deterministic
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is an AI assistant, that it can explain check-in, travel document rules and boarding passes, and that it never checks anyone in, chooses seats or reads passports
+- Passport details are scanned or typed by the passenger in the device's document reader; the AI assistant never sees, stores or enters passport or identity data, and the passenger confirms each passenger's details
+- Seat allocation and every seat message come from the fixed group-seating rules with no AI involvement, and families stay together by default
+- Only the passenger ticks the safety declaration; the AI assistant answers item questions only from the carrier's published list and sends anything not on it to airline staff
+- Check-in completes only after the passenger sees the exact passengers, seats, assistance and departure time and confirms; a flight change refreshes that summary before passes are issued, and the confirmation says how to change a seat or cancel check-in before the cut-off
+- A request for a person, an assistance problem or a document the desk must check goes to airline staff immediately, with the handover context package
 
 ## Edge cases
 
@@ -197,6 +257,56 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Passenger needs documents checked at the desk — explain why and what to bring
 - Flight changed during check-in — refresh and show the new time before issuing passes
 - Name on passport differs from booking — route to a name correction
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Booking — reference, flight, passengers, contact details, check-in status · relates to Passenger, Boarding pass · personal data
+- Passenger — name, date of birth, linked infant, assistance need, seat · relates to Booking, Travel document, Boarding pass, Assistance request · personal data
+- Travel document — type, number, nationality, expiry date, entered by passenger · relates to Passenger · personal data
+- Seat assignment — seat, features, price, group · relates to Passenger
+- Safety declaration — confirmed by, time · relates to Booking · personal data
+- Boarding pass — passenger, seat, gate time, barcode, wallet status · relates to Passenger, Booking · personal data
+- Assistance request — type, status, provider, confirmed time · relates to Passenger · personal data
+
+### Systems it touches
+
+- Reservation system — reads booking, passengers · when down: Show the check-in opening time and the airline contact; nothing is lost.
+- Check-in system — reads flight status, seat map; writes check-in status, seats, declaration, boarding passes · when down: Say check-in is paused, keep entries, and point to airport desk check-in.
+- Document reader on the device — reads passport photo page, when the passenger scans it; writes document fields for the passenger to confirm · when down: The passenger types the details instead.
+- Entry rules service — reads destination entry rules · when down: Link the official source and say airline staff will check documents.
+- Wallet pass service; writes boarding passes · when down: Passes stay saved in the app and work offline.
+- Assistance booking system — reads assistance status; writes assistance confirmation · when down: Say it can't be confirmed and hand over to airline staff.
+
+### Roles
+
+- Lead passenger — check in everyone on the booking, enter and confirm travel documents, choose or keep seats, make the safety declaration, cancel check-in before the cut-off
+- Airline customer service staff — find bookings, correct names, receive handovers
+- Airport desk staff — check documents in person, issue passes at the desk
+- Assistance provider — see and confirm assistance requests
+- AI assistant — explain check-in and opening times, explain travel document and entry rules, answer restricted-item questions from the published list, explain passes, gates and assistance status, hand over to a person, works at most in Assistive mode
+
+### Default targets (the product confirms or replaces them)
+
+- Mobile check-in rate: 85% of eligible passengers (range 80–95%)
+- Check-in time: Under 3 minutes median, trip found to passes issued (range 2–5 minutes)
+- First-scan success at the gate: 99% (range 98–99.9%)
+- Families seated together: 95% of bookings with children (range 90–100%)
+- AI assistant response time: Under 3 seconds (range 1–5 seconds)
+- Travel document data kept: The legal minimum for the jurisdiction (range Set by border and aviation law)
+
+### Required inputs and configuration
+
+- Check-in window and cut-off times
+- Group and child seating rules
+- The carrier's restricted items list
+- Official entry rules source
+- Assistance provider and how requests are confirmed
+- Rules for cancelling check-in
+- Airline customer service contact
 
 ---
 

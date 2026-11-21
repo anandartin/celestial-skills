@@ -15,6 +15,8 @@ HR, the hiring manager and IT each complete their part of getting a new starter 
 
 **Outcome** — Every new starter has signed paperwork, a working laptop and accounts, and a day-one plan before they arrive.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -122,6 +124,19 @@ Inputs: Touch, Keyboard, Document upload, E-signature
   - Errors (A11Y-E1): A missing buddy or meeting is named beside the field; choices made stay, and a buddy can be changed afterwards.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Call the helper a 'buddy' with one line explaining it, and avoid internal HR terms.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The manager opens first-week planning and chooses to draft it from the role template.
+  - Agent goal: Give the manager a ready first-week plan to edit, not a blank page.
+  - Agent actions: Says it is an AI agent that drafts the plan from the role template and that the manager decides. Drafts meetings and first tasks, each starting with a verb and a date and marked as drafted by the AI agent until the manager accepts, edits or removes it; the buddy is left for the manager to choose, and nothing is sent until the manager confirms.
+  - Agent tone: Practical and brief.
+  - Agent type: Vertical HR workflow AI agent; single.
+  - Multi-agent handoff: AI agent drafts, the manager confirms, then the onboarding system sends invites and the starter sees the plan.
+  - Goal failure response: Data unavailable (no template for this role): say so and offer a blank plan. Ambiguous input (office days unknown): ask the manager. Constraint violation (asked to use adjustment details or pick a buddy by personal traits): decline and say the manager handles these. Goal drift (meetings set on remote days): flag and ask.
+  - Failure handover trigger: The manager asks for a person, or the start date is at risk: a person in HR (the HR partner) immediately, with the handover context package.
+  - Data needs: Role template, start date, office days, team calendar availability; no right-to-work, health or adjustment data.
+  - Agent memory: Short-term: this draft. Procedural: the role template.
+  - Regulatory classification: Employment context; drafting a plan is minimal risk, but AI that evaluates employees or decides about them would be high-risk under the EU AI Act, so it does neither; personal data kept to the minimum.
 
 ### 5. Readiness
 
@@ -192,10 +207,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Mark optional questions in the label, not only with an asterisk
 - Tasks for staff start with a verb and a date: “Order laptop by Thu 30 Oct”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: draft the first-week plan from the role template for the manager to edit
-- No AI in right-to-work or adjustment decisions because these are legal and personal judgements
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI agent is used only to draft the first-week plan from the role template, and the draft says it was made by an AI agent
+- Every item in the draft is marked as drafted by the AI agent until the manager accepts, edits or removes it; nothing reaches the starter or any calendar until the manager confirms, and the plan can be changed afterwards
+- There is no AI in right-to-work and identity checks, paperwork, signatures, reasonable adjustments, equipment or account access; people make these decisions, and the AI agent never sees documents or adjustment details
+- The manager, not the AI agent, chooses the buddy and any adjustment-related actions in the plan
+- Onboarding data is never used by the AI agent to judge or evaluate the starter, which would be high-risk under the EU AI Act; anyone can ask HR for a person at any point
 
 ## Edge cases
 
@@ -204,6 +224,59 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Offer withdrawn — revoke access and cancel equipment tasks
 - Equipment delivery delayed — loan device prepared and starter told
 - Starter needs adjustments not yet in place — manager and facilities alerted with deadline
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- New starter — name, role, start date, location, office days, contact details · relates to Offer, Onboarding task, First-week plan · personal data
+- Offer — role, salary, start date, manager · relates to New starter · personal data
+- Right-to-work check — document type, checked by, date, result · relates to New starter · personal data
+- Adjustment request — what would help, who can see it, status · relates to New starter · personal data
+- Onboarding task — task, owner, due date relative to start, status · relates to New starter
+- Equipment — item, status, delivery date, loan device · relates to New starter
+- Access request — system, access level, activation date, approved by · relates to New starter · personal data
+- First-week plan — buddy, meetings, first tasks, drafted by AI agent, accepted by · relates to New starter · personal data
+
+### Systems it touches
+
+- HR records — reads offer, role, start date; writes starter record · when down: The starter portal keeps answers and syncs later.
+- Right-to-work and identity check service — reads check result; writes check record · when down: HR checks by hand within the legal deadline.
+- E-signature service — reads signature status; writes signed documents · when down: Signing waits; HR is told and the starter sees the delay.
+- Device management — reads device status; writes device enrolment · when down: IT prepares a loan device and the starter is told.
+- Identity and access management — reads access profiles; writes accounts active from the start date · when down: Accounts are created by hand on the start date.
+- Onboarding task system — reads templates, tasks; writes tasks, plan, flags · when down: Owners use the last exported task list.
+- Calendar — reads availability; writes first-week meetings · when down: The manager sends invites by hand.
+
+### Roles
+
+- New starter — complete paperwork and sign, upload documents, request adjustments confidentially, ask questions in writing
+- HR partner — run right-to-work checks, see all tasks and readiness, handle adjustments, receive handovers
+- Hiring manager — plan the first week, accept or edit the AI agent's draft, choose the buddy, see adjustments as needed actions only
+- IT technician — prepare equipment, create least-privilege accounts tied to the start date
+- Facilities — prepare step-free access and desk adjustments
+- AI agent — draft the first-week plan from the role template, marked until the manager accepts it, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Day-one readiness: 95% of starters with laptop, accounts and plan (range 90–100%)
+- Tasks overdue on the start date: Under 2% (range 0–5%)
+- Starter confidence at end of week one: 4.5 out of 5 (range 4–5)
+- Information asked twice: 0 fields (range 0)
+- At-risk tasks flagged: 5 working days before start (range 3–10 working days)
+- Right-to-work and onboarding records kept: The legal minimum for the jurisdiction (range Set by employment and immigration law)
+
+### Required inputs and configuration
+
+- Role and location task templates
+- Right-to-work rules for the jurisdiction
+- Least-privilege access profiles per role
+- Equipment catalogue and loan device process
+- Office location, step-free route and day-one contacts
+- Who may see adjustment requests
+- Whether the AI agent's plan drafting is switched on
 
 ---
 

@@ -15,6 +15,8 @@ A shopper narrows thousands of products to a short list they trust, using forgiv
 
 **Outcome** — A shopper reaches a product page that matches their need in under two minutes, with fewer than 10% of searches ending on zero results.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -87,6 +89,19 @@ Inputs: Touch, Keyboard, Voice dictation, Screen reader
   - Errors (A11Y-E1): The slow-search message is text under the field with popular categories, linked to it; the typed text is kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Accept rough spelling and say what is shown, for example “Showing popular categories”; avoid search jargon.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The shopper types or dictates a plain-language request, such as “quiet kettle under £40”.
+  - Agent goal: Turn the request into filters the shopper can see and change.
+  - Agent actions: Says it is an AI assistant that turns requests into filters the shopper can remove. Shows suggested chips such as “Under £40” and “Quiet operation”, each with the words it came from and the result count, marked as suggested by the AI assistant; the shopper applies all, some or none. A link searches the exact words typed.
+  - Agent tone: Brief and forgiving of spelling; plain words.
+  - Agent type: Vertical shopping search AI assistant; single.
+  - Multi-agent handoff: AI assistant → search and filter service (read only) for counts; the shopper’s choice → results.
+  - Goal failure response: Ambiguous input (“a good one”): ask what matters, offering two or three common needs. Data unavailable (no noise data for kettles): say quiet can’t be filtered and suggest reading reviews that mention noise. Goal drift (adds a brand the shopper didn’t ask for): drop it; only what was typed becomes a filter. Slow response: show ordinary suggestions and keep the typed text.
+  - Failure handover trigger: The shopper asks for a person → customer service chat immediately, with the handover context package.
+  - Data needs: The query, the filter catalogue with real values and counts, category names.
+  - Agent memory: Short-term: the query and chips for this session, kept in the URL; not stored against the shopper’s identity without consent.
+  - Regulatory classification: Consumer protection and platform transparency (no hidden ranking; sponsored labels kept) and personal data (queries minimised); minimal AI risk; AI interaction disclosed.
 
 ### 2. Results
 
@@ -112,6 +127,19 @@ Inputs: Touch, Keyboard, Voice dictation, Screen reader
   - Errors (A11Y-E1): The no-match message is text above the list, names which filter to remove, and the chosen filters are kept so they can be undone one by one.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Show counts in full, such as “31 results”, and name each filter in plain words.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: On the filter panel the shopper asks to refine in words, such as “make it cordless and stainless steel”, or a filter combination leaves no results.
+  - Agent goal: Help narrow the list without dead ends.
+  - Agent actions: Proposes filters to add or remove as chips marked as suggested by the AI assistant, each with the count it would leave. When filters leave no results, names the one to remove and how many it brings back, such as “Remove Under £25 to see 12”. The shopper applies the change; the order of results never changes out of sight.
+  - Agent tone: Plain and in the shopper’s words, such as “Cordless”, not technical labels.
+  - Agent type: Vertical shopping search AI assistant; single.
+  - Multi-agent handoff: AI assistant → search and filter service (read only) for counts; the shopper’s choice → filtered results.
+  - Goal failure response: Low confidence mapping a word to a filter: show two options and ask. Data unavailable (counts not loading): show the chips without counts and say so. Constraint violation (asked to hide sponsored labels): keep the labels and explain why. Goal drift (removes a must-have filter to get more results): keep it and ask first.
+  - Failure handover trigger: The shopper asks for a person → customer service immediately, with the handover context package including the applied filters.
+  - Data needs: Applied filters, filter options with counts, real stock and prices.
+  - Agent memory: Short-term: filter state in the URL so back, refresh and sharing work.
+  - Regulatory classification: Consumer protection and platform transparency (filters reflect real stock and prices; no hidden re-ranking); minimal AI risk; suggestions marked as made by the AI assistant.
 
 ### 4. Compare
 
@@ -182,10 +210,16 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Filter labels use the shopper’s words: “Cordless” not “Base type: 360°”
 - Sort names say what they do: “Lowest price first”, “Highest rated first”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: turn a plain-language request (“quiet kettle under £40”) into suggested filters the shopper can see and remove; no hidden re-ranking
-- Typo and synonym matching is automatic, with a link to search the exact words typed
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is AI and turns a plain-language request into filter chips, each marked as suggested by the AI assistant and shown before any is applied
+- Each suggested filter shows the words it came from and how many results it leaves; the shopper can remove any chip, and Clear all removes them
+- The AI assistant never re-ranks results, hides items or changes the sort, and sponsored items keep their label
+- When a request can’t be matched to a real filter, the AI assistant says so instead of guessing, and a link always searches the exact words typed
+- Queries sent to the AI assistant are not stored against the shopper’s identity without consent, and a non-personalised sort is always available
+- A request for a person goes to customer service immediately with the handover context package
 
 ## Edge cases
 
@@ -193,6 +227,53 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Item goes out of stock between list and product page — show it, mark it, offer similar in-stock items
 - Very broad query with 10,000+ results — suggest the top three categories to narrow
 - Prices change during the session — show the current price on the product page and in the compare table
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Query — text typed, corrected text, time, linked to shopper (only with consent) · relates to Search session
+- Search session — query, applied filters, sort, scroll position, page · relates to Query, Filter suggestion, Shortlist
+- Filter — name in shoppers’ words, options, result count per option · relates to Product
+- Product — name, price including tax, stock, attributes, rating, sponsored · relates to Filter, Shortlist
+- Filter suggestion — chip, words it came from, result count, made by the AI assistant, applied by shopper · relates to Search session, Filter
+- Shortlist — two to four products, compared attributes · relates to Product, Search session
+- Shopper consent — personalised ranking, keep search history · relates to Query · personal data
+
+### Systems it touches
+
+- Search index — reads products, synonyms, typo rules, categories; writes suggestions, results · when down: Show popular categories and keep the typed text.
+- Catalogue, stock and price service — reads prices, stock, attributes · when down: Show the last known price and stock marked with their time, and check again on the product page.
+- Sponsored placement service — reads paid placements · when down: Show results with no sponsored items.
+- Personalisation (opt-in) — reads consented history · when down: Use the non-personalised sort.
+- AI assistant service — reads query, filter catalogue, counts; writes filter suggestions marked as made by the AI assistant · when down: Search, typo matching and filters work unchanged; suggestions are simply not offered.
+
+### Roles
+
+- Shopper — search in their own words, apply or remove any filter, choose the sort, including non-personalised, compare up to four products, turn off personalisation, ask for a person
+- Merchandiser — name filters and categories in shoppers’ words, manage synonyms, label sponsored placements
+- Customer service — help shoppers find products, take product questions
+- AI assistant — turn a plain request into suggested filters, suggest which filter to remove to avoid no results, show how to reach a person, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Search suggestion response (95th percentile): under 200 ms (range 150–300 ms)
+- Results per batch on a slow connection: 24 (range 12–48)
+- Zero-result searches (weekly): under 10% (range 5–15%)
+- Search to product view: at least 70% (range 60–80%)
+- Time to first relevant product (median): under 2 minutes (range 1–3 minutes)
+- Filter abandonment: under 15% (range 10–20%)
+
+### Required inputs and configuration
+
+- Product attributes mapped to filter names in shoppers’ words
+- Synonym and common-misspelling lists
+- Category tree
+- Sponsored placement and labelling rules
+- Personalisation consent wording and the non-personalised sort
+- Customer service contact route and hours
 
 ---
 

@@ -15,6 +15,8 @@ A parent orders dinner for the family, filters reliably by allergens, and gets f
 
 **Outcome** — Every dish shown under an allergen filter has declared allergen data, and at least 80% of orders arrive within the quoted window.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -100,6 +102,19 @@ Inputs: Touch, Voice assistant, Screen reader
   - Errors (A11Y-E1): An empty list is explained in text with a link to try another restaurant; the person's needs and filters are kept.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Say "dishes without peanuts" in plain words and give the reason each dish is hidden.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The customer opens the home list or a restaurant menu, or asks the AI assistant for “something like last Friday’s order”.
+  - Agent goal: Suggest dishes the family is likely to want that already meet every saved need.
+  - Agent actions: Says it is an AI assistant that suggests dishes from past orders, only from dishes that pass the saved filters, and that it cannot judge allergens. Shows up to five suggestions, each with why it matches (ordered before, like a past dish, vegetarian) and the date of the restaurant’s allergen record, marked as suggested by the AI assistant. The customer opens a dish to check it and adds it themselves.
+  - Agent tone: Warm, brief and literal about food; no hurry.
+  - Agent type: Vertical food-ordering AI assistant; single.
+  - Multi-agent handoff: Menu service applies the saved filters first → AI assistant ranks only the dishes that pass.
+  - Goal failure response: Data unavailable (allergen data missing for a dish): leave it out and never call it safe. Ambiguous input (“something healthy”): ask what that means for the family. Constraint violation (asked to ignore a filter or suggest a dish without allergen data): refuse, say why and show the restaurant’s phone number. Goal drift (suggests from a closed or out-of-area restaurant): re-align to open restaurants that deliver here. Low confidence on similarity: say so and show the past order instead.
+  - Failure handover trigger: The customer asks about an allergy the record doesn’t answer, or asks for a person → customer service immediately, with the handover context package, and the restaurant’s phone number is shown.
+  - Data needs: Saved dietary and allergen needs, past orders, menus already filtered by the allergen record with its last-updated date, opening hours and delivery area.
+  - Agent memory: Episodic: past orders, used only for suggestions; the customer can view, edit or switch this off. Saved needs are kept exactly as the customer set them and are never changed by the AI assistant.
+  - Regulatory classification: Food safety and personal data (allergen needs are health data, used with consent only to filter); consumer protection for prices; minimal AI risk because suggestions never override filters; AI interaction disclosed.
 
 ### 3. Dish detail
 
@@ -194,10 +209,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Safety prompt is clear and calm: “For severe allergies, call the restaurant before ordering.”
 - Delay copy gives a new window: “Running 10 minutes late — now 19:20–19:35.”
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: suggest dishes similar to past orders that meet saved needs; suggestions never override allergen filters
-- No AI to infer allergens from dish names or photos, because a wrong guess can cause harm
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is AI and suggests only dishes that already pass every saved allergen and dietary filter with complete allergen data; a suggestion never overrides or loosens a filter
+- The AI assistant never states, guesses or infers allergens from dish names, photos or descriptions; allergen facts come only from the restaurant’s menu record with its last-updated date
+- Each suggestion says why it matches (a past order, a saved need) and is marked as from the AI assistant; nothing goes into the basket until the customer adds it, and a pricier dish or extra is never suggested without saying so
+- The customer sees every dish, each fee, the allergy note and the total before paying, pays and does any bank check themselves, and the confirmation says how to cancel and get a refund
+- An allergy concern, a payment problem or a request for a person goes to a person immediately with the handover context package, and the restaurant’s phone number is shown
 
 ## Edge cases
 
@@ -206,6 +226,63 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Courier cannot find the address — call or text options plus a map pin
 - Age-restricted item and no ID at the door — item returned, refund issued, explained in advance
 - Customer reports an allergic reaction — show emergency guidance first, then the incident form
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Customer — name, email, phone, delivery addresses · relates to Dietary profile, Order, Basket · personal data
+- Dietary profile — allergens to hide, diets, consent to use for filtering, last changed · relates to Customer · personal data
+- Restaurant — name, opening hours, delivery area, phone · relates to Dish, Order
+- Dish — name, price, contains, may contain, allergen data complete, allergen record last updated, version · relates to Restaurant, Basket
+- Basket — dishes, customisations, added by (customer only), subtotal, delivery fee, service fee, total, expires at · relates to Customer, Order · personal data
+- Order — order number, dishes and versions, allergy note, fees, total, delivery window, status, age-restricted items, cancel and refund terms · relates to Customer, Restaurant, Payment, Delivery · personal data
+- Payment — amount, method type, payment token, authentication outcome, status, refunds · relates to Order · personal data
+- Delivery — stage, courier location, window, delay reason, age check outcome · relates to Order · personal data
+- Incident report — type, allergic reaction, description, priority, status, outcome · relates to Order · personal data
+- AI assistant suggestion — dish, reason shown, allergen record date, opened, added by customer, time · relates to Customer, Dish · personal data
+
+### Systems it touches
+
+- Menu and allergen data service — reads menus, allergen records, last-updated dates · when down: Menus are not shown under allergen filters rather than shown unfiltered; the customer is told why.
+- Order service — reads basket, order status; writes orders, allergy notes · when down: Ordering pauses before payment and the basket is kept for 24 hours.
+- Restaurant order system — reads orders, allergy notes; writes accepted, prepared, substitution offers, recipe changes · when down: No order is taken for that restaurant; the customer is told before paying.
+- Payment provider — reads authentication outcome, payment status; writes payment token, charge, refund · when down: Pay is unavailable, no charge is made and the basket is kept.
+- Courier dispatch and location — reads courier position, route; writes stage, delivery window, delivered · when down: Show the last known stage and window with its time.
+- Notification service; writes order updates, delay notices, recipe change notices · when down: Updates show in the app; messages are retried.
+- Customer service and incident route — reads orders, incident reports; writes refunds, incident outcomes · when down: Emergency guidance and the restaurant’s phone number are still shown; reports are queued as priority.
+- AI assistant service — reads filtered menus, past orders; writes suggestions marked as made by the AI assistant · when down: Browsing and filters work unchanged; suggestions are simply not shown.
+
+### Roles
+
+- Customer — set and change dietary and allergen needs, browse and add dishes, edit the allergy note, pay and authenticate, cancel when allowed, accept or refuse substitutions, report a problem or allergy incident, ask for a person
+- Restaurant staff — keep allergen records current, accept orders, see allergy notes prominently, offer substitutions with allergen info
+- Courier — deliver and update the stage, check age ID for restricted items, contact the customer about the address
+- Customer service — handle allergy incidents as priority, cancel and refund, contact the restaurant
+- AI assistant — suggest dishes that pass saved filters, with reasons, show the allergen record date, show how to reach a person, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Allergen data coverage under filters: 100% (range 100%; no lower target)
+- On-time delivery within the quoted window: at least 80% (range 75–90%)
+- Order completion (basket started to order placed): at least 70% (range 60–80%)
+- Allergy incidents caused by data errors: 0 (range 0)
+- Basket kept across app closes: 24 hours (range 24–72 hours)
+- Courier location update: every 30 seconds (range 10–30 seconds)
+- Restaurant acceptance: under 3 minutes (range 2–5 minutes)
+- Order, payment and incident records: the legal minimum for the jurisdiction (range set by tax, consumer and food safety law)
+
+### Required inputs and configuration
+
+- Restaurant menu records covering the 14 regulated allergens, with last-updated dates
+- Delivery areas, delivery fees and service fee rules
+- Age-restricted item rules and age checks at the door
+- Cancellation, substitution and refund policy
+- Allergy incident route and emergency guidance, reviewed for food safety
+- Payment provider with bank authentication
+- Customer service contact route and hours
 
 ---
 

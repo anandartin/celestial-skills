@@ -15,6 +15,8 @@ A shopper picks the right size, colour and delivery option on one product page a
 
 **Outcome** — At least 60% of shoppers who choose an option add to basket, and fewer than 5% of those orders are returned for wrong size or variant.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -110,6 +112,19 @@ Inputs: Mouse and keyboard, Touch, Screen reader
   - Errors (A11Y-E1): No input on this step.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): Give sizes in UK numbers and explain 'true to size'.
+- **Agent and system (HAI):**
+  - Agent mode: Advisory
+  - Trigger / cue: The shopper opens Check fit, or asks the AI assistant “will a 9 fit me?”.
+  - Agent goal: Help the shopper choose the right size first time.
+  - Agent actions: Says it is an AI assistant that summarises what buyers say about fit and can suggest a size, but the shopper chooses. Gives a fit summary such as “Most of 212 reviewers say true to size; some find it roomy at the toe”, with a link to every review. If asked for a size, it asks for the shopper’s usual size or foot length, shows the measurements and reviews it used, and marks its pick as suggested by the AI assistant; the shopper selects it or another size.
+  - Agent tone: Specific and honest; no hype.
+  - Agent type: Vertical shopping AI assistant; single.
+  - Multi-agent handoff: AI assistant → reviews and size guide (read only); the shopper’s choice → live variant stock check.
+  - Goal failure response: Low confidence (few fit reviews, or the shopper is between sizes): say so and show both sizes with reasons. Data unavailable (reviews not loading): show the size guide alone and say so. Ambiguous input (“normal fit?”): ask their usual size in another brand. Goal drift (suggested size out of stock in the chosen colour): say so and show which colours have it, never switching colour for them.
+  - Failure handover trigger: The shopper asks for a person → customer service chat immediately, with the handover context package including the size and colour chosen.
+  - Data needs: Fit-tagged reviews with their count, the size guide in the shopper’s units, live variant stock, the shopper’s usual size if given.
+  - Agent memory: Short-term by default; the usual size is kept only if the shopper is signed in and agrees, and can be viewed, changed or deleted.
+  - Regulatory classification: Consumer protection (honest review summaries and real stock claims); minimal AI risk; AI interaction disclosed.
 
 ### 4. Delivery
 
@@ -182,10 +197,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Fit copy is specific: “Roomy at the toe — consider half a size down”
 - Stock copy is factual: “3 left in UK 9” only when the count is real
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: summarise review comments about fit and comfort, with the review count and a link to read them all
-- No AI size recommendation without showing the measurements it used and letting the shopper override
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is AI, and its fit summary states how many reviews it is based on, whether incentivised reviews are included, and links to all of them
+- Any size the AI assistant recommends shows the measurements and reviews it used and is marked as suggested by the AI assistant; it is only selected when the shopper picks it, and the shopper can choose any size
+- The AI assistant never adds anything to the basket, never pre-selects add-ons, never switches colour for the shopper, and says so when a suggested option costs more
+- Nothing the AI assistant says uses urgency or stock claims beyond the real count
+- A request for a person goes to customer service immediately with the handover context package
 
 ## Edge cases
 
@@ -193,6 +213,54 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Shopper outside delivery area — say so on the product page, not at checkout
 - Price changes while the page is open — show the new price before adding
 - Bundle or multi-buy offer — show the per-item and total price
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Shopper — session postcode, usual size (only with consent when signed in) · relates to Basket · personal data
+- Product — name, key facts, price including VAT, was price and its period, rating, photos per colour · relates to Variant, Review
+- Variant — colour name, size, stock count, back-order date · relates to Product, Basket item
+- Review — rating, fit note, comfort note, date, incentivised, how it was collected, reviewer display name · relates to Product · personal data
+- Fit summary — summary text, review count, link to reviews, made by the AI assistant, generated at · relates to Product, Review
+- Size suggestion — size, measurements used, reviews used, made by the AI assistant, accepted by shopper · relates to Variant, Shopper · personal data
+- Delivery estimate — postcode area, cost, arrival date · relates to Variant
+- Basket item — variant, quantity, price, added by (shopper), added at · relates to Variant, Shopper
+
+### Systems it touches
+
+- Product catalogue — reads products, prices, was prices, photos · when down: Show a clear error and keep the shopper’s choices.
+- Inventory — reads stock per variant, back-order dates · when down: Say stock can’t be checked and check again before adding to the basket.
+- Delivery estimate service — reads postcodes, rates, dates · when down: Show standard delivery times and cost, labelled as standard.
+- Reviews service — reads reviews, fit notes · when down: Show the rating and size guide without fit notes.
+- Basket service — reads basket; writes basket items · when down: Say it couldn’t add, keep the choices and let the shopper try again.
+- AI assistant service — reads reviews, size guide, variant stock; writes fit summaries and size suggestions marked as made by the AI assistant · when down: The size guide and reviews work unchanged; the AI assistant is simply not offered.
+
+### Roles
+
+- Shopper — choose colour and size, read the size guide and every review, accept or ignore a size suggestion, check delivery, add to basket, ask for a person
+- Merchandiser — set prices and genuine was prices with their period, keep stock and delivery claims accurate, publish product facts and photos
+- Customer service — answer product and fit questions, help with basket and stock problems
+- AI assistant — summarise fit reviews with the count and a link, suggest a size showing the measurements used, show how to reach a person, works at most in Advisory mode
+
+### Default targets (the product confirms or replaces them)
+
+- Add-to-basket rate (option selected to added): at least 60% (range 50–70%)
+- Wrong-size returns: under 5% (range 3–8%)
+- Checkout price surprise: under 3% (range 1–5%)
+- Out-of-stock dead ends: 50% fewer than baseline (range 30–60% fewer)
+- Postcode kept: for the session only unless signed in (range session to the account’s saved address)
+
+### Required inputs and configuration
+
+- Product facts, photos for each colour and colour names
+- Size guide for each range, in the shopper’s units
+- How reviews are collected and whether incentivised reviews are included
+- Delivery rates and dates by postcode area
+- Was-price rules and the period each refers to
+- Customer service contact route and hours
 
 ---
 

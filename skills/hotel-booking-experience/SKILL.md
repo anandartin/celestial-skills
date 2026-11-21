@@ -15,6 +15,8 @@ A traveller searches for a stay, compares options on the full price including ta
 
 **Outcome** — The price on the results list matches the price paid in at least 99% of bookings, and 70% of searchers who pick a room complete booking.
 
+**Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Assistive — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
+
 This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.1 components and patterns, and let the active design skill render them.
 
 ---
@@ -112,6 +114,19 @@ Inputs: Keyboard, Touch, Screen reader
   - Errors (A11Y-E1): An unavailable room is named in text with similar rooms offered; the dates and guests stay unchanged.
   - Time limits (A11Y-W1): No time limit.
   - Language (A11Y-L1): State access facts specifically, such as 'step-free shower', and give the deadline with day, date and time.
+- **Agent and system (HAI):**
+  - Agent mode: Assistive
+  - Trigger / cue: The guest opens a stay and chooses Summarise reviews, or asks the AI assistant about a topic such as quiet rooms, access or breakfast.
+  - Agent goal: Give a fair, sourced summary of what guests say, so the guest can judge the stay faster.
+  - Agent actions: Says it is an AI assistant that summarises guest reviews and cannot quote prices or book. Gives a short summary for each topic asked, with the number of reviews, their date range and links to the reviews used, labelled as written by the AI assistant. For access it gives the hotel’s own facts first, such as door widths, then what reviews say, and flags any disagreement.
+  - Agent tone: Neutral and specific; praise and complaints in fair proportion; no marketing words.
+  - Agent type: Vertical travel AI assistant; single.
+  - Multi-agent handoff: AI assistant → reviews store and hotel accessibility record (read only).
+  - Goal failure response: Data unavailable (too few reviews on a topic): say so and show those reviews instead. Ambiguous input (“is it good?”): ask which topic matters. Constraint violation (asked for the price or to hold the room): say it can’t and point to the price breakdown from the booking system. Low confidence (reviews conflict): say they are mixed and give both sides with counts. Goal drift (summary leans on old reviews): limit to recent reviews and say which period.
+  - Failure handover trigger: The guest asks whether a specific access need can be met, or asks for a person → customer service, who can ask the hotel, with the handover context package.
+  - Data needs: Guest reviews with dates and topics, the hotel’s accessibility record with the date it was last checked.
+  - Agent memory: Short-term only: topics asked in this session.
+  - Regulatory classification: Consumer protection (reviews summarised fairly and never presented as hotel fact; no AI in prices); minimal AI risk; AI interaction and AI-written summaries disclosed.
 
 ### 4. Guest and pay
 
@@ -184,10 +199,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Cancellation: 'Free cancellation until 18:00 on Thursday 13 November'
 - Accessibility: 'Step-free entrance; bathroom door 85 cm wide' not 'accessible'
 
-## AI interactions
+## Agent and system (HAI)
 
-- Optional: summarise guest reviews by topic (quiet, access, breakfast); summaries are labelled and link to source reviews
-- No AI in pricing display because totals must be exact and auditable
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- The AI assistant says it is AI, and every review summary is labelled as written by the AI assistant, states how many reviews it draws on and links to the source reviews
+- The AI assistant never shows, states or works out prices, fees or totals; every price comes from the booking system and is exact
+- Access facts come from the hotel’s own record; a review summary about access never replaces them and says where reviews and the hotel record disagree
+- The AI assistant takes no part in guest details or payment; the guest sees the total, dates and cancellation deadline before paying, and pays and does any bank check themselves
+- Review summaries read in full by screen reader in heading order, and a request for a person goes to customer service immediately with the handover context package
 
 ## Edge cases
 
@@ -195,6 +215,57 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Hotel overbooked after confirmation — rebook equivalent stay at no extra cost and notify immediately
 - Guest's access request can't be met — hotel response shown before payment if possible
 - Currency differs from card — show both and any conversion fee
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Guest — name, email, phone, access request note · relates to Booking · personal data
+- Search — place, check-in date, check-out date, guests, rooms, filters · relates to Room offer
+- Property — name, address, room types, accessibility facts, accessibility last checked, check-in time, sponsored placement · relates to Room offer, Review
+- Room offer — room type, total price for the stay, price per night, taxes and fees, cancellation deadline, payment terms, price held until · relates to Property, Booking
+- Booking — confirmation number, dates, guests, total paid, currency and any conversion fee, cancellation deadline, access request, hotel response, status · relates to Guest, Room offer, Payment · personal data
+- Payment — amount, currency, method type, payment token, authentication outcome, status · relates to Booking · personal data
+- Review — rating, text, stay date, review date, topic tags, reviewer display name · relates to Property · personal data
+- Review summary — topic, summary text, review count, date range, source review links, made by the AI assistant, generated at · relates to Property, Review
+
+### Systems it touches
+
+- Availability and pricing service — reads rooms, rates, taxes and fees; writes price holds · when down: No prices are shown rather than old ones; the guest is told and can try again.
+- Property content and accessibility record — reads descriptions, accessibility facts, photos · when down: The stay shows the last checked facts with their date and a contact route.
+- Reviews store — reads reviews, ratings · when down: The overall rating shows without reviews or summaries.
+- Hotel connection — reads confirmation, access request responses; writes bookings, access request notes · when down: Booking pauses before payment; if paid, the booking is confirmed or refunded and the guest is told at once.
+- Payment provider — reads authentication outcome, payment status; writes payment token, charge, refund · when down: Pay is unavailable, no charge is made and the guest’s details are kept.
+- Notification and calendar service; writes confirmation email, calendar entry · when down: The booking shows on screen and the email follows.
+- AI assistant service — reads reviews, accessibility record; writes review summaries marked as made by the AI assistant · when down: Reviews show in full without summaries; booking is unchanged.
+
+### Roles
+
+- Guest — search, filter and compare stays, read reviews and summaries, send an access request, pay and authenticate, cancel by the deadline, ask for a person
+- Hotel staff — keep accessibility facts current, answer access requests, confirm bookings
+- Customer service — ask the hotel about access needs, rebook an overbooked stay at no extra cost, cancel and refund
+- AI assistant — summarise reviews by topic with counts and links, repeat the hotel’s own access facts, show how to reach a person, works at most in Assistive mode
+
+### Default targets (the product confirms or replaces them)
+
+- Price consistency (paid price equals results price): at least 99% (range 99–100%)
+- Select-to-book conversion: at least 70% (range 60–80%)
+- Screen reader task success, search to booking: at least 90% (range 85–95%)
+- Cancellation-related complaints: 30% fewer than baseline (range 20–40% fewer)
+- Price held once a room is chosen: 15 minutes, with notice (range 10–20 minutes)
+- Booking and payment records: the legal minimum for the jurisdiction (range set by tax and consumer law)
+
+### Required inputs and configuration
+
+- Live availability and rates with mandatory taxes and fees by location
+- Cancellation and payment terms for each rate
+- Property accessibility facts and how often they are checked
+- How reviews are collected and moderated, and the minimum count for a topic summary
+- Rules for labelling paid ranking
+- Payment provider with bank authentication and currency conversion
+- Overbooking rebooking policy and customer service contact route
 
 ---
 

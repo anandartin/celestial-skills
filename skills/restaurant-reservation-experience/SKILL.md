@@ -182,9 +182,15 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Allergy reminder is honest: 'The kitchen will confirm what they can prepare safely'
 - Warm but brief: 'Anything we should know so your visit goes well?'
 
-## AI interactions
+## Agent and system (HAI)
 
-- No AI in this journey because allergy and access information must be passed on exactly as written
+Acceptance criteria from the HAI skill (`hai-experience`):
+
+- No reservation step offers an AI assistant or AI-written content; if the product has an AI assistant elsewhere, it is not shown in this journey
+- Access and allergy notes reach the restaurant exactly as the diner wrote them, with no summarising, rewording or translation by AI
+- The deposit per person, total, refund deadline and no-show charge are shown before card entry, and the diner pays and does any bank check themselves
+- Change and cancel work in one tap without signing in until the stated deadline, with the refund amount shown before the diner confirms
+- A payment problem, an unacknowledged access or allergy note, or a request for a person goes to restaurant staff with the booking and notes, and the restaurant’s phone number is shown
 
 ## Edge cases
 
@@ -192,6 +198,53 @@ Core minimums always apply: 4.5:1 text, 3:1 UI and focus, visible focus on every
 - Party size grows after booking — check table capacity and deposit difference
 - Restaurant closes unexpectedly — full refund and alternative suggestions
 - Diner arrives late — show how long the table is held
+
+## Building it into a product
+
+What this journey needs from any product that uses it — generic, with no supplier names. The Product spec skill (`product-spec-experience`) merges these across journeys into one PRODUCT.md.
+
+### Data it needs (conceptual)
+
+- Diner — name, phone, email · relates to Reservation · personal data
+- Reservation — reference, restaurant, date, time, party size, area (ground floor, outside), status, change and cancel deadline, how long the table is held if late · relates to Diner, Needs note, Deposit, Table · personal data
+- Needs note — access needs chosen, dietary and allergy text exactly as written, restaurant acknowledgement, acknowledged at · relates to Reservation · personal data
+- Deposit — amount per person, total, refund deadline, no-show charge, held or charged, refund status · relates to Reservation, Payment
+- Payment — payment token, authentication outcome, hold or charge status, refunds · relates to Deposit · personal data
+- Table — area, capacity, step-free, space for a wheelchair or frame, available times · relates to Reservation
+- Reminder — sent at, channel, diner response (confirm, change, cancel) · relates to Reservation · personal data
+
+### Systems it touches
+
+- Table availability service — reads tables by area, times, waitlist; writes reservations, table holds · when down: Show that booking is unavailable and the restaurant’s phone number.
+- Payment provider — reads authentication outcome, hold status; writes deposit holds, charges, refunds · when down: No deposit is taken; the table is held for 10 minutes and the diner is told plainly.
+- Restaurant booking system — reads reservations, needs notes; writes acknowledgements, replies about allergies and access · when down: Notes are queued; the reminder says if they haven’t been acknowledged and offers a call.
+- Notification service (email and text) — reads reservations; writes confirmations, reminders · when down: The booking shows on screen and messages are retried.
+
+### Roles
+
+- Diner — choose party size, date and time, add access and dietary needs, pay or hold the deposit and authenticate, change or cancel without signing in until the deadline, call the restaurant
+- Restaurant staff — see notes exactly as written, acknowledge access and allergy notes, say what the kitchen can prepare safely, manage tables, refund deposits
+
+### Default targets (the product confirms or replaces them)
+
+- Booking time (start to confirmed, median): under 2 minutes (range 1–3 minutes)
+- Access notes honoured (seated as requested): at least 90% (range 85–95%)
+- No-show rate: 30% fewer than baseline without deposits (range 20–40% fewer)
+- Deposit complaints per 1,000 bookings: no increase (range no increase on baseline)
+- Table held after a failed payment: 10 minutes (range 10–15 minutes)
+- Reminder before the visit: the day before (range 24–48 hours before)
+- Deposit and payment records: the legal minimum for the jurisdiction (range set by tax and consumer law)
+- Allergy and access notes: deleted once the visit and any refund are settled (range the shortest period data protection law allows)
+
+### Required inputs and configuration
+
+- Deposit amount, refund deadline and no-show charge
+- Table areas, capacities and access facts
+- Party size limits and the route for larger groups
+- How the restaurant receives and acknowledges notes
+- Payment provider with deposit holds and bank authentication
+- Reminder channels and timing
+- Restaurant phone number and opening hours
 
 ---
 
