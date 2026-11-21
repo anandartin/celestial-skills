@@ -337,7 +337,7 @@ Use this mark as-is: don't redraw, recolour (except to one solid colour on dark 
 - JetBrains Mono
 
 
-## Components (core v1.3)
+## Components (core v1.4)
 Every component's anatomy and states are core: Jupiter Admin Kit only supplies the token values. Control sizes for Jupiter Admin Kit: SM 28px · MD 36px · LG 44px · XL 56px; anything under 44px keeps a 44px hit area on touch. Borders are drawn inside. Disabled is 0.45 opacity with `aria-disabled`.
 
 | Group | Component | Anatomy | Sizes | States | Keyboard and accessibility |
@@ -395,7 +395,7 @@ Every component's anatomy and states are core: Jupiter Admin Kit only supplies t
 
 Commerce parts (product price, product media, size and colour selector, store rating) are compositions of these components and belong to a brand's own patterns.
 
-## Patterns (core v1.3)
+## Patterns (core v1.4)
 Compositions of core components for recurring jobs. Each uses only contract tokens, so it renders in Jupiter Admin Kit and in any other brand. Jupiter Admin Kit's own signature patterns follow at the end.
 
 ### Navigation
@@ -415,6 +415,43 @@ Compositions of core components for recurring jobs. Each uses only contract toke
 ### Tables
 - Dense and scannable: the first cell is the record, numbers right-aligned, status as a badge with text, row actions in a trailing menu.
 - Sortable headers announce their sort order; search and filters sit above; bulk actions appear only after a selection.
+
+### Global header
+- Product switcher, current area, search (⌘K), help, notifications and account — in the same order on every page.
+
+### Common actions
+- Primary action on the right; the rest in an overflow menu in the order edit, duplicate, export, then destructive last and separated, with "…" when it asks to confirm.
+- Bulk actions replace the toolbar only while something is selected and always say how many ("3 selected").
+
+### Sign-in
+- Passkey first, then email and password with Show; paste and password managers work; no memory or puzzle tests.
+- An error never says which of email or password was wrong; the email stays filled in; after repeated failures offer a sign-in link.
+
+### Filtering
+- A filter panel with counts next to each option and a button that says how many results it will show.
+- Applied filters are removable chips with Clear all, and the result count is written out ("Showing 170 of 212").
+
+### Dialogs
+- Only when the person must decide or must know now: one purpose, a title that says it, Escape closes and focus returns.
+- Form dialogs for short input on one object; passive dialogs for information with one next step; confirmations only for what can't be undone.
+
+### Disclosures
+- "Show more" names what it reveals and becomes "Show less" in place; expandable rows open under their row with a chevron and aria-expanded.
+
+### Empty states
+- First use teaches by doing; **no results** repeats the search, suggests a fix and offers to clear filters; **couldn't load** says what failed and offers Try again; **no access** names who can grant it.
+
+### Loading
+- Skeletons keep the final layout so nothing jumps; long work shows real progress and an estimate and lets the person keep working.
+
+### Notifications
+- One notification centre: unread items are bold with a dot and the count is written out; Mark all as read; each item opens where it happened.
+
+### Disabled and read-only
+- Disabled controls always show the reason next to them; read-only values are selectable text with one clear Edit.
+
+### Text toolbar
+- Grouped formatting buttons with names; pressed styles look and announce pressed (aria-pressed); arrow keys move along the toolbar.
 
 ### Onboarding
 - **Welcome:** a greeting by name and one decision (template, import or blank).
@@ -490,7 +527,7 @@ Every WCAG 2.2 Level A and AA success criterion (55 of 55; 4.1.1 Parsing is obso
 
 
 ## Celestial core foundations (included)
-This brand sits on Celestial core v1.3. The shared rules are included here so this file works on its own.
+This brand sits on Celestial core v1.4. The shared rules are included here so this file works on its own.
 
 Shared by every Celestial design skill. Locked values live here once; a brand SKILL.md documents only its deltas and never restates core.
 
@@ -505,7 +542,7 @@ Base unit 4px. Scale: 0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160p
 | Desktop | 1024px | 12 | 24px | 32–40px |
 | Wide | 1440px | 12 | 32px | auto · max 1120 / 1200 / 1280px |
 
-What's new in v1.3 (additive — no v1.0 value changed): Component size ladder: SM / MD / LG / XL around the brand control height, plus selection, icon, avatar and overlay sizes; Opacity scale for scrims, tints and disabled states; Tonal step names 50–950 for colour ramps; Paragraph spacing; Borders drawn inside the element; Colour roles: info, link, visited link, scrim, inverse; States: selected, read-only, expanded, visited, dragging and drop target; Component specs for every core component, including date picker, rating, avatar, list, link and header; v1.2: AI interaction components for the HAI framework — AI label, mode indicator, decision card, activity and undo, standing rules, AI states and handover, receipt; v1.3: search, multiselect, tags, inline loading, toast notification, popover, progress indicator, side navigation, tree view, structured list, selectable tile and code snippet; checkbox ticks, indeterminate dashes and radio dots specified.
+What's new in v1.4 (additive — no v1.0 value changed): Component size ladder: SM / MD / LG / XL around the brand control height, plus selection, icon, avatar and overlay sizes; Opacity scale for scrims, tints and disabled states; Tonal step names 50–950 for colour ramps; Paragraph spacing; Borders drawn inside the element; Colour roles: info, link, visited link, scrim, inverse; States: selected, read-only, expanded, visited, dragging and drop target; Component specs for every core component, including date picker, rating, avatar, list, link and header; v1.2: AI interaction components for the HAI framework — AI label, mode indicator, decision card, activity and undo, standing rules, AI states and handover, receipt; v1.3: search, multiselect, tags, inline loading, toast notification, popover, progress indicator, side navigation, tree view, structured list, selectable tile and code snippet; checkbox ticks, indeterminate dashes and radio dots specified; v1.4: patterns for common actions, dialogs, disclosures, empty states, filtering, global header, loading, sign-in, notifications, disabled and read-only states, and the text toolbar.
 
 ### Ladders (brands pick a step, never invent a value)
 - Control height: 32 / 36 / 40 / 44px — inputs, buttons and selects share one height per size.
@@ -603,7 +640,7 @@ A value outside its class is an override: allowed only with a written reason in 
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "$name": "Jupiter Admin Kit",
-  "core": "1.3",
+  "core": "1.4",
   "dials": {
     "density": "Compact",
     "shape": "Soft",

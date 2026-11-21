@@ -5,7 +5,7 @@ journey: workflow
 persona: Support agent (31); team lead Hana; specialist team on call
 domain: Customer support · operations
 technology: Web app (agent workspace)
-core: "1.3"
+core: "1.4"
 description: "Experience skill: Triaging support tickets with AI suggestions and agent review — the best-practice workflow for a support agent (31); team lead hana; specialist team on call in Customer support · operations on Web app (agent workspace). Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -17,7 +17,7 @@ Incoming tickets are categorised and prioritised with AI suggestions, agents con
 
 **Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.3 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.4 components and patterns, and let the active design skill render them.
 
 ---
 

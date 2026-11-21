@@ -5,7 +5,7 @@ journey: workflow
 persona: New starter (24); HR partner Joanne; manager Ade; IT technician Sven
 domain: HR · onboarding
 technology: Web app for staff; mobile-friendly portal for the starter
-core: "1.3"
+core: "1.4"
 description: "Experience skill: Getting a new starter ready for day one across HR, manager and IT — the best-practice workflow for a new starter (24); hr partner joanne; manager ade; it technician sven in HR · onboarding on Web app for staff; mobile-friendly portal for the starter. Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -17,7 +17,7 @@ HR, the hiring manager and IT each complete their part of getting a new starter 
 
 **Agent and system (HAI).** If the product has an AI assistant or agent, build every step marked "Agent and system (HAI)" exactly as recorded — mode, trigger, goal, actions, failure response and handover; no step runs above Advisory — and open the HAI skill (`hai-experience`, Human-Centred Agentic Intelligence) for the full rules. The AI always calls itself an "AI assistant" or "AI agent", never just "agent".
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.3 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.4 components and patterns, and let the active design skill render them.
 
 ---
 

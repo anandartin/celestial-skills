@@ -5,7 +5,7 @@ journey: customer
 persona: Student (22), signing up on a phone
 domain: Consumer accounts and consent
 technology: Responsive web app (mobile first)
-core: "1.3"
+core: "1.4"
 description: "Experience skill: Creating an account and verifying email on a consumer web app — the best-practice customer journey for a student (22), signing up on a phone in Consumer accounts and consent on Responsive web app (mobile first). Use when designing, building, reviewing or writing copy for any step of this journey. Brand-agnostic: pair with any Celestial design skill for the look. Also use it for decks, research readouts, specs and documents about this journey. Outputs: PowerPoint / Keynote / Google Slides decks, Word and Google Docs documents, PDF reports, emails, social posts, charts and diagrams."
 ---
 
@@ -15,7 +15,7 @@ A new customer creates an account with only an email and password, confirms the 
 
 **Outcome** — At least 75% of people who start sign-up reach a verified account within five minutes, with fewer than 2% contacting support about the verification email.
 
-This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.3 components and patterns, and let the active design skill render them.
+This skill says *what happens and in what order*. It never specifies colour, type or spacing: describe screens as compositions of Celestial core v1.4 components and patterns, and let the active design skill render them.
 
 ---
 
